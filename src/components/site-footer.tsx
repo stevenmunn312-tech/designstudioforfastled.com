@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Code2 } from "lucide-react";
 import { BrandMark } from "./brand-mark";
 
 export function SiteFooter() {
@@ -8,18 +7,15 @@ export function SiteFooter() {
       <div className="footer-brand">
         <BrandMark />
         <p>
-          Built by people who think one more LED is usually the right answer.
+          The project library for Design Studio for FastLED.
         </p>
       </div>
       <div className="footer-links">
         <Link href="/patterns">Patterns</Link>
-        <Link href="/upload">Upload</Link>
-        <a href="https://fastled.io/docs/" target="_blank" rel="noreferrer">FastLED docs</a>
-        <a href="https://github.com/FastLED/FastLED" target="_blank" rel="noreferrer">
-          <Code2 size={15} aria-hidden="true" /> GitHub
-        </a>
+        <Link href="/upload">Upload project</Link>
+        <Link href="/login">Account</Link>
       </div>
-      <p className="footer-note">Community-made. Open by default.</p>
+      <p className="footer-note">Create · Share · Illuminate</p>
     </footer>
   );
 }

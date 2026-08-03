@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 import { BrandMark } from "./brand-mark";
 
 export function SiteHeader() {
@@ -11,14 +10,12 @@ export function SiteHeader() {
         <em>for FastLED</em>
       </Link>
       <nav className="site-nav" aria-label="Main navigation">
+        <Link href="/">Home</Link>
         <Link href="/patterns">Patterns</Link>
-        <a href="https://fastled.io/docs/" target="_blank" rel="noreferrer">
-          Docs <ArrowUpRight size={13} aria-hidden="true" />
-        </a>
-        <Link href="/upload">Share a pattern</Link>
+        <Link href="/upload">Upload project</Link>
       </nav>
       <Link className="button button-quiet header-login" href="/login">
-        Log in
+        Sign in
       </Link>
     </header>
   );

@@ -10,6 +10,7 @@ export type Pattern = {
   likes: number;
   downloads: number;
   createdAt: string;
+  previewUrl?: string;
 };
 
 export const starterPatterns: Pattern[] = [

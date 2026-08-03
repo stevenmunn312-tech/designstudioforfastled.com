@@ -19,12 +19,12 @@ export function UploadForm({ canUpload }: { canUpload: boolean }) {
         <label className="wide"><span>Tags <small>comma separated</small></span><input name="tags" placeholder="Ambient, Noise, RGBW" /></label>
       </div>
       <div className="form-divider" />
-      <div className="form-section-title"><span>02</span><div><h2>Pattern file</h2><p>The useful bit. Keep it small and inspectable.</p></div></div>
+      <div className="form-section-title"><span>02</span><div><h2>Design Studio project</h2><p>The project graph powers the animated browser preview.</p></div></div>
       <label className="drop-zone">
-        <input name="patternFile" type="file" accept=".json,.txt,.ino,.ledmap" required />
+        <input name="patternFile" type="file" accept=".json,application/json" required />
         <UploadCloud size={28} />
-        <strong>Choose a pattern file</strong>
-        <span>.json, .txt, .ino, or .ledmap · 2 MB max</span>
+        <strong>Choose a Design Studio export</strong>
+        <span>.json · 2 MB max · used for the live preview</span>
         <FileCode2 className="drop-code" size={54} aria-hidden="true" />
       </label>
       {state.message && <p className={`form-message ${state.tone}`} aria-live="polite">{state.message}</p>}

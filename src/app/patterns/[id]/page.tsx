@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { PatternPreview } from "@/components/pattern-preview";
 import { starterPatterns, type Pattern } from "@/lib/patterns";
 import { hasSupabaseConfig } from "@/lib/supabase/config";
 import { createClient } from "@/lib/supabase/server";
@@ -57,6 +58,9 @@ const getPattern = cache(async (id: string): Promise<PatternDetail | null> => {
   const { data: signedFile } = await supabase.storage
     .from("pattern-files")
     .createSignedUrl(data.storage_path, 900, { download: fileName });
+  const { data: previewFile } = await supabase.storage
+    .from("pattern-files")
+    .createSignedUrl(data.storage_path, 900);
 
   return {
     id: data.id,
@@ -71,6 +75,7 @@ const getPattern = cache(async (id: string): Promise<PatternDetail | null> => {
     downloads: data.downloads ?? 0,
     createdAt: data.created_at,
     downloadUrl: signedFile?.signedUrl,
+    previewUrl: previewFile?.signedUrl,
     fileName,
   };
 });
@@ -118,21 +123,13 @@ export default async function PatternDetailPage({ params }: PatternPageProps) {
               <p>{pattern.description}</p>
               <div className="detail-tags">{pattern.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
             </div>
-            <div className="signal-scope" aria-label={`Colour preview for ${pattern.title}`}>
-              <div className="scope-toolbar"><span>Signal preview</span><strong>Live composition</strong></div>
-              <div className="scope-grid" aria-hidden="true">
-                <div className="scope-wave wave-a" />
-                <div className="scope-wave wave-b" />
-                <div className="scope-pixels">{Array.from({ length: 64 }, (_, index) => <i key={index} />)}</div>
-              </div>
-              <div className="scope-readout"><span>{pattern.controller}</span><i /><span>{pattern.ledCount.toLocaleString()} pixels</span></div>
-            </div>
+            <PatternPreview pattern={pattern} variant="detail" controls />
           </section>
 
           <section className="detail-bench">
             <div className="detail-story">
-              <p className="eyebrow"><span /> Bench notes</p>
-              <h2>Built to leave the screen.</h2>
+              <p className="eyebrow"><span /> Project notes</p>
+              <h2>Open the graph.<br />Make it yours.</h2>
               <p>{pattern.description}</p>
               <div className="detail-specs">
                 <div><Cpu size={18} aria-hidden="true" /><span>Controller</span><strong>{pattern.controller}</strong></div>

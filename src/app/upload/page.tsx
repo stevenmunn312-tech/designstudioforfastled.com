@@ -8,8 +8,8 @@ import { createClient } from "@/lib/supabase/server";
 import { UploadForm } from "./upload-form";
 
 export const metadata: Metadata = {
-  title: "Share a pattern",
-  description: "Publish a FastLED pattern with hardware notes for the community.",
+  title: "Upload a Design Studio project",
+  description: "Share a Design Studio for FastLED project with an animated browser preview.",
 };
 
 export const dynamic = "force-dynamic";
@@ -27,9 +27,9 @@ export default async function UploadPage() {
       <SiteHeader />
       <main className="shell upload-page">
         <div className="page-masthead upload-masthead">
-          <p className="eyebrow"><span /> Community upload</p>
-          <h1>Send a pattern<br /><em>down the line.</em></h1>
-          <p>Give it enough context to light up on someone else&apos;s bench.</p>
+          <p className="eyebrow"><span /> Design Studio upload</p>
+          <h1>Patch your project<br /><em>into the library.</em></h1>
+          <p>Upload the Studio export that powers your effect. Its graph becomes the animated preview visitors see.</p>
         </div>
         {!signedIn && (
           <div className="account-notice">
@@ -41,13 +41,13 @@ export default async function UploadPage() {
           <UploadForm canUpload={signedIn} />
           <aside className="review-aside">
             <span className="aside-label">What gets approved</span>
-            <h2>A useful pattern tells the whole story.</h2>
+            <h2>A useful Studio project tells the whole story.</h2>
             <ul>
-              <li><CheckCircle2 size={17} /><span><strong>It runs</strong>Test the effect on the hardware you list.</span></li>
+              <li><CheckCircle2 size={17} /><span><strong>The graph opens</strong>Export a working .json project from Design Studio.</span></li>
               <li><CheckCircle2 size={17} /><span><strong>It is yours to share</strong>Credit source projects and remixes clearly.</span></li>
               <li><CheckCircle2 size={17} /><span><strong>It is understandable</strong>Add notes for unusual wiring, libraries, or timing.</span></li>
             </ul>
-            <p>New patterns are private until a moderator checks the file and description.</p>
+            <p>New projects stay private until a moderator checks the file, description, and live preview.</p>
           </aside>
         </div>
       </main>

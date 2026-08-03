@@ -5,7 +5,17 @@ import { createClient } from "@/lib/supabase/server";
 
 export type UploadState = { message: string; tone: "idle" | "error" | "success" };
 
-const allowedExtensions = ["json", "txt", "ino", "ledmap"];
+function isStudioProject(value: unknown) {
+  if (!value || typeof value !== "object") return false;
+  const project = value as { graphData?: unknown; graphs?: unknown; activeGraphId?: unknown };
+  return Boolean(project.graphData && project.graphs && typeof project.activeGraphId === "string");
+}
+
+function projectColors(value: unknown): [string, string, string] {
+  const matches = JSON.stringify(value).match(/#[0-9a-fA-F]{6}/g) ?? [];
+  const unique = [...new Set(matches)];
+  return [unique[0] ?? "#32e5ff", unique[1] ?? "#4037ff", unique[2] ?? "#ef35ed"];
+}
 
 export async function uploadPattern(_state: UploadState, formData: FormData): Promise<UploadState> {
   if (!hasSupabaseConfig()) {
@@ -26,8 +36,17 @@ export async function uploadPattern(_state: UploadState, formData: FormData): Pr
     return { message: "Choose a pattern file no larger than 2 MB.", tone: "error" };
   }
   const extension = file.name.split(".").pop()?.toLowerCase() ?? "";
-  if (!allowedExtensions.includes(extension)) {
-    return { message: "Use a .json, .txt, .ino, or .ledmap pattern file.", tone: "error" };
+  if (extension !== "json") {
+    return { message: "Choose a Design Studio project (.json) so the site can render its live preview.", tone: "error" };
+  }
+  let project: unknown;
+  try {
+    project = JSON.parse(await file.text());
+  } catch {
+    return { message: "That file is not valid JSON. Export the project from Design Studio and try again.", tone: "error" };
+  }
+  if (!isStudioProject(project)) {
+    return { message: "That does not look like a Design Studio project export.", tone: "error" };
   }
 
   const supabase = await createClient();
@@ -50,7 +69,7 @@ export async function uploadPattern(_state: UploadState, formData: FormData): Pr
     led_count: ledCount,
     tags,
     storage_path: storagePath,
-    preview_colors: ["#61e4ff", "#876bff", "#ff78b7"],
+    preview_colors: projectColors(project),
   });
 
   if (insertError) {

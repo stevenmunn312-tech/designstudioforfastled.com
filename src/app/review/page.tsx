@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowDownToLine, Clock3, FileCode2, LockKeyhole } from "lucide-react";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { PatternPreview } from "@/components/pattern-preview";
 import { hasSupabaseConfig } from "@/lib/supabase/config";
 import { createClient } from "@/lib/supabase/server";
 import { ReviewControls } from "./review-controls";
@@ -27,6 +28,7 @@ type PendingPattern = {
   created_at: string;
   profiles: { display_name: string } | { display_name: string }[] | null;
   downloadUrl?: string;
+  previewUrl?: string;
 };
 
 function AccessPanel({ signedIn }: { signedIn: boolean }) {
@@ -78,7 +80,11 @@ export default async function ReviewPage() {
     const { data: signedFile } = await supabase.storage
       .from("pattern-files")
       .createSignedUrl(pattern.storage_path, 600, { download: originalFileName(pattern.storage_path) });
+    const { data: previewFile } = await supabase.storage
+      .from("pattern-files")
+      .createSignedUrl(pattern.storage_path, 600);
     pattern.downloadUrl = signedFile?.signedUrl;
+    pattern.previewUrl = previewFile?.signedUrl;
   }));
 
   return (
@@ -128,6 +134,22 @@ export default async function ReviewPage() {
                       <div><span>Tags</span><strong>{pattern.tags?.join(" · ") || "None"}</strong></div>
                     </div>
                     <p className="review-description">{pattern.description}</p>
+                    <div className="review-live-preview">
+                      <PatternPreview pattern={{
+                        id: pattern.id,
+                        title: pattern.title,
+                        description: pattern.description,
+                        author: profile?.display_name ?? "Community maker",
+                        controller: pattern.controller,
+                        ledCount: pattern.led_count,
+                        tags: pattern.tags ?? [],
+                        colors: [colors[0] ?? "#32e5ff", colors[1] ?? "#4037ff", colors[2] ?? "#ef35ed"],
+                        likes: 0,
+                        downloads: 0,
+                        createdAt: pattern.created_at,
+                        previewUrl: pattern.previewUrl,
+                      }} variant="card" />
+                    </div>
                     <div className="review-file">
                       <FileCode2 size={19} aria-hidden="true" />
                       <div><span>Submitted source</span><strong>{originalFileName(pattern.storage_path)}</strong></div>

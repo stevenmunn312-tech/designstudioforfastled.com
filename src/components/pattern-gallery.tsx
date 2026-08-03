@@ -1,6 +1,7 @@
 "use client";
 
-import { Search } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, Search, UploadCloud } from "lucide-react";
 import { useMemo, useState } from "react";
 import type { Pattern } from "@/lib/patterns";
 import { PatternCard } from "./pattern-card";
@@ -45,6 +46,15 @@ export function PatternGallery({ patterns }: { patterns: Pattern[] }) {
       {visible.length ? (
         <div className="pattern-grid gallery-grid">
           {visible.map((pattern) => <PatternCard key={pattern.id} pattern={pattern} />)}
+          {visible.length === 1 && (
+            <article className="library-invitation gallery-invitation">
+              <UploadCloud size={24} />
+              <span>Community library</span>
+              <h3>There is room for the next great signal.</h3>
+              <p>Export a project from Design Studio and send it to the review bench. Once approved, its graph becomes a moving preview here.</p>
+              <Link href="/upload">Upload a project <ArrowRight size={14} /></Link>
+            </article>
+          )}
         </div>
       ) : (
         <div className="empty-state">
