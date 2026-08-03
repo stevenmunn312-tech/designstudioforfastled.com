@@ -8,6 +8,7 @@ import { PatternPreview } from "@/components/pattern-preview";
 import { hasSupabaseConfig } from "@/lib/supabase/config";
 import { createClient } from "@/lib/supabase/server";
 import { ReviewControls } from "./review-controls";
+import { GeneratePreviewButton } from "./generate-preview-button";
 
 export const metadata: Metadata = {
   title: "Pattern review",
@@ -28,6 +29,13 @@ type PendingPattern = {
   created_at: string;
   profiles: { display_name: string } | { display_name: string }[] | null;
   downloadUrl?: string;
+  previewUrl?: string;
+};
+
+type MissingPreviewPattern = {
+  id: string;
+  title: string;
+  storage_path: string;
   previewUrl?: string;
 };
 
@@ -84,6 +92,22 @@ export default async function ReviewPage() {
       .from("pattern-files")
       .createSignedUrl(pattern.storage_path, 600);
     pattern.downloadUrl = signedFile?.signedUrl;
+    pattern.previewUrl = previewFile?.signedUrl;
+  }));
+
+  const { data: missingPreviewData } = await supabase
+    .from("patterns")
+    .select("id,title,storage_path")
+    .eq("status", "approved")
+    .eq("published", true)
+    .is("preview_media_path", null)
+    .order("created_at", { ascending: true });
+
+  const missingPreviewPatterns = (missingPreviewData ?? []) as MissingPreviewPattern[];
+  await Promise.all(missingPreviewPatterns.map(async (pattern) => {
+    const { data: previewFile } = await supabase.storage
+      .from("pattern-files")
+      .createSignedUrl(pattern.storage_path, 600);
     pattern.previewUrl = previewFile?.signedUrl;
   }));
 
@@ -160,6 +184,21 @@ export default async function ReviewPage() {
                 </article>
               );
             })}
+          </section>
+        )}
+
+        {missingPreviewPatterns.length > 0 && (
+          <section className="backfill-section" aria-label="Published patterns missing a preview clip">
+            <h2>Missing a looping preview clip</h2>
+            <p>Shared before captured clips existed — the gallery falls back to live evaluation for these until one is generated here.</p>
+            <ul className="backfill-list">
+              {missingPreviewPatterns.map((pattern) => (
+                <li key={pattern.id}>
+                  <span>{pattern.title}</span>
+                  <GeneratePreviewButton patternId={pattern.id} previewUrl={pattern.previewUrl} />
+                </li>
+              ))}
+            </ul>
           </section>
         )}
       </main>

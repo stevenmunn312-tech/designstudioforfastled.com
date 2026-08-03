@@ -308,6 +308,17 @@ h1, h2, h3, p { margin-top: 0; }
 .review-empty strong { color: var(--cyan); font-family: var(--font-display); font-size: 28px; }
 .review-empty p { margin: 10px 0 0; color: #718094; font-size: 12px; }
 .review-empty.error strong { color: #ff9aa9; }
+.backfill-section { margin-top: 50px; padding: 28px 30px; background: #0d131b; border: 1px solid #26303c; border-radius: 10px; }
+.backfill-section h2 { margin-bottom: 8px; font-family: var(--font-display); font-size: 20px; }
+.backfill-section > p { margin: 0 0 20px; color: #7f8c9d; font-size: 12px; line-height: 1.6; }
+.backfill-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+.backfill-list li { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 16px; background: #10161e; border: 1px solid #232d38; border-radius: 8px; }
+.backfill-list li > span:first-child { color: #d6dee7; font-size: 13px; }
+.backfill-row-action { display: flex; align-items: center; gap: 12px; }
+.backfill-row-action .button { min-height: 34px; padding-inline: 12px; font-size: 10px; }
+.backfill-status { font-family: var(--font-mono); font-size: 9px; text-transform: uppercase; letter-spacing: .06em; color: #8290a2; }
+.backfill-status.success { color: var(--green); }
+.backfill-status.error { color: #ff9aa9; }
 .review-access { min-height: calc(100vh - 242px); padding-block: 120px; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; }
 .review-access > svg { margin-bottom: 28px; color: var(--amber); }
 .review-access h1 { max-width: 720px; margin-bottom: 18px; font-family: var(--font-display); font-size: clamp(42px, 6vw, 64px); line-height: 1; letter-spacing: -.05em; }
