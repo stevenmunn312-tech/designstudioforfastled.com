@@ -2,7 +2,7 @@
 
 import { hasSupabaseConfig } from "@/lib/supabase/config";
 import { createClient } from "@/lib/supabase/server";
-import { isStudioProject } from "@/lib/studio-project";
+import { isSharedPattern } from "@/lib/shared-pattern";
 
 export type UploadState = { message: string; tone: "idle" | "error" | "success" };
 
@@ -23,8 +23,8 @@ export async function uploadPattern(_state: UploadState, formData: FormData): Pr
   const ledCount = Number(formData.get("ledCount"));
   const tags = String(formData.get("tags") ?? "").split(",").map((tag) => tag.trim()).filter(Boolean).slice(0, 6);
   const selectedFile = formData.get("patternFile");
-  const transferredJson = String(formData.get("projectJson") ?? "");
-  const transferredName = String(formData.get("projectFileName") ?? "studio-pattern.fastled-project.json");
+  const transferredJson = String(formData.get("patternJson") ?? "");
+  const transferredName = String(formData.get("patternFileName") ?? "studio-pattern.fastled-pattern.json");
 
   if (!title || !description || !controller || !Number.isInteger(ledCount) || ledCount < 1 || ledCount > 100000) {
     return { message: "Complete the required pattern details.", tone: "error" };
@@ -39,16 +39,16 @@ export async function uploadPattern(_state: UploadState, formData: FormData): Pr
   }
   const extension = file.name.split(".").pop()?.toLowerCase() ?? "";
   if (extension !== "json") {
-    return { message: "Choose a Design Studio project (.json) so the site can render its live preview.", tone: "error" };
+    return { message: "Choose a Design Studio pattern (.json) so the site can render its live preview.", tone: "error" };
   }
   let project: unknown;
   try {
     project = JSON.parse(await file.text());
   } catch {
-    return { message: "That file is not valid JSON. Export the project from Design Studio and try again.", tone: "error" };
+    return { message: "That file is not valid JSON. Share the pattern from Design Studio and try again.", tone: "error" };
   }
-  if (!isStudioProject(project)) {
-    return { message: "That does not look like a Design Studio project export.", tone: "error" };
+  if (!isSharedPattern(project)) {
+    return { message: "That does not look like a Design Studio pattern export.", tone: "error" };
   }
 
   const supabase = await createClient();

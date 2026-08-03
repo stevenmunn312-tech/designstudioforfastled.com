@@ -3,7 +3,7 @@
 import { Pause, Play, Radio, Sparkles } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import type { Pattern } from "@/lib/patterns";
-import { studioWorkspace } from "@/lib/studio-project";
+import { sharedPatternGraph } from "@/lib/shared-pattern";
 
 type PreviewVariant = "card" | "hero" | "detail";
 
@@ -42,12 +42,10 @@ function numberValue(value: unknown, fallback: number) {
 }
 
 function readProject(project: unknown): ProjectProfile {
-  const workspace = studioWorkspace(project);
-  if (!workspace) return defaultProfile;
-  const root = workspace as { graphData?: Record<string, { nodes?: StudioNode[]; edges?: unknown[] }> };
-  const graphs = Object.values(root.graphData ?? {});
-  const nodes = graphs.flatMap((graph) => graph.nodes ?? []);
-  const edges = graphs.flatMap((graph) => graph.edges ?? []);
+  const graph = sharedPatternGraph(project);
+  if (!graph) return defaultProfile;
+  const nodes = graph.nodes as StudioNode[];
+  const edges = graph.edges;
   const find = (type: string) => nodes.find((node) => node.data?.nodeType === type)?.data;
   const animartrix = find("Animartrix");
   const shape = find("Shape");

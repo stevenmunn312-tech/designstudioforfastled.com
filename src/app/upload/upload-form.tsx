@@ -2,16 +2,16 @@
 
 import { useActionState, useEffect, useState } from "react";
 import { ArrowRight, CheckCircle2, FileCode2, RadioTower, UploadCloud } from "lucide-react";
-import { isStudioProject, studioProjectName, studioWorkspace } from "@/lib/studio-project";
+import { sharedPatternGraph, sharedPatternName } from "@/lib/shared-pattern";
 import { uploadPattern, type UploadState } from "./actions";
 
 const initialState: UploadState = { message: "", tone: "idle" };
 const DRAFT_KEY = "design-studio-community-handoff.v1";
 
 type HandoffDraft = {
-  projectName: string;
+  patternName: string;
   fileName: string;
-  projectJson: string;
+  patternJson: string;
   controller: string;
   ledCount: number;
   savedAt: number;
@@ -30,25 +30,23 @@ const blankForm: FormDraft = { title: "", controller: "", ledCount: "", descript
 function isHandoffDraft(value: unknown): value is HandoffDraft {
   if (!value || typeof value !== "object") return false;
   const draft = value as Partial<HandoffDraft>;
-  return typeof draft.projectName === "string"
+  return typeof draft.patternName === "string"
     && typeof draft.fileName === "string"
-    && typeof draft.projectJson === "string"
+    && typeof draft.patternJson === "string"
     && typeof draft.controller === "string"
     && Number.isInteger(draft.ledCount)
     && typeof draft.savedAt === "number";
 }
 
-function projectDetails(draft: HandoffDraft): FormDraft | null {
+function patternDetails(draft: HandoffDraft): FormDraft | null {
   try {
-    const project = JSON.parse(draft.projectJson) as unknown;
-    if (!isStudioProject(project)) return null;
-    const workspace = studioWorkspace(project);
-    if (!workspace) return null;
-    const graphEntries = Object.values(workspace.graphData ?? {});
-    const nodes = (graphEntries.length > 0 ? graphEntries.flatMap((graph) => graph.nodes ?? []) : workspace.nodes ?? []) as Array<{
+    const shared = JSON.parse(draft.patternJson) as unknown;
+    const graph = sharedPatternGraph(shared);
+    if (!graph) return null;
+    const nodes = graph.nodes as Array<{
       data?: { nodeType?: string; properties?: Record<string, unknown> };
     }>;
-    const edges = graphEntries.length > 0 ? graphEntries.flatMap((graph) => graph.edges ?? []) : workspace.edges ?? [];
+    const edges = graph.edges;
     const effectNode = nodes.find((node) => node.data?.nodeType === "Animartrix");
     const effect = typeof effectNode?.data?.properties?.effect === "string"
       ? effectNode.data.properties.effect
@@ -56,10 +54,9 @@ function projectDetails(draft: HandoffDraft): FormDraft | null {
     const tags = [
       effect,
       nodes.some((node) => ["MicInput", "MusicLibrary"].includes(node.data?.nodeType ?? "")) ? "Audio Reactive" : null,
-      nodes.some((node) => node.data?.nodeType === "MatrixOutput") ? "Matrix" : null,
       "Design Studio",
     ].filter((tag): tag is string => Boolean(tag));
-    const title = draft.projectName || studioProjectName(project) || "Untitled Pattern";
+    const title = draft.patternName || sharedPatternName(shared) || "Untitled Pattern";
     const effectCopy = effect ? ` Its live preview is driven by the ${effect} effect.` : "";
     return {
       title,
@@ -76,18 +73,18 @@ function projectDetails(draft: HandoffDraft): FormDraft | null {
 export function UploadForm({ canUpload }: { canUpload: boolean }) {
   const [state, action, pending] = useActionState(uploadPattern, initialState);
   const [form, setForm] = useState<FormDraft>(blankForm);
-  const [projectJson, setProjectJson] = useState("");
+  const [patternJson, setPatternJson] = useState("");
   const [fileName, setFileName] = useState("");
   const [handoffState, setHandoffState] = useState<"idle" | "restored" | "error">("idle");
 
   const applyDraft = (draft: HandoffDraft) => {
-    const details = projectDetails(draft);
+    const details = patternDetails(draft);
     if (!details) {
       setHandoffState("error");
       return false;
     }
     setForm(details);
-    setProjectJson(draft.projectJson);
+    setPatternJson(draft.patternJson);
     setFileName(draft.fileName);
     setHandoffState("restored");
     return true;
@@ -123,7 +120,7 @@ export function UploadForm({ canUpload }: { canUpload: boolean }) {
           <div className="handoff-signal"><RadioTower size={18} /><i /><i /><i /></div>
           <div>
             <span>Studio handoff</span>
-            <strong>{handoffState === "error" ? "The project could not be attached" : "Project attached from Design Studio"}</strong>
+            <strong>{handoffState === "error" ? "The pattern could not be attached" : "Pattern attached from Design Studio"}</strong>
             {handoffState === "restored" && <small>{fileName} · details prefilled · edit anything below</small>}
           </div>
           {handoffState === "restored" && <CheckCircle2 size={22} />}
@@ -138,30 +135,30 @@ export function UploadForm({ canUpload }: { canUpload: boolean }) {
         <label className="wide"><span>Tags <small>comma separated</small></span><input name="tags" value={form.tags} onChange={(event) => update("tags", event.target.value)} placeholder="Ambient, Noise, RGBW" /></label>
       </div>
       <div className="form-divider" />
-      <div className="form-section-title"><span>02</span><div><h2>Design Studio project</h2><p>The project graph powers the animated browser preview.</p></div></div>
-      {projectJson && <input type="hidden" name="projectJson" value={projectJson} />}
-      {projectJson && <input type="hidden" name="projectFileName" value={fileName} />}
-      <label className={`drop-zone ${projectJson ? "attached" : ""}`}>
+      <div className="form-section-title"><span>02</span><div><h2>Design Studio pattern</h2><p>The pattern graph powers the animated browser preview—no hardware settings needed.</p></div></div>
+      {patternJson && <input type="hidden" name="patternJson" value={patternJson} />}
+      {patternJson && <input type="hidden" name="patternFileName" value={fileName} />}
+      <label className={`drop-zone ${patternJson ? "attached" : ""}`}>
         <input
           name="patternFile"
           type="file"
           accept=".json,application/json"
-          required={!projectJson}
+          required={!patternJson}
           onChange={(event) => {
             const file = event.target.files?.[0];
-            setProjectJson("");
+            setPatternJson("");
             setFileName(file?.name ?? "");
             if (file) setHandoffState("idle");
           }}
         />
-        {projectJson ? <CheckCircle2 size={28} /> : <UploadCloud size={28} />}
-        <strong>{projectJson ? fileName : "Choose a Design Studio project"}</strong>
-        <span>{projectJson ? "Attached from the app · choose another file to replace it" : ".json · 2 MB max · used for the live preview"}</span>
+        {patternJson ? <CheckCircle2 size={28} /> : <UploadCloud size={28} />}
+        <strong>{patternJson ? fileName : "Choose a Design Studio pattern"}</strong>
+        <span>{patternJson ? "Attached from the app · choose another file to replace it" : ".json · 2 MB max · used for the live preview"}</span>
         <FileCode2 className="drop-code" size={54} aria-hidden="true" />
       </label>
       {state.message && <p className={`form-message ${state.tone}`} aria-live="polite">{state.message}</p>}
       <div className="submit-row">
-        {!canUpload && <p>Log in to send this pattern for review. Your attached project will stay here.</p>}
+        {!canUpload && <p>Log in to send this pattern for review. Your attached pattern will stay here.</p>}
         <button className="button button-primary" disabled={!canUpload || pending} type="submit">{pending ? "Uploading…" : "Send for review"} <ArrowRight size={17} /></button>
       </div>
     </form>
