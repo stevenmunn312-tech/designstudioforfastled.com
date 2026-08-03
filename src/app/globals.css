@@ -575,6 +575,8 @@ body::before {
 .live-preview-screen canvas, .live-preview-screen video { width: 100%; height: 100%; display: block; object-fit: contain; background: #05070b; }
 .preview-scanline { position: absolute; inset: 0; pointer-events: none; opacity: .12; background: repeating-linear-gradient(to bottom, transparent 0, transparent 3px, rgba(255,255,255,.08) 4px); }
 .preview-transport { min-height: 32px; position: absolute; left: 14px; bottom: 14px; padding: 0 12px; display: flex; align-items: center; gap: 7px; color: white; background: rgba(10,12,17,.82); border: 1px solid #3a424e; border-radius: 16px; font-family: var(--font-mono); font-size: 8px; text-transform: uppercase; cursor: pointer; backdrop-filter: blur(8px); }
+.preview-mic-toggle { left: auto; right: 14px; }
+.preview-mic-error { margin: 8px 13px 0; color: #ff9aa9; font-size: 10px; line-height: 1.5; }
 .preview-trust-gate { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 24px; text-align: center; background: rgba(6,8,12,.86); backdrop-filter: blur(6px); }
 .preview-trust-gate > svg { color: var(--amber); }
 .preview-trust-gate p { margin: 0; max-width: 280px; color: #c6ced9; font-size: 11px; line-height: 1.6; }

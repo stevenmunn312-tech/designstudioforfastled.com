@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type RefObject } from "react";
 import { evaluateSharedPattern, patternNeedsTrust } from "@/lib/evaluator/evaluateSharedPattern";
 import { idleFrame } from "@/lib/evaluator/preview/idleFrame";
 import { renderPreviewFrame } from "@/lib/evaluator/preview/frameCanvas";
 import type { StudioNode, StudioEdge } from "@/lib/evaluator/state/graphStore";
-import type { GroupRegistry } from "@/lib/evaluator/state/graphEvaluator";
+import type { AudioOverride, GroupRegistry } from "@/lib/evaluator/state/graphEvaluator";
 
 const GRID = 32;
 
@@ -15,12 +15,16 @@ export function LivePatternCanvas({
   groups = {},
   trusted = false,
   running = true,
+  audioOverride,
 }: {
   nodes: StudioNode[];
   edges: StudioEdge[];
   groups?: GroupRegistry;
   trusted?: boolean;
   running?: boolean;
+  /** Read every frame (not a plain prop) so live mic input doesn't force a
+   *  React re-render at audio-analysis rate. */
+  audioOverride?: RefObject<AudioOverride | null>;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const runningRef = useRef(running);
@@ -70,7 +74,11 @@ export function LivePatternCanvas({
       ctx.fillStyle = "#05070b";
       ctx.fillRect(0, 0, width, height);
 
-      const frame = evaluateSharedPattern(nodes, edges, tick, GRID, GRID, { groups, trusted }) ?? idleFrame(tick, GRID, GRID);
+      const frame = evaluateSharedPattern(nodes, edges, tick, GRID, GRID, {
+        groups,
+        trusted,
+        audioOverride: audioOverride?.current ?? null,
+      }) ?? idleFrame(tick, GRID, GRID);
       ctx.save();
       ctx.translate(left, top);
       renderPreviewFrame(ctx, frame, pixel, "standard");
@@ -81,6 +89,9 @@ export function LivePatternCanvas({
       window.cancelAnimationFrame(raf);
       resize.disconnect();
     };
+    // audioOverride is a ref — read fresh via .current every frame, its
+    // identity is stable, and it must not restart this effect.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nodes, edges, groups, trusted]);
 
   return (

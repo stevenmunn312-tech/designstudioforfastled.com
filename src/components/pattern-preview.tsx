@@ -1,11 +1,12 @@
 "use client";
 
-import { Lock, Pause, Play, Radio } from "lucide-react";
+import { Lock, Mic, MicOff, Pause, Play, Radio } from "lucide-react";
 import { useEffect, useState } from "react";
 import type { Pattern } from "@/lib/patterns";
 import { sharedPatternGraph } from "@/lib/shared-pattern";
 import { patternNeedsTrust } from "@/lib/evaluator/evaluateSharedPattern";
 import type { StudioEdge, StudioNode } from "@/lib/evaluator/state/graphStore";
+import { useLiveAudio } from "@/lib/use-live-audio";
 import { LivePatternCanvas } from "./live-pattern-canvas";
 
 type PreviewVariant = "card" | "hero" | "detail";
@@ -25,6 +26,8 @@ export function PatternPreview({
   const [source, setSource] = useState(pattern.previewUrl ? "Reading pattern" : "No pattern data");
   const [running, setRunning] = useState(true);
   const [trusted, setTrusted] = useState(false);
+  const { enabled: micEnabled, error: micError, enableMic, disableMic, overrideRef } = useLiveAudio();
+  const audioReactive = variant === "detail" && pattern.tags.includes("Audio Reactive");
 
   useEffect(() => {
     if (!pattern.previewUrl) return;
@@ -67,6 +70,7 @@ export function PatternPreview({
           edges={graph?.edges ?? []}
           trusted={trusted}
           running={running}
+          audioOverride={overrideRef}
         />
         <div className="preview-scanline" aria-hidden="true" />
         {needsTrust && !trusted && (
@@ -89,7 +93,19 @@ export function PatternPreview({
             {running ? "Pause" : "Play"}
           </button>
         )}
+        {audioReactive && graph && (
+          <button
+            className="preview-transport preview-mic-toggle"
+            type="button"
+            onClick={() => (micEnabled ? disableMic() : void enableMic())}
+            aria-label={micEnabled ? "Disable microphone input" : "Enable microphone input"}
+          >
+            {micEnabled ? <Mic size={14} /> : <MicOff size={14} />}
+            {micEnabled ? "Mic on" : "Enable mic"}
+          </button>
+        )}
       </div>
+      {audioReactive && micError && <p className="preview-mic-error">{micError}</p>}
       <div className="live-preview-readout">
         <span>{graph ? `${graph.nodes.length} nodes · ${graph.edges.length} patches` : "—"}</span>
         <span><Radio size={11} /> Live render</span>
