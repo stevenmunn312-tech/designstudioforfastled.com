@@ -2,14 +2,9 @@
 
 import { hasSupabaseConfig } from "@/lib/supabase/config";
 import { createClient } from "@/lib/supabase/server";
+import { isStudioProject } from "@/lib/studio-project";
 
 export type UploadState = { message: string; tone: "idle" | "error" | "success" };
-
-function isStudioProject(value: unknown) {
-  if (!value || typeof value !== "object") return false;
-  const project = value as { graphData?: unknown; graphs?: unknown; activeGraphId?: unknown };
-  return Boolean(project.graphData && project.graphs && typeof project.activeGraphId === "string");
-}
 
 function projectColors(value: unknown): [string, string, string] {
   const matches = JSON.stringify(value).match(/#[0-9a-fA-F]{6}/g) ?? [];
@@ -27,12 +22,19 @@ export async function uploadPattern(_state: UploadState, formData: FormData): Pr
   const controller = String(formData.get("controller") ?? "").trim();
   const ledCount = Number(formData.get("ledCount"));
   const tags = String(formData.get("tags") ?? "").split(",").map((tag) => tag.trim()).filter(Boolean).slice(0, 6);
-  const file = formData.get("patternFile");
+  const selectedFile = formData.get("patternFile");
+  const transferredJson = String(formData.get("projectJson") ?? "");
+  const transferredName = String(formData.get("projectFileName") ?? "studio-pattern.fastled-project.json");
 
   if (!title || !description || !controller || !Number.isInteger(ledCount) || ledCount < 1 || ledCount > 100000) {
     return { message: "Complete the required pattern details.", tone: "error" };
   }
-  if (!(file instanceof File) || file.size === 0 || file.size > 2 * 1024 * 1024) {
+  const file = selectedFile instanceof File && selectedFile.size > 0
+    ? selectedFile
+    : transferredJson
+      ? new File([transferredJson], transferredName, { type: "application/json" })
+      : null;
+  if (!file || file.size === 0 || file.size > 2 * 1024 * 1024) {
     return { message: "Choose a pattern file no larger than 2 MB.", tone: "error" };
   }
   const extension = file.name.split(".").pop()?.toLowerCase() ?? "";
