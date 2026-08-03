@@ -23,7 +23,7 @@ The homepage and gallery use curated starter content until Supabase is configure
 ## 2. Supabase
 
 1. Open the existing `Design-Studio-for-FastLED` Supabase project.
-2. Open the SQL editor and run `supabase/migrations/202608030001_initial_community_schema.sql`.
+2. Open the SQL editor and run the files in `supabase/migrations/` in filename order.
 3. In **Project settings → API**, copy the project URL and publishable key into `.env.local`.
 4. In **Authentication → URL configuration**, add:
    - `http://localhost:3000/auth/callback`
@@ -73,7 +73,17 @@ Add these environment variables in Cloudflare rather than committing them:
 
 ## 4. Moderation workflow
 
-New uploads are created with `status = 'pending'` and `published = false`. A future moderator surface or trusted server process should set `status = 'approved'` and `published = true` after inspecting the pattern file and description. Do not put a service-role key into this web application merely to approve records.
+New uploads are created with `status = 'pending'` and `published = false`. The second migration adds the protected `/review` workbench and a database function that changes only moderation fields.
+
+Assign a reviewer by email in the Supabase SQL editor:
+
+```sql
+insert into public.moderators (user_id)
+select id from auth.users where email = 'reviewer@example.com'
+on conflict (user_id) do nothing;
+```
+
+Replace the example address with the account that should review patterns. Reviewers can inspect private files, approve a pattern for immediate publication, or reject it. Regular uploaders cannot grant themselves moderator access or publish their own submissions. No secret or service-role key is used by the website.
 
 ## 5. Checks
 

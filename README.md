@@ -8,7 +8,8 @@ A standalone community website for publishing, discovering, and remixing FastLED
 - Searchable and filterable pattern gallery
 - Supabase email/password authentication flow
 - Authenticated pattern upload with private Supabase Storage
-- Moderation-ready Postgres schema and row-level security
+- Secure moderator review workbench with approve/reject controls
+- Postgres row-level security and restricted moderation functions
 - Cloudflare Workers deployment through OpenNext
 - Pull-request validation on Linux
 

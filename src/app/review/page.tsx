@@ -1,0 +1,147 @@
+import type { CSSProperties } from "react";
+import type { Metadata } from "next";
+import Link from "next/link";
+import { ArrowDownToLine, Clock3, FileCode2, LockKeyhole } from "lucide-react";
+import { SiteFooter } from "@/components/site-footer";
+import { SiteHeader } from "@/components/site-header";
+import { hasSupabaseConfig } from "@/lib/supabase/config";
+import { createClient } from "@/lib/supabase/server";
+import { ReviewControls } from "./review-controls";
+
+export const metadata: Metadata = {
+  title: "Pattern review",
+  description: "Inspect and moderate submitted FastLED patterns.",
+};
+
+export const dynamic = "force-dynamic";
+
+type PendingPattern = {
+  id: string;
+  title: string;
+  description: string;
+  controller: string;
+  led_count: number;
+  tags: string[] | null;
+  storage_path: string;
+  preview_colors: string[] | null;
+  created_at: string;
+  profiles: { display_name: string } | { display_name: string }[] | null;
+  downloadUrl?: string;
+};
+
+function AccessPanel({ signedIn }: { signedIn: boolean }) {
+  return (
+    <main className="shell review-access">
+      <LockKeyhole size={28} aria-hidden="true" />
+      <p className="eyebrow"><span /> Moderator access</p>
+      <h1>{signedIn ? "This bench is reserved for reviewers." : "Log in to open the review bench."}</h1>
+      <p>{signedIn ? "Your maker account is working, but it has not been assigned as a moderator." : "Only approved moderators can inspect private submissions."}</p>
+      {!signedIn && <Link className="button button-primary" href="/login">Log in</Link>}
+    </main>
+  );
+}
+
+function originalFileName(storagePath: string) {
+  const storedName = storagePath.split("/").pop() ?? "pattern file";
+  return storedName.replace(/^[0-9a-f-]{36}-/i, "");
+}
+
+export default async function ReviewPage() {
+  if (!hasSupabaseConfig()) {
+    return <><SiteHeader /><AccessPanel signedIn={false} /><SiteFooter /></>;
+  }
+
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) {
+    return <><SiteHeader /><AccessPanel signedIn={false} /><SiteFooter /></>;
+  }
+
+  const { data: moderator } = await supabase
+    .from("moderators")
+    .select("user_id")
+    .eq("user_id", user.id)
+    .maybeSingle();
+
+  if (!moderator) {
+    return <><SiteHeader /><AccessPanel signedIn /><SiteFooter /></>;
+  }
+
+  const { data, error } = await supabase
+    .from("patterns")
+    .select("id,title,description,controller,led_count,tags,storage_path,preview_colors,created_at,profiles(display_name)")
+    .eq("status", "pending")
+    .order("created_at", { ascending: true });
+
+  const pendingPatterns = (data ?? []) as PendingPattern[];
+  await Promise.all(pendingPatterns.map(async (pattern) => {
+    const { data: signedFile } = await supabase.storage
+      .from("pattern-files")
+      .createSignedUrl(pattern.storage_path, 600, { download: originalFileName(pattern.storage_path) });
+    pattern.downloadUrl = signedFile?.signedUrl;
+  }));
+
+  return (
+    <>
+      <SiteHeader />
+      <main className="shell review-page">
+        <header className="review-masthead">
+          <div>
+            <p className="eyebrow"><span /> Moderator workbench</p>
+            <h1>Inspect the signal<br /><em>before it travels.</em></h1>
+            <p>Check the description, hardware notes, and source file. Approval publishes the pattern immediately.</p>
+          </div>
+          <div className="queue-readout" aria-label={`${pendingPatterns.length} patterns waiting`}>
+            <span>Queue depth</span>
+            <strong>{String(pendingPatterns.length).padStart(2, "0")}</strong>
+            <div aria-hidden="true">{Array.from({ length: 8 }, (_, index) => <i className={index < pendingPatterns.length ? "lit" : ""} key={index} />)}</div>
+          </div>
+        </header>
+
+        {error ? (
+          <div className="review-empty error"><strong>Queue unavailable</strong><p>{error.message}</p></div>
+        ) : pendingPatterns.length === 0 ? (
+          <div className="review-empty"><strong>All signals clear.</strong><p>There are no patterns waiting for review.</p></div>
+        ) : (
+          <section className="review-list" aria-label="Patterns awaiting review">
+            {pendingPatterns.map((pattern, index) => {
+              const profile = Array.isArray(pattern.profiles) ? pattern.profiles[0] : pattern.profiles;
+              const colors = pattern.preview_colors?.slice(0, 3) ?? ["#61e4ff", "#876bff", "#ff78b7"];
+              const style = {
+                "--review-a": colors[0] ?? "#61e4ff",
+                "--review-b": colors[1] ?? "#876bff",
+                "--review-c": colors[2] ?? "#ff78b7",
+              } as CSSProperties;
+
+              return (
+                <article className="review-item" key={pattern.id} style={style}>
+                  <div className="review-rail"><span>{String(index + 1).padStart(2, "0")}</span><i /></div>
+                  <div className="review-workbench">
+                    <div className="review-signal" aria-hidden="true"><i /><i /><i /></div>
+                    <div className="review-heading">
+                      <div><span>Pending submission</span><h2>{pattern.title}</h2><p>by {profile?.display_name ?? "Community maker"}</p></div>
+                      <time dateTime={pattern.created_at}><Clock3 size={13} aria-hidden="true" /> {new Intl.DateTimeFormat("en-AU", { dateStyle: "medium", timeStyle: "short" }).format(new Date(pattern.created_at))}</time>
+                    </div>
+                    <div className="review-specs">
+                      <div><span>Controller</span><strong>{pattern.controller}</strong></div>
+                      <div><span>LED count</span><strong>{pattern.led_count.toLocaleString()}</strong></div>
+                      <div><span>Tags</span><strong>{pattern.tags?.join(" · ") || "None"}</strong></div>
+                    </div>
+                    <p className="review-description">{pattern.description}</p>
+                    <div className="review-file">
+                      <FileCode2 size={19} aria-hidden="true" />
+                      <div><span>Submitted source</span><strong>{originalFileName(pattern.storage_path)}</strong></div>
+                      {pattern.downloadUrl ? <a href={pattern.downloadUrl}><ArrowDownToLine size={15} aria-hidden="true" /> Download to inspect</a> : <span>File unavailable</span>}
+                    </div>
+                    <ReviewControls patternId={pattern.id} />
+                  </div>
+                </article>
+              );
+            })}
+          </section>
+        )}
+      </main>
+      <SiteFooter />
+    </>
+  );
+}
