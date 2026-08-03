@@ -3,6 +3,7 @@
 import { Pause, Play, Radio, Sparkles } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import type { Pattern } from "@/lib/patterns";
+import { studioWorkspace } from "@/lib/studio-project";
 
 type PreviewVariant = "card" | "hero" | "detail";
 
@@ -41,8 +42,9 @@ function numberValue(value: unknown, fallback: number) {
 }
 
 function readProject(project: unknown): ProjectProfile {
-  if (!project || typeof project !== "object") return defaultProfile;
-  const root = project as { graphData?: Record<string, { nodes?: StudioNode[]; edges?: unknown[] }> };
+  const workspace = studioWorkspace(project);
+  if (!workspace) return defaultProfile;
+  const root = workspace as { graphData?: Record<string, { nodes?: StudioNode[]; edges?: unknown[] }> };
   const graphs = Object.values(root.graphData ?? {});
   const nodes = graphs.flatMap((graph) => graph.nodes ?? []);
   const edges = graphs.flatMap((graph) => graph.edges ?? []);
