@@ -18,8 +18,10 @@
     "@supabase/supabase-js": "^2.111.0",
     "lucide-react": "^1.28.0",
     "next": "16.2.12",
+    "poline": "^0.13.1",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "zustand": "^5.0.14"
   },
   "devDependencies": {
     "@opennextjs/cloudflare": "^1.20.2",
