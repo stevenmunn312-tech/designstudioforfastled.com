@@ -1,6 +1,6 @@
-# FastLED Community
+# Design Studio for FastLED
 
-A standalone community website for publishing, discovering, and remixing FastLED patterns. This repository is deliberately separate from the Design Studio application.
+A standalone community website for publishing, discovering, and remixing FastLED patterns. This repository is deliberately separate from the Design Studio application codebase.
 
 ## Included
 

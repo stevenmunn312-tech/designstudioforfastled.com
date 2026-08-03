@@ -13,7 +13,7 @@ export default function Home() {
       <main>
         <section className="hero shell">
           <div className="hero-copy">
-            <p className="eyebrow"><span /> Built for the FastLED community</p>
+            <p className="eyebrow"><span /> Patterns for FastLED makers</p>
             <h1>Share the light.<br /><em>Ship better patterns.</em></h1>
             <p className="hero-intro">
               A home for LED makers to publish, remix, and learn from patterns that already work in the real world.

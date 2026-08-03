@@ -1,4 +1,4 @@
-# Community site setup
+# Design Studio for FastLED setup
 
 This project is intentionally separate from the Design Studio application. It owns only the public community experience, member authentication, shared pattern metadata, and pattern-file uploads.
 
@@ -22,7 +22,7 @@ The homepage and gallery use curated starter content until Supabase is configure
 
 ## 2. Supabase
 
-1. Create a Supabase project.
+1. Open the existing `Design-Studio-for-FastLED` Supabase project.
 2. Open the SQL editor and run `supabase/migrations/202608030001_initial_community_schema.sql`.
 3. In **Project settings → API**, copy the project URL and publishable key into `.env.local`.
 4. In **Authentication → URL configuration**, add:

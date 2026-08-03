@@ -5,10 +5,10 @@ import { BrandMark } from "./brand-mark";
 export function SiteHeader() {
   return (
     <header className="site-header">
-      <Link className="brand" href="/" aria-label="FastLED Community home">
+      <Link className="brand" href="/" aria-label="Design Studio for FastLED home">
         <BrandMark />
-        <span>FastLED</span>
-        <em>community</em>
+        <span>Design Studio</span>
+        <em>for FastLED</em>
       </Link>
       <nav className="site-nav" aria-label="Main navigation">
         <Link href="/patterns">Patterns</Link>

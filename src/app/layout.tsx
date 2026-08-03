@@ -8,13 +8,13 @@ const mono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500", "600"], 
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://designstudioforfastled.com"),
-  title: { default: "FastLED Community — Patterns made to travel", template: "%s · FastLED Community" },
-  description: "Publish, discover, and remix LED patterns built by the FastLED community.",
+  title: { default: "Design Studio for FastLED — Patterns made to travel", template: "%s · Design Studio for FastLED" },
+  description: "Publish, discover, and remix LED patterns built by makers using FastLED.",
   openGraph: {
     type: "website",
-    title: "FastLED Community — Share the light",
+    title: "Design Studio for FastLED — Share the light",
     description: "Patterns, hardware notes, and useful starting points for LED makers.",
-    images: [{ url: "/og.png", width: 1536, height: 1024, alt: "FastLED Community pattern gallery" }],
+    images: [{ url: "/og.png", width: 1536, height: 1024, alt: "Design Studio for FastLED pattern gallery" }],
   },
   twitter: { card: "summary_large_image", images: ["/og.png"] },
 };

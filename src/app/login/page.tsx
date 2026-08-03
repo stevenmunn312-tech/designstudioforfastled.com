@@ -5,7 +5,7 @@ import { SiteHeader } from "@/components/site-header";
 
 export const metadata: Metadata = {
   title: "Log in",
-  description: "Log in to share and manage FastLED community patterns.",
+  description: "Log in to share and manage patterns in Design Studio for FastLED.",
 };
 
 export default function LoginPage() {
