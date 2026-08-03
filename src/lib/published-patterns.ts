@@ -16,6 +16,7 @@ type PatternRow = {
   downloads: number | null;
   created_at: string;
   storage_path: string;
+  preview_media_path: string | null;
   profiles: { display_name?: string | null } | { display_name?: string | null }[] | null;
 };
 
@@ -31,7 +32,7 @@ export async function getPublishedPatterns(limit?: number): Promise<Pattern[]> {
   const supabase = await createClient();
   let query = supabase
     .from("patterns")
-    .select("id,title,description,controller,led_count,tags,preview_colors,likes,downloads,created_at,storage_path,profiles(display_name)")
+    .select("id,title,description,controller,led_count,tags,preview_colors,likes,downloads,created_at,storage_path,preview_media_path,profiles(display_name)")
     .eq("published", true)
     .order("created_at", { ascending: false });
   if (limit) query = query.limit(limit);
@@ -41,6 +42,9 @@ export async function getPublishedPatterns(limit?: number): Promise<Pattern[]> {
   return Promise.all((data as PatternRow[]).map(async (row) => {
     const profile = Array.isArray(row.profiles) ? row.profiles[0] : row.profiles;
     const { data: signed } = await supabase.storage.from("pattern-files").createSignedUrl(row.storage_path, 900);
+    const previewMediaUrl = row.preview_media_path
+      ? (await supabase.storage.from("pattern-previews").createSignedUrl(row.preview_media_path, 900)).data?.signedUrl
+      : undefined;
     return {
       id: row.id,
       title: row.title,
@@ -54,6 +58,7 @@ export async function getPublishedPatterns(limit?: number): Promise<Pattern[]> {
       downloads: row.downloads ?? 0,
       createdAt: row.created_at,
       previewUrl: signed?.signedUrl,
+      previewMediaUrl,
     };
   }));
 }

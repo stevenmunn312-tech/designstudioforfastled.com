@@ -11,6 +11,10 @@ export type Pattern = {
   downloads: number;
   createdAt: string;
   previewUrl?: string;
+  /** A short looping capture of the pattern, for cheap gallery-card display
+   *  without every visitor's browser running a live evaluator. Falls back to
+   *  live evaluation via previewUrl when absent. */
+  previewMediaUrl?: string;
 };
 
 export const starterPatterns: Pattern[] = [

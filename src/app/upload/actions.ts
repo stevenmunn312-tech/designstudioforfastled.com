@@ -12,6 +12,19 @@ function projectColors(value: unknown): [string, string, string] {
   return [unique[0] ?? "#32e5ff", unique[1] ?? "#4037ff", unique[2] ?? "#ef35ed"];
 }
 
+const MAX_PREVIEW_MEDIA_BYTES = 6 * 1024 * 1024;
+
+function base64ToBytes(base64: string): Uint8Array | null {
+  try {
+    const binary = atob(base64);
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i += 1) bytes[i] = binary.charCodeAt(i);
+    return bytes;
+  } catch {
+    return null;
+  }
+}
+
 export async function uploadPattern(_state: UploadState, formData: FormData): Promise<UploadState> {
   if (!hasSupabaseConfig()) {
     return { message: "Connect Supabase before accepting uploads.", tone: "error" };
@@ -63,6 +76,23 @@ export async function uploadPattern(_state: UploadState, formData: FormData): Pr
   });
   if (storageError) return { message: storageError.message, tone: "error" };
 
+  // The looping preview clip is best-effort: skip it silently rather than
+  // failing the whole upload if it's missing, oversized, or fails to decode.
+  let previewMediaPath: string | null = null;
+  const previewMediaBase64 = String(formData.get("previewMediaBase64") ?? "");
+  const previewMediaType = String(formData.get("previewMediaType") ?? "video/webm").slice(0, 60);
+  if (previewMediaBase64) {
+    const bytes = base64ToBytes(previewMediaBase64);
+    if (bytes && bytes.byteLength > 0 && bytes.byteLength <= MAX_PREVIEW_MEDIA_BYTES) {
+      const candidatePath = `${user.id}/${crypto.randomUUID()}.webm`;
+      const { error: previewError } = await supabase.storage.from("pattern-previews").upload(candidatePath, bytes, {
+        contentType: previewMediaType || "video/webm",
+        upsert: false,
+      });
+      if (!previewError) previewMediaPath = candidatePath;
+    }
+  }
+
   const { error: insertError } = await supabase.from("patterns").insert({
     owner_id: user.id,
     title,
@@ -72,10 +102,13 @@ export async function uploadPattern(_state: UploadState, formData: FormData): Pr
     tags,
     storage_path: storagePath,
     preview_colors: projectColors(project),
+    preview_media_path: previewMediaPath,
+    preview_media_type: previewMediaPath ? previewMediaType : null,
   });
 
   if (insertError) {
     await supabase.storage.from("pattern-files").remove([storagePath]);
+    if (previewMediaPath) await supabase.storage.from("pattern-previews").remove([previewMediaPath]);
     return { message: insertError.message, tone: "error" };
   }
 

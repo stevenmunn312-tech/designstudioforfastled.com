@@ -14,6 +14,8 @@ type HandoffDraft = {
   patternJson: string;
   controller: string;
   ledCount: number;
+  previewMediaBase64?: string;
+  previewMediaType?: string;
   savedAt: number;
 };
 
@@ -75,6 +77,8 @@ export function UploadForm({ canUpload }: { canUpload: boolean }) {
   const [form, setForm] = useState<FormDraft>(blankForm);
   const [patternJson, setPatternJson] = useState("");
   const [fileName, setFileName] = useState("");
+  const [previewMediaBase64, setPreviewMediaBase64] = useState("");
+  const [previewMediaType, setPreviewMediaType] = useState("");
   const [handoffState, setHandoffState] = useState<"idle" | "restored" | "error">("idle");
 
   const applyDraft = (draft: HandoffDraft) => {
@@ -86,6 +90,8 @@ export function UploadForm({ canUpload }: { canUpload: boolean }) {
     setForm(details);
     setPatternJson(draft.patternJson);
     setFileName(draft.fileName);
+    setPreviewMediaBase64(draft.previewMediaBase64 ?? "");
+    setPreviewMediaType(draft.previewMediaType ?? "");
     setHandoffState("restored");
     return true;
   };
@@ -138,6 +144,8 @@ export function UploadForm({ canUpload }: { canUpload: boolean }) {
       <div className="form-section-title"><span>02</span><div><h2>Design Studio pattern</h2><p>The pattern graph powers the animated browser preview—no hardware settings needed.</p></div></div>
       {patternJson && <input type="hidden" name="patternJson" value={patternJson} />}
       {patternJson && <input type="hidden" name="patternFileName" value={fileName} />}
+      {previewMediaBase64 && <input type="hidden" name="previewMediaBase64" value={previewMediaBase64} />}
+      {previewMediaBase64 && <input type="hidden" name="previewMediaType" value={previewMediaType} />}
       <label className={`drop-zone ${patternJson ? "attached" : ""}`}>
         <input
           name="patternFile"
@@ -148,12 +156,20 @@ export function UploadForm({ canUpload }: { canUpload: boolean }) {
             const file = event.target.files?.[0];
             setPatternJson("");
             setFileName(file?.name ?? "");
+            setPreviewMediaBase64("");
+            setPreviewMediaType("");
             if (file) setHandoffState("idle");
           }}
         />
         {patternJson ? <CheckCircle2 size={28} /> : <UploadCloud size={28} />}
         <strong>{patternJson ? fileName : "Choose a Design Studio pattern"}</strong>
-        <span>{patternJson ? "Attached from the app · choose another file to replace it" : ".json · 2 MB max · used for the live preview"}</span>
+        <span>
+          {patternJson
+            ? previewMediaBase64
+              ? "Attached from the app, with a looping preview clip · choose another file to replace it"
+              : "Attached from the app · choose another file to replace it"
+            : ".json · 2 MB max · used for the live preview"}
+        </span>
         <FileCode2 className="drop-code" size={54} aria-hidden="true" />
       </label>
       {state.message && <p className={`form-message ${state.tone}`} aria-live="polite">{state.message}</p>}

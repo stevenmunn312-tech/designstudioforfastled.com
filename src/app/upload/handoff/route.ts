@@ -2,6 +2,7 @@ import { isSharedPattern } from "@/lib/shared-pattern";
 
 const DRAFT_KEY = "design-studio-community-handoff.v1";
 const MAX_PATTERN_BYTES = 2 * 1024 * 1024;
+const MAX_PREVIEW_MEDIA_BASE64_CHARS = Math.ceil((6 * 1024 * 1024 * 4) / 3);
 
 function htmlPage(body: string, status = 200) {
   return new Response(body, {
@@ -40,6 +41,10 @@ export async function POST(request: Request) {
     return errorPage("The transferred pattern is not valid JSON.");
   }
 
+  const previewMediaBase64Raw = String(formData.get("previewMediaBase64") ?? "");
+  const previewMediaBase64 = previewMediaBase64Raw.length <= MAX_PREVIEW_MEDIA_BASE64_CHARS ? previewMediaBase64Raw : "";
+  const previewMediaType = previewMediaBase64 ? String(formData.get("previewMediaType") ?? "").slice(0, 60) : "";
+
   const ledCount = Number(formData.get("ledCount"));
   const draft = {
     patternName: String(formData.get("patternName") ?? "Untitled Pattern").slice(0, 80),
@@ -47,6 +52,8 @@ export async function POST(request: Request) {
     patternJson,
     controller: String(formData.get("controller") ?? "Other").slice(0, 30),
     ledCount: Number.isInteger(ledCount) && ledCount > 0 ? ledCount : 256,
+    previewMediaBase64,
+    previewMediaType,
     savedAt: Date.now(),
   };
   const serializedDraft = JSON.stringify(draft);
