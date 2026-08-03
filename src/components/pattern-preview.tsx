@@ -87,11 +87,7 @@ function mixColor(colors: [number, number, number][], progress: number, white: n
   }) as [number, number, number];
 }
 
-function matrixSize(ledCount: number) {
-  const square = Math.round(Math.sqrt(ledCount));
-  if (square >= 8 && square <= 32 && square * square === ledCount) return square;
-  return ledCount <= 144 ? 12 : 16;
-}
+const MATRIX_SIZE = 32;
 
 const clamp01 = (value: number) => Math.max(0, Math.min(1, Number.isFinite(value) ? value : 0));
 const wave = (value: number) => 0.5 + 0.5 * Math.sin(value);
@@ -246,7 +242,7 @@ export function PatternPreview({
       if (width === 0 || height === 0) return;
       const config = profileRef.current;
       const time = runningRef.current ? timestamp / 1000 : 0.75;
-      const size = matrixSize(pattern.ledCount);
+      const size = MATRIX_SIZE;
       const gap = variant === "card" ? 2.5 : 4;
       const cell = Math.min((width - gap * (size + 1)) / size, (height - gap * (size + 1)) / size);
       const boardWidth = cell * size + gap * (size - 1);
@@ -328,7 +324,7 @@ export function PatternPreview({
       </div>
       <div className="live-preview-readout">
         <span><Sparkles size={11} /> {profile.effect}</span>
-        <span>{profile.nodeCount ? `${profile.nodeCount} nodes · ${profile.patchCount} patches` : `${matrixSize(pattern.ledCount)}×${matrixSize(pattern.ledCount)} matrix`}</span>
+        <span>{profile.nodeCount ? `${profile.nodeCount} nodes · ${profile.patchCount} patches` : `${MATRIX_SIZE}×${MATRIX_SIZE} matrix`}</span>
         <span><Radio size={11} /> Browser render</span>
       </div>
     </div>
