@@ -57,13 +57,16 @@ export class AudioEngine {
 
   private ctx: AudioContext | null = null
   private analyser: AnalyserNode | null = null
-  private micSource: AudioNode | null = null
+  private micSource: MediaStreamAudioSourceNode | null = null
+  private trackSource: MediaElementAudioSourceNode | null = null
+  private mediaElement: HTMLMediaElement | null = null
   private stream: MediaStream | null = null
   private timeBuf: Float32Array | null = null
   private analyzer: FastLedAudioAnalyzer | null = null
   private listeners = new Set<(data: AudioData) => void>()
   private rafId = 0
   private lifecycleVersion = 0
+  private sourceKind: 'mic' | 'track' | null = null
   // Per-frame spectrum output buffers, alternating: consumers (the audio store
   // and its subscribers) dedupe on array identity, so each frame must publish
   // a *different* array object — flipping between two reused buffers gives
@@ -83,7 +86,7 @@ export class AudioEngine {
   }
 
   async start(): Promise<void> {
-    if (this.active) return
+    if (this.active && this.sourceKind === 'mic') return
     this.stop()
     const version = ++this.lifecycleVersion
     const stream = await navigator.mediaDevices.getUserMedia({
@@ -95,19 +98,41 @@ export class AudioEngine {
       return
     }
     this.stream = stream
-    if (!this.ctx || this.ctx.state === 'closed') this.ctx = new AudioContext({ sampleRate: MIC_SAMPLE_RATE })
-    this.analyser = this.ctx.createAnalyser()
-    this.analyser.fftSize = FFT_SIZE
-    // Use AnalyserNode only as a time-domain sampler. The FastLED-ported
-    // analyzer owns windowing, FFT, and magnitude scaling so preview and
-    // firmware share the same transform.
-    this.analyser.smoothingTimeConstant = 0
-    this.micSource = this.ctx.createMediaStreamSource(this.stream)
-    this.micSource.connect(this.analyser)
-    this.timeBuf = new Float32Array(FFT_SIZE)
-    this.analyzer = new FastLedAudioAnalyzer(FFT_SIZE)
+    this.ensurePipeline()
+    const analyser = this.analyser
+    const ctx = this.ctx
+    if (!analyser || !ctx) return
+    this.micSource = ctx.createMediaStreamSource(this.stream)
+    this.micSource.connect(analyser)
+    this.sourceKind = 'mic'
     this.active = true
-    await this.ctx.resume()
+    await ctx.resume()
+    if (version !== this.lifecycleVersion) return
+    this.tick()
+  }
+
+  async startTrack(element: HTMLMediaElement): Promise<void> {
+    if (this.active && this.sourceKind === 'track' && this.mediaElement === element) {
+      await this.ctx?.resume()
+      if (!this.rafId) this.tick()
+      return
+    }
+    this.stop()
+    const version = ++this.lifecycleVersion
+    this.ensurePipeline()
+    const analyser = this.analyser
+    const ctx = this.ctx
+    if (!analyser || !ctx) return
+    if (!this.trackSource || this.mediaElement !== element) {
+      this.trackSource?.disconnect()
+      this.trackSource = ctx.createMediaElementSource(element)
+      this.mediaElement = element
+    }
+    this.trackSource.connect(analyser)
+    this.trackSource.connect(ctx.destination)
+    this.sourceKind = 'track'
+    this.active = true
+    await ctx.resume()
     if (version !== this.lifecycleVersion) return
     this.tick()
   }
@@ -117,34 +142,14 @@ export class AudioEngine {
     cancelAnimationFrame(this.rafId)
     this.rafId = 0
     this.micSource?.disconnect()
-    this.analyser?.disconnect()
+    this.trackSource?.disconnect()
     this.stream?.getTracks().forEach(t => t.stop())
-    this.analyser = null
     this.micSource = null
     this.stream = null
-    this.timeBuf = null
-    this.analyzer = null
+    this.sourceKind = null
     this.active = false
-    this.ctx?.close()
-    this.ctx = null
-    this.emit({
-      active: false,
-      nativeFastLed: false,
-      bass: 0,
-      mids: 0,
-      treble: 0,
-      beat: false,
-      bpm: 120,
-      spectrum: Array(NUM_SPECTRUM_BARS).fill(0),
-      detectorSpectrum: Array(NUM_SPECTRUM_BARS).fill(0),
-      previewSpectrum: Array(NUM_SPECTRUM_BARS).fill(0),
-      micActive: false,
-      micBass: 0,
-      micMids: 0,
-      micTreble: 0,
-      micSpectrum: Array(NUM_SPECTRUM_BARS).fill(0),
-      micDetectorSpectrum: Array(NUM_SPECTRUM_BARS).fill(0),
-    })
+    void this.ctx?.suspend()
+    this.emitInactive()
   }
 
   subscribe(cb: (data: AudioData) => void): () => void {
@@ -190,5 +195,44 @@ export class AudioEngine {
 
   private emit(data: AudioData) {
     this.listeners.forEach(cb => cb(data))
+  }
+
+  private ensurePipeline(): void {
+    if (!this.ctx || this.ctx.state === 'closed') {
+      this.ctx = new AudioContext({ sampleRate: MIC_SAMPLE_RATE })
+      this.trackSource = null
+      this.mediaElement = null
+    }
+    if (!this.analyser) {
+      this.analyser = this.ctx.createAnalyser()
+      this.analyser.fftSize = FFT_SIZE
+      // Use AnalyserNode only as a time-domain sampler. The FastLED-ported
+      // analyzer owns windowing, FFT, and magnitude scaling so preview and
+      // firmware share the same transform.
+      this.analyser.smoothingTimeConstant = 0
+    }
+    if (!this.timeBuf) this.timeBuf = new Float32Array(FFT_SIZE)
+    if (!this.analyzer) this.analyzer = new FastLedAudioAnalyzer(FFT_SIZE)
+  }
+
+  private emitInactive(): void {
+    this.emit({
+      active: false,
+      nativeFastLed: false,
+      bass: 0,
+      mids: 0,
+      treble: 0,
+      beat: false,
+      bpm: 120,
+      spectrum: Array(NUM_SPECTRUM_BARS).fill(0),
+      detectorSpectrum: Array(NUM_SPECTRUM_BARS).fill(0),
+      previewSpectrum: Array(NUM_SPECTRUM_BARS).fill(0),
+      micActive: false,
+      micBass: 0,
+      micMids: 0,
+      micTreble: 0,
+      micSpectrum: Array(NUM_SPECTRUM_BARS).fill(0),
+      micDetectorSpectrum: Array(NUM_SPECTRUM_BARS).fill(0),
+    })
   }
 }

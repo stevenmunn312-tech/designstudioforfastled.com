@@ -1,6 +1,6 @@
 "use client";
 
-import { Lock, Mic, MicOff, Pause, Play, Radio } from "lucide-react";
+import { Lock, Mic, MicOff, Pause, Play, Radio, Upload, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import type { Pattern } from "@/lib/patterns";
 import { sharedPatternGraph } from "@/lib/shared-pattern";
@@ -26,8 +26,28 @@ export function PatternPreview({
   const [source, setSource] = useState(pattern.previewUrl ? "Reading pattern" : "No pattern data");
   const [running, setRunning] = useState(true);
   const [trusted, setTrusted] = useState(false);
-  const { enabled: micEnabled, error: micError, enableMic, disableMic, overrideRef } = useLiveAudio();
+  const {
+    micEnabled,
+    trackLoaded,
+    trackPlaying,
+    trackName,
+    error: audioError,
+    enableMic,
+    disableMic,
+    loadTrack,
+    playTrack,
+    pauseTrack,
+    clearTrack,
+    overrideRef,
+  } = useLiveAudio();
   const audioReactive = variant === "detail" && pattern.tags.includes("Audio Reactive");
+  const audioStatus = micEnabled
+    ? "Mic live"
+    : trackPlaying
+      ? "Track live"
+      : trackLoaded
+        ? "Track ready"
+        : "Silent";
 
   useEffect(() => {
     if (!pattern.previewUrl) return;
@@ -93,21 +113,87 @@ export function PatternPreview({
             {running ? "Pause" : "Play"}
           </button>
         )}
-        {audioReactive && graph && (
-          <button
-            className="preview-transport preview-mic-toggle"
-            type="button"
-            onClick={() => (micEnabled ? disableMic() : void enableMic())}
-            aria-label={micEnabled ? "Disable microphone input" : "Enable microphone input"}
-          >
-            {micEnabled ? <Mic size={14} /> : <MicOff size={14} />}
-            {micEnabled ? "Mic on" : "Enable mic"}
-          </button>
-        )}
       </div>
-      {audioReactive && micError && <p className="preview-mic-error">{micError}</p>}
+      {audioReactive && graph && (
+        <div className="preview-audio-panel">
+          <div className="preview-audio-head">
+            <div>
+              <span>Audio source</span>
+              <strong>{audioStatus}</strong>
+            </div>
+            <span className="preview-audio-pill">Detail page only</span>
+          </div>
+          <div className="preview-audio-grid">
+            <section className={`preview-audio-card${micEnabled ? " is-active" : ""}`}>
+              <div className="preview-audio-label">
+                <Mic size={12} />
+                <span>Microphone</span>
+              </div>
+              <p>Drive reactive nodes from the room or your speakers.</p>
+              <button
+                className="preview-audio-button"
+                type="button"
+                onClick={() => (micEnabled ? disableMic() : void enableMic())}
+                aria-label={micEnabled ? "Disable microphone input" : "Enable microphone input"}
+              >
+                {micEnabled ? <MicOff size={13} /> : <Mic size={13} />}
+                {micEnabled ? "Disable mic" : "Enable mic"}
+              </button>
+            </section>
+            <section className={`preview-audio-card${trackLoaded ? " is-active" : ""}`}>
+              <div className="preview-audio-label">
+                <Play size={12} />
+                <span>Local track</span>
+              </div>
+              <p>{trackName ?? "Choose a local file to feed the live evaluator."}</p>
+              <div className="preview-audio-actions">
+                <label className="preview-audio-button preview-audio-upload">
+                  <Upload size={13} />
+                  {trackLoaded ? "Replace track" : "Choose track"}
+                  <input
+                    className="sr-only"
+                    type="file"
+                    accept="audio/*"
+                    onChange={(event) => {
+                      const file = event.currentTarget.files?.[0];
+                      event.currentTarget.value = "";
+                      if (file) void loadTrack(file);
+                    }}
+                  />
+                </label>
+                {trackLoaded && (
+                  <button
+                    className="preview-audio-button"
+                    type="button"
+                    onClick={() => (trackPlaying ? pauseTrack() : void playTrack())}
+                  >
+                    {trackPlaying ? <Pause size={13} /> : <Play size={13} />}
+                    {trackPlaying ? "Pause" : "Play"}
+                  </button>
+                )}
+                {trackLoaded && (
+                  <button className="preview-audio-button preview-audio-clear" type="button" onClick={clearTrack}>
+                    <X size={13} />
+                    Clear
+                  </button>
+                )}
+              </div>
+            </section>
+          </div>
+          <p className="preview-audio-note">
+            Audio controls stay on the pattern detail page so the homepage and gallery remain calm and silent while browsing.
+          </p>
+        </div>
+      )}
+      {audioReactive && audioError && <p className="preview-mic-error">{audioError}</p>}
       <div className="live-preview-readout">
         <span>{graph ? `${graph.nodes.length} nodes · ${graph.edges.length} patches` : "—"}</span>
+        {audioReactive && (
+          <span>
+            {micEnabled ? <Mic size={11} /> : trackLoaded ? <Play size={11} /> : <MicOff size={11} />}
+            {audioStatus}
+          </span>
+        )}
         <span><Radio size={11} /> Live render</span>
       </div>
     </div>

@@ -28,18 +28,20 @@ at a time in those spots.
   audio-analysis cadence.
 - `PatternPreviewMedia` — captured-clip `<video>` renderer, used on gallery
   cards; falls back to the live `PatternPreview` when a pattern has no clip.
-- Partial live-audio plumbing for the pattern detail page:
+- Live-audio plumbing for the pattern detail page:
   - `src/lib/evaluator/audio/fastledReactive.ts` — TypeScript port of
     FastLED's microphone analysis pipeline (conditioning, bands, beat detect,
     equalizer spectrum), feeding the evaluator's existing `AudioOverride`
     shape rather than inventing a site-only contract.
-  - `src/lib/evaluator/audio/audioEngine.ts` — browser mic capture +
-    `FastLedAudioAnalyzer` orchestration.
-  - `src/lib/use-live-audio.ts` — hook that owns mic lifecycle, exposes
-    `enableMic` / `disableMic`, and publishes the latest values through a ref.
-  - `PatternPreview` on the detail page now shows an enable/disable mic toggle
-    for `Audio Reactive` patterns and threads that ref into
-    `LivePatternCanvas`.
+  - `src/lib/evaluator/audio/audioEngine.ts` — browser mic capture, local
+    `<audio>` element analysis, and `FastLedAudioAnalyzer` orchestration.
+  - `src/lib/use-live-audio.ts` — hook that owns mic + local-track lifecycle,
+    exposes `enableMic` / `disableMic` plus track load/play/pause/clear
+    actions, and publishes the latest values through a ref.
+  - `PatternPreview` on the detail page now shows a dedicated audio control
+    panel for `Audio Reactive` patterns: microphone enable/disable, local
+    track selection, and clear status copy. This is intentionally **detail
+    page only**; homepage hero and gallery browsing stay silent.
 - Capture pipeline, two entry points into the same idea:
   - App-side: `sharePreviewCapture.ts` (Design-Studio-for-FastLED), wired into
     both share paths (Sidebar per-pattern share, MenuBar whole-project
@@ -55,26 +57,12 @@ at a time in those spots.
 
 ## Remaining work
 
-### 1. Finish Web Audio support: music player + broader preview behavior
-
-The site now has **live microphone input working on the pattern detail page**:
-`PatternPreview` can enable the mic for `Audio Reactive` patterns, and the live
-evaluator reads a real `AudioOverride` every frame. What is still missing is
-the rest of the audio story:
-
-- Build a simple player UI (play/pause, maybe a couple of bundled demo
-  tracks) for patterns that want music rather than a microphone.
-- Decide whether homepage-hero or gallery fallback previews should ever expose
-  audio, or whether detail-page-only is the permanent product rule.
-- Harden the current mic path with any UX polish it still needs
-  (permission-state messaging, clearer inactive/default state, etc.).
-
-`src/lib/evaluator/state/audioStore.ts` is still just the inert fallback store;
-the live audio path works because the evaluator prefers an explicit
+`src/lib/evaluator/state/audioStore.ts` is still just the inert fallback store.
+The live audio path works because the evaluator prefers an explicit
 `AudioOverride` whenever supplied. Keep it that way unless there is a strong
 reason to make the site host a global always-on audio store.
 
-### 2. Automated Studio Score / rating, computed by the site
+### 1. Automated Studio Score / rating, computed by the site
 
 `patternRating.ts` in the app (`ratePattern()`) is a deterministic
 frame-analysis heuristic — no LLM, no external API cost — that already reuses
@@ -94,7 +82,7 @@ started:
 was this session — check its actual dependency graph before assuming it's a
 clean copy-over.
 
-### 3. Node-graph mini-diagram on gallery cards
+### 2. Node-graph mini-diagram on gallery cards
 
 Wanted: a small "tidied" snapshot of the pattern's internal node graph on the
 left of each gallery card, the live/captured preview on the right, then
@@ -110,7 +98,7 @@ not saved as a file). Sketched, not built:
 
 No code or schema exists for this yet.
 
-### 4. Cut a packaged app release for the capture-at-share feature
+### 3. Cut a packaged app release for the capture-at-share feature
 
 `sharePreviewCapture.ts` and the rest of the share-time capture work are
 pushed to the app repo's `main`, but not built into a downloadable release —
@@ -120,7 +108,7 @@ entry + tag + wait for the packaging workflow + publish the draft release +
 update this site's `src/lib/app-release.ts`. Same process used for the v0.5.1
 cut earlier this session.
 
-### 5. Architecture debt: the evaluator is a vendored copy, not a shared package
+### 4. Architecture debt: the evaluator is a vendored copy, not a shared package
 
 `src/lib/evaluator/` here is a **copy** of files from
 `Design-Studio-for-FastLED/src/{state,audio,animartrix}/`, not a dependency.
@@ -131,7 +119,7 @@ package both repos depend on was explicitly deferred as its own, bigger
 project. Worth revisiting if drift becomes a real problem — e.g. a new node
 type added in the app quietly not rendering on the site.
 
-### 6. Not a bug: the `/review` backfill section is permanent
+### 5. Not a bug: the `/review` backfill section is permanent
 
 Once all pre-existing patterns have a backfilled clip, "Missing a looping
 preview clip" on `/review` will empty out on its own. It's a standing
