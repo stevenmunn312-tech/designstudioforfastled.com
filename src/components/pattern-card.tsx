@@ -1,4 +1,5 @@
-import { ArrowDownToLine, Heart } from "lucide-react";
+import Link from "next/link";
+import { ArrowDownToLine, ArrowUpRight, Heart } from "lucide-react";
 import type { CSSProperties } from "react";
 import type { Pattern } from "@/lib/patterns";
 
@@ -10,7 +11,7 @@ export function PatternCard({ pattern, compact = false }: { pattern: Pattern; co
   } as CSSProperties;
 
   return (
-    <article className={`pattern-card${compact ? " compact" : ""}`} style={style}>
+    <Link className={`pattern-card${compact ? " compact" : ""}`} href={`/patterns/${pattern.id}`} style={style} aria-label={`View ${pattern.title} pattern`}>
       <div className="pattern-preview" aria-hidden="true">
         <div className="preview-beam beam-one" />
         <div className="preview-beam beam-two" />
@@ -30,9 +31,9 @@ export function PatternCard({ pattern, compact = false }: { pattern: Pattern; co
         {!compact && <p className="pattern-description">{pattern.description}</p>}
         <div className="pattern-meta">
           <div>{pattern.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
-          <span><ArrowDownToLine size={14} aria-hidden="true" /> {pattern.downloads.toLocaleString()}</span>
+          <span><ArrowDownToLine size={14} aria-hidden="true" /> {pattern.downloads.toLocaleString()} <ArrowUpRight className="pattern-open" size={13} aria-hidden="true" /></span>
         </div>
       </div>
-    </article>
+    </Link>
   );
 }

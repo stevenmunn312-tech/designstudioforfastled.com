@@ -85,6 +85,8 @@ on conflict (user_id) do nothing;
 
 Replace the example address with the account that should review patterns. Reviewers can inspect private files, approve a pattern for immediate publication, or reject it. Regular uploaders cannot grant themselves moderator access or publish their own submissions. No secret or service-role key is used by the website.
 
+The third migration allows public downloads only when the matching pattern is both approved and published. Detail pages create short-lived signed links; pending and rejected files remain private.
+
 ## 5. Checks
 
 ```bash

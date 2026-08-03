@@ -6,6 +6,7 @@ A standalone community website for publishing, discovering, and remixing FastLED
 
 - Branded, responsive homepage
 - Searchable and filterable pattern gallery
+- Individual pattern pages with hardware notes and secure downloads
 - Supabase email/password authentication flow
 - Authenticated pattern upload with private Supabase Storage
 - Secure moderator review workbench with approve/reject controls
