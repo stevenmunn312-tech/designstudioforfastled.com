@@ -1,10 +1,26 @@
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, FileJson2, GitFork, Radio, ScanLine, UploadCloud, Workflow } from "lucide-react";
+import {
+  Apple,
+  ArrowRight,
+  Boxes,
+  CheckCircle2,
+  Download,
+  FileJson2,
+  GitFork,
+  Monitor,
+  ScanLine,
+  Terminal,
+  UploadCloud,
+  Workflow,
+} from "lucide-react";
 import { PatternCard } from "@/components/pattern-card";
 import { PatternPreview } from "@/components/pattern-preview";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { getPublishedPatterns } from "@/lib/published-patterns";
+import { appRelease, downloadTargets } from "@/lib/app-release";
+
+const downloadIcons = { windows: Monitor, macos: Apple, linux: Terminal } as const;
 
 export const dynamic = "force-dynamic";
 
@@ -18,18 +34,19 @@ export default async function Home() {
       <main className="studio-home">
         <section className="studio-hero shell">
           <div className="studio-hero-copy">
-            <p className="studio-kicker"><span /> Community patch bay</p>
-            <h1>Create. Share.<br /><em>Illuminate.</em></h1>
+            <p className="studio-kicker"><span /> Free · node-based LED design</p>
+            <h1>Design LED shows.<br /><em>Flash real hardware.</em></h1>
             <p>
-              The home for projects made in Design Studio for FastLED—rendered live in your browser, reviewed, and ready to learn from.
+              Design Studio for FastLED is a live, node-based creative environment for LED strips, matrices, and panels. Wire up patterns, palettes, audio, and effects, watch the result move instantly, then generate the same design as FastLED C++ and flash it to your controller.
             </p>
             <div className="hero-actions">
-              <Link className="button button-gradient" href="/patterns">Browse patterns <ArrowRight size={17} /></Link>
-              <Link className="button button-outline" href="/upload"><UploadCloud size={16} /> Upload project</Link>
+              <a className="button button-gradient" href="#download">Download the app <Download size={17} /></a>
+              <Link className="button button-outline" href="/patterns">Browse community patterns</Link>
             </div>
             <div className="hero-trust">
-              <span><CheckCircle2 size={13} /> Reviewed before publishing</span>
-              <span><Radio size={13} /> Animated in the browser</span>
+              <span><CheckCircle2 size={13} /> Public beta</span>
+              <span><Boxes size={13} /> 151 modules</span>
+              <span><Monitor size={13} /> Windows · macOS · Linux</span>
             </div>
           </div>
 
@@ -49,6 +66,40 @@ export default async function Home() {
         <div className="studio-signal-strip" aria-hidden="true">
           <span className="rail-lime" /> INPUT <i /> AUDIO <span className="rail-green" /> SIGNALS <i /> COLOR <span className="rail-cyan" /> PATTERNS <i /> FIELDS <span className="rail-blue" /> EFFECTS <i /> SHOW <span className="rail-magenta" /> OUTPUT
         </div>
+
+        <section className="studio-section download-section shell" id="download">
+          <div className="studio-section-heading">
+            <div>
+              <p className="studio-kicker"><span /> Get the app</p>
+              <h2>Portable desktop<br /><em>beta, free to run.</em></h2>
+            </div>
+            <div>
+              <p>Pick an archive for your operating system, extract it, and launch Design Studio for FastLED—no install, no Node.js or Python required.</p>
+              <a className="studio-text-link" href={appRelease.releasesUrl} target="_blank" rel="noreferrer">All releases &amp; source <ArrowRight size={14} /></a>
+            </div>
+          </div>
+          <div className="download-grid">
+            {downloadTargets.map((target) => {
+              const Icon = downloadIcons[target.id];
+              return (
+                <article className="download-card" key={target.id}>
+                  <div className="download-card-icon"><Icon size={22} /></div>
+                  <h3>{target.label}</h3>
+                  <p>{target.detail}</p>
+                  <a className="button button-outline" href={target.url}>
+                    <Download size={15} /> Download v{appRelease.version}
+                  </a>
+                  {"secondary" in target && target.secondary && (
+                    <a className="download-secondary" href={target.secondary.url}>{target.secondary.label}</a>
+                  )}
+                </article>
+              );
+            })}
+          </div>
+          <p className="download-note">
+            Public beta archives are not yet code-signed or notarized—only run builds downloaded from the official release page above. Prefer to build it yourself? <a href={appRelease.sourceUrl} target="_blank" rel="noreferrer">Run from source on GitHub</a>.
+          </p>
+        </section>
 
         <section className="studio-section shell">
           <div className="studio-section-heading">

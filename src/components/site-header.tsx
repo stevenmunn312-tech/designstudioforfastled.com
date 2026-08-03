@@ -10,7 +10,7 @@ export function SiteHeader() {
         <em>for FastLED</em>
       </Link>
       <nav className="site-nav" aria-label="Main navigation">
-        <Link href="/">Home</Link>
+        <Link href="/#download">Download</Link>
         <Link href="/patterns">Patterns</Link>
         <Link href="/upload">Upload project</Link>
       </nav>
