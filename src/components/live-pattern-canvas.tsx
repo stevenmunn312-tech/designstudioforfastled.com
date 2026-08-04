@@ -53,6 +53,18 @@ export function LivePatternCanvas({
   // that leak, the same reasoning the app's NodePreview.tsx pause-when-off-
   // screen behavior is built on.
   const onScreenRef = useRef(true);
+  // The graph reaches the render loop through a ref, not through the effect's
+  // dependency list. A canvas hands out exactly one WebGL context for its whole
+  // life, so tearing the renderer down and rebuilding it on this canvas is not
+  // possible — and the graph *always* changes once, when the pattern fetch
+  // resolves and replaces the empty placeholder arrays. Keying the renderer on
+  // it meant every preview rebuilt itself at that moment; it also pointlessly
+  // recompiled the shader for a change the GPU side does not care about.
+  const graphRef = useRef({ nodes, edges, groups, trusted });
+
+  useEffect(() => {
+    graphRef.current = { nodes, edges, groups, trusted };
+  }, [nodes, edges, groups, trusted]);
 
   useEffect(() => {
     runningRef.current = running;
@@ -139,9 +151,10 @@ export function LivePatternCanvas({
       if (renderer?.isLost) return;
       const tick = elapsedSec * 60;
 
-      const frame = evaluateSharedPattern(nodes, edges, tick, GRID, GRID, {
-        groups,
-        trusted,
+      const graph = graphRef.current;
+      const frame = evaluateSharedPattern(graph.nodes, graph.edges, tick, GRID, GRID, {
+        groups: graph.groups,
+        trusted: graph.trusted,
         audioOverride: audioOverride?.current ?? null,
         // Safe here specifically: the frame is read synchronously below and
         // the reference is dropped before the next call, unlike a capture
@@ -179,10 +192,11 @@ export function LivePatternCanvas({
       intersection.disconnect();
       renderer?.destroy();
     };
-    // audioOverride is a ref — read fresh via .current every frame, its
-    // identity is stable, and it must not restart this effect.
+    // Mount-once, deliberately. The renderer is bound to this canvas element
+    // for its lifetime (see graphRef above and destroy()'s note), and both the
+    // graph and audioOverride are read fresh from refs every frame.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [nodes, edges, groups, trusted]);
+  }, []);
 
   return (
     <canvas

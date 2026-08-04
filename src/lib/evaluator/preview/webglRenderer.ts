@@ -359,7 +359,20 @@ export class WebGLLEDRenderer {
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4)
   }
 
-  destroy(): void {
+  /**
+   * `releaseContext` hands the GPU context back immediately instead of waiting
+   * for the canvas to be garbage collected. ONLY pass it when the canvas itself
+   * is being thrown away with this renderer.
+   *
+   * It is destructive and irreversible for the element: a canvas hands out
+   * exactly one context object for its whole life, so after loseContext() every
+   * later getContext('webgl') returns that same dead context and the element can
+   * never draw again. Releasing here by default blanked every live preview in
+   * production — the component's effect legitimately re-runs when the pattern
+   * fetch resolves and the graph arrives, which tore the context down on a
+   * canvas React then reused. React's dev-mode double-invoke does the same.
+   */
+  destroy({ releaseContext = false }: { releaseContext?: boolean } = {}): void {
     if (this.destroyed) return
     this.destroyed = true
     this.canvas.removeEventListener('webglcontextlost', this.onLost)
@@ -371,11 +384,7 @@ export class WebGLLEDRenderer {
       this.gl.deleteBuffer(this.buffer)
       this.gl.deleteProgram(this.program)
     }
-    // Hand the context back rather than waiting for GC: contexts are a capped
-    // per-page resource, so a preview that unmounts (a card filtered out of the
-    // gallery, a route change) must not keep one of the 16 slots warm and push
-    // a still-mounted sibling into the force-lost set.
-    this.gl.getExtension('WEBGL_lose_context')?.loseContext()
+    if (releaseContext) this.gl.getExtension('WEBGL_lose_context')?.loseContext()
   }
 
   private buildProgram(vertSrc: string, fragSrc: string): WebGLProgram {

@@ -101,7 +101,9 @@ export async function generatePreviewClip(
     // push one of them into the force-lost set, and every repeat capture would
     // take another slot.
     const finish = (blob: Blob | null) => {
-      renderer?.destroy();
+      // Safe to release here, unlike in the live preview: this canvas is
+      // off-DOM, created for this one capture, and dropped with the renderer.
+      renderer?.destroy({ releaseContext: true });
       renderer = null;
       resolve(blob);
     };
