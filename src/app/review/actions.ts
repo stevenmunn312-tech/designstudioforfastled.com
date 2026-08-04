@@ -76,8 +76,6 @@ export async function updatePatternDetails(
 
   const title = String(formData.get("title") ?? "").trim();
   const description = String(formData.get("description") ?? "").trim();
-  const controller = String(formData.get("controller") ?? "").trim();
-  const ledCount = Number(formData.get("ledCount"));
   const tags = String(formData.get("tags") ?? "")
     .split(",")
     .map((tag) => tag.trim())
@@ -93,12 +91,6 @@ export async function updatePatternDetails(
   }
   if (description.length < 10 || description.length > 800) {
     return { message: "Description must be between 10 and 800 characters.", tone: "error" };
-  }
-  if (!controller) {
-    return { message: "Controller cannot be empty.", tone: "error" };
-  }
-  if (!Number.isInteger(ledCount) || ledCount < 1 || ledCount > 100000) {
-    return { message: "LED count must be a whole number between 1 and 100000.", tone: "error" };
   }
   if (!colors.every((color) => HEX_COLOR.test(color))) {
     return { message: "Each preview colour must be a #rrggbb hex value.", tone: "error" };
@@ -116,8 +108,6 @@ export async function updatePatternDetails(
     pattern_id: patternId,
     new_title: title,
     new_description: description,
-    new_controller: controller,
-    new_led_count: ledCount,
     new_tags: tags,
     new_preview_colors: colors,
     new_studio_score: studioScore,

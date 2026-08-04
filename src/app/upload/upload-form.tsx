@@ -12,8 +12,6 @@ type HandoffDraft = {
   patternName: string;
   fileName: string;
   patternJson: string;
-  controller: string;
-  ledCount: number;
   previewMediaBase64?: string;
   personalRating?: number | null;
   savedAt: number;
@@ -21,13 +19,11 @@ type HandoffDraft = {
 
 type FormDraft = {
   title: string;
-  controller: string;
-  ledCount: string;
   description: string;
   tags: string;
 };
 
-const blankForm: FormDraft = { title: "", controller: "", ledCount: "", description: "", tags: "" };
+const blankForm: FormDraft = { title: "", description: "", tags: "" };
 
 function isHandoffDraft(value: unknown): value is HandoffDraft {
   if (!value || typeof value !== "object") return false;
@@ -35,8 +31,6 @@ function isHandoffDraft(value: unknown): value is HandoffDraft {
   return typeof draft.patternName === "string"
     && typeof draft.fileName === "string"
     && typeof draft.patternJson === "string"
-    && typeof draft.controller === "string"
-    && Number.isInteger(draft.ledCount)
     && typeof draft.savedAt === "number";
 }
 
@@ -62,8 +56,6 @@ function patternDetails(draft: HandoffDraft): FormDraft | null {
     const effectCopy = effect ? ` Its live preview is driven by the ${effect} effect.` : "";
     return {
       title,
-      controller: ["ESP32", "ESP8266", "Arduino", "RP2040", "Teensy", "Other"].includes(draft.controller) ? draft.controller : "Other",
-      ledCount: String(Math.max(1, draft.ledCount)),
       description: `Built in Design Studio for FastLED with ${nodes.length} ${nodes.length === 1 ? "node" : "nodes"} and ${edges.length} ${edges.length === 1 ? "patch" : "patches"}.${effectCopy}`,
       tags: [...new Set(tags)].slice(0, 6).join(", "),
     };
@@ -135,8 +127,6 @@ export function UploadForm({ canUpload }: { canUpload: boolean }) {
       <div className="form-section-title"><span>01</span><div><h2>Pattern details</h2><p>Help another maker know what they are looking at.</p></div></div>
       <div className="form-grid">
         <label className="wide"><span>Pattern title</span><input name="title" value={form.title} onChange={(event) => update("title", event.target.value)} placeholder="e.g. Aurora Ribbon" required /></label>
-        <label><span>Controller</span><select name="controller" value={form.controller} onChange={(event) => update("controller", event.target.value)} required><option value="" disabled>Select board</option><option>ESP32</option><option>ESP8266</option><option>Arduino</option><option>RP2040</option><option>Teensy</option><option>Other</option></select></label>
-        <label><span>LED count</span><input name="ledCount" value={form.ledCount} onChange={(event) => update("ledCount", event.target.value)} type="number" min="1" max="100000" placeholder="144" required /></label>
         <label className="wide"><span>Description</span><textarea name="description" value={form.description} onChange={(event) => update("description", event.target.value)} rows={4} placeholder="Describe the effect, timing, and anything the next maker should know." required /></label>
         <label className="wide"><span>Tags <small>comma separated</small></span><input name="tags" value={form.tags} onChange={(event) => update("tags", event.target.value)} placeholder="Ambient, Noise, RGBW" /></label>
       </div>

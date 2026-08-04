@@ -8,8 +8,6 @@ type PatternRow = {
   id: string;
   title: string;
   description: string;
-  controller: string;
-  led_count: number;
   tags: string[] | null;
   preview_colors: unknown;
   likes: number | null;
@@ -36,7 +34,7 @@ export async function getPublishedPatterns(limit?: number): Promise<Pattern[]> {
     // studio_score is needed even though no card displays it: the moderator
     // edit form on a card submits every field, so omitting it here would send
     // a blank score and wipe the stored one on the first save.
-    .select("id,title,description,controller,led_count,tags,preview_colors,likes,downloads,created_at,storage_path,preview_media_path,studio_score,profiles(display_name)")
+    .select("id,title,description,tags,preview_colors,likes,downloads,created_at,storage_path,preview_media_path,studio_score,profiles(display_name)")
     .eq("published", true)
     // Explicit, not just RLS: the select policy still returns an archived row
     // to its owner and to any moderator, so without this an archived pattern
@@ -58,8 +56,6 @@ export async function getPublishedPatterns(limit?: number): Promise<Pattern[]> {
       title: row.title,
       description: row.description,
       author: profile?.display_name ?? "Community maker",
-      controller: row.controller,
-      ledCount: row.led_count,
       tags: row.tags ?? [],
       colors: colorsFrom(row.preview_colors),
       likes: row.likes ?? 0,

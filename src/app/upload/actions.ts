@@ -48,14 +48,12 @@ export async function uploadPattern(_state: UploadState, formData: FormData): Pr
 
   const title = String(formData.get("title") ?? "").trim();
   const description = String(formData.get("description") ?? "").trim();
-  const controller = String(formData.get("controller") ?? "").trim();
-  const ledCount = Number(formData.get("ledCount"));
   const tags = String(formData.get("tags") ?? "").split(",").map((tag) => tag.trim()).filter(Boolean).slice(0, 6);
   const selectedFile = formData.get("patternFile");
   const transferredJson = String(formData.get("patternJson") ?? "");
   const transferredName = String(formData.get("patternFileName") ?? "studio-pattern.fastled-pattern.json");
 
-  if (!title || !description || !controller || !Number.isInteger(ledCount) || ledCount < 1 || ledCount > 100000) {
+  if (!title || !description) {
     return { message: "Complete the required pattern details.", tone: "error" };
   }
   const file = selectedFile instanceof File && selectedFile.size > 0
@@ -117,8 +115,6 @@ export async function uploadPattern(_state: UploadState, formData: FormData): Pr
     owner_id: user.id,
     title,
     description,
-    controller,
-    led_count: ledCount,
     tags,
     storage_path: storagePath,
     preview_colors: projectColors(project),

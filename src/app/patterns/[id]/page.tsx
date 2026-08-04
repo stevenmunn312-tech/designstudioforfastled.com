@@ -7,9 +7,7 @@ import {
   ArrowLeft,
   Award,
   CalendarDays,
-  Cpu,
   FileCode2,
-  Gauge,
   ShieldCheck,
   UserRound,
 } from "lucide-react";
@@ -44,7 +42,7 @@ const getPattern = cache(async (id: string): Promise<PatternDetail | null> => {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("patterns")
-    .select("id,title,description,controller,led_count,tags,preview_colors,likes,downloads,created_at,storage_path,studio_score,profiles(display_name)")
+    .select("id,title,description,tags,preview_colors,likes,downloads,created_at,storage_path,studio_score,profiles(display_name)")
     .eq("id", id)
     .eq("published", true)
     // See getPublishedPatterns: RLS alone still shows an archived pattern to
@@ -76,8 +74,6 @@ const getPattern = cache(async (id: string): Promise<PatternDetail | null> => {
     title: data.title,
     description: data.description,
     author: profile?.display_name ?? "Community maker",
-    controller: data.controller,
-    ledCount: data.led_count,
     tags: data.tags ?? [],
     colors,
     likes: data.likes ?? 0,
@@ -142,8 +138,6 @@ export default async function PatternDetailPage({ params }: PatternPageProps) {
               <h2>Open the graph.<br />Make it yours.</h2>
               <p>{pattern.description}</p>
               <div className="detail-specs">
-                <div><Cpu size={18} aria-hidden="true" /><span>Controller</span><strong>{pattern.controller}</strong></div>
-                <div><Gauge size={18} aria-hidden="true" /><span>LED count</span><strong>{pattern.ledCount.toLocaleString()}</strong></div>
                 <div><UserRound size={18} aria-hidden="true" /><span>Maker</span><strong>{pattern.author}</strong></div>
                 <div><CalendarDays size={18} aria-hidden="true" /><span>Published</span><strong>{publishedDate}</strong></div>
                 {pattern.studioScore != null && (

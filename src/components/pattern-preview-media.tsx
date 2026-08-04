@@ -66,7 +66,6 @@ export function PatternPreviewMedia({
         <div className="preview-scanline" aria-hidden="true" />
       </div>
       <div className="live-preview-readout">
-        <span>{pattern.ledCount.toLocaleString()} LEDs</span>
         <span><Radio size={11} /> Captured clip</span>
       </div>
     </div>

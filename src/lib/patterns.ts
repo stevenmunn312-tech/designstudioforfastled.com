@@ -3,8 +3,6 @@ export type Pattern = {
   title: string;
   description: string;
   author: string;
-  controller: string;
-  ledCount: number;
   tags: string[];
   colors: [string, string, string];
   likes: number;
@@ -27,8 +25,6 @@ export const starterPatterns: Pattern[] = [
     title: "Aurora Ribbon",
     description: "Slow-moving polar light with a soft cyan edge and violet core.",
     author: "Mira Chen",
-    controller: "ESP32",
-    ledCount: 144,
     tags: ["Ambient", "Noise"],
     colors: ["#61e4ff", "#876bff", "#ff78b7"],
     likes: 284,
@@ -40,8 +36,6 @@ export const starterPatterns: Pattern[] = [
     title: "Ember Trail",
     description: "A low, warm pulse that blooms into sparks when movement accelerates.",
     author: "Jo Calder",
-    controller: "RP2040",
-    ledCount: 96,
     tags: ["Reactive", "Warm"],
     colors: ["#ff7048", "#ffb454", "#fff0b5"],
     likes: 192,
@@ -53,8 +47,6 @@ export const starterPatterns: Pattern[] = [
     title: "Tidal Clock",
     description: "Overlapping blue waves show the passing hour without a screen.",
     author: "Elliot Park",
-    controller: "ESP8266",
-    ledCount: 60,
     tags: ["Utility", "Ocean"],
     colors: ["#2667ff", "#61e4ff", "#d8fcff"],
     likes: 161,
@@ -66,8 +58,6 @@ export const starterPatterns: Pattern[] = [
     title: "Orchid Rain",
     description: "Fine violet droplets break across a dark matrix and fade to cobalt.",
     author: "Nadia Singh",
-    controller: "ESP32",
-    ledCount: 256,
     tags: ["Matrix", "Generative"],
     colors: ["#c879ff", "#876bff", "#3b5bdb"],
     likes: 338,
@@ -79,8 +69,6 @@ export const starterPatterns: Pattern[] = [
     title: "Sunrise Sequence",
     description: "A gentle bedside fade calibrated for warm-white RGBW strips.",
     author: "Theo Brooks",
-    controller: "Arduino",
-    ledCount: 72,
     tags: ["Home", "RGBW"],
     colors: ["#ff8b5e", "#ffcf70", "#fff3d1"],
     likes: 125,
@@ -92,8 +80,6 @@ export const starterPatterns: Pattern[] = [
     title: "Signal Garden",
     description: "Audio peaks grow into saturated stems across a 16×16 panel.",
     author: "Ari Okafor",
-    controller: "Teensy",
-    ledCount: 256,
     tags: ["Audio", "Matrix"],
     colors: ["#5cffb0", "#61e4ff", "#ff78b7"],
     likes: 276,

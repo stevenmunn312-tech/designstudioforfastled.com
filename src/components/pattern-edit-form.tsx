@@ -9,8 +9,6 @@ export type EditablePattern = {
   id: string;
   title: string;
   description: string;
-  controller: string;
-  ledCount: number;
   tags: string[];
   colors: string[];
   studioScore: number | null;
@@ -47,14 +45,6 @@ export function PatternEditForm({
         <textarea name="description" defaultValue={pattern.description} maxLength={800} rows={3} required />
       </label>
       <div className="manage-edit-row">
-        <label>
-          <span>Controller</span>
-          <input name="controller" defaultValue={pattern.controller} required />
-        </label>
-        <label>
-          <span>LED count</span>
-          <input name="ledCount" type="number" min={1} max={100000} defaultValue={pattern.ledCount} required />
-        </label>
         <label>
           <span>Studio Score</span>
           <input

@@ -9,8 +9,6 @@ export type ManagedPattern = {
   id: string;
   title: string;
   description: string;
-  controller: string;
-  led_count: number;
   tags: string[] | null;
   preview_colors: string[] | null;
   status: string;
@@ -115,8 +113,6 @@ function ManageRow({ pattern }: { pattern: ManagedPattern }) {
             id: pattern.id,
             title: pattern.title,
             description: pattern.description,
-            controller: pattern.controller,
-            ledCount: pattern.led_count,
             tags: pattern.tags ?? [],
             colors: pattern.preview_colors ?? [],
             studioScore: pattern.studio_score,
@@ -140,7 +136,7 @@ export function ManagePatterns({ patterns }: { patterns: ManagedPattern[] }) {
     const needle = query.trim().toLowerCase();
     if (!needle) return patterns;
     return patterns.filter((pattern) =>
-      [pattern.title, pattern.author, pattern.controller, pattern.status, ...(pattern.tags ?? [])]
+      [pattern.title, pattern.author, pattern.status, ...(pattern.tags ?? [])]
         .some((value) => value.toLowerCase().includes(needle)));
   }, [patterns, query]);
 
@@ -154,7 +150,7 @@ export function ManagePatterns({ patterns }: { patterns: ManagedPattern[] }) {
       <label className="search-field manage-search">
         <Search size={16} aria-hidden="true" />
         <span className="sr-only">Search all patterns</span>
-        <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search by title, maker, controller, tag" />
+        <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search by title, maker, tag" />
       </label>
       {visible.length === 0 ? (
         <p className="manage-empty">No patterns match that search.</p>

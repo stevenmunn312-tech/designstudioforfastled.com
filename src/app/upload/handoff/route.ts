@@ -47,14 +47,11 @@ export async function POST(request: Request) {
   // client-declared type would only reintroduce something to be ignored.
   const previewMediaBase64 = previewMediaBase64Raw.length <= MAX_PREVIEW_MEDIA_BASE64_CHARS ? previewMediaBase64Raw : "";
 
-  const ledCount = Number(formData.get("ledCount"));
   const personalRating = Number(formData.get("personalRating"));
   const draft = {
     patternName: String(formData.get("patternName") ?? "Untitled Pattern").slice(0, 80),
     fileName: String(formData.get("fileName") ?? "studio-pattern.fastled-pattern.json").slice(0, 160),
     patternJson,
-    controller: String(formData.get("controller") ?? "Other").slice(0, 30),
-    ledCount: Number.isInteger(ledCount) && ledCount > 0 ? ledCount : 256,
     previewMediaBase64,
     personalRating: Number.isInteger(personalRating) && personalRating >= 1 && personalRating <= 5 ? personalRating : null,
     savedAt: Date.now(),

@@ -25,7 +25,6 @@ export function PatternPreviewPlaceholder({ pattern }: { pattern: Pattern }) {
         <div className="preview-scanline" aria-hidden="true" />
       </div>
       <div className="live-preview-readout">
-        <span>{pattern.ledCount.toLocaleString()} LEDs</span>
         <span><Radio size={11} /> Awaiting capture</span>
       </div>
     </div>

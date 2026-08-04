@@ -38,7 +38,6 @@ export function PatternCard({
         ) : (
           <PatternPreviewPlaceholder pattern={pattern} />
         )}
-        <span className="preview-device">{pattern.controller} · {pattern.ledCount} LEDs</span>
       </div>
       <div className="pattern-copy">
         <div className="pattern-heading">
@@ -61,8 +60,6 @@ export function PatternCard({
             id: pattern.id,
             title: pattern.title,
             description: pattern.description,
-            controller: pattern.controller,
-            ledCount: pattern.ledCount,
             tags: pattern.tags,
             colors: pattern.colors,
             studioScore: pattern.studioScore ?? null,

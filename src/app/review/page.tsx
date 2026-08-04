@@ -23,8 +23,6 @@ type PendingPattern = {
   id: string;
   title: string;
   description: string;
-  controller: string;
-  led_count: number;
   tags: string[] | null;
   storage_path: string;
   preview_colors: string[] | null;
@@ -88,7 +86,7 @@ export default async function ReviewPage() {
 
   const { data, error } = await supabase
     .from("patterns")
-    .select("id,title,description,controller,led_count,tags,storage_path,preview_colors,created_at,profiles(display_name)")
+    .select("id,title,description,tags,storage_path,preview_colors,created_at,profiles(display_name)")
     .eq("status", "pending")
     .order("created_at", { ascending: true });
 
@@ -143,7 +141,7 @@ export default async function ReviewPage() {
   // edits metadata and never needs the file itself.
   const { data: managedData } = await supabase
     .from("patterns")
-    .select("id,title,description,controller,led_count,tags,preview_colors,status,published,archived,studio_score,likes,downloads,created_at,profiles(display_name)")
+    .select("id,title,description,tags,preview_colors,status,published,archived,studio_score,likes,downloads,created_at,profiles(display_name)")
     .order("created_at", { ascending: false });
 
   const managedPatterns: ManagedPattern[] = (managedData ?? []).map((row) => {
@@ -152,8 +150,6 @@ export default async function ReviewPage() {
       id: row.id,
       title: row.title,
       description: row.description,
-      controller: row.controller,
-      led_count: row.led_count,
       tags: row.tags,
       preview_colors: row.preview_colors,
       status: row.status,
@@ -209,8 +205,6 @@ export default async function ReviewPage() {
                       <time dateTime={pattern.created_at}><Clock3 size={13} aria-hidden="true" /> {new Intl.DateTimeFormat("en-AU", { dateStyle: "medium", timeStyle: "short" }).format(new Date(pattern.created_at))}</time>
                     </div>
                     <div className="review-specs">
-                      <div><span>Controller</span><strong>{pattern.controller}</strong></div>
-                      <div><span>LED count</span><strong>{pattern.led_count.toLocaleString()}</strong></div>
                       <div><span>Tags</span><strong>{pattern.tags?.join(" · ") || "None"}</strong></div>
                     </div>
                     <p className="review-description">{pattern.description}</p>
@@ -220,8 +214,6 @@ export default async function ReviewPage() {
                         title: pattern.title,
                         description: pattern.description,
                         author: profile?.display_name ?? "Community maker",
-                        controller: pattern.controller,
-                        ledCount: pattern.led_count,
                         tags: pattern.tags ?? [],
                         colors: [colors[0] ?? "#32e5ff", colors[1] ?? "#4037ff", colors[2] ?? "#ef35ed"],
                         likes: 0,
