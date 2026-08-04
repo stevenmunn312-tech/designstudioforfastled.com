@@ -8,6 +8,17 @@ import type { StudioNode, StudioEdge } from "@/lib/evaluator/state/graphStore";
 import type { AudioOverride, GroupRegistry } from "@/lib/evaluator/state/graphEvaluator";
 
 const GRID = 32;
+// Evaluating the graph and redrawing it (renderGridFrame's ~2000 drawImage
+// calls at 32x32) on every display refresh — 60Hz, or 120-144Hz on plenty of
+// monitors — is real, sustained main-thread work that competes with the
+// browser's own scroll handling. This is a decorative background preview,
+// not something that needs to track the display's native refresh rate;
+// throttling the actual evaluate+draw work to a fixed cadence cuts that cost
+// well over half on a 60Hz display and more on higher-refresh ones, while
+// requestAnimationFrame keeps firing every real frame so scrolling itself
+// stays smooth.
+const TARGET_FPS = 30;
+const MIN_FRAME_INTERVAL_MS = 1000 / TARGET_FPS;
 
 export function LivePatternCanvas({
   nodes,
@@ -73,6 +84,7 @@ export function LivePatternCanvas({
     intersection.observe(canvas);
 
     let lastTimestamp: number | null = null;
+    let lastDrawTimestamp = 0;
     let elapsedSec = 0;
     const render = (timestamp: number) => {
       raf = window.requestAnimationFrame(render);
@@ -87,6 +99,11 @@ export function LivePatternCanvas({
       if (runningRef.current) elapsedSec += (timestamp - lastTimestamp) / 1000;
       lastTimestamp = timestamp;
       if (width === 0 || height === 0) return;
+      // elapsedSec keeps advancing every real tick above (so motion timing
+      // stays accurate and resuming from pause/off-screen isn't jumpy) — only
+      // the expensive evaluate+draw work itself is throttled.
+      if (timestamp - lastDrawTimestamp < MIN_FRAME_INTERVAL_MS) return;
+      lastDrawTimestamp = timestamp;
       const tick = elapsedSec * 60;
 
       const pixel = Math.min(width, height) / GRID;
