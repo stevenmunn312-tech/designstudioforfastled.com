@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import {
   ArrowDownToLine,
   ArrowLeft,
+  Award,
   CalendarDays,
   Cpu,
   FileCode2,
@@ -43,7 +44,7 @@ const getPattern = cache(async (id: string): Promise<PatternDetail | null> => {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("patterns")
-    .select("id,title,description,controller,led_count,tags,preview_colors,likes,downloads,created_at,storage_path,profiles(display_name)")
+    .select("id,title,description,controller,led_count,tags,preview_colors,likes,downloads,created_at,storage_path,studio_score,profiles(display_name)")
     .eq("id", id)
     .eq("published", true)
     .maybeSingle();
@@ -77,6 +78,7 @@ const getPattern = cache(async (id: string): Promise<PatternDetail | null> => {
     downloadUrl: signedFile?.signedUrl,
     previewUrl: previewFile?.signedUrl,
     fileName,
+    studioScore: data.studio_score ?? undefined,
   };
 });
 
@@ -136,6 +138,9 @@ export default async function PatternDetailPage({ params }: PatternPageProps) {
                 <div><Gauge size={18} aria-hidden="true" /><span>LED count</span><strong>{pattern.ledCount.toLocaleString()}</strong></div>
                 <div><UserRound size={18} aria-hidden="true" /><span>Maker</span><strong>{pattern.author}</strong></div>
                 <div><CalendarDays size={18} aria-hidden="true" /><span>Published</span><strong>{publishedDate}</strong></div>
+                {pattern.studioScore != null && (
+                  <div><Award size={18} aria-hidden="true" /><span>Studio Score</span><strong>{pattern.studioScore}/100</strong></div>
+                )}
               </div>
             </div>
 

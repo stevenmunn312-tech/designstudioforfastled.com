@@ -15,6 +15,10 @@ export type Pattern = {
    *  without every visitor's browser running a live evaluator. Falls back to
    *  live evaluation via previewUrl when absent. */
   previewMediaUrl?: string;
+  /** 0-100 Studio Score computed by the site's own evaluator (see
+   *  src/lib/evaluator/patternRating.ts). Undefined until a moderator has
+   *  run the scan for this pattern from /review. */
+  studioScore?: number;
 };
 
 export const starterPatterns: Pattern[] = [
