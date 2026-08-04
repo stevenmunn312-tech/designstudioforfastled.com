@@ -41,6 +41,14 @@ export interface EvaluateSharedPatternOptions {
    * instead of executing, exactly like the app's own untrusted path.
    */
   trusted?: boolean;
+  /**
+   * Opt in to per-pass buffer pooling (see evaluateGraph's advancePool).
+   * Only safe for a caller that reads the returned Frame synchronously and
+   * drops the reference before calling again — a continuously-running live
+   * preview, not a capture loop that collects frames into an array for
+   * later use (a pooled buffer is recycled two generations later).
+   */
+  advancePool?: boolean;
 }
 
 /**
@@ -70,5 +78,6 @@ export function evaluateSharedPattern(
     {},
     options.audioOverride ?? null,
     options.trusted === true,
+    options.advancePool === true,
   );
 }

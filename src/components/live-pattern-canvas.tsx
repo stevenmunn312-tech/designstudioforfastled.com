@@ -78,6 +78,10 @@ export function LivePatternCanvas({
         groups,
         trusted,
         audioOverride: audioOverride?.current ?? null,
+        // Safe here specifically: the frame is read synchronously below and
+        // the reference is dropped before the next call, unlike a capture
+        // loop that collects frames into an array for later use.
+        advancePool: true,
       }) ?? idleFrame(tick, GRID, GRID);
       ctx.save();
       ctx.translate(left, top);

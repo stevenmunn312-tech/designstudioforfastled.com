@@ -6833,8 +6833,19 @@ export function evaluateGraph(
   // logic — appended last so existing positional callers keep working
   // unchanged, defaulting to trusted (todo.md's P0 trust-boundary item).
   trusted = true,
+  // Opt in to per-pass buffer pooling (see advanceFramePool/allocFrame above),
+  // exactly like evaluateGraphFull does. Site-only extension, not present in
+  // the app's copy of this file: ONLY safe for a caller that reads the
+  // returned Frame synchronously and drops the reference before calling
+  // evaluateGraph again (e.g. one continuously-running live preview) — a
+  // pooled buffer is recycled two generations later, so a caller that
+  // retains multiple returned Frames across calls (a capture loop collecting
+  // frames into an array, for instance) would see earlier entries silently
+  // overwritten. Defaults false so every existing caller is unaffected.
+  advancePool = false,
 ): Frame | null {
   maybePruneEvaluatorState()
+  if (advancePool) advanceFramePool()
   if (nodes.length === 0) return null
   const evalNode = createEvalNode(nodes, edges, tick, gridW, gridH, groups, instancePrefix, groupStack, groupInputs, audioOverride, null, trusted)
   // Render only what reaches an explicit terminal: a GroupOutput inside a group
