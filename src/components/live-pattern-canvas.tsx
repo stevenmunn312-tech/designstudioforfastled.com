@@ -4,6 +4,7 @@ import { useEffect, useRef, type RefObject } from "react";
 import { evaluateSharedPattern, patternNeedsTrust } from "@/lib/evaluator/evaluateSharedPattern";
 import { idleFrame } from "@/lib/evaluator/preview/idleFrame";
 import { renderPreviewFrame } from "@/lib/evaluator/preview/frameCanvas";
+import { WebGLLEDRenderer } from "@/lib/evaluator/preview/webglRenderer";
 import type { StudioNode, StudioEdge } from "@/lib/evaluator/state/graphStore";
 import type { AudioOverride, GroupRegistry } from "@/lib/evaluator/state/graphEvaluator";
 
@@ -19,6 +20,10 @@ const GRID = 32;
 // stays smooth.
 const TARGET_FPS = 30;
 const MIN_FRAME_INTERVAL_MS = 1000 / TARGET_FPS;
+
+// Ceiling on the WebGL board's device-pixel size — see the render loop.
+const MAX_BOARD_DEVICE_PX = 768;
+const dprCap = () => Math.min(window.devicePixelRatio || 1, 2);
 
 export function LivePatternCanvas({
   nodes,
@@ -64,8 +69,20 @@ export function LivePatternCanvas({
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+
+    // WebGL first, exactly as the app does: one draw call per frame instead of
+    // frameCanvas.ts's few-thousand per-LED sprite blits (see webglRenderer.ts
+    // for the measurements). A canvas is bound to a context type only once a
+    // context is successfully created, so falling through to 2D here is safe.
+    let renderer: WebGLLEDRenderer | null = null;
+    let ctx: CanvasRenderingContext2D | null = null;
+    try {
+      renderer = new WebGLLEDRenderer(canvas);
+    } catch {
+      renderer = null;
+      ctx = canvas.getContext("2d");
+      if (!ctx) return;
+    }
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduceMotion) runningRef.current = false;
@@ -77,6 +94,10 @@ export function LivePatternCanvas({
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       width = Math.max(1, entry.contentRect.width);
       height = Math.max(1, entry.contentRect.height);
+      // Under WebGL the renderer owns the backing store (it sizes the canvas to
+      // the square LED board and `object-fit: contain` centres it in the
+      // screen), so only the 2D path sizes it here.
+      if (!ctx) return;
       canvas.width = Math.round(width * dpr);
       canvas.height = Math.round(height * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -114,15 +135,6 @@ export function LivePatternCanvas({
       lastDrawTimestamp = timestamp;
       const tick = elapsedSec * 60;
 
-      const pixel = Math.min(width, height) / GRID;
-      const boardSize = pixel * GRID;
-      const left = (width - boardSize) / 2;
-      const top = (height - boardSize) / 2;
-
-      ctx.clearRect(0, 0, width, height);
-      ctx.fillStyle = "#05070b";
-      ctx.fillRect(0, 0, width, height);
-
       const frame = evaluateSharedPattern(nodes, edges, tick, GRID, GRID, {
         groups,
         trusted,
@@ -132,16 +144,36 @@ export function LivePatternCanvas({
         // loop that collects frames into an array for later use.
         advancePool: true,
       }) ?? idleFrame(tick, GRID, GRID);
-      ctx.save();
-      ctx.translate(left, top);
-      renderPreviewFrame(ctx, frame, pixel, "standard");
-      ctx.restore();
+
+      if (renderer) {
+        // The shader samples a 7x7 neighbourhood per fragment, so its cost is
+        // per output pixel: cap the board's device resolution rather than
+        // letting a HiDPI display quadruple the fragment count for a 32x32
+        // matrix that gains nothing visible above this.
+        const boardPx = Math.min(MAX_BOARD_DEVICE_PX, Math.min(width, height) * dprCap());
+        renderer.render(frame, GRID, GRID, boardPx / GRID, "standard");
+        return;
+      }
+
+      const pixel = Math.min(width, height) / GRID;
+      const boardSize = pixel * GRID;
+      const left = (width - boardSize) / 2;
+      const top = (height - boardSize) / 2;
+
+      ctx!.clearRect(0, 0, width, height);
+      ctx!.fillStyle = "#05070b";
+      ctx!.fillRect(0, 0, width, height);
+      ctx!.save();
+      ctx!.translate(left, top);
+      renderPreviewFrame(ctx!, frame, pixel, "standard");
+      ctx!.restore();
     };
     raf = window.requestAnimationFrame(render);
     return () => {
       window.cancelAnimationFrame(raf);
       resize.disconnect();
       intersection.disconnect();
+      renderer?.destroy();
     };
     // audioOverride is a ref — read fresh via .current every frame, its
     // identity is stable, and it must not restart this effect.
