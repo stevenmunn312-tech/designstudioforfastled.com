@@ -574,6 +574,12 @@ body::before {
 .live-preview-screen { height: 420px; position: relative; overflow: hidden; margin: 13px; background: #05070b; border: 1px solid #202833; border-radius: 8px; box-shadow: inset 0 15px 50px #000; }
 .live-preview-screen canvas, .live-preview-screen video { width: 100%; height: 100%; display: block; object-fit: contain; background: #05070b; }
 .preview-scanline { position: absolute; inset: 0; pointer-events: none; opacity: .12; background: repeating-linear-gradient(to bottom, transparent 0, transparent 3px, rgba(255,255,255,.08) 4px); }
+/* Card state for a pattern whose capture has not been generated yet — the
+   pattern's own palette, standing in for the clip. Static: no filter and no
+   animation, so it costs the compositor nothing across a full grid. */
+.preview-placeholder { position: absolute; inset: 0; display: grid; place-items: center; background: radial-gradient(circle at 30% 26%, var(--pattern-a), transparent 46%), radial-gradient(circle at 72% 68%, var(--pattern-c), transparent 44%), linear-gradient(150deg, var(--pattern-b), #05070b 72%); opacity: .34; }
+.preview-placeholder > span { width: 34px; height: 34px; border: 1px dashed rgba(255,255,255,.32); border-radius: 50%; }
+.live-preview-bar i.is-idle { background: #55606f; box-shadow: none; }
 /* NO `filter`/`backdrop-filter` on anything stacked over .live-preview-screen.
    The canvas underneath is redrawn every frame, and Chromium re-rasterises a
    filtered layer on every backdrop change while leaking the GPU filter buffer —

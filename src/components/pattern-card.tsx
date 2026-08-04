@@ -2,8 +2,8 @@ import Link from "next/link";
 import { ArrowDownToLine, ArrowUpRight, Heart } from "lucide-react";
 import type { CSSProperties } from "react";
 import type { Pattern } from "@/lib/patterns";
-import { PatternPreview } from "./pattern-preview";
 import { PatternPreviewMedia } from "./pattern-preview-media";
+import { PatternPreviewPlaceholder } from "./pattern-preview-placeholder";
 
 export function PatternCard({ pattern, compact = false }: { pattern: Pattern; compact?: boolean }) {
   const style = {
@@ -18,7 +18,7 @@ export function PatternCard({ pattern, compact = false }: { pattern: Pattern; co
         {pattern.previewMediaUrl ? (
           <PatternPreviewMedia pattern={pattern} variant="card" />
         ) : (
-          <PatternPreview pattern={pattern} variant="card" />
+          <PatternPreviewPlaceholder pattern={pattern} />
         )}
         <span className="preview-device">{pattern.controller} · {pattern.ledCount} LEDs</span>
       </div>
