@@ -14,6 +14,22 @@ function projectColors(value: unknown): [string, string, string] {
 
 const MAX_PREVIEW_MEDIA_BYTES = 6 * 1024 * 1024;
 
+// The stored object's content type is fixed here rather than taken from the
+// submission. Both producers of a preview clip (Design Studio's own capture and
+// generatePreviewClip) emit WebM, and the storage path is always `.webm`, so a
+// client-declared type was never needed — but it was passed straight through to
+// storage, which let an uploader park an object of any type (`text/html`, say)
+// in the previews bucket, served under a signed URL from the Supabase storage
+// domain. The magic-byte check backs it up so the declared type and the actual
+// bytes cannot disagree.
+const PREVIEW_MEDIA_TYPE = "video/webm";
+
+/** WebM/Matroska starts with the EBML magic 1A 45 DF A3. */
+function isWebm(bytes: Uint8Array): boolean {
+  return bytes.byteLength > 4
+    && bytes[0] === 0x1a && bytes[1] === 0x45 && bytes[2] === 0xdf && bytes[3] === 0xa3;
+}
+
 function base64ToBytes(base64: string): Uint8Array | null {
   try {
     const binary = atob(base64);
@@ -85,13 +101,12 @@ export async function uploadPattern(_state: UploadState, formData: FormData): Pr
   // failing the whole upload if it's missing, oversized, or fails to decode.
   let previewMediaPath: string | null = null;
   const previewMediaBase64 = String(formData.get("previewMediaBase64") ?? "");
-  const previewMediaType = String(formData.get("previewMediaType") ?? "video/webm").slice(0, 60);
   if (previewMediaBase64) {
     const bytes = base64ToBytes(previewMediaBase64);
-    if (bytes && bytes.byteLength > 0 && bytes.byteLength <= MAX_PREVIEW_MEDIA_BYTES) {
+    if (bytes && bytes.byteLength <= MAX_PREVIEW_MEDIA_BYTES && isWebm(bytes)) {
       const candidatePath = `${user.id}/${crypto.randomUUID()}.webm`;
       const { error: previewError } = await supabase.storage.from("pattern-previews").upload(candidatePath, bytes, {
-        contentType: previewMediaType || "video/webm",
+        contentType: PREVIEW_MEDIA_TYPE,
         upsert: false,
       });
       if (!previewError) previewMediaPath = candidatePath;
@@ -108,7 +123,7 @@ export async function uploadPattern(_state: UploadState, formData: FormData): Pr
     storage_path: storagePath,
     preview_colors: projectColors(project),
     preview_media_path: previewMediaPath,
-    preview_media_type: previewMediaPath ? previewMediaType : null,
+    preview_media_type: previewMediaPath ? PREVIEW_MEDIA_TYPE : null,
     uploader_rating: uploaderRating,
   });
 

@@ -42,8 +42,10 @@ export async function POST(request: Request) {
   }
 
   const previewMediaBase64Raw = String(formData.get("previewMediaBase64") ?? "");
+  // The clip's media type is deliberately not carried through: the upload
+  // action fixes it to video/webm and verifies the bytes, so forwarding a
+  // client-declared type would only reintroduce something to be ignored.
   const previewMediaBase64 = previewMediaBase64Raw.length <= MAX_PREVIEW_MEDIA_BASE64_CHARS ? previewMediaBase64Raw : "";
-  const previewMediaType = previewMediaBase64 ? String(formData.get("previewMediaType") ?? "").slice(0, 60) : "";
 
   const ledCount = Number(formData.get("ledCount"));
   const personalRating = Number(formData.get("personalRating"));
@@ -54,7 +56,6 @@ export async function POST(request: Request) {
     controller: String(formData.get("controller") ?? "Other").slice(0, 30),
     ledCount: Number.isInteger(ledCount) && ledCount > 0 ? ledCount : 256,
     previewMediaBase64,
-    previewMediaType,
     personalRating: Number.isInteger(personalRating) && personalRating >= 1 && personalRating <= 5 ? personalRating : null,
     savedAt: Date.now(),
   };
