@@ -6,12 +6,13 @@ import type { Pattern } from "@/lib/patterns";
 import { sharedPatternGraph } from "@/lib/shared-pattern";
 import { patternNeedsTrust } from "@/lib/evaluator/evaluateSharedPattern";
 import type { StudioEdge, StudioNode } from "@/lib/evaluator/state/graphStore";
+import type { GroupRegistry } from "@/lib/evaluator/state/graphEvaluator";
 import { useLiveAudio } from "@/lib/use-live-audio";
 import { LivePatternCanvas } from "./live-pattern-canvas";
 
 type PreviewVariant = "card" | "hero" | "detail";
 
-type LoadedGraph = { nodes: StudioNode[]; edges: StudioEdge[] };
+type LoadedGraph = { nodes: StudioNode[]; edges: StudioEdge[]; groups: GroupRegistry };
 
 export function PatternPreview({
   pattern,
@@ -76,7 +77,7 @@ export function PatternPreview({
     };
   }, [pattern.previewUrl]);
 
-  const needsTrust = graph ? patternNeedsTrust(graph.nodes) : false;
+  const needsTrust = graph ? patternNeedsTrust(graph.nodes, graph.groups) : false;
 
   return (
     <div className={`live-preview live-preview-${variant}`}>
@@ -88,6 +89,7 @@ export function PatternPreview({
         <LivePatternCanvas
           nodes={graph?.nodes ?? []}
           edges={graph?.edges ?? []}
+          groups={graph?.groups ?? {}}
           trusted={trusted}
           running={running}
           audioOverride={overrideRef}

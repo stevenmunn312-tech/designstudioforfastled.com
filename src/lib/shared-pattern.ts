@@ -3,10 +3,17 @@ export type SharedSubgraph = {
   edges: unknown[];
 };
 
+/** Every Group a shared pattern's nodes (or its groups' own nodes) can
+ *  reference by id, keyed the same way the evaluator's GroupRegistry is. */
+export type SharedGroupRegistry = Record<string, SharedSubgraph>;
+
 export type SharedPattern = {
   name?: string;
   subgraph: SharedSubgraph;
+  groups?: SharedGroupRegistry;
 };
+
+export type LoadedSharedGraph = SharedSubgraph & { groups: SharedGroupRegistry };
 
 type LegacyWorkspace = {
   nodes?: unknown[];
@@ -37,14 +44,28 @@ function legacyWorkspaceGraph(value: unknown): SharedSubgraph | null {
   };
 }
 
-export function sharedPatternGraph(value: unknown): SharedSubgraph | null {
+function parseGroups(value: unknown): SharedGroupRegistry {
+  if (!value || typeof value !== "object") return {};
+  const groups: SharedGroupRegistry = {};
+  for (const [id, entry] of Object.entries(value as Record<string, unknown>)) {
+    if (!entry || typeof entry !== "object") continue;
+    const { nodes, edges } = entry as { nodes?: unknown; edges?: unknown };
+    if (Array.isArray(nodes) && Array.isArray(edges)) groups[id] = { nodes, edges };
+  }
+  return groups;
+}
+
+export function sharedPatternGraph(value: unknown): LoadedSharedGraph | null {
   if (!value || typeof value !== "object") return null;
   const subgraph = (value as { subgraph?: unknown }).subgraph;
   if (subgraph && typeof subgraph === "object") {
     const { nodes, edges } = subgraph as { nodes?: unknown; edges?: unknown };
-    if (Array.isArray(nodes) && Array.isArray(edges)) return { nodes, edges };
+    if (Array.isArray(nodes) && Array.isArray(edges)) {
+      return { nodes, edges, groups: parseGroups((value as { groups?: unknown }).groups) };
+    }
   }
-  return legacyWorkspaceGraph(value);
+  const legacy = legacyWorkspaceGraph(value);
+  return legacy ? { ...legacy, groups: {} } : null;
 }
 
 export function isSharedPattern(value: unknown): boolean {

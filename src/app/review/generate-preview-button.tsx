@@ -27,7 +27,7 @@ export function GeneratePreviewButton({ patternId, previewUrl }: { patternId: st
       if (!graph) throw new Error("That file did not parse as a shared pattern");
 
       setStatus({ tone: "busy", message: "Capturing a preview clip…" });
-      const clip = await generatePreviewClip(graph.nodes as never, graph.edges as never);
+      const clip = await generatePreviewClip(graph.nodes as never, graph.edges as never, graph.groups as never);
       if (!clip) throw new Error("This browser could not record WebM, or the pattern has no nodes");
 
       setStatus({ tone: "busy", message: "Uploading…" });

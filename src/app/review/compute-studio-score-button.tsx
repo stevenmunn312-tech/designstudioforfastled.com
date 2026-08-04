@@ -39,6 +39,7 @@ export function ComputeStudioScoreButton({ patternId, previewUrl }: { patternId:
       const rating = await ratePattern(graph.nodes as never, graph.edges as never, {
         gridW: GRID,
         gridH: GRID,
+        groups: graph.groups as never,
       });
       if ("failed" in rating) throw new Error(rating.error);
 

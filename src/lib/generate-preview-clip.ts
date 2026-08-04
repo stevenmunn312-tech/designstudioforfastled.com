@@ -4,6 +4,7 @@ import { evaluateSharedPattern } from "@/lib/evaluator/evaluateSharedPattern";
 import { renderPreviewFrame } from "@/lib/evaluator/preview/frameCanvas";
 import type { Frame } from "@/lib/evaluator/state/ledColor";
 import type { StudioEdge, StudioNode } from "@/lib/evaluator/state/graphStore";
+import type { GroupRegistry } from "@/lib/evaluator/state/graphEvaluator";
 
 // Client-side capture of a short looping WebM for a pattern that already
 // exists on the site (no Design Studio app involved) — used to backfill a
@@ -26,7 +27,11 @@ function pickWebmMime(): string | null {
   return null;
 }
 
-export async function generatePreviewClip(nodes: StudioNode[], edges: StudioEdge[]): Promise<Blob | null> {
+export async function generatePreviewClip(
+  nodes: StudioNode[],
+  edges: StudioEdge[],
+  groups: GroupRegistry = {},
+): Promise<Blob | null> {
   const webmMime = pickWebmMime();
   if (!webmMime || nodes.length === 0) return null;
 
@@ -44,12 +49,12 @@ export async function generatePreviewClip(nodes: StudioNode[], edges: StudioEdge
   // Warm up stateful nodes (fire, particles, ...) before the recorded window,
   // discarding the results.
   for (let i = 0; i < warmupFrames; i += 1) {
-    evaluateSharedPattern(nodes, edges, (i * 60) / FPS, GRID, GRID, {});
+    evaluateSharedPattern(nodes, edges, (i * 60) / FPS, GRID, GRID, { groups });
   }
 
   const frames: Array<Frame | null> = [];
   for (let i = 0; i < totalFrames; i += 1) {
-    frames.push(evaluateSharedPattern(nodes, edges, ((warmupFrames + i) * 60) / FPS, GRID, GRID, {}));
+    frames.push(evaluateSharedPattern(nodes, edges, ((warmupFrames + i) * 60) / FPS, GRID, GRID, { groups }));
   }
 
   const stream = canvas.captureStream(FPS);
