@@ -133,6 +133,10 @@ export function LivePatternCanvas({
       // the expensive evaluate+draw work itself is throttled.
       if (timestamp - lastDrawTimestamp < MIN_FRAME_INTERVAL_MS) return;
       lastDrawTimestamp = timestamp;
+      // A lost context has nowhere to put a frame, so skip the evaluation too
+      // rather than burning the pass. The renderer keeps the canvas registered
+      // for restore and picks up again on the next tick once it fires.
+      if (renderer?.isLost) return;
       const tick = elapsedSec * 60;
 
       const frame = evaluateSharedPattern(nodes, edges, tick, GRID, GRID, {

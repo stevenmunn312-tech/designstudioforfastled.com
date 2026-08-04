@@ -195,21 +195,32 @@ const FRAG = `
 // ── Renderer class ────────────────────────────────────────────────────────────
 
 export class WebGLLEDRenderer {
+  private canvas:      HTMLCanvasElement
   private gl:          WebGLRenderingContext
-  private program:     WebGLProgram
-  private texture:     WebGLTexture
-  private buffer:      WebGLBuffer
+  private program!:    WebGLProgram
+  private texture!:    WebGLTexture
+  private buffer!:     WebGLBuffer
   private texData:     Uint8Array = new Uint8Array(4)
-  private uGrid:       WebGLUniformLocation
-  private uPixel:      WebGLUniformLocation
-  private uRes:        WebGLUniformLocation
-  private uStyle:      WebGLUniformLocation
+  private uGrid!:      WebGLUniformLocation
+  private uPixel!:     WebGLUniformLocation
+  private uRes!:       WebGLUniformLocation
+  private uStyle!:     WebGLUniformLocation
   private lastW = 0
   private lastH = 0
   private lastCanvasW = 0
   private lastCanvasH = 0
   private lastDiffusion = false
   private destroyed = false
+  private contextLost = false
+  private onLost:     (event: Event) => void
+  private onRestored: () => void
+
+  /** True while the GPU has taken this context away. Callers should skip the
+   *  whole evaluate+draw pass rather than doing work with nowhere to put it —
+   *  every GL call silently no-ops until `webglcontextrestored` fires. */
+  get isLost(): boolean {
+    return this.contextLost || this.gl.isContextLost()
+  }
 
   // `preserveDrawingBuffer` is only for the preview recorder, which reads the
   // rendered canvas back (drawImage → getImageData) after each draw. The live
@@ -221,9 +232,51 @@ export class WebGLLEDRenderer {
       powerPreference: 'high-performance',
       preserveDrawingBuffer: opts.preserveDrawingBuffer === true,
     })
+    // Only a browser with no WebGL at all justifies the 2D fallback: once
+    // getContext('webgl') has succeeded the canvas is bound to WebGL for good,
+    // so getContext('2d') on it would return null anyway.
     if (!gl) throw new Error('WebGL unavailable')
+    this.canvas = canvas
     this.gl = gl
 
+    // A browser only keeps a limited number of live WebGL contexts per page (16
+    // in the Chromium measured here): past that it force-loses the OLDEST ones
+    // and hands back a non-null — but already lost — context for the new one.
+    // Reachable wherever many live previews mount at once (a gallery of
+    // clip-less cards, the review queue). Building resources now would throw on
+    // the first shader compile, so defer to `webglcontextrestored` and report
+    // `isLost` until then: a blank-but-recoverable preview beats both a hard
+    // throw (which strands the canvas with nothing listening for the restore)
+    // and the 2D path, whose per-LED sprite cost is what the shader replaced.
+    if (gl.isContextLost()) this.contextLost = true
+    else this.initResources()
+
+    // Losing a context is recoverable, but only if the default action is
+    // prevented — otherwise the browser never fires `webglcontextrestored`.
+    this.onLost = (event: Event) => {
+      event.preventDefault()
+      this.contextLost = true
+    }
+    this.onRestored = () => {
+      if (this.destroyed) return
+      if (this.gl.isContextLost()) return
+      this.initResources()
+      // Every cached upload decision refers to resources that died with the
+      // old context; force the next render to re-upload from scratch.
+      this.lastW = 0
+      this.lastH = 0
+      this.lastCanvasW = 0
+      this.lastCanvasH = 0
+      this.lastDiffusion = false
+      this.contextLost = false
+    }
+    canvas.addEventListener('webglcontextlost', this.onLost)
+    canvas.addEventListener('webglcontextrestored', this.onRestored)
+  }
+
+  /** Build (or rebuild, after a context loss) every GPU-side resource. */
+  private initResources(): void {
+    const gl = this.gl
     this.program = this.buildProgram(VERT, FRAG)
     gl.useProgram(this.program)
 
@@ -250,6 +303,7 @@ export class WebGLLEDRenderer {
   }
 
   render(frame: Frame, gridW: number, gridH: number, pixel: number, style: PreviewStyle): void {
+    if (this.isLost) return
     const gl = this.gl
     // Match LEDPreview: floor the canvas buffer, keep `pixel` fractional for the
     // shader's cell math, so a denser matrix fills the same box instead of
@@ -308,9 +362,20 @@ export class WebGLLEDRenderer {
   destroy(): void {
     if (this.destroyed) return
     this.destroyed = true
-    this.gl.deleteTexture(this.texture)
-    this.gl.deleteBuffer(this.buffer)
-    this.gl.deleteProgram(this.program)
+    this.canvas.removeEventListener('webglcontextlost', this.onLost)
+    this.canvas.removeEventListener('webglcontextrestored', this.onRestored)
+    // Resources are absent entirely if the context was already lost when this
+    // renderer was built (see the constructor) and never came back.
+    if (this.program) {
+      this.gl.deleteTexture(this.texture)
+      this.gl.deleteBuffer(this.buffer)
+      this.gl.deleteProgram(this.program)
+    }
+    // Hand the context back rather than waiting for GC: contexts are a capped
+    // per-page resource, so a preview that unmounts (a card filtered out of the
+    // gallery, a route change) must not keep one of the 16 slots warm and push
+    // a still-mounted sibling into the force-lost set.
+    this.gl.getExtension('WEBGL_lose_context')?.loseContext()
   }
 
   private buildProgram(vertSrc: string, fragSrc: string): WebGLProgram {
