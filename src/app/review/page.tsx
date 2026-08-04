@@ -9,6 +9,7 @@ import { hasSupabaseConfig } from "@/lib/supabase/config";
 import { createClient } from "@/lib/supabase/server";
 import { ReviewControls } from "./review-controls";
 import { GeneratePreviewButton } from "./generate-preview-button";
+import { ComputeStudioScoreButton } from "./compute-studio-score-button";
 
 export const metadata: Metadata = {
   title: "Pattern review",
@@ -33,6 +34,13 @@ type PendingPattern = {
 };
 
 type MissingPreviewPattern = {
+  id: string;
+  title: string;
+  storage_path: string;
+  previewUrl?: string;
+};
+
+type MissingScorePattern = {
   id: string;
   title: string;
   storage_path: string;
@@ -105,6 +113,22 @@ export default async function ReviewPage() {
 
   const missingPreviewPatterns = (missingPreviewData ?? []) as MissingPreviewPattern[];
   await Promise.all(missingPreviewPatterns.map(async (pattern) => {
+    const { data: previewFile } = await supabase.storage
+      .from("pattern-files")
+      .createSignedUrl(pattern.storage_path, 600);
+    pattern.previewUrl = previewFile?.signedUrl;
+  }));
+
+  const { data: missingScoreData } = await supabase
+    .from("patterns")
+    .select("id,title,storage_path")
+    .eq("status", "approved")
+    .eq("published", true)
+    .is("studio_score", null)
+    .order("created_at", { ascending: true });
+
+  const missingScorePatterns = (missingScoreData ?? []) as MissingScorePattern[];
+  await Promise.all(missingScorePatterns.map(async (pattern) => {
     const { data: previewFile } = await supabase.storage
       .from("pattern-files")
       .createSignedUrl(pattern.storage_path, 600);
@@ -196,6 +220,21 @@ export default async function ReviewPage() {
                 <li key={pattern.id}>
                   <span>{pattern.title}</span>
                   <GeneratePreviewButton patternId={pattern.id} previewUrl={pattern.previewUrl} />
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {missingScorePatterns.length > 0 && (
+          <section className="backfill-section" aria-label="Published patterns missing a Studio Score">
+            <h2>Missing a Studio Score</h2>
+            <p>The site computes this itself from the live graph rather than trusting a value the uploader&rsquo;s app sent along — run it here for anything published before the scorer existed.</p>
+            <ul className="backfill-list">
+              {missingScorePatterns.map((pattern) => (
+                <li key={pattern.id}>
+                  <span>{pattern.title}</span>
+                  <ComputeStudioScoreButton patternId={pattern.id} previewUrl={pattern.previewUrl} />
                 </li>
               ))}
             </ul>
