@@ -46,6 +46,7 @@ export async function POST(request: Request) {
   const previewMediaType = previewMediaBase64 ? String(formData.get("previewMediaType") ?? "").slice(0, 60) : "";
 
   const ledCount = Number(formData.get("ledCount"));
+  const personalRating = Number(formData.get("personalRating"));
   const draft = {
     patternName: String(formData.get("patternName") ?? "Untitled Pattern").slice(0, 80),
     fileName: String(formData.get("fileName") ?? "studio-pattern.fastled-pattern.json").slice(0, 160),
@@ -54,6 +55,7 @@ export async function POST(request: Request) {
     ledCount: Number.isInteger(ledCount) && ledCount > 0 ? ledCount : 256,
     previewMediaBase64,
     previewMediaType,
+    personalRating: Number.isInteger(personalRating) && personalRating >= 1 && personalRating <= 5 ? personalRating : null,
     savedAt: Date.now(),
   };
   const serializedDraft = JSON.stringify(draft);

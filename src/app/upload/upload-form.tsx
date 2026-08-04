@@ -16,6 +16,7 @@ type HandoffDraft = {
   ledCount: number;
   previewMediaBase64?: string;
   previewMediaType?: string;
+  personalRating?: number | null;
   savedAt: number;
 };
 
@@ -79,6 +80,7 @@ export function UploadForm({ canUpload }: { canUpload: boolean }) {
   const [fileName, setFileName] = useState("");
   const [previewMediaBase64, setPreviewMediaBase64] = useState("");
   const [previewMediaType, setPreviewMediaType] = useState("");
+  const [personalRating, setPersonalRating] = useState<number | null>(null);
   const [handoffState, setHandoffState] = useState<"idle" | "restored" | "error">("idle");
 
   const applyDraft = (draft: HandoffDraft) => {
@@ -92,6 +94,7 @@ export function UploadForm({ canUpload }: { canUpload: boolean }) {
     setFileName(draft.fileName);
     setPreviewMediaBase64(draft.previewMediaBase64 ?? "");
     setPreviewMediaType(draft.previewMediaType ?? "");
+    setPersonalRating(draft.personalRating ?? null);
     setHandoffState("restored");
     return true;
   };
@@ -146,6 +149,7 @@ export function UploadForm({ canUpload }: { canUpload: boolean }) {
       {patternJson && <input type="hidden" name="patternFileName" value={fileName} />}
       {previewMediaBase64 && <input type="hidden" name="previewMediaBase64" value={previewMediaBase64} />}
       {previewMediaBase64 && <input type="hidden" name="previewMediaType" value={previewMediaType} />}
+      {personalRating != null && <input type="hidden" name="uploaderRating" value={personalRating} />}
       <label className={`drop-zone ${patternJson ? "attached" : ""}`}>
         <input
           name="patternFile"
@@ -158,6 +162,7 @@ export function UploadForm({ canUpload }: { canUpload: boolean }) {
             setFileName(file?.name ?? "");
             setPreviewMediaBase64("");
             setPreviewMediaType("");
+            setPersonalRating(null);
             if (file) setHandoffState("idle");
           }}
         />

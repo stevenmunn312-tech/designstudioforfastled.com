@@ -76,6 +76,11 @@ export async function uploadPattern(_state: UploadState, formData: FormData): Pr
   });
   if (storageError) return { message: storageError.message, tone: "error" };
 
+  const uploaderRatingRaw = Number(formData.get("uploaderRating"));
+  const uploaderRating = Number.isInteger(uploaderRatingRaw) && uploaderRatingRaw >= 1 && uploaderRatingRaw <= 5
+    ? uploaderRatingRaw
+    : null;
+
   // The looping preview clip is best-effort: skip it silently rather than
   // failing the whole upload if it's missing, oversized, or fails to decode.
   let previewMediaPath: string | null = null;
@@ -104,6 +109,7 @@ export async function uploadPattern(_state: UploadState, formData: FormData): Pr
     preview_colors: projectColors(project),
     preview_media_path: previewMediaPath,
     preview_media_type: previewMediaPath ? previewMediaType : null,
+    uploader_rating: uploaderRating,
   });
 
   if (insertError) {
