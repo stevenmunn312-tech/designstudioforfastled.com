@@ -574,7 +574,16 @@ body::before {
 .live-preview-screen { height: 420px; position: relative; overflow: hidden; margin: 13px; background: #05070b; border: 1px solid #202833; border-radius: 8px; box-shadow: inset 0 15px 50px #000; }
 .live-preview-screen canvas, .live-preview-screen video { width: 100%; height: 100%; display: block; object-fit: contain; background: #05070b; }
 .preview-scanline { position: absolute; inset: 0; pointer-events: none; opacity: .12; background: repeating-linear-gradient(to bottom, transparent 0, transparent 3px, rgba(255,255,255,.08) 4px); }
-.preview-transport { min-height: 32px; position: absolute; left: 14px; bottom: 14px; padding: 0 12px; display: flex; align-items: center; gap: 7px; color: white; background: rgba(10,12,17,.82); border: 1px solid #3a424e; border-radius: 16px; font-family: var(--font-mono); font-size: 8px; text-transform: uppercase; cursor: pointer; backdrop-filter: blur(8px); }
+/* NO `filter`/`backdrop-filter` on anything stacked over .live-preview-screen.
+   The canvas underneath is redrawn every frame, and Chromium re-rasterises a
+   filtered layer on every backdrop change while leaking the GPU filter buffer —
+   unbounded compositor-memory growth that only shows up in the tab's process
+   memory (the JS heap stays flat). This transport chip carried
+   `backdrop-filter: blur(8px)` and sits over the live canvas on the hero and
+   detail pages, i.e. permanently. Same footgun the app hit with the node-preview
+   glow canvas and the .canvasStandard grade filters; the opaque background below
+   replaces the blur. */
+.preview-transport { min-height: 32px; position: absolute; left: 14px; bottom: 14px; padding: 0 12px; display: flex; align-items: center; gap: 7px; color: white; background: rgba(10,12,17,.94); border: 1px solid #3a424e; border-radius: 16px; font-family: var(--font-mono); font-size: 8px; text-transform: uppercase; cursor: pointer; }
 .preview-audio-panel { margin: 0 13px 13px; padding: 14px; background: linear-gradient(180deg, rgba(12,15,22,.92), rgba(7,10,16,.92)); border: 1px solid #232b36; border-radius: 10px; }
 .preview-audio-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .preview-audio-head > div { display: flex; flex-direction: column; gap: 3px; }
@@ -592,7 +601,10 @@ body::before {
 .preview-audio-clear { color: #d4d9e3; }
 .preview-audio-note { margin: 12px 0 0; color: #7f8998; font-size: 10px; line-height: 1.6; }
 .preview-mic-error { margin: 8px 13px 0; color: #ff9aa9; font-size: 10px; line-height: 1.5; }
-.preview-trust-gate { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 24px; text-align: center; background: rgba(6,8,12,.86); backdrop-filter: blur(6px); }
+/* Also no backdrop-filter here — the gate covers the whole live canvas, which
+   keeps evaluating behind it, so the blur re-rasterised the full screen area
+   every frame. See .preview-transport above. */
+.preview-trust-gate { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 24px; text-align: center; background: rgba(6,8,12,.94); }
 .preview-trust-gate > svg { color: var(--amber); }
 .preview-trust-gate p { margin: 0; max-width: 280px; color: #c6ced9; font-size: 11px; line-height: 1.6; }
 .preview-trust-gate .button { min-height: 34px; padding-inline: 14px; font-size: 10px; }
@@ -626,7 +638,9 @@ body::before {
 .live-preview-card .live-preview-screen { height: calc(100% - 58px); margin: 0; border-inline: 0; border-radius: 0; }
 .live-preview-card .live-preview-readout { min-height: 29px; }
 .live-preview-card .live-preview-readout span:nth-child(2), .live-preview-card .live-preview-readout span:last-child { display: none; }
-.preview-device { bottom: 36px; border-radius: 5px; backdrop-filter: blur(8px); }
+/* No backdrop-filter: a card with no captured clip falls back to a live canvas,
+   putting this chip over per-frame content. See .preview-transport. */
+.preview-device { bottom: 36px; border-radius: 5px; background: rgba(5,8,12,.92); }
 .pattern-copy { padding: 18px; }
 .pattern-heading h3 { font-size: 17px; }
 .pattern-meta > div span { border-radius: 5px; background: #171d27; }
