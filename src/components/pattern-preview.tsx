@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import type { Pattern } from "@/lib/patterns";
 import { sharedPatternGraph } from "@/lib/shared-pattern";
 import { patternNeedsTrust } from "@/lib/evaluator/evaluateSharedPattern";
+import { isAudioReactiveSubgraph } from "@/lib/evaluator/patternRating";
 import type { StudioEdge, StudioNode } from "@/lib/evaluator/state/graphStore";
 import type { GroupRegistry } from "@/lib/evaluator/state/graphEvaluator";
 import { useLiveAudio } from "@/lib/use-live-audio";
@@ -13,6 +14,16 @@ import { LivePatternCanvas } from "./live-pattern-canvas";
 type PreviewVariant = "card" | "hero" | "detail";
 
 type LoadedGraph = { nodes: StudioNode[]; edges: StudioEdge[]; groups: GroupRegistry };
+
+/** Whether the pattern's actual graph content is audio-reactive, checking
+ *  nested groups too — independent of the "Audio Reactive" tag, which an
+ *  uploader can simply forget to add (the tag alone used to gate the mic
+ *  panel, hiding it for genuinely audio-reactive but untagged patterns). */
+function graphIsAudioReactive(graph: LoadedGraph | null): boolean {
+  if (!graph) return false;
+  if (isAudioReactiveSubgraph(graph.nodes)) return true;
+  return Object.values(graph.groups).some((group) => isAudioReactiveSubgraph(group.nodes));
+}
 
 export function PatternPreview({
   pattern,
@@ -41,7 +52,7 @@ export function PatternPreview({
     clearTrack,
     overrideRef,
   } = useLiveAudio();
-  const audioReactive = variant === "detail" && pattern.tags.includes("Audio Reactive");
+  const audioReactive = variant === "detail" && (pattern.tags.includes("Audio Reactive") || graphIsAudioReactive(graph));
   const audioStatus = micEnabled
     ? "Mic live"
     : trackPlaying
