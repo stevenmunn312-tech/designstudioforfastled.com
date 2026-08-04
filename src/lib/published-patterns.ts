@@ -17,6 +17,7 @@ type PatternRow = {
   created_at: string;
   storage_path: string;
   preview_media_path: string | null;
+  studio_score: number | null;
   profiles: { display_name?: string | null } | { display_name?: string | null }[] | null;
 };
 
@@ -32,7 +33,10 @@ export async function getPublishedPatterns(limit?: number): Promise<Pattern[]> {
   const supabase = await createClient();
   let query = supabase
     .from("patterns")
-    .select("id,title,description,controller,led_count,tags,preview_colors,likes,downloads,created_at,storage_path,preview_media_path,profiles(display_name)")
+    // studio_score is needed even though no card displays it: the moderator
+    // edit form on a card submits every field, so omitting it here would send
+    // a blank score and wipe the stored one on the first save.
+    .select("id,title,description,controller,led_count,tags,preview_colors,likes,downloads,created_at,storage_path,preview_media_path,studio_score,profiles(display_name)")
     .eq("published", true)
     // Explicit, not just RLS: the select policy still returns an archived row
     // to its owner and to any moderator, so without this an archived pattern
@@ -63,6 +67,7 @@ export async function getPublishedPatterns(limit?: number): Promise<Pattern[]> {
       createdAt: row.created_at,
       previewUrl: signed?.signedUrl,
       previewMediaUrl,
+      studioScore: row.studio_score ?? undefined,
     };
   }));
 }

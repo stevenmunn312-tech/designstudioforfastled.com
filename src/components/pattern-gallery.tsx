@@ -8,7 +8,7 @@ import { PatternCard } from "./pattern-card";
 
 const filters = ["All", "Ambient", "Matrix", "Audio", "Reactive", "Utility"];
 
-export function PatternGallery({ patterns }: { patterns: Pattern[] }) {
+export function PatternGallery({ patterns, isModerator = false }: { patterns: Pattern[]; isModerator?: boolean }) {
   const [filter, setFilter] = useState("All");
   const [query, setQuery] = useState("");
 
@@ -45,7 +45,7 @@ export function PatternGallery({ patterns }: { patterns: Pattern[] }) {
       </div>
       {visible.length ? (
         <div className="pattern-grid gallery-grid">
-          {visible.map((pattern) => <PatternCard key={pattern.id} pattern={pattern} />)}
+          {visible.map((pattern) => <PatternCard key={pattern.id} pattern={pattern} isModerator={isModerator} />)}
           {visible.length === 1 && (
             <article className="library-invitation gallery-invitation">
               <UploadCloud size={24} />

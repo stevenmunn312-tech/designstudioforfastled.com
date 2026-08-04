@@ -3,6 +3,7 @@ import { PatternGallery } from "@/components/pattern-gallery";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { getPublishedPatterns } from "@/lib/published-patterns";
+import { isCurrentUserModerator } from "@/lib/moderator";
 
 export const metadata: Metadata = {
   title: "Pattern gallery",
@@ -12,7 +13,10 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 
 export default async function PatternsPage() {
-  const patterns = await getPublishedPatterns();
+  const [patterns, isModerator] = await Promise.all([
+    getPublishedPatterns(),
+    isCurrentUserModerator(),
+  ]);
   return (
     <>
       <SiteHeader />
@@ -22,7 +26,7 @@ export default async function PatternsPage() {
           <h1>See the pattern<br /><em>before you open it.</em></h1>
           <p>Every approved Design Studio project renders as a moving matrix preview in your browser.</p>
         </div>
-        <PatternGallery patterns={patterns} />
+        <PatternGallery patterns={patterns} isModerator={isModerator} />
       </main>
       <SiteFooter />
     </>

@@ -111,7 +111,11 @@ h1, h2, h3, p { margin-top: 0; }
 .section-heading h2, .community-title h2 { margin-bottom: 0; font-family: var(--font-display); font-size: clamp(40px, 5vw, 60px); line-height: 1; letter-spacing: -.045em; }
 .split-heading > div:last-child > p { color: #8492a4; font-size: 14px; line-height: 1.75; }
 .pattern-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-.pattern-card { display: block; overflow: hidden; background: #0d131c; border: 1px solid #222d39; transition: transform .25s ease, border-color .25s ease; }
+.pattern-card { position: relative; display: block; overflow: hidden; background: #0d131c; border: 1px solid #222d39; transition: transform .25s ease, border-color .25s ease; }
+/* The card is no longer an anchor (it holds a moderator button, which cannot
+   live inside one), so the link is stretched over it instead. */
+.pattern-card-link { position: absolute; inset: 0; z-index: 1; }
+.pattern-card-link:focus-visible { outline: 2px solid var(--cyan); outline-offset: -3px; }
 .pattern-card:hover { transform: translateY(-5px); border-color: #435267; }
 .pattern-preview { height: 215px; position: relative; overflow: hidden; background: radial-gradient(circle at 50% 110%, color-mix(in srgb, var(--pattern-a) 35%, transparent), transparent 62%), #080c12; }
 .pattern-preview::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, transparent 49.5%, rgba(255,255,255,.035) 50%, transparent 50.5%), linear-gradient(0deg, transparent 49.5%, rgba(255,255,255,.03) 50%, transparent 50.5%); background-size: 24px 24px; }
@@ -362,6 +366,19 @@ h1, h2, h3, p { margin-top: 0; }
 .manage-purge-row { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; }
 .manage-purge-row input { min-width: 130px; padding: 8px 11px; color: white; background: #0a0f16; border: 1px solid #2b3644; border-radius: 7px; font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; outline: 0; }
 .manage-purge-row .button { min-height: 34px; padding-inline: 13px; font-size: 10px; }
+
+/* Moderator edit control on a gallery card. Sits above the stretched link. */
+.pattern-card-edit { position: absolute; z-index: 2; top: 12px; right: 12px; min-height: 30px; padding: 0 11px; display: inline-flex; align-items: center; gap: 6px; color: #eff4ff; background: rgba(8,11,16,.92); border: 1px solid #3d4655; border-radius: 999px; font-family: var(--font-mono); font-size: 9px; text-transform: uppercase; letter-spacing: .07em; cursor: pointer; opacity: 0; transition: opacity .18s ease, border-color .18s ease; }
+.pattern-card:hover .pattern-card-edit, .pattern-card-edit:focus-visible { opacity: 1; }
+.pattern-card-edit:hover { border-color: var(--cyan); }
+/* Touch and keyboard users get no hover, so never hide it from them. */
+@media (hover: none) { .pattern-card-edit { opacity: 1; } }
+
+.pattern-edit-dialog { width: min(680px, calc(100vw - 40px)); max-height: min(86vh, 860px); padding: 0; color: #e6ecf5; background: #10161e; border: 1px solid #2b3644; border-radius: 12px; box-shadow: 0 40px 90px rgba(0,0,0,.6); overflow: auto; }
+.pattern-edit-dialog::backdrop { background: rgba(4,6,10,.72); }
+.pattern-edit-dialog-body { padding: 24px 26px 22px; }
+.pattern-edit-dialog-body > h2 { margin: 0; font-family: var(--font-display); font-size: 21px; }
+.pattern-edit-dialog-body .manage-edit { margin-top: 14px; padding-top: 14px; }
 .review-access { min-height: calc(100vh - 242px); padding-block: 120px; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; }
 .review-access > svg { margin-bottom: 28px; color: var(--amber); }
 .review-access h1 { max-width: 720px; margin-bottom: 18px; font-family: var(--font-display); font-size: clamp(42px, 6vw, 64px); line-height: 1; letter-spacing: -.05em; }
