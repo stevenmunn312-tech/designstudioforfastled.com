@@ -2,6 +2,7 @@
 
 import { evaluateSharedPattern } from "@/lib/evaluator/evaluateSharedPattern";
 import { renderPreviewFrame } from "@/lib/evaluator/preview/frameCanvas";
+import { WebGLLEDRenderer } from "@/lib/evaluator/preview/webglRenderer";
 import type { Frame } from "@/lib/evaluator/state/ledColor";
 import type { StudioEdge, StudioNode } from "@/lib/evaluator/state/graphStore";
 import type { GroupRegistry } from "@/lib/evaluator/state/graphEvaluator";
@@ -40,8 +41,22 @@ export async function generatePreviewClip(
   const canvas = document.createElement("canvas");
   canvas.width = outW;
   canvas.height = outH;
-  const ctx = canvas.getContext("2d");
-  if (!ctx) return null;
+
+  // Rasterise through the same shader the live preview uses, so a backfilled
+  // clip matches what a visitor sees and a moderator is not left waiting on the
+  // per-LED sprite path (~100ms a frame, and this draws 100 of them).
+  // `preserveDrawingBuffer` is required here and only here: captureStream reads
+  // the canvas back after each draw, which an unpreserved buffer may already
+  // have discarded.
+  let renderer: WebGLLEDRenderer | null = null;
+  let ctx: CanvasRenderingContext2D | null = null;
+  try {
+    renderer = new WebGLLEDRenderer(canvas, { preserveDrawingBuffer: true });
+  } catch {
+    renderer = null;
+    ctx = canvas.getContext("2d");
+    if (!ctx) return null;
+  }
 
   const totalFrames = DURATION_SEC * FPS;
   const warmupFrames = WARMUP_SEC * FPS;
@@ -74,12 +89,24 @@ export async function generatePreviewClip(
   recorder.ondataavailable = (event) => { if (event.data.size > 0) chunks.push(event.data); };
 
   const drawFrame = (frame: Frame | null) => {
-    if (frame) renderPreviewFrame(ctx, frame, SCALE, "standard");
+    if (!frame) return;
+    if (renderer) renderer.render(frame, GRID, GRID, SCALE, "standard");
+    else renderPreviewFrame(ctx!, frame, SCALE, "standard");
   };
 
   return new Promise<Blob | null>((resolve) => {
-    recorder.onstop = () => resolve(new Blob(chunks, { type: "video/webm" }));
-    recorder.onerror = () => resolve(null);
+    // Hand the context back either way. WebGL contexts are a capped per-page
+    // resource and this runs on /review, where a live preview is already
+    // holding one per pending pattern — a backfill that kept its context would
+    // push one of them into the force-lost set, and every repeat capture would
+    // take another slot.
+    const finish = (blob: Blob | null) => {
+      renderer?.destroy();
+      renderer = null;
+      resolve(blob);
+    };
+    recorder.onstop = () => finish(new Blob(chunks, { type: "video/webm" }));
+    recorder.onerror = () => finish(null);
     drawFrame(frames[0]);
     recorder.start();
     const started = performance.now();
