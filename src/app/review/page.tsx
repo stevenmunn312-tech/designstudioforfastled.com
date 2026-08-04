@@ -10,6 +10,7 @@ import { createClient } from "@/lib/supabase/server";
 import { ReviewControls } from "./review-controls";
 import { GeneratePreviewButton } from "./generate-preview-button";
 import { ComputeStudioScoreButton } from "./compute-studio-score-button";
+import { ManagePatterns, type ManagedPattern } from "./manage-patterns";
 
 export const metadata: Metadata = {
   title: "Pattern review",
@@ -108,6 +109,7 @@ export default async function ReviewPage() {
     .select("id,title,storage_path")
     .eq("status", "approved")
     .eq("published", true)
+    .eq("archived", false)
     .is("preview_media_path", null)
     .order("created_at", { ascending: true });
 
@@ -124,6 +126,7 @@ export default async function ReviewPage() {
     .select("id,title,storage_path")
     .eq("status", "approved")
     .eq("published", true)
+    .eq("archived", false)
     .is("studio_score", null)
     .order("created_at", { ascending: true });
 
@@ -134,6 +137,35 @@ export default async function ReviewPage() {
       .createSignedUrl(pattern.storage_path, 600);
     pattern.previewUrl = previewFile?.signedUrl;
   }));
+
+  // Every pattern in any state, archived included — the moderator select policy
+  // returns all rows, unlike the public one. No signed URLs here: the manager
+  // edits metadata and never needs the file itself.
+  const { data: managedData } = await supabase
+    .from("patterns")
+    .select("id,title,description,controller,led_count,tags,preview_colors,status,published,archived,studio_score,likes,downloads,created_at,profiles(display_name)")
+    .order("created_at", { ascending: false });
+
+  const managedPatterns: ManagedPattern[] = (managedData ?? []).map((row) => {
+    const profile = Array.isArray(row.profiles) ? row.profiles[0] : row.profiles;
+    return {
+      id: row.id,
+      title: row.title,
+      description: row.description,
+      controller: row.controller,
+      led_count: row.led_count,
+      tags: row.tags,
+      preview_colors: row.preview_colors,
+      status: row.status,
+      published: row.published,
+      archived: row.archived,
+      studio_score: row.studio_score,
+      likes: row.likes ?? 0,
+      downloads: row.downloads ?? 0,
+      created_at: row.created_at,
+      author: profile?.display_name ?? "Community maker",
+    };
+  });
 
   return (
     <>
@@ -240,6 +272,8 @@ export default async function ReviewPage() {
             </ul>
           </section>
         )}
+
+        <ManagePatterns patterns={managedPatterns} />
       </main>
       <SiteFooter />
     </>

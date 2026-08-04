@@ -87,6 +87,16 @@ Replace the example address with the account that should review patterns. Review
 
 The third migration allows public downloads only when the matching pattern is both approved and published. Detail pages create short-lived signed links; pending and rejected files remain private.
 
+### Managing published patterns
+
+`202608030008_moderator_pattern_management.sql` adds an **All patterns** section to `/review`, covering every pattern in any state:
+
+- **Edit** — title, description, controller, LED count, tags, preview colours, Studio Score, status and published flag. Likes, downloads and the uploaded source file are deliberately not editable: the counters are community-earned, and the file is the maker's artefact.
+- **Archive** — reversible. Sets `archived = true`, which removes the pattern from the gallery, its detail page and public file downloads. Both storage gates (`is_published_pattern_file`, `is_published_pattern_preview`) check the flag, so an archived pattern's source file and clip stop being fetchable even by object path.
+- **Purge** — permanent, and only offered once a pattern is archived. `purge_pattern()` rejects any pattern that is not archived, so the two-step holds even if the RPC is called directly. The server action removes both storage objects before deleting the row, because the row is the only record of where those objects live.
+
+Deploy order matters: apply this migration **before** deploying the code that uses it. The gallery, detail pages and `/review` all filter on `archived`, and querying a column the database does not have yet will fail those pages.
+
 ## 5. Checks
 
 ```bash

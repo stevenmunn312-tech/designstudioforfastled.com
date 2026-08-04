@@ -47,6 +47,9 @@ const getPattern = cache(async (id: string): Promise<PatternDetail | null> => {
     .select("id,title,description,controller,led_count,tags,preview_colors,likes,downloads,created_at,storage_path,studio_score,profiles(display_name)")
     .eq("id", id)
     .eq("published", true)
+    // See getPublishedPatterns: RLS alone still shows an archived pattern to
+    // its owner and to moderators, and an archived pattern should 404.
+    .eq("archived", false)
     .maybeSingle();
 
   if (error || !data) return null;

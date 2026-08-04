@@ -34,6 +34,10 @@ export async function getPublishedPatterns(limit?: number): Promise<Pattern[]> {
     .from("patterns")
     .select("id,title,description,controller,led_count,tags,preview_colors,likes,downloads,created_at,storage_path,preview_media_path,profiles(display_name)")
     .eq("published", true)
+    // Explicit, not just RLS: the select policy still returns an archived row
+    // to its owner and to any moderator, so without this an archived pattern
+    // would stay visible in the gallery for exactly those people.
+    .eq("archived", false)
     .order("created_at", { ascending: false });
   if (limit) query = query.limit(limit);
   const { data, error } = await query;
