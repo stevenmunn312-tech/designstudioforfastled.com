@@ -2,12 +2,8 @@
 
 import { useActionState, useMemo, useState } from "react";
 import { Archive, ArchiveRestore, Pencil, Search, Trash2, X } from "lucide-react";
-import {
-  purgePattern,
-  setPatternArchived,
-  updatePatternDetails,
-  type ReviewState,
-} from "./actions";
+import { purgePattern, setPatternArchived, type ReviewState } from "./actions";
+import { PatternEditForm } from "@/components/pattern-edit-form";
 
 export type ManagedPattern = {
   id: string;
@@ -32,80 +28,6 @@ const idle: ReviewState = { message: "", tone: "idle" };
 function Message({ state }: { state: ReviewState }) {
   if (!state.message) return null;
   return <p className={`review-message ${state.tone}`} aria-live="polite">{state.message}</p>;
-}
-
-function EditForm({ pattern, onDone }: { pattern: ManagedPattern; onDone: () => void }) {
-  const [state, action, pending] = useActionState(updatePatternDetails.bind(null, pattern.id), idle);
-  const colors = pattern.preview_colors ?? [];
-
-  return (
-    <form action={action} className="manage-edit">
-      <Message state={state} />
-      <label>
-        <span>Title</span>
-        <input name="title" defaultValue={pattern.title} maxLength={80} required />
-      </label>
-      <label>
-        <span>Description</span>
-        <textarea name="description" defaultValue={pattern.description} maxLength={800} rows={3} required />
-      </label>
-      <div className="manage-edit-row">
-        <label>
-          <span>Controller</span>
-          <input name="controller" defaultValue={pattern.controller} required />
-        </label>
-        <label>
-          <span>LED count</span>
-          <input name="ledCount" type="number" min={1} max={100000} defaultValue={pattern.led_count} required />
-        </label>
-        <label>
-          <span>Studio Score</span>
-          <input
-            name="studioScore"
-            type="number"
-            min={0}
-            max={100}
-            placeholder="—"
-            defaultValue={pattern.studio_score ?? ""}
-          />
-        </label>
-      </div>
-      <label>
-        <span>Tags (comma separated, max 6)</span>
-        <input name="tags" defaultValue={(pattern.tags ?? []).join(", ")} />
-      </label>
-      <div className="manage-edit-row">
-        {[1, 2, 3].map((n) => (
-          <label key={n}>
-            <span>Colour {n}</span>
-            <input name={`color${n}`} type="color" defaultValue={colors[n - 1] ?? "#61e4ff"} />
-          </label>
-        ))}
-        <label>
-          <span>Status</span>
-          <select name="status" defaultValue={pattern.status}>
-            <option value="pending">Pending</option>
-            <option value="approved">Approved</option>
-            <option value="rejected">Rejected</option>
-          </select>
-        </label>
-      </div>
-      <label className="manage-check">
-        <input name="published" type="checkbox" defaultChecked={pattern.published} />
-        <span>Published (visible in the gallery)</span>
-      </label>
-      <p className="manage-note">
-        Likes ({pattern.likes.toLocaleString()}), downloads ({pattern.downloads.toLocaleString()}) and the uploaded
-        source file are not editable here — the counters are community-earned and the file is the maker&apos;s.
-      </p>
-      <div className="manage-edit-actions">
-        <button type="button" className="button button-outline" onClick={onDone}>Close</button>
-        <button type="submit" className="button button-primary" disabled={pending}>
-          {pending ? "Saving…" : "Save changes"}
-        </button>
-      </div>
-    </form>
-  );
 }
 
 function ArchiveButton({ pattern }: { pattern: ManagedPattern }) {
@@ -187,7 +109,25 @@ function ManageRow({ pattern }: { pattern: ManagedPattern }) {
           )}
         </div>
       </div>
-      {panel === "edit" && <EditForm pattern={pattern} onDone={() => setPanel("none")} />}
+      {panel === "edit" && (
+        <PatternEditForm
+          pattern={{
+            id: pattern.id,
+            title: pattern.title,
+            description: pattern.description,
+            controller: pattern.controller,
+            ledCount: pattern.led_count,
+            tags: pattern.tags ?? [],
+            colors: pattern.preview_colors ?? [],
+            studioScore: pattern.studio_score,
+            status: pattern.status,
+            published: pattern.published,
+            likes: pattern.likes,
+            downloads: pattern.downloads,
+          }}
+          onDone={() => setPanel("none")}
+        />
+      )}
       {panel === "purge" && <PurgeForm pattern={pattern} onCancel={() => setPanel("none")} />}
     </li>
   );
