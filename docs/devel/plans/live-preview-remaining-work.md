@@ -62,25 +62,43 @@ The live audio path works because the evaluator prefers an explicit
 `AudioOverride` whenever supplied. Keep it that way unless there is a strong
 reason to make the site host a global always-on audio store.
 
-### 1. Automated Studio Score / rating, computed by the site
+### 1. Automated Studio Score / rating, computed by the site — done 2026-08-04
 
-`patternRating.ts` in the app (`ratePattern()`) is a deterministic
-frame-analysis heuristic — no LLM, no external API cost — that already reuses
-the same capture/evaluate pipeline as the preview clip. Two pieces, not yet
-started:
+Both pieces landed:
 
-- Port `ratePattern()`'s logic into the site's evaluator (same treatment as
-  `graphEvaluator.ts` got) so the site computes its own trustworthy score
-  from the live graph, rather than trusting a value the uploader's app
-  computed and sent along.
-- Seed the community rating with the uploader's own personal 1–5 star rating
-  (`userRatingsByPatternId` in the app's `patternRating.ts`) — this half is
-  simple: it just needs to travel through the share payload plus a new
-  `patterns` column.
-
-`ratePattern` hasn't been audited for portability the way `graphEvaluator.ts`
-was this session — check its actual dependency graph before assuming it's a
-clean copy-over.
+- `src/lib/evaluator/patternRating.ts` ports the pure scoring math from the
+  app's `patternRating.ts` (`scorePattern`, criterion scorers, intent
+  inference) plus a site-adapted `ratePattern()` driver — no zustand rating
+  store, no localStorage cache, no trust-prompt dialog, no thumbnail
+  packing, all dropped as app-only concerns. It relies on a new
+  `src/lib/evaluator/state/patternDiagnostics.ts`, a **trimmed** stand-in
+  for the app's `buildGraphDiagnostics`: a shared pattern is always a Group
+  subgraph, so it can never trigger the app's pin/power/RAM/board/DMX/
+  schedule/show-engine diagnostic categories — only connection wiring,
+  scalar expressions, and a couple of pattern-specific node warnings are
+  ported. This was the dependency-graph audit the previous write-up asked
+  for; the full 1000-line `validateGraph.ts` was not a clean copy-over and
+  porting all of it would have been dead code for pattern content.
+- A moderator "Compute Studio Score" button
+  (`src/app/review/compute-studio-score-button.tsx`) backfills
+  `patterns.studio_score` for approved/published patterns missing one, via
+  migration `202608030006`'s `set_pattern_studio_score` RPC — same shape as
+  the existing preview-clip backfill, same safe-by-default (untrusted)
+  evaluation.
+- The score displays on the pattern detail page
+  (`src/app/patterns/[id]/page.tsx`) when set. Not yet on the gallery card —
+  that's tied up with item 2 below.
+- Uploader's personal 1–5 star rating now travels through the share payload:
+  app-side `communityUpload.ts`'s `CommunitySharePattern.personalRating`
+  (read from `usePatternRatingStore` in `Sidebar.tsx`'s per-pattern share
+  path only — whole-project shares from `MenuBar.tsx` have no single
+  Pattern Library entry to have been rated, so they never set it), through
+  `/upload/handoff/route.ts` and `upload-form.tsx`'s hidden `uploaderRating`
+  field, into `patterns.uploader_rating` (migration `202608030007`) via
+  `actions.ts`. Nothing reads this column yet — no UI seeds a "community"
+  rating display from it. That's future work once the site has any rating
+  UI at all (there isn't one — see item 2's mockup, which was gallery-card
+  scoped and didn't design a ratings display).
 
 ### 2. Node-graph mini-diagram on gallery cards
 
@@ -130,18 +148,28 @@ moderator tool, not a one-off migration script — leave it in place.
 **community-site**
 - `src/lib/evaluator/` — the ported engine
 - `src/lib/evaluator/evaluateSharedPattern.ts` — safe-default trust wrapper
+- `src/lib/evaluator/patternRating.ts` — Studio Score engine (ported)
+- `src/lib/evaluator/state/patternDiagnostics.ts` — trimmed, group-target-only
+  `buildGraphDiagnostics` stand-in, feeding the score's "technical integrity"
+  criterion
 - `src/components/live-pattern-canvas.tsx` — live renderer
 - `src/components/pattern-preview-media.tsx` — captured-clip renderer
 - `src/lib/evaluator/audio/audioEngine.ts` — browser mic capture + analyzer
 - `src/lib/evaluator/audio/fastledReactive.ts` — FastLED-style TS audio analysis
 - `src/lib/use-live-audio.ts` — detail-page mic hook
 - `src/lib/generate-preview-clip.ts` — site-side backfill capture
-- `src/app/review/generate-preview-button.tsx` — moderator backfill UI
-- `supabase/migrations/202608030001` through `0005` — schema history
+- `src/app/review/generate-preview-button.tsx` — moderator preview-clip backfill UI
+- `src/app/review/compute-studio-score-button.tsx` — moderator Studio Score backfill UI
+- `src/app/upload/handoff/route.ts`, `upload-form.tsx`, `actions.ts` — carry
+  `personalRating`/`uploaderRating` from the app handoff into `patterns.uploader_rating`
+- `supabase/migrations/202608030001` through `0007` — schema history
 
 **Design-Studio-for-FastLED**
 - `src/utils/sharePreviewCapture.ts` — app-side capture at share time
 - `src/utils/communityUpload.ts` — two-step tab-open/post transport (the
-  `window.open` popup-blocking constraint is documented in its comments)
-- `src/state/patternRating.ts` — Pattern Insights / Studio Score (not yet
-  ported to the site)
+  `window.open` popup-blocking constraint is documented in its comments),
+  now also carries `personalRating` from `Sidebar.tsx`'s per-pattern share
+- `src/state/patternRating.ts` — Pattern Insights / Studio Score. The pure
+  scoring math is now ported to the site's `patternRating.ts`; this file
+  remains the source of truth if the two ever need re-syncing (see item 4,
+  architecture debt).
