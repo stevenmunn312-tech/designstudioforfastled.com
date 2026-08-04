@@ -53,6 +53,14 @@ export function LivePatternCanvas({
     runningRef.current = running;
   }, [running]);
 
+  // Dev-only: warn if a CSS filter/backdrop-filter ever reappears on or over
+  // this canvas (see lib/dev/animation-filter-guard). Dynamically imported so
+  // the module is not bundled into production builds.
+  useEffect(() => {
+    if (process.env.NODE_ENV !== "development") return;
+    void import("@/lib/dev/animation-filter-guard").then((mod) => mod.installAnimationFilterGuard());
+  }, []);
+
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
