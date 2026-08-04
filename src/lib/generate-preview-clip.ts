@@ -52,9 +52,20 @@ export async function generatePreviewClip(
     evaluateSharedPattern(nodes, edges, (i * 60) / FPS, GRID, GRID, { groups });
   }
 
+  // Copy every captured frame out of the evaluator's buffer pool. Omitting
+  // `advancePool` below only stops *this* loop advancing the pool — it does not
+  // make the returned buffers ours to keep. Any live PatternPreview mounted at
+  // the same time advances it ~30x/sec, and the backfill button that calls this
+  // sits on /review alongside a live preview for every pending pattern, so two
+  // generations (~66ms) after evaluation these buffers get handed back out and
+  // overwritten while we are still drawing them into the recorder over the next
+  // five seconds. See evaluateSharedPattern's `advancePool` doc: a capture loop
+  // that collects frames into an array for later use must not hold pooled
+  // buffers.
   const frames: Array<Frame | null> = [];
   for (let i = 0; i < totalFrames; i += 1) {
-    frames.push(evaluateSharedPattern(nodes, edges, ((warmupFrames + i) * 60) / FPS, GRID, GRID, { groups }));
+    const frame = evaluateSharedPattern(nodes, edges, ((warmupFrames + i) * 60) / FPS, GRID, GRID, { groups });
+    frames.push(frame ? frame.map((row) => row.map(({ r, g, b }) => ({ r, g, b }))) : null);
   }
 
   const stream = canvas.captureStream(FPS);
