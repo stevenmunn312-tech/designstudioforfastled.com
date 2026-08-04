@@ -28,6 +28,15 @@ export function LivePatternCanvas({
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const runningRef = useRef(running);
+  // A live canvas is its own GPU compositor layer, and on some GPU/driver
+  // combinations Chromium leaks render/raster memory for that layer on every
+  // composited frame — worse the more it's actually on screen. Scrolling it
+  // out of the viewport stops the browser from compositing it at all, so
+  // pausing the evaluate+draw work while off-screen (in addition to being a
+  // straightforward CPU saving) caps how much time the tab spends exposed to
+  // that leak, the same reasoning the app's NodePreview.tsx pause-when-off-
+  // screen behavior is built on.
+  const onScreenRef = useRef(true);
 
   useEffect(() => {
     runningRef.current = running;
@@ -55,10 +64,25 @@ export function LivePatternCanvas({
     });
     resize.observe(canvas);
 
+    // rootMargin resumes a little before it scrolls into view, so there's no
+    // visible pop-in of a stale frame.
+    const intersection = new IntersectionObserver(
+      ([entry]) => { onScreenRef.current = entry?.isIntersecting ?? true; },
+      { rootMargin: "150px" },
+    );
+    intersection.observe(canvas);
+
     let lastTimestamp: number | null = null;
     let elapsedSec = 0;
     const render = (timestamp: number) => {
       raf = window.requestAnimationFrame(render);
+      if (!onScreenRef.current) {
+        // Reset rather than let elapsedSec jump by the whole off-screen
+        // span once back in view — same "frozen while paused" behaviour
+        // runningRef already gives the play/pause button.
+        lastTimestamp = null;
+        return;
+      }
       if (lastTimestamp === null) lastTimestamp = timestamp;
       if (runningRef.current) elapsedSec += (timestamp - lastTimestamp) / 1000;
       lastTimestamp = timestamp;
@@ -92,6 +116,7 @@ export function LivePatternCanvas({
     return () => {
       window.cancelAnimationFrame(raf);
       resize.disconnect();
+      intersection.disconnect();
     };
     // audioOverride is a ref — read fresh via .current every frame, its
     // identity is stable, and it must not restart this effect.

@@ -39,19 +39,31 @@ function ledSprite(kind: 'spill' | 'core', r: number, g: number, b: number): HTM
   return sprite
 }
 
+// A CanvasGradient is scoped to the context that created it, so the cache is
+// keyed by context (WeakMap — entries disappear on their own once a detached
+// canvas is garbage collected) and rebuilt only when the drawn size changes,
+// instead of every single animation frame.
+const substrateCache = new WeakMap<CanvasRenderingContext2D, { key: string; gradient: CanvasGradient }>()
+
 export function renderGridFrame(ctx: CanvasRenderingContext2D, frame: Frame, pixel: number) {
   const gridH = frame.length
   const gridW = frame[0]?.length ?? 0
   const width = gridW * pixel
   const height = gridH * pixel
   ctx.clearRect(0, 0, width, height)
-  const substrate = ctx.createRadialGradient(
-    width * 0.5, height * 0.46, 0,
-    width * 0.5, height * 0.46, Math.max(width, height) * 0.72,
-  )
-  substrate.addColorStop(0, '#080c10')
-  substrate.addColorStop(1, '#020405')
-  ctx.fillStyle = substrate
+  const substrateKey = `${width}x${height}`
+  let cached = substrateCache.get(ctx)
+  if (!cached || cached.key !== substrateKey) {
+    const gradient = ctx.createRadialGradient(
+      width * 0.5, height * 0.46, 0,
+      width * 0.5, height * 0.46, Math.max(width, height) * 0.72,
+    )
+    gradient.addColorStop(0, '#080c10')
+    gradient.addColorStop(1, '#020405')
+    cached = { key: substrateKey, gradient }
+    substrateCache.set(ctx, cached)
+  }
+  ctx.fillStyle = cached.gradient
   ctx.fillRect(0, 0, width, height)
 
   // Soft spill first, then the physical emitter. Keeping the lit disc small
