@@ -56,12 +56,17 @@ const getPattern = cache(async (id: string): Promise<PatternDetail | null> => {
     ? data.preview_colors.slice(0, 3) as [string, string, string]
     : ["#61e4ff", "#876bff", "#ff78b7"] as [string, string, string];
   const fileName = cleanFileName(data.storage_path);
+  // One signature covers both uses. The `download` option is not part of what
+  // the token signs — it is a plain query parameter that asks storage for a
+  // Content-Disposition — so the preview fetch and the download link are the
+  // same URL, and signing the object twice per page render was pure overhead.
   const { data: signedFile } = await supabase.storage
     .from("pattern-files")
-    .createSignedUrl(data.storage_path, 900, { download: fileName });
-  const { data: previewFile } = await supabase.storage
-    .from("pattern-files")
     .createSignedUrl(data.storage_path, 900);
+  const previewSignedUrl = signedFile?.signedUrl;
+  const downloadUrl = previewSignedUrl
+    ? `${previewSignedUrl}&download=${encodeURIComponent(fileName)}`
+    : undefined;
 
   return {
     id: data.id,
@@ -75,8 +80,8 @@ const getPattern = cache(async (id: string): Promise<PatternDetail | null> => {
     likes: data.likes ?? 0,
     downloads: data.downloads ?? 0,
     createdAt: data.created_at,
-    downloadUrl: signedFile?.signedUrl,
-    previewUrl: previewFile?.signedUrl,
+    downloadUrl,
+    previewUrl: previewSignedUrl,
     fileName,
     studioScore: data.studio_score ?? undefined,
   };
