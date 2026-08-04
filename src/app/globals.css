@@ -368,13 +368,19 @@ h1, h2, h3, p { margin-top: 0; }
 .manage-purge-row .button { min-height: 34px; padding-inline: 13px; font-size: 10px; }
 
 /* Moderator edit control on a gallery card. Sits above the stretched link. */
-.pattern-card-edit { position: absolute; z-index: 2; top: 12px; right: 12px; min-height: 30px; padding: 0 11px; display: inline-flex; align-items: center; gap: 6px; color: #eff4ff; background: rgba(8,11,16,.92); border: 1px solid #3d4655; border-radius: 999px; font-family: var(--font-mono); font-size: 9px; text-transform: uppercase; letter-spacing: .07em; cursor: pointer; opacity: 0; transition: opacity .18s ease, border-color .18s ease; }
+/* Below the preview bar, not on top of it — at top:12px the pill sat over the
+   bar's "Looping capture" label. The device chip is bottom-left, so this
+   corner is clear. */
+.pattern-card-edit { position: absolute; z-index: 2; top: 38px; right: 12px; min-height: 30px; padding: 0 11px; display: inline-flex; align-items: center; gap: 6px; color: #eff4ff; background: rgba(8,11,16,.92); border: 1px solid #3d4655; border-radius: 999px; font-family: var(--font-mono); font-size: 9px; text-transform: uppercase; letter-spacing: .07em; cursor: pointer; opacity: 0; transition: opacity .18s ease, border-color .18s ease; }
 .pattern-card:hover .pattern-card-edit, .pattern-card-edit:focus-visible { opacity: 1; }
 .pattern-card-edit:hover { border-color: var(--cyan); }
 /* Touch and keyboard users get no hover, so never hide it from them. */
 @media (hover: none) { .pattern-card-edit { opacity: 1; } }
 
-.pattern-edit-dialog { width: min(680px, calc(100vw - 40px)); max-height: min(86vh, 860px); padding: 0; color: #e6ecf5; background: #10161e; border: 1px solid #2b3644; border-radius: 12px; box-shadow: 0 40px 90px rgba(0,0,0,.6); overflow: auto; }
+/* `margin: auto` is what centres a modal <dialog> against the UA's inset:0.
+   Tailwind's preflight zeroes margin on every element, so without restoring it
+   here the dialog pins itself to the top-left corner of the viewport. */
+.pattern-edit-dialog { margin: auto; width: min(680px, calc(100vw - 40px)); max-height: min(86vh, 860px); padding: 0; color: #e6ecf5; background: #10161e; border: 1px solid #2b3644; border-radius: 12px; box-shadow: 0 40px 90px rgba(0,0,0,.6); overflow: auto; }
 .pattern-edit-dialog::backdrop { background: rgba(4,6,10,.72); }
 .pattern-edit-dialog-body { padding: 24px 26px 22px; }
 .pattern-edit-dialog-body > h2 { margin: 0; font-family: var(--font-display); font-size: 21px; }
