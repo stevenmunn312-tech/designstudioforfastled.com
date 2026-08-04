@@ -1,4 +1,7 @@
+"use client";
+
 import { Radio } from "lucide-react";
+import { useEffect, useRef } from "react";
 import type { Pattern } from "@/lib/patterns";
 
 type PreviewVariant = "card" | "hero" | "detail";
@@ -14,6 +17,36 @@ export function PatternPreviewMedia({
   pattern: Pattern;
   variant?: PreviewVariant;
 }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // A gallery is twenty-odd of these, and `autoplay loop` keeps every decoder
+  // running whether or not its card is anywhere near the viewport. Pause the
+  // ones that are scrolled away, the same way LivePatternCanvas pauses its
+  // render loop — and honour reduced-motion, which an autoplaying loop
+  // otherwise ignores entirely.
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      video.pause();
+      return;
+    }
+    if (typeof IntersectionObserver === "undefined") return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) void video.play().catch(() => {});
+        else video.pause();
+      },
+      // Resume a little before it scrolls into view so there is no visible
+      // pause on a stale frame.
+      { rootMargin: "150px" },
+    );
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className={`live-preview live-preview-${variant}`}>
       <div className="live-preview-bar">
@@ -22,6 +55,7 @@ export function PatternPreviewMedia({
       </div>
       <div className="live-preview-screen">
         <video
+          ref={videoRef}
           src={pattern.previewMediaUrl}
           autoPlay
           loop
