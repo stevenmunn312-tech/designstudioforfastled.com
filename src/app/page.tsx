@@ -140,14 +140,12 @@ export default async function Home() {
               </figcaption>
               <Image
                 src="/app/design-studio-overview.png"
-                alt="A complete Field Warp patch running in Design Studio for FastLED, with the live LED matrix, spectrum, and transport visible"
+                alt="An audio-reactive spectrum patch running in Design Studio for FastLED, with the mic-to-FFT-to-matrix node chain and live LED preview visible"
                 width={1440}
                 height={900}
                 priority
               />
             </figure>
-            <div className="preview-cable cable-cyan" aria-hidden="true" />
-            <div className="preview-cable cable-magenta" aria-hidden="true" />
             <div className="hero-project-chip">
               <span>Desktop beta</span>
               <strong>v{appRelease.version}</strong>
