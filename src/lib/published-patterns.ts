@@ -25,6 +25,49 @@ function colorsFrom(value: unknown): [string, string, string] {
     : ["#32e5ff", "#4037ff", "#ef35ed"];
 }
 
+/** Just enough of a pattern to render a step link on the detail page. */
+export type PatternLink = { id: string; title: string };
+
+export type PatternNeighbours = {
+  previous: PatternLink | null;
+  next: PatternLink | null;
+  /** 1-based place in the gallery order, or 0 when the pattern is not in it. */
+  position: number;
+  total: number;
+};
+
+/** The gallery order, ids and titles only — no signed URLs, because the detail
+ *  page only needs somewhere to point its previous/next arrows. Mirrors the
+ *  filters and ordering of getPublishedPatterns so stepping through the
+ *  arrows walks the same sequence the gallery shows. */
+async function getPatternOrder(): Promise<PatternLink[]> {
+  if (!hasSupabaseConfig()) return starterPatterns.map(({ id, title }) => ({ id, title }));
+
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("patterns")
+    .select("id,title")
+    .eq("published", true)
+    .eq("archived", false)
+    .order("created_at", { ascending: false });
+
+  if (error || !data?.length) return starterPatterns.map(({ id, title }) => ({ id, title }));
+  return data as PatternLink[];
+}
+
+export async function getPatternNeighbours(id: string): Promise<PatternNeighbours> {
+  const ordered = await getPatternOrder();
+  const index = ordered.findIndex((pattern) => pattern.id === id);
+  if (index === -1) return { previous: null, next: null, position: 0, total: ordered.length };
+
+  return {
+    previous: ordered[index - 1] ?? null,
+    next: ordered[index + 1] ?? null,
+    position: index + 1,
+    total: ordered.length,
+  };
+}
+
 export async function getPublishedPatterns(limit?: number): Promise<Pattern[]> {
   if (!hasSupabaseConfig()) return limit ? starterPatterns.slice(0, limit) : starterPatterns;
 

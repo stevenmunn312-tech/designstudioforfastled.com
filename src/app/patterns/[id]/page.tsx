@@ -7,6 +7,8 @@ import {
   ArrowLeft,
   Award,
   CalendarDays,
+  ChevronLeft,
+  ChevronRight,
   FileCode2,
   ShieldCheck,
   UserRound,
@@ -15,6 +17,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { PatternPreview } from "@/components/pattern-preview";
 import { starterPatterns, type Pattern } from "@/lib/patterns";
+import { getPatternNeighbours, type PatternLink } from "@/lib/published-patterns";
 import { hasSupabaseConfig } from "@/lib/supabase/config";
 import { createClient } from "@/lib/supabase/server";
 
@@ -104,10 +107,36 @@ export async function generateMetadata({ params }: PatternPageProps): Promise<Me
   };
 }
 
+/** One side of the preview. Renders as plain, non-focusable text at the ends of
+ *  the gallery so the arrow keeps its place in the layout without offering a
+ *  link that goes nowhere. */
+function PatternStep({ direction, target }: { direction: "previous" | "next"; target: PatternLink | null }) {
+  const Icon = direction === "previous" ? ChevronLeft : ChevronRight;
+  if (!target) {
+    return (
+      <span className={`pattern-step pattern-step-${direction} is-spent`} aria-hidden="true">
+        <Icon size={20} />
+      </span>
+    );
+  }
+
+  return (
+    <Link
+      className={`pattern-step pattern-step-${direction}`}
+      href={`/patterns/${target.id}`}
+      aria-label={`${direction === "previous" ? "Previous" : "Next"} pattern: ${target.title}`}
+      title={target.title}
+    >
+      <Icon size={20} aria-hidden="true" />
+    </Link>
+  );
+}
+
 export default async function PatternDetailPage({ params }: PatternPageProps) {
   const { id } = await params;
   const pattern = await getPattern(id);
   if (!pattern) notFound();
+  const neighbours = await getPatternNeighbours(id);
 
   const style = {
     "--detail-a": pattern.colors[0],
@@ -129,7 +158,20 @@ export default async function PatternDetailPage({ params }: PatternPageProps) {
               <p>{pattern.description}</p>
               <div className="detail-tags">{pattern.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
             </div>
-            <PatternPreview pattern={pattern} variant="detail" controls />
+            <div className="detail-preview-deck">
+              <PatternStep direction="previous" target={neighbours.previous} />
+              <div className="detail-preview-stage">
+                <PatternPreview pattern={pattern} variant="detail" controls />
+                {neighbours.total > 1 && (
+                  <p className="detail-preview-step-note">
+                    {neighbours.position > 0
+                      ? <>Pattern {neighbours.position} of {neighbours.total} · use the arrows to step through the library</>
+                      : <>Use the arrows to step through the library</>}
+                  </p>
+                )}
+              </div>
+              <PatternStep direction="next" target={neighbours.next} />
+            </div>
           </section>
 
           <section className="detail-bench">

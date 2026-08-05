@@ -789,6 +789,18 @@ body::before {
 
 .pattern-detail { background: radial-gradient(circle at 72% 18%, color-mix(in srgb, var(--detail-b) 10%, transparent), transparent 27rem); }
 .detail-hero { grid-template-columns: .72fr 1.28fr; gap: 58px; }
+
+/* Previous/next arrows flanking the live preview. They sit outside the canvas
+   rather than over it: nothing stacked on .live-preview-screen should force the
+   compositor to re-rasterise a layer every frame (see .preview-transport). */
+.detail-preview-deck { min-width: 0; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; grid-template-areas: "previous stage next"; gap: 14px; align-items: center; }
+.detail-preview-stage { grid-area: stage; min-width: 0; }
+.detail-preview-step-note { margin: 14px 0 0; text-align: center; color: #6d7787; font-family: var(--font-mono); font-size: 8px; letter-spacing: .1em; text-transform: uppercase; }
+.pattern-step { width: 46px; height: 46px; display: grid; place-items: center; color: #c6ccda; background: rgba(18,22,29,.85); border: 1px solid #343b47; border-radius: 50%; transition: color .18s ease, border-color .18s ease, box-shadow .18s ease; }
+.pattern-step-previous { grid-area: previous; }
+.pattern-step-next { grid-area: next; }
+.pattern-step:hover { color: var(--cyan); border-color: rgba(97,228,255,.5); box-shadow: 0 0 20px rgba(97,228,255,.14); }
+.pattern-step.is-spent { color: #3d4551; border-color: #262c35; background: rgba(14,17,23,.6); }
 .detail-hero-copy h1 { font-size: clamp(54px, 6vw, 86px); }
 .live-preview-detail .live-preview-screen { height: 490px; }
 .detail-story { border-radius: 12px; background: linear-gradient(145deg, #151a22, #0f1319); }
@@ -841,5 +853,9 @@ body::before {
   .studio-cta { min-height: 0; padding-block: 75px; }
   .studio-cta > div:last-child { padding: 25px; }
   .live-preview-detail .live-preview-screen { height: 340px; }
+  /* Too narrow to flank the preview — the arrows pair up underneath it. */
+  .detail-preview-deck { grid-template-columns: auto auto; grid-template-areas: "stage stage" "previous next"; gap: 18px; }
+  .pattern-step-previous { justify-self: end; }
+  .pattern-step-next { justify-self: start; }
   .pattern-detail { padding-top: 28px; }
 }
