@@ -236,6 +236,18 @@ export default async function Home() {
               </div>
               <p>Set the controller, size, chipset, colour order, pins, brightness, layout, and power cap on Matrix Output, then pick the route that fits the moment.</p>
             </div>
+            <figure className="app-shot node-to-code-shot">
+              <figcaption>
+                <i /> Graph → generated sketch <strong>ESP32-S3 · 16 × 16</strong>
+              </figcaption>
+              <Image
+                src="/app/design-studio-node-to-code.webp"
+                alt="A live microphone, FFT, and palette graph wired into Matrix Output, with the FastLED C++ sketch it generates printing out beside it"
+                width={1561}
+                height={1007}
+                loading="lazy"
+              />
+            </figure>
             <div className="hardware-grid">
               {hardwareCards.map((card) => {
                 const Icon = card.icon;
