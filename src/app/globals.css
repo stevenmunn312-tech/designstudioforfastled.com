@@ -621,7 +621,7 @@ body::before {
 .app-shot figcaption { min-height: 37px; padding: 0 13px; display: flex; align-items: center; gap: 9px; color: #8a94a5; background: linear-gradient(90deg, #191e27, #11151c); border-bottom: 1px solid #252c35; font-family: var(--font-mono); font-size: 7px; text-transform: uppercase; letter-spacing: .12em; }
 .app-shot figcaption i { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); }
 .app-shot figcaption strong { margin-left: auto; color: var(--cyan); font-weight: 500; }
-.app-shot img { width: 100%; height: auto; display: block; }
+.app-shot img, .app-shot video { width: 100%; height: auto; display: block; }
 .app-shot-hero { transform: perspective(1200px) rotateY(-1.5deg); }
 .hero-project-chip { min-width: 180px; position: absolute; z-index: 5; right: 0; bottom: -8px; padding: 14px 17px; display: flex; flex-direction: column; gap: 4px; background: rgba(12,15,21,.93); border: 1px solid #343b47; border-left: 3px solid var(--pink); border-radius: 8px; box-shadow: 0 20px 40px rgba(0,0,0,.45); }
 .hero-project-chip span, .hero-project-chip small { color: #8a94a5; font-family: var(--font-mono); font-size: 7px; text-transform: uppercase; letter-spacing: .1em; }

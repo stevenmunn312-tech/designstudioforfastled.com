@@ -14,6 +14,7 @@ import {
   UploadCloud,
   Usb,
 } from "lucide-react";
+import { MotionSafeVideo } from "@/components/motion-safe-video";
 import { PatternCard } from "@/components/pattern-card";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -47,8 +48,12 @@ const features = [
       { emoji: "🛡️", label: "Built-in Safety Checks", text: "Real-time Graph Health alerts you to power limits, pin conflicts, and memory usage before you flash." },
     ],
     image: "/app/design-studio-patch.png",
+    // The one section whose claim is about motion — a still cannot show a
+    // slider being dragged. Rendered frame-exact by /dev/hero-loop; see
+    // docs/devel/hero-loop-render.md.
+    video: { webm: "/app/juggle-loop.webm", mp4: "/app/juggle-loop.mp4" },
     caption: "Patch editor",
-    alt: "A Juggle pattern wired into Matrix Output with the live LED preview beside it",
+    alt: "A Juggle pattern's Count slider dragged from 1 to 8 and back, the LED matrix responding live",
   },
   {
     id: "library",
@@ -223,7 +228,18 @@ export default async function Home() {
                 </div>
                 <figure className="app-shot">
                   <figcaption><i /> {feature.caption}</figcaption>
-                  <Image src={feature.image} alt={feature.alt} width={1440} height={900} loading="lazy" />
+                  {"video" in feature && feature.video ? (
+                    <MotionSafeVideo
+                      webm={feature.video.webm}
+                      mp4={feature.video.mp4}
+                      poster={feature.image}
+                      alt={feature.alt}
+                      width={1440}
+                      height={900}
+                    />
+                  ) : (
+                    <Image src={feature.image} alt={feature.alt} width={1440} height={900} loading="lazy" />
+                  )}
                 </figure>
               </article>
             ))}
