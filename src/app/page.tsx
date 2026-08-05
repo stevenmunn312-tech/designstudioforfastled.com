@@ -19,8 +19,9 @@ import {
 import { PatternCard } from "@/components/pattern-card";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { headers } from "next/headers";
 import { getPublishedPatterns } from "@/lib/published-patterns";
-import { appRelease, downloadTargets } from "@/lib/app-release";
+import { appRelease, detectDownloadTarget, downloadTargets } from "@/lib/app-release";
 
 const downloadIcons = { windows: Monitor, macos: Apple, linux: Terminal } as const;
 
@@ -110,6 +111,9 @@ export const dynamic = "force-dynamic";
 
 export default async function Home() {
   const patterns = await getPublishedPatterns(4);
+  const userAgent = (await headers()).get("user-agent");
+  const detectedTargetId = detectDownloadTarget(userAgent);
+  const detectedTarget = downloadTargets.find((target) => target.id === detectedTargetId) ?? null;
 
   return (
     <>
@@ -169,11 +173,20 @@ export default async function Home() {
               <a className="studio-text-link" href={appRelease.releasesUrl} target="_blank" rel="noreferrer">All releases &amp; source <ArrowRight size={14} /></a>
             </div>
           </div>
+          {detectedTarget && (
+            <div className="download-primary">
+              <a className="button button-gradient" href={detectedTarget.url}>
+                <Download size={17} /> Download for {detectedTarget.label}
+              </a>
+              <span>v{appRelease.version} · {detectedTarget.detail}</span>
+            </div>
+          )}
+          {detectedTarget && <p className="download-grid-label">Other platforms</p>}
           <div className="download-grid">
             {downloadTargets.map((target) => {
               const Icon = downloadIcons[target.id];
               return (
-                <article className="download-card" key={target.id}>
+                <article className={`download-card${target.id === detectedTarget?.id ? " download-card-detected" : ""}`} key={target.id}>
                   <div className="download-card-icon"><Icon size={22} /></div>
                   <h3>{target.label}</h3>
                   <p>{target.detail}</p>

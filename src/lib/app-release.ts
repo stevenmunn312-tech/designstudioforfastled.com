@@ -8,6 +8,16 @@ export const appRelease = {
   sourceUrl: `https://github.com/${REPO}`,
 };
 
+export type DownloadTargetId = "windows" | "macos" | "linux";
+
+export function detectDownloadTarget(userAgent: string | null): DownloadTargetId | null {
+  if (!userAgent) return null;
+  if (/Windows/i.test(userAgent)) return "windows";
+  if (/Macintosh|Mac OS X/i.test(userAgent)) return "macos";
+  if (/Linux/i.test(userAgent) && !/Android/i.test(userAgent)) return "linux";
+  return null;
+}
+
 export const downloadTargets = [
   {
     id: "windows",
