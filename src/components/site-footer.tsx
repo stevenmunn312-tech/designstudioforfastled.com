@@ -1,11 +1,17 @@
+import Image from "next/image";
 import Link from "next/link";
-import { BrandMark } from "./brand-mark";
 
 export function SiteFooter() {
   return (
     <footer className="site-footer">
       <div className="footer-brand">
-        <BrandMark />
+        <Image
+          className="brand-logo"
+          src="/brand/design-studio-wordmark.png"
+          alt="Design Studio for FastLED"
+          width={1400}
+          height={243}
+        />
         <p>
           The project library for Design Studio for FastLED.
         </p>

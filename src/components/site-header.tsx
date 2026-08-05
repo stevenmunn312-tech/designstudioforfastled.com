@@ -1,13 +1,18 @@
+import Image from "next/image";
 import Link from "next/link";
-import { BrandMark } from "./brand-mark";
 
 export function SiteHeader() {
   return (
     <header className="site-header">
       <Link className="brand" href="/" aria-label="Design Studio for FastLED home">
-        <BrandMark />
-        <span>Design Studio</span>
-        <em>for FastLED</em>
+        <Image
+          className="brand-logo"
+          src="/brand/design-studio-wordmark.png"
+          alt="Design Studio for FastLED"
+          width={1400}
+          height={243}
+          priority
+        />
       </Link>
       <nav className="site-nav" aria-label="Main navigation">
         <Link href="/#download">Download</Link>

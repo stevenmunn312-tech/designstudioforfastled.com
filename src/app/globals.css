@@ -45,12 +45,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   position: relative;
   z-index: 20;
 }
-.brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 700; letter-spacing: -.02em; }
-.brand em { font-family: var(--font-mono); font-size: 9px; line-height: 1; color: var(--cyan); text-transform: uppercase; letter-spacing: .12em; font-style: normal; border: 1px solid rgba(97,228,255,.35); padding: 4px 5px; }
-.brand-mark { width: 23px; height: 17px; display: grid; grid-template-columns: repeat(4, 4px); gap: 2px; transform: skewX(-7deg); }
-.brand-mark i { width: 4px; height: 4px; border-radius: 1px; background: #314052; }
-.brand-mark i:nth-child(2), .brand-mark i:nth-child(3), .brand-mark i:nth-child(5), .brand-mark i:nth-child(8), .brand-mark i:nth-child(10), .brand-mark i:nth-child(11) { background: var(--cyan); box-shadow: 0 0 6px rgba(97,228,255,.7); }
-.brand-mark i:nth-child(4), .brand-mark i:nth-child(9) { background: var(--violet); }
+.brand { display: flex; align-items: center; }
+.brand-logo { height: 34px; width: auto; }
 .site-nav { display: flex; align-items: center; gap: 34px; color: #aeb9c7; font-size: 13px; }
 .site-nav a { display: flex; align-items: center; gap: 4px; transition: color .2s ease; }
 .site-nav a:hover { color: white; }
@@ -466,7 +462,6 @@ h1, h2, h3, p { margin-top: 0; }
 @media (max-width: 720px) {
   .shell { width: min(100% - 32px, 1180px); }
   .site-header { width: calc(100% - 32px); }
-  .brand em { display: none; }
   .hero { padding-block: 65px 80px; }
   .hero-copy h1, .page-masthead h1 { font-size: clamp(46px, 14vw, 66px); }
   .hero-intro { font-size: 15px; }
@@ -590,11 +585,6 @@ body::before {
   background: linear-gradient(90deg, transparent, rgba(61,226,255,.2), rgba(240,55,232,.16), transparent);
 }
 
-.brand { gap: 11px; font-size: 16px; }
-.brand-mark { width: 28px; height: 22px; grid-template-columns: repeat(4, 5px); gap: 2px; }
-.brand-mark i { width: 5px; height: 5px; }
-.brand-mark i:nth-child(4), .brand-mark i:nth-child(9) { background: var(--pink); box-shadow: 0 0 7px rgba(240,55,232,.8); }
-.brand em { border-color: rgba(61,226,255,.5); color: var(--cyan); background: rgba(61,226,255,.05); }
 .site-nav { align-self: stretch; gap: 42px; }
 .site-nav a { position: relative; color: #b5bac5; font-size: 12px; }
 .site-nav a::after { content: ""; position: absolute; left: 0; right: 100%; bottom: 0; height: 2px; background: linear-gradient(90deg, var(--cyan), var(--pink)); transition: right .2s ease; }
@@ -837,7 +827,7 @@ body::before {
 @media (max-width: 620px) {
   .shell { width: min(100% - 28px, 1360px); }
   .site-header { width: calc(100% - 20px); padding-inline: 8px; }
-  .brand > span { font-size: 14px; }
+  .brand-logo { height: 26px; }
   .studio-hero { min-height: auto; padding-block: 58px 55px; gap: 38px; }
   .studio-hero h1 { font-size: clamp(48px, 15vw, 68px); }
   .studio-hero-copy > p:not(.studio-kicker) { font-size: 14px; }
