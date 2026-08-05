@@ -719,12 +719,14 @@ body::before {
 .library-invitation p { color: #858e9d; font-size: 11px; line-height: 1.7; }
 .library-invitation a { margin-top: 14px; display: inline-flex; align-items: center; gap: 8px; color: var(--cyan); font-family: var(--font-mono); font-size: 8px; text-transform: uppercase; }
 
+.download-section { padding-bottom: 0; }
 .download-section .studio-section-heading { grid-template-columns: 1fr 1fr; align-items: start; }
-.feature-section .studio-section-heading { grid-template-columns: 1fr 380px; align-items: start; }
+.feature-section { padding-top: 60px; }
+.feature-section .studio-section-heading { grid-template-columns: 1fr 380px; align-items: center; margin-bottom: 60px; }
 .feature-section .studio-section-heading > div:first-child > p { margin: 14px 0 0; max-width: 560px; color: #8d95a3; font-size: 13px; line-height: 1.8; }
-.feature-value-props { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 16px; }
-.feature-value-props li { display: flex; align-items: flex-start; gap: 10px; color: #b3bac6; font-size: 12px; line-height: 1.65; }
-.feature-value-props li > span:first-child { flex: none; font-size: 15px; line-height: 1.4; }
+.feature-value-props { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 26px; }
+.feature-value-props li { display: flex; align-items: flex-start; gap: 12px; color: #b3bac6; font-size: 14px; line-height: 1.7; }
+.feature-value-props li > span:first-child { flex: none; font-size: 19px; line-height: 1.5; }
 .feature-value-props li strong { color: #e7eaef; font-weight: 600; }
 .download-primary { margin-top: 26px; padding: 22px 26px; display: flex; align-items: center; justify-content: center; gap: 18px; background: linear-gradient(135deg, rgba(22,157,242,.12), rgba(217,44,236,.1)); border: 1px solid rgba(97,228,255,.3); border-radius: 12px; }
 .download-primary .button { flex-shrink: 0; }
@@ -847,6 +849,8 @@ body::before {
   .live-preview-readout span:nth-child(2) { display: none; }
   .hero-project-chip { right: 5px; }
   .studio-section, .graph-section { padding-block: 78px; }
+  .download-section { padding-bottom: 0; }
+  .feature-section { padding-top: 60px; }
   .studio-pattern-grid, .studio-pattern-grid.single-pattern, .gallery-grid, .hardware-grid { grid-template-columns: 1fr; }
   .app-shot-hero { transform: none; }
   .library-invitation { min-height: 300px; }
