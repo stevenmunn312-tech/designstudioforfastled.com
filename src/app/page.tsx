@@ -118,9 +118,9 @@ export default async function Home() {
         <section className="studio-hero shell">
           <div className="studio-hero-copy">
             <p className="studio-kicker"><span /> Free · node-based LED design</p>
-            <h1>Design LED shows.<br /><em>Flash real hardware.</em></h1>
+            <h1>Wire the Nodes.<br /><em>Light Up the Room.</em></h1>
             <p>
-              Design Studio for FastLED is a live, node-based creative environment for LED strips, matrices, and tiled panels. Wire up patterns, palettes, audio, and effects, watch the result move instantly, then generate the same design as FastLED C++ and flash it to your controller.
+              The visual, node-based workspace for makers, lighting designers, and Arduino/ESP32 developers.
             </p>
             <div className="hero-actions">
               <a className="button button-gradient" href="#download">Download the app <Download size={17} /></a>
