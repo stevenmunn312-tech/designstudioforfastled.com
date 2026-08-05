@@ -26,6 +26,11 @@
 .DS_Store
 *.pem
 
+# editor / agent tooling
+# Per-machine Claude Code state: approved-permission lists and the local
+# launch.json used to start the dev server in the preview pane.
+/.claude/
+
 # debug
 npm-debug.log*
 yarn-debug.log*
