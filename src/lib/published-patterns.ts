@@ -1,6 +1,7 @@
 import "server-only";
 
 import { starterPatterns, type Pattern } from "@/lib/patterns";
+import { getRatingStats } from "@/lib/pattern-ratings";
 import { hasSupabaseConfig } from "@/lib/supabase/config";
 import { createClient } from "@/lib/supabase/server";
 
@@ -88,6 +89,9 @@ export async function getPublishedPatterns(limit?: number): Promise<Pattern[]> {
   const { data, error } = await query;
   if (error || !data?.length) return limit ? starterPatterns.slice(0, limit) : starterPatterns;
 
+  // One aggregate query for the whole page rather than a per-card lookup.
+  const ratings = await getRatingStats((data as PatternRow[]).map((row) => row.id));
+
   return Promise.all((data as PatternRow[]).map(async (row) => {
     const profile = Array.isArray(row.profiles) ? row.profiles[0] : row.profiles;
     const { data: signed } = await supabase.storage.from("pattern-files").createSignedUrl(row.storage_path, 900);
@@ -107,6 +111,7 @@ export async function getPublishedPatterns(limit?: number): Promise<Pattern[]> {
       previewUrl: signed?.signedUrl,
       previewMediaUrl,
       studioScore: row.studio_score ?? undefined,
+      rating: ratings.get(row.id),
     };
   }));
 }

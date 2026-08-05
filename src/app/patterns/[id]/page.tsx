@@ -11,12 +11,16 @@ import {
   ChevronRight,
   FileCode2,
   ShieldCheck,
+  Star,
   UserRound,
 } from "lucide-react";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { PatternPreview } from "@/components/pattern-preview";
+import { PatternRatingControl } from "@/components/pattern-rating-control";
+import { StarRating } from "@/components/star-rating";
 import { starterPatterns, type Pattern } from "@/lib/patterns";
+import { getRatingStat, getViewerRating, viewerIsSignedIn } from "@/lib/pattern-ratings";
 import { getPatternNeighbours, type PatternLink } from "@/lib/published-patterns";
 import { hasSupabaseConfig } from "@/lib/supabase/config";
 import { createClient } from "@/lib/supabase/server";
@@ -137,6 +141,12 @@ export default async function PatternDetailPage({ params }: PatternPageProps) {
   const pattern = await getPattern(id);
   if (!pattern) notFound();
   const neighbours = await getPatternNeighbours(id);
+  // Starter patterns are static fixtures with no database row, so there is
+  // nothing to rate and no stats to read.
+  const rateable = uuidPattern.test(id);
+  const [rating, viewerStars, signedIn] = rateable
+    ? await Promise.all([getRatingStat(id), getViewerRating(id), viewerIsSignedIn()])
+    : [undefined, null, false];
 
   const style = {
     "--detail-a": pattern.colors[0],
@@ -185,7 +195,21 @@ export default async function PatternDetailPage({ params }: PatternPageProps) {
                 {pattern.studioScore != null && (
                   <div><Award size={18} aria-hidden="true" /><span>Studio Score</span><strong>{pattern.studioScore}/100</strong></div>
                 )}
+                {rateable && (
+                  <div>
+                    <Star size={18} aria-hidden="true" />
+                    <span>Community</span>
+                    <strong><StarRating rating={rating} size={15} /></strong>
+                  </div>
+                )}
               </div>
+              {rateable && (
+                <PatternRatingControl
+                  patternId={pattern.id}
+                  initialStars={viewerStars}
+                  signedIn={signedIn}
+                />
+              )}
             </div>
 
             <aside className="delivery-panel">

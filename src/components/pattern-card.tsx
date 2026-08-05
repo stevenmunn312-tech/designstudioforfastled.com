@@ -5,6 +5,7 @@ import type { Pattern } from "@/lib/patterns";
 import { PatternPreviewMedia } from "./pattern-preview-media";
 import { PatternPreviewPlaceholder } from "./pattern-preview-placeholder";
 import { PatternCardEdit } from "./pattern-card-edit";
+import { StarRating } from "./star-rating";
 
 export function PatternCard({
   pattern,
@@ -47,6 +48,7 @@ export function PatternCard({
           </div>
           <span className="pattern-likes"><Heart size={14} aria-hidden="true" /> {pattern.likes}</span>
         </div>
+        <StarRating rating={pattern.rating} size={13} />
         {!compact && <p className="pattern-description">{pattern.description}</p>}
         <div className="pattern-meta">
           <div>{pattern.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>

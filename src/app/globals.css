@@ -130,6 +130,37 @@ h1, h2, h3, p { margin-top: 0; }
 .pattern-heading h3 { margin-bottom: 5px; font-family: var(--font-display); font-size: 19px; }
 .pattern-heading p { margin: 0; color: #8a94a5; font-size: 10px; }
 .pattern-likes { display: flex; align-items: center; gap: 5px; color: #8794a5; font-family: var(--font-mono); font-size: 9px; }
+
+/* Community star rating — read-only display, shared by cards and the detail
+   page. The fill is an overlay clipped to a percentage width rather than a
+   count of whole stars, so 4.33 does not render as 4. Both layers stack in the
+   same grid cell; the track sits underneath at low opacity. */
+.star-rating { display: inline-flex; align-items: center; gap: 7px; }
+.star-rating.is-unrated { color: #6c7787; font-family: var(--font-mono); font-size: 9px; }
+.star-rating-stars { position: relative; display: inline-block; line-height: 0; }
+.star-rating-track { display: flex; gap: 2px; color: #3c4655; }
+.star-rating-fill { position: absolute; inset: 0; display: flex; gap: 2px; overflow: hidden; color: var(--amber); white-space: nowrap; }
+.star-rating-value { color: #8794a5; font-family: var(--font-mono); font-size: 9px; }
+.star-rating-value em { margin-left: 4px; color: #667283; font-style: normal; }
+
+/* Interactive input on the detail page. The radios stay focusable but are
+   drawn by their labels, so the visible hit target is the star itself. */
+.rating-control { margin-top: 22px; padding: 18px 20px; border: 1px solid #293541; border-radius: 10px; background: rgba(12,16,22,.5); }
+.rating-control fieldset { padding: 0; border: 0; }
+.rating-control fieldset:disabled { opacity: .55; }
+.rating-control legend { margin-bottom: 9px; padding: 0; color: #8a94a5; font-family: var(--font-mono); font-size: 8px; text-transform: uppercase; letter-spacing: .08em; }
+.rating-stars { display: flex; gap: 4px; }
+.rating-stars label { display: inline-flex; padding: 2px; color: #3c4655; cursor: pointer; border-radius: 4px; transition: color .12s ease, transform .12s ease; }
+.rating-stars label.is-on { color: var(--amber); }
+.rating-stars label:hover { transform: translateY(-1px); }
+.rating-stars input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+/* Focus lands on the hidden input, so the ring has to be drawn on its label. */
+.rating-stars label:has(input:focus-visible) { outline: 2px solid var(--cyan); outline-offset: 2px; }
+.rating-status { margin: 10px 0 0; color: #8a94a5; font-size: 11px; }
+.rating-control.is-signed-out p { margin: 0; color: #8a94a5; font-size: 11px; }
+.rating-control.is-signed-out a { color: var(--cyan); }
+.rating-clear { margin-top: 8px; padding: 0; color: #667283; background: none; border: 0; font-size: 10px; text-decoration: underline; cursor: pointer; }
+.rating-clear:hover { color: #8a94a5; }
 .pattern-description { margin: 17px 0; min-height: 43px; color: #8794a4; font-size: 12px; line-height: 1.7; }
 .pattern-meta { margin-top: 18px; padding-top: 14px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #1f2934; color: #8a94a5; font-family: var(--font-mono); font-size: 8px; }
 .pattern-meta > div { display: flex; gap: 6px; flex-wrap: wrap; }
