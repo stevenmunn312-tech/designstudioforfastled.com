@@ -69,7 +69,22 @@ Add these environment variables in Cloudflare rather than committing them:
 
 - `NEXT_PUBLIC_SUPABASE_URL`
 - `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
-- `NEXT_PUBLIC_SITE_URL`
+
+`NEXT_PUBLIC_SITE_URL` is not in that list. It is a public value with one
+correct production setting, so it lives in the committed `.env.production`.
+
+### Why the site URL is committed
+
+Every `NEXT_PUBLIC_*` value is inlined into the bundle when the site is built,
+and Next.js loads `.env.local` during a production build as well as in
+development. A site URL left in `.env.local` therefore outranks
+`.env.production` and ships to the deployed site, where it breaks OG and
+Twitter image URLs (`metadataBase`) and the Supabase signup confirmation
+redirect.
+
+If your dev server runs on a non-default host or port, put the override in
+`.env.development.local`. That file is only read when `NODE_ENV=development`,
+so `next build` cannot pick it up.
 
 ## 4. Moderation workflow
 

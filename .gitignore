@@ -39,6 +39,9 @@ yarn-error.log*
 .env*
 !.env.example
 !.dev.vars.example
+# Public build-time values for production. Committed so a local .env.local
+# cannot decide what a deployed build ships — see the file's own header.
+!.env.production
 
 # vercel
 .vercel
