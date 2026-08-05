@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
-  Apple,
   ArrowRight,
   Boxes,
   CheckCircle2,
@@ -12,7 +11,6 @@ import {
   Monitor,
   Radio,
   Sparkles,
-  Terminal,
   UploadCloud,
   Usb,
 } from "lucide-react";
@@ -22,8 +20,6 @@ import { SiteHeader } from "@/components/site-header";
 import { headers } from "next/headers";
 import { getPublishedPatterns } from "@/lib/published-patterns";
 import { appRelease, detectDownloadTarget, downloadTargets } from "@/lib/app-release";
-
-const downloadIcons = { windows: Monitor, macos: Apple, linux: Terminal } as const;
 
 const features = [
   {
@@ -167,38 +163,24 @@ export default async function Home() {
             <div>
               <p className="studio-kicker"><span /> Get the app</p>
               <h2>Portable desktop<br /><em>beta, free to run.</em></h2>
-            </div>
-            <div>
-              <p>Pick an archive for your operating system, extract it, and launch Design Studio for FastLED—no install, no Node.js or Python required.</p>
-              <a className="studio-text-link" href={appRelease.releasesUrl} target="_blank" rel="noreferrer">All releases &amp; source <ArrowRight size={14} /></a>
-            </div>
-          </div>
-          {detectedTarget && (
-            <div className="download-primary">
-              <a className="button button-gradient" href={detectedTarget.url}>
-                <Download size={17} /> Download for {detectedTarget.label}
-              </a>
-              <span>v{appRelease.version} · {detectedTarget.detail}</span>
-            </div>
-          )}
-          {detectedTarget && <p className="download-grid-label">Other platforms</p>}
-          <div className="download-grid">
-            {downloadTargets.map((target) => {
-              const Icon = downloadIcons[target.id];
-              return (
-                <article className={`download-card${target.id === detectedTarget?.id ? " download-card-detected" : ""}`} key={target.id}>
-                  <div className="download-card-icon"><Icon size={22} /></div>
-                  <h3>{target.label}</h3>
-                  <p>{target.detail}</p>
-                  <a className="button button-outline" href={target.url}>
-                    <Download size={15} /> Download v{appRelease.version}
+              {detectedTarget && (
+                <div className="download-primary">
+                  <a className="button button-gradient" href={detectedTarget.url}>
+                    <Download size={17} /> Download for {detectedTarget.label}
                   </a>
-                  {"secondary" in target && target.secondary && (
-                    <a className="download-secondary" href={target.secondary.url}>{target.secondary.label}</a>
-                  )}
-                </article>
-              );
-            })}
+                  <span>v{appRelease.version} · {detectedTarget.detail}</span>
+                </div>
+              )}
+            </div>
+            <div className="download-oss-badge">
+              <Image
+                src="/badges/open-source-badge.png"
+                alt="Open Source Software"
+                width={1536}
+                height={1024}
+              />
+              <a className="studio-text-link download-oss-badge-link" href={appRelease.releasesUrl} target="_blank" rel="noreferrer">All releases &amp; source <ArrowRight size={14} /></a>
+            </div>
           </div>
           <p className="download-note">
             Public beta archives are not yet code-signed or notarized—only run builds downloaded from the official release page above. Prefer to build it yourself? <a href={appRelease.sourceUrl} target="_blank" rel="noreferrer">Run from source on GitHub</a>.
