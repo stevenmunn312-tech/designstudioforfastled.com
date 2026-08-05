@@ -32,6 +32,8 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 .codex-*.log
+# Redirected `next dev` output, one file per port (.next-dev-3100.log etc).
+.next-dev-*.log
 
 # env files (can opt-in for committing if needed)
 .env*
