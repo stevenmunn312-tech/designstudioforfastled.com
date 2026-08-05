@@ -5,6 +5,13 @@
 - [Setup](SETUP.md) — local development, Supabase migrations, environment
   variables, and the Cloudflare deploy that runs on every push to `main`.
 
+## Site assets
+
+- [Rendering the "Live authoring" hero loop](devel/hero-loop-render.md) —
+  regenerating the seamless Juggle clip on the home page: why it is rendered
+  frame-by-frame rather than screen-recorded, how the seam is verified, and
+  the ffmpeg and embed steps.
+
 ## Development plans
 
 - [Live preview: remaining work](devel/plans/live-preview-remaining-work.md)
