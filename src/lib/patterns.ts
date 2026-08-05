@@ -17,6 +17,17 @@ export type Pattern = {
    *  src/lib/evaluator/patternRating.ts). Undefined until a moderator has
    *  run the scan for this pattern from /review. */
   studioScore?: number;
+  /** Community star rating, undefined until the pattern has its first vote.
+   *  Deliberately separate from studioScore: one is taste, the other is a
+   *  measurement of the graph. See src/lib/pattern-ratings.ts. */
+  rating?: PatternRating;
+};
+
+/** Aggregate of the 1-5 star votes on a pattern. */
+export type PatternRating = {
+  /** Mean of every vote, to two decimal places. */
+  average: number;
+  votes: number;
 };
 
 export const starterPatterns: Pattern[] = [
