@@ -42,9 +42,9 @@ const features = [
     heading: ["Move a slider,", "see it immediately."],
     body: "Wire typed, colour-coded nodes into a patch and the matrix responds while you drag. Every frame-producing node carries its own preview, so you can read the signal at any point in the chain instead of guessing.",
     points: [
-      "Per-node previews alongside the full matrix",
-      "Drag a wire onto empty canvas to see only compatible nodes",
-      "Graph health explains wiring, pins, power, and memory as you build",
+      { emoji: "⚡", label: "Live Signal Inspection", text: "Every frame-producing node shows its own local preview so you can debug signal flows instantly." },
+      { emoji: "🔌", label: "Smart Cable Snap", text: "Drag a cable onto open canvas—only compatible input nodes appear." },
+      { emoji: "🛡️", label: "Built-in Safety Checks", text: "Real-time Graph Health alerts you to power limits, pin conflicts, and memory usage before you flash." },
     ],
     image: "/app/design-studio-patch.png",
     caption: "Patch editor",
@@ -210,7 +210,14 @@ export default async function Home() {
                   <p>{feature.body}</p>
                   <ul className="feature-points">
                     {feature.points.map((point) => (
-                      <li key={point}><CheckCircle2 size={14} /> {point}</li>
+                      typeof point === "string" ? (
+                        <li key={point}><CheckCircle2 size={14} /> {point}</li>
+                      ) : (
+                        <li key={point.label} className="feature-point-emphasis">
+                          <span aria-hidden="true">{point.emoji}</span>
+                          <span><strong>{point.label}:</strong> {point.text}</span>
+                        </li>
+                      )
                     ))}
                   </ul>
                 </div>

@@ -765,6 +765,8 @@ body::before {
 .feature-points { margin: 24px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 11px; }
 .feature-points li { display: flex; align-items: flex-start; gap: 10px; color: #b3bac6; font-size: 12px; line-height: 1.6; }
 .feature-points svg { flex: none; margin-top: 1px; color: var(--green); }
+.feature-point-emphasis > span:first-child { flex: none; font-size: 14px; line-height: 1.5; }
+.feature-point-emphasis strong { color: #e7eaef; font-weight: 600; }
 
 .studio-cta { min-height: 470px; padding-block: 90px; display: grid; grid-template-columns: 1fr 420px; gap: 80px; align-items: center; }
 .studio-cta > div:last-child { padding: 32px; display: flex; flex-direction: column; align-items: flex-start; background: rgba(18,23,31,.76); border: 1px solid #303844; border-left: 3px solid var(--pink); border-radius: 12px; }
