@@ -52,26 +52,44 @@ copy .dev.vars.example .dev.vars
 npm run preview
 ```
 
-To deploy from a supported environment:
+### Deployment
+
+Every push to `main` builds and deploys the Worker through the `deploy` job in
+`.github/workflows/ci.yml`, after `validate` passes. There is nothing to run by
+hand, and the Windows caveat above stops mattering — the deploy runs on Linux.
+
+The job needs four values on the repository, none of which are committed:
+
+| Name | Kind | Why |
+| --- | --- | --- |
+| `NEXT_PUBLIC_SUPABASE_URL` | Actions **variable** | Inlined into the bundle at build time |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Actions **variable** | Inlined into the bundle at build time |
+| `CLOUDFLARE_API_TOKEN` | Actions **secret** | Authenticates `wrangler` |
+| `CLOUDFLARE_ACCOUNT_ID` | Actions **secret** | Selects the account to deploy into |
+
+The two Supabase values are variables rather than secrets on purpose. Both are
+public — they are inlined into a bundle anyone can read — so masking them in
+the build log buys nothing and makes a failed build harder to read. The
+Cloudflare pair are real credentials and stay secrets.
+
+If either Supabase variable is missing the deploy fails on a guard step before
+building. That is deliberate: `getSupabaseConfig()` reads them from the bundle,
+so a build without them produces a site whose gallery is empty and whose
+sign-in is dead, with nothing in any log to say why.
+
+Deploys are serialised through a `deploy-production` concurrency group, so two
+merges in quick succession queue instead of racing each other onto the domain.
+
+To deploy by hand anyway — a rollback, or a Cloudflare-side outage in Actions:
 
 ```bash
 npx wrangler login
 npm run deploy
 ```
 
-For a Git-connected Cloudflare deployment, use:
-
-- Build command: `npm run build:worker`
-- Deploy command: `npx opennextjs-cloudflare deploy`
-- Node version: `24`
-
-Add these environment variables in Cloudflare rather than committing them:
-
-- `NEXT_PUBLIC_SUPABASE_URL`
-- `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
-
-`NEXT_PUBLIC_SITE_URL` is not in that list. It is a public value with one
-correct production setting, so it lives in the committed `.env.production`.
+`NEXT_PUBLIC_SITE_URL` is deliberately absent from the table. It is a public
+value with one correct production setting, so it lives in the committed
+`.env.production`.
 
 ### Why the site URL is committed
 
@@ -110,7 +128,7 @@ The third migration allows public downloads only when the matching pattern is bo
 - **Archive** — reversible. Sets `archived = true`, which removes the pattern from the gallery, its detail page and public file downloads. Both storage gates (`is_published_pattern_file`, `is_published_pattern_preview`) check the flag, so an archived pattern's source file and clip stop being fetchable even by object path.
 - **Purge** — permanent, and only offered once a pattern is archived. `purge_pattern()` rejects any pattern that is not archived, so the two-step holds even if the RPC is called directly. The server action removes both storage objects before deleting the row, because the row is the only record of where those objects live.
 
-Deploy order matters: apply this migration **before** deploying the code that uses it. The gallery, detail pages and `/review` all filter on `archived`, and querying a column the database does not have yet will fail those pages.
+Deploy order matters: apply this migration **before** deploying the code that uses it. The gallery, detail pages and `/review` all filter on `archived`, and querying a column the database does not have yet will fail those pages. Since `main` deploys itself, "before deploying" now means before the merge, not after it.
 
 ## 5. Checks
 
@@ -119,4 +137,5 @@ npm run lint
 npm run build
 ```
 
-Pull requests also run a Linux OpenNext Worker build through GitHub Actions.
+Pull requests also run a Linux OpenNext Worker build through GitHub Actions. On
+`main` that same check gates the deploy described in section 3.

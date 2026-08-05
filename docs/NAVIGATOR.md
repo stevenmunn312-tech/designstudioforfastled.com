@@ -3,7 +3,7 @@
 ## Setting up
 
 - [Setup](SETUP.md) — local development, Supabase migrations, environment
-  variables.
+  variables, and the Cloudflare deploy that runs on every push to `main`.
 
 ## Development plans
 
