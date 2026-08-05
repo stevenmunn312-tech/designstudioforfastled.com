@@ -192,10 +192,13 @@ export default async function Home() {
             <div>
               <p className="studio-kicker"><span /> Inside the app</p>
               <h2>Everything between<br /><em>idea and LEDs.</em></h2>
+              <p>Design, preview, and deploy from a single window. Our real-time graph evaluator and C++ generator stay 1:1 in sync&mdash;ensuring what you see on screen is exactly what flashes to your microcontroller.</p>
             </div>
-            <div>
-              <p>Authoring, preview, performance, and hardware live in one window. The graph evaluator and the C++ generator are built together, so what you watch on screen is what the controller runs.</p>
-            </div>
+            <ul className="feature-value-props">
+              <li><span aria-hidden="true">⚡</span> <span><strong>Unified Workflow:</strong> No switching between IDEs, compilers, and previewers.</span></li>
+              <li><span aria-hidden="true">🔄</span> <span><strong>1:1 Code Sync:</strong> Live evaluator directly mirrors generated C++ output.</span></li>
+              <li><span aria-hidden="true">🎯</span> <span><strong>Hardware-Aware:</strong> Built specifically for FastLED on ESP32, Arduino, and more.</span></li>
+            </ul>
           </div>
 
           <div className="feature-rows">
