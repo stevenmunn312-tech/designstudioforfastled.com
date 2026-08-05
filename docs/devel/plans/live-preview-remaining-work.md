@@ -87,7 +87,7 @@ Both pieces landed:
   evaluation.
 - The score displays on the pattern detail page
   (`src/app/patterns/[id]/page.tsx`) when set. Not yet on the gallery card —
-  that's tied up with item 2 below.
+  `PatternCard` has no slot designed for it.
 - Uploader's personal 1–5 star rating now travels through the share payload:
   app-side `communityUpload.ts`'s `CommunitySharePattern.personalRating`
   (read from `usePatternRatingStore` in `Sidebar.tsx`'s per-pattern share
@@ -97,26 +97,9 @@ Both pieces landed:
   field, into `patterns.uploader_rating` (migration `202608030007`) via
   `actions.ts`. Nothing reads this column yet — no UI seeds a "community"
   rating display from it. That's future work once the site has any rating
-  UI at all (there isn't one — see item 2's mockup, which was gallery-card
-  scoped and didn't design a ratings display).
+  UI at all, and there isn't one today.
 
-### 2. Node-graph mini-diagram on gallery cards
-
-Wanted: a small "tidied" snapshot of the pattern's internal node graph on the
-left of each gallery card, the live/captured preview on the right, then
-title/description/ratings below (mockup was shared inline mid-conversation,
-not saved as a file). Sketched, not built:
-
-- Tidy a copy of the subgraph non-destructively — reuse the app's existing
-  `runTidy` layout logic.
-- Render briefly off-screen through React Flow (`@xyflow/react` — already an
-  app dependency, **not currently a site dependency**).
-- Snapshot to a small static image, upload alongside the pattern/clip.
-- Redesign `PatternCard`/the gallery grid to the two-pane layout.
-
-No code or schema exists for this yet.
-
-### 3. Cut a packaged app release for the capture-at-share feature
+### 2. Cut a packaged app release for the capture-at-share feature
 
 `sharePreviewCapture.ts` and the rest of the share-time capture work are
 pushed to the app repo's `main`, but not built into a downloadable release —
@@ -126,7 +109,7 @@ entry + tag + wait for the packaging workflow + publish the draft release +
 update this site's `src/lib/app-release.ts`. Same process used for the v0.5.1
 cut earlier this session.
 
-### 4. Architecture debt: the evaluator is a vendored copy, not a shared package
+### 3. Architecture debt: the evaluator is a vendored copy, not a shared package
 
 `src/lib/evaluator/` here is a **copy** of files from
 `Design-Studio-for-FastLED/src/{state,audio,animartrix}/`, not a dependency.
@@ -137,7 +120,7 @@ package both repos depend on was explicitly deferred as its own, bigger
 project. Worth revisiting if drift becomes a real problem — e.g. a new node
 type added in the app quietly not rendering on the site.
 
-### 5. Not a bug: the `/review` backfill section is permanent
+### 4. Not a bug: the `/review` backfill section is permanent
 
 Once all pre-existing patterns have a backfilled clip, "Missing a looping
 preview clip" on `/review` will empty out on its own. It's a standing
@@ -171,5 +154,5 @@ moderator tool, not a one-off migration script — leave it in place.
   now also carries `personalRating` from `Sidebar.tsx`'s per-pattern share
 - `src/state/patternRating.ts` — Pattern Insights / Studio Score. The pure
   scoring math is now ported to the site's `patternRating.ts`; this file
-  remains the source of truth if the two ever need re-syncing (see item 4,
+  remains the source of truth if the two ever need re-syncing (see item 3,
   architecture debt).
