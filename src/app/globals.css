@@ -109,8 +109,11 @@ h1, h2, h3, p { margin-top: 0; }
 .pattern-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
 .pattern-card { position: relative; display: block; overflow: hidden; background: #0d131c; border: 1px solid #222d39; transition: transform .25s ease, border-color .25s ease; }
 /* The card is no longer an anchor (it holds a moderator button, which cannot
-   live inside one), so the link is stretched over it instead. */
-.pattern-card-link { position: absolute; inset: 0; z-index: 1; }
+   live inside one), so the link is stretched over it instead. z-index must
+   clear every positioned element inside the preview thumbnail (.live-preview
+   is its own stacking context at z-index 2, .preview-device hits 3) or the
+   thumbnail swallows the click and only the copy text below it navigates. */
+.pattern-card-link { position: absolute; inset: 0; z-index: 5; }
 .pattern-card-link:focus-visible { outline: 2px solid var(--cyan); outline-offset: -3px; }
 .pattern-card:hover { transform: translateY(-5px); border-color: #435267; }
 .pattern-preview { height: 215px; position: relative; overflow: hidden; background: radial-gradient(circle at 50% 110%, color-mix(in srgb, var(--pattern-a) 35%, transparent), transparent 62%), #080c12; }
@@ -367,7 +370,7 @@ h1, h2, h3, p { margin-top: 0; }
 /* Below the preview bar, not on top of it — at top:12px the pill sat over the
    bar's "Looping capture" label. The device chip is bottom-left, so this
    corner is clear. */
-.pattern-card-edit { position: absolute; z-index: 2; top: 38px; right: 12px; min-height: 30px; padding: 0 11px; display: inline-flex; align-items: center; gap: 6px; color: #eff4ff; background: rgba(8,11,16,.92); border: 1px solid #3d4655; border-radius: 999px; font-family: var(--font-mono); font-size: 9px; text-transform: uppercase; letter-spacing: .07em; cursor: pointer; opacity: 0; transition: opacity .18s ease, border-color .18s ease; }
+.pattern-card-edit { position: absolute; z-index: 6; top: 38px; right: 12px; min-height: 30px; padding: 0 11px; display: inline-flex; align-items: center; gap: 6px; color: #eff4ff; background: rgba(8,11,16,.92); border: 1px solid #3d4655; border-radius: 999px; font-family: var(--font-mono); font-size: 9px; text-transform: uppercase; letter-spacing: .07em; cursor: pointer; opacity: 0; transition: opacity .18s ease, border-color .18s ease; }
 .pattern-card:hover .pattern-card-edit, .pattern-card-edit:focus-visible { opacity: 1; }
 .pattern-card-edit:hover { border-color: var(--cyan); }
 /* Touch and keyboard users get no hover, so never hide it from them. */
