@@ -92,12 +92,32 @@ export async function getPublishedPatterns(limit?: number): Promise<Pattern[]> {
   // One aggregate query for the whole page rather than a per-card lookup.
   const ratings = await getRatingStats((data as PatternRow[]).map((row) => row.id));
 
-  return Promise.all((data as PatternRow[]).map(async (row) => {
+  // Signing is batched into two calls total (not one pair per pattern): a
+  // gallery-sized fan-out of individual createSignedUrl calls burns through
+  // Cloudflare Workers' per-request subrequest budget once the pattern count
+  // climbs past a few dozen, and every signing call past that cap silently
+  // resolves to no URL rather than throwing — so a gallery works fine in
+  // `next dev` and fails wholesale (blank previews, no error anywhere) once
+  // deployed.
+  const rows = data as PatternRow[];
+  const previewMediaPaths = rows
+    .map((row) => row.preview_media_path)
+    .filter((path): path is string => Boolean(path));
+
+  const [{ data: signedFiles }, { data: signedMedia }] = await Promise.all([
+    rows.length
+      ? supabase.storage.from("pattern-files").createSignedUrls(rows.map((row) => row.storage_path), 900)
+      : Promise.resolve({ data: [] as { path: string | null; signedUrl: string | null }[] }),
+    previewMediaPaths.length
+      ? supabase.storage.from("pattern-previews").createSignedUrls(previewMediaPaths, 900)
+      : Promise.resolve({ data: [] as { path: string | null; signedUrl: string | null }[] }),
+  ]);
+
+  const fileUrlByPath = new Map((signedFiles ?? []).map((entry) => [entry.path, entry.signedUrl]));
+  const mediaUrlByPath = new Map((signedMedia ?? []).map((entry) => [entry.path, entry.signedUrl]));
+
+  return rows.map((row) => {
     const profile = Array.isArray(row.profiles) ? row.profiles[0] : row.profiles;
-    const { data: signed } = await supabase.storage.from("pattern-files").createSignedUrl(row.storage_path, 900);
-    const previewMediaUrl = row.preview_media_path
-      ? (await supabase.storage.from("pattern-previews").createSignedUrl(row.preview_media_path, 900)).data?.signedUrl
-      : undefined;
     return {
       id: row.id,
       title: row.title,
@@ -108,10 +128,10 @@ export async function getPublishedPatterns(limit?: number): Promise<Pattern[]> {
       likes: row.likes ?? 0,
       downloads: row.downloads ?? 0,
       createdAt: row.created_at,
-      previewUrl: signed?.signedUrl,
-      previewMediaUrl,
+      previewUrl: fileUrlByPath.get(row.storage_path) ?? undefined,
+      previewMediaUrl: row.preview_media_path ? mediaUrlByPath.get(row.preview_media_path) ?? undefined : undefined,
       studioScore: row.studio_score ?? undefined,
       rating: ratings.get(row.id),
     };
-  }));
+  });
 }
