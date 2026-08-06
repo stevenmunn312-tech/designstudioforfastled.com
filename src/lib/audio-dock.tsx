@@ -1,8 +1,17 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { createContext, useContext, useEffect, useRef, useState, type ReactNode, type RefObject } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+  type RefObject,
+} from "react";
 import { AudioEngine, type AudioData } from "@/lib/evaluator/audio/audioEngine";
+import type { SpectrumVisualizerMode } from "@/lib/evaluator/preview/spectrumVisualizerModes";
 import type { AudioOverride } from "@/lib/evaluator/state/graphEvaluator";
 
 function toOverride(data: AudioData): AudioOverride {
@@ -33,22 +42,40 @@ function describeAudioError(err: unknown, fallback: string) {
   return fallback;
 }
 
+export type DockTrack = { id: string; name: string; url: string };
+
 export type AudioDock = {
   micEnabled: boolean;
-  trackLoaded: boolean;
-  trackPlaying: boolean;
-  trackName: string | null;
-  error: string | null;
   enableMic: () => void;
   disableMic: () => void;
-  loadTrack: (file: File) => Promise<void>;
-  playTrack: () => Promise<void>;
-  pauseTrack: () => void;
-  clearTrack: () => void;
+  tracks: DockTrack[];
+  trackIndex: number;
+  currentTrack: DockTrack | null;
+  addTracks: (files: File[]) => void;
+  clearTracks: () => void;
+  playing: boolean;
+  ready: boolean;
+  /** Seconds, matching HTMLMediaElement. */
+  currentTime: number;
+  duration: number;
+  togglePlay: () => void;
+  previousTrack: () => void;
+  nextTrack: () => void;
+  seek: (seconds: number) => void;
+  volume: number;
+  setVolume: (volume: number) => void;
+  toggleMute: () => void;
+  visualizerMode: SpectrumVisualizerMode;
+  setVisualizerMode: (mode: SpectrumVisualizerMode) => void;
+  /** Whether the analysis bus is actually carrying signal right now. */
+  analysisLive: boolean;
+  error: string | null;
   overrideRef: RefObject<AudioOverride | null>;
 };
 
 const AudioDockContext = createContext<AudioDock | null>(null);
+
+let nextTrackId = 0;
 
 /** Only pattern detail routes host a live evaluator that can consume the mic. */
 function isDetailRoute(pathname: string) {
@@ -67,60 +94,53 @@ function isDetailRoute(pathname: string) {
  */
 export function AudioDockProvider({ children }: { children: ReactNode }) {
   const [micArmed, setMicArmed] = useState(false);
-  const [trackLoaded, setTrackLoaded] = useState(false);
-  const [trackPlaying, setTrackPlaying] = useState(false);
-  const [trackName, setTrackName] = useState<string | null>(null);
+  const [tracks, setTracks] = useState<DockTrack[]>([]);
+  const [trackIndex, setTrackIndex] = useState(0);
+  const [playing, setPlaying] = useState(false);
+  const [ready, setReady] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [volume, setVolumeState] = useState(0.9);
+  const [visualizerMode, setVisualizerMode] = useState<SpectrumVisualizerMode>("auto");
   const [error, setError] = useState<string | null>(null);
   const overrideRef = useRef<AudioOverride | null>(null);
-  const trackRef = useRef<HTMLAudioElement | null>(null);
-  const trackUrlRef = useRef<string | null>(null);
+  const playerRef = useRef<HTMLAudioElement>(null);
+  const tracksRef = useRef<DockTrack[]>([]);
+  const pendingPlayRef = useRef(false);
+  const lastAudibleVolume = useRef(0.9);
   const pathname = usePathname();
+
+  const currentTrack = tracks[trackIndex] ?? null;
+
+  // Mirrored for the unmount cleanup, which must revoke whatever the playlist
+  // held at teardown without re-running on every playlist edit.
+  useEffect(() => {
+    tracksRef.current = tracks;
+  }, [tracks]);
 
   useEffect(() => {
     const unsubscribe = AudioEngine.instance.subscribe((data) => {
       overrideRef.current = data.active ? toOverride(data) : null;
     });
-    const track = new Audio();
-    track.preload = "metadata";
-    const handlePlay = () => setTrackPlaying(true);
-    const handlePause = () => setTrackPlaying(false);
-    const handleEnded = () => {
-      setTrackPlaying(false);
-      AudioEngine.instance.stop();
-    };
-    const handleError = () => {
-      setError("The selected track could not be played in this browser.");
-      setTrackPlaying(false);
-      AudioEngine.instance.stop();
-    };
-    track.addEventListener("play", handlePlay);
-    track.addEventListener("pause", handlePause);
-    track.addEventListener("ended", handleEnded);
-    track.addEventListener("error", handleError);
-    trackRef.current = track;
+    return unsubscribe;
+  }, []);
 
-    // Never leave the mic hot once the visitor leaves the patterns section
-    // entirely — this is a client-side-routed SPA, so the engine singleton
-    // otherwise survives the navigation.
+  // Leaving the patterns section entirely tears the session down: revoke every
+  // playlist URL and make sure the engine is not left holding the mic.
+  useEffect(() => {
     return () => {
-      unsubscribe();
-      track.pause();
-      track.removeEventListener("play", handlePlay);
-      track.removeEventListener("pause", handlePause);
-      track.removeEventListener("ended", handleEnded);
-      track.removeEventListener("error", handleError);
-      track.removeAttribute("src");
-      track.load();
-      if (trackUrlRef.current) URL.revokeObjectURL(trackUrlRef.current);
-      trackUrlRef.current = null;
-      trackRef.current = null;
+      for (const track of tracksRef.current) URL.revokeObjectURL(track.url);
       AudioEngine.instance.stop();
     };
   }, []);
 
+  useEffect(() => {
+    if (playerRef.current) playerRef.current.volume = volume;
+  }, [volume, currentTrack]);
+
   // The gallery has no live evaluator to drive, so a mic left listening there
   // would be recording the room for nothing. Arming is the visitor's decision
-  // and it sticks; whether the mic actually runs is the route's decision, so
+  // and it sticks; whether it actually listens is the route's decision, so
   // stepping out to the gallery and back resumes it without a second click.
   // Track playback deliberately survives the same navigation either way.
   const onDetailRoute = isDetailRoute(pathname);
@@ -145,7 +165,7 @@ export function AudioDockProvider({ children }: { children: ReactNode }) {
 
   const enableMic = () => {
     setError(null);
-    trackRef.current?.pause();
+    playerRef.current?.pause();
     setMicArmed(true);
   };
 
@@ -154,82 +174,181 @@ export function AudioDockProvider({ children }: { children: ReactNode }) {
     setMicArmed(false);
   };
 
-  const loadTrack = async (file: File) => {
-    const track = trackRef.current;
-    if (!track) {
-      setError("Track playback is unavailable in this browser.");
-      return;
-    }
+  /** Routes the element into the analysis bus, then starts it. The engine is
+   *  the only path to the speakers once a track is connected, so playback and
+   *  analysis start together or not at all. */
+  const startPlayback = async () => {
+    const player = playerRef.current;
+    if (!player) return;
     setError(null);
-    track.pause();
-    AudioEngine.instance.stop();
     setMicArmed(false);
-    if (trackUrlRef.current) URL.revokeObjectURL(trackUrlRef.current);
-    trackUrlRef.current = URL.createObjectURL(file);
-    track.src = trackUrlRef.current;
-    track.currentTime = 0;
-    track.load();
-    setTrackLoaded(true);
-    setTrackPlaying(false);
-    setTrackName(file.name);
-  };
-
-  const playTrack = async () => {
-    const track = trackRef.current;
-    if (!track || !trackLoaded) return;
-    setError(null);
     try {
-      await AudioEngine.instance.startTrack(track);
-      await track.play();
-      setMicArmed(false);
+      await AudioEngine.instance.startTrack(player);
+      await player.play();
     } catch (err) {
       AudioEngine.instance.stop();
-      setTrackPlaying(false);
-      setError(describeAudioError(err, "Playback could not be started."));
+      setPlaying(false);
+      setError(describeAudioError(err, "This audio file could not be played in the browser."));
     }
   };
 
-  const pauseTrack = () => {
-    trackRef.current?.pause();
-    AudioEngine.instance.stop();
-    setTrackPlaying(false);
+  const selectTrack = (index: number, autoplay: boolean) => {
+    if (index < 0 || index >= tracks.length) return;
+    pendingPlayRef.current = autoplay;
+    setTrackIndex(index);
+    setReady(false);
+    setCurrentTime(0);
+    setDuration(0);
+    setError(null);
   };
 
-  const clearTrack = () => {
-    const track = trackRef.current;
-    track?.pause();
-    if (track) {
-      track.removeAttribute("src");
-      track.load();
+  const addTracks = (files: File[]) => {
+    if (!files.length) return;
+    const added = files.map((file) => ({
+      id: `track-${nextTrackId++}`,
+      name: file.name,
+      url: URL.createObjectURL(file),
+    }));
+    // Opening files is an explicit playback gesture: select the first newly
+    // added track and let onLoadedMetadata start it as soon as it is ready.
+    pendingPlayRef.current = true;
+    setTracks([...tracks, ...added]);
+    setTrackIndex(tracks.length);
+    setReady(false);
+    setCurrentTime(0);
+    setDuration(0);
+    setError(null);
+  };
+
+  const clearTracks = () => {
+    const player = playerRef.current;
+    if (player) {
+      player.pause();
+      player.removeAttribute("src");
+      player.load();
     }
-    if (trackUrlRef.current) {
-      URL.revokeObjectURL(trackUrlRef.current);
-      trackUrlRef.current = null;
+    for (const track of tracks) URL.revokeObjectURL(track.url);
+    AudioEngine.instance.stop();
+    pendingPlayRef.current = false;
+    setTracks([]);
+    setTrackIndex(0);
+    setReady(false);
+    setPlaying(false);
+    setCurrentTime(0);
+    setDuration(0);
+    setError(null);
+  };
+
+  const togglePlay = () => {
+    const player = playerRef.current;
+    if (!player || !currentTrack) return;
+    if (playing) {
+      player.pause();
+      AudioEngine.instance.stop();
+      return;
+    }
+    void startPlayback();
+  };
+
+  // Previous restarts the current track when it is more than a moment in (or is
+  // the first track); otherwise it steps back through the playlist.
+  const previousTrack = () => {
+    const player = playerRef.current;
+    if ((player && player.currentTime > 3) || trackIndex === 0) {
+      if (player) player.currentTime = 0;
+      setCurrentTime(0);
+      return;
+    }
+    selectTrack(trackIndex - 1, playing);
+  };
+
+  const nextTrack = () => selectTrack(trackIndex + 1, playing);
+
+  const seek = (seconds: number) => {
+    const player = playerRef.current;
+    if (!player) return;
+    player.currentTime = seconds;
+    setCurrentTime(seconds);
+  };
+
+  const setVolume = (next: number) => {
+    setVolumeState(Math.max(0, Math.min(1, next)));
+  };
+
+  const toggleMute = () => {
+    if (volume > 0) {
+      lastAudibleVolume.current = volume;
+      setVolume(0);
+      return;
+    }
+    setVolume(lastAudibleVolume.current || 0.9);
+  };
+
+  const onLoadedMetadata = () => {
+    const player = playerRef.current;
+    if (!player) return;
+    player.volume = volume;
+    setDuration(Number.isFinite(player.duration) ? player.duration : 0);
+    setReady(true);
+    if (pendingPlayRef.current) {
+      pendingPlayRef.current = false;
+      void startPlayback();
+    }
+  };
+
+  const onEnded = () => {
+    if (trackIndex < tracks.length - 1) {
+      selectTrack(trackIndex + 1, true);
+      return;
     }
     AudioEngine.instance.stop();
-    setTrackLoaded(false);
-    setTrackPlaying(false);
-    setTrackName(null);
+    setPlaying(false);
+    setCurrentTime(0);
+    const player = playerRef.current;
+    if (player) player.currentTime = 0;
   };
 
   return (
     <AudioDockContext.Provider
       value={{
         micEnabled,
-        trackLoaded,
-        trackPlaying,
-        trackName,
-        error,
         enableMic,
         disableMic,
-        loadTrack,
-        playTrack,
-        pauseTrack,
-        clearTrack,
+        tracks,
+        trackIndex,
+        currentTrack,
+        addTracks,
+        clearTracks,
+        playing,
+        ready,
+        currentTime,
+        duration,
+        togglePlay,
+        previousTrack,
+        nextTrack,
+        seek,
+        volume,
+        setVolume,
+        toggleMute,
+        visualizerMode,
+        setVisualizerMode,
+        analysisLive: micEnabled || playing,
+        error,
         overrideRef,
       }}
     >
       {children}
+      <audio
+        ref={playerRef}
+        src={currentTrack?.url ?? undefined}
+        preload="metadata"
+        onLoadedMetadata={onLoadedMetadata}
+        onTimeUpdate={() => setCurrentTime(playerRef.current?.currentTime ?? 0)}
+        onPlay={() => setPlaying(true)}
+        onPause={() => setPlaying(false)}
+        onEnded={onEnded}
+        onError={() => setError("This audio file could not be decoded in the browser.")}
+      />
     </AudioDockContext.Provider>
   );
 }

@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { PatternPreview } from "@/components/pattern-preview";
+import { PatternStage } from "@/components/pattern-stage";
 import { PatternRatingControl } from "@/components/pattern-rating-control";
 import { StarRating } from "@/components/star-rating";
 import { starterPatterns, type Pattern } from "@/lib/patterns";
@@ -161,48 +161,53 @@ export default async function PatternDetailPage({ params }: PatternPageProps) {
       <main className="pattern-detail" style={style}>
         <div className="shell">
           <Link className="detail-back" href="/patterns"><ArrowLeft size={14} aria-hidden="true" /> Back to patterns</Link>
-          <section className="detail-hero">
-            <div className="detail-hero-copy">
-              <p className="eyebrow"><span /> Community signal</p>
-              <h1>{pattern.title}</h1>
-              <p>{pattern.description}</p>
-              <div className="detail-tags">{pattern.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
-            </div>
-            <div className="detail-preview-deck">
-              <PatternStep direction="previous" target={neighbours.previous} />
-              <div className="detail-preview-stage">
-                <PatternPreview pattern={pattern} variant="detail" controls />
-                {neighbours.total > 1 && (
-                  <p className="detail-preview-step-note">
-                    {neighbours.position > 0
-                      ? <>Pattern {neighbours.position} of {neighbours.total} · use the arrows to step through the library</>
-                      : <>Use the arrows to step through the library</>}
-                  </p>
-                )}
+          <PatternStage
+            pattern={pattern}
+            previousStep={<PatternStep direction="previous" target={neighbours.previous} />}
+            nextStep={<PatternStep direction="next" target={neighbours.next} />}
+            stepNote={neighbours.total > 1 && (
+              <span>
+                {neighbours.position > 0
+                  ? <>Pattern {neighbours.position} of {neighbours.total} · step with the arrows</>
+                  : <>Step through the library with the arrows</>}
+              </span>
+            )}
+            rail={
+              <div className="stage-rail">
+                <div className="stage-rail-facts">
+                  <div><UserRound size={15} aria-hidden="true" /><span>Maker</span><strong>{pattern.author}</strong></div>
+                  <div><CalendarDays size={15} aria-hidden="true" /><span>Published</span><strong>{publishedDate}</strong></div>
+                  {pattern.studioScore != null && (
+                    <div><Award size={15} aria-hidden="true" /><span>Studio Score</span><strong>{pattern.studioScore}/100</strong></div>
+                  )}
+                  {rateable && (
+                    <div>
+                      <Star size={15} aria-hidden="true" />
+                      <span>Community</span>
+                      <strong><StarRating rating={rating} size={13} /></strong>
+                    </div>
+                  )}
+                </div>
+                <div className="stage-rail-delivery">
+                  <span className="delivery-label"><FileCode2 size={13} aria-hidden="true" /> {pattern.fileName ?? "Source coming soon"}</span>
+                  {pattern.downloadUrl ? (
+                    <a className="button button-primary delivery-download" href={pattern.downloadUrl}>
+                      <ArrowDownToLine size={17} aria-hidden="true" /> Download pattern
+                    </a>
+                  ) : (
+                    <Link className="button button-outline delivery-download" href="/patterns">Browse downloadable patterns</Link>
+                  )}
+                </div>
               </div>
-              <PatternStep direction="next" target={neighbours.next} />
-            </div>
-          </section>
+            }
+          />
 
           <section className="detail-bench">
             <div className="detail-story">
-              <p className="eyebrow"><span /> Project notes</p>
-              <h2>Open the graph.<br />Make it yours.</h2>
+              <p className="eyebrow"><span /> Community signal</p>
+              <h1>{pattern.title}</h1>
+              <div className="detail-tags">{pattern.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
               <p>{pattern.description}</p>
-              <div className="detail-specs">
-                <div><UserRound size={18} aria-hidden="true" /><span>Maker</span><strong>{pattern.author}</strong></div>
-                <div><CalendarDays size={18} aria-hidden="true" /><span>Published</span><strong>{publishedDate}</strong></div>
-                {pattern.studioScore != null && (
-                  <div><Award size={18} aria-hidden="true" /><span>Studio Score</span><strong>{pattern.studioScore}/100</strong></div>
-                )}
-                {rateable && (
-                  <div>
-                    <Star size={18} aria-hidden="true" />
-                    <span>Community</span>
-                    <strong><StarRating rating={rating} size={15} /></strong>
-                  </div>
-                )}
-              </div>
               {rateable && (
                 <PatternRatingControl
                   patternId={pattern.id}

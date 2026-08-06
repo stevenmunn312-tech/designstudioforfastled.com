@@ -1,104 +1,17 @@
 "use client";
 
-import { Lock, Mic, MicOff, Pause, Play, Radio, Upload, X } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { Lock, Pause, Play, Radio } from "lucide-react";
+import { useEffect, useState } from "react";
 import type { Pattern } from "@/lib/patterns";
 import { sharedPatternGraph } from "@/lib/shared-pattern";
 import { patternNeedsTrust } from "@/lib/evaluator/evaluateSharedPattern";
-import { isAudioReactiveSubgraph } from "@/lib/evaluator/patternRating";
 import type { StudioEdge, StudioNode } from "@/lib/evaluator/state/graphStore";
 import type { GroupRegistry } from "@/lib/evaluator/state/graphEvaluator";
-import { useAudioDock, type AudioDock } from "@/lib/audio-dock";
 import { LivePatternCanvas } from "./live-pattern-canvas";
 
 type PreviewVariant = "card" | "hero" | "detail";
 
 type LoadedGraph = { nodes: StudioNode[]; edges: StudioEdge[]; groups: GroupRegistry };
-
-/** Whether the pattern's actual graph content is audio-reactive, checking
- *  nested groups too — independent of the "Audio Reactive" tag, which an
- *  uploader can simply forget to add (the tag alone used to gate the mic
- *  panel, hiding it for genuinely audio-reactive but untagged patterns). */
-function graphIsAudioReactive(graph: LoadedGraph | null): boolean {
-  if (!graph) return false;
-  if (isAudioReactiveSubgraph(graph.nodes)) return true;
-  return Object.values(graph.groups).some((group) => isAudioReactiveSubgraph(group.nodes));
-}
-
-function PreviewAudioPanel({ dock, status }: { dock: AudioDock; status: string }) {
-  const { micEnabled, trackLoaded, trackPlaying, trackName } = dock;
-  return (
-    <div className="preview-audio-panel">
-      <div className="preview-audio-head">
-        <div>
-          <span>Audio source</span>
-          <strong>{status}</strong>
-        </div>
-        <span className="preview-audio-pill">Detail page only</span>
-      </div>
-      <div className="preview-audio-grid">
-        <section className={`preview-audio-card${micEnabled ? " is-active" : ""}`}>
-          <div className="preview-audio-label">
-            <Mic size={12} />
-            <span>Microphone</span>
-          </div>
-          <p>Drive reactive nodes from the room or your speakers.</p>
-          <button
-            className="preview-audio-button"
-            type="button"
-            onClick={() => (micEnabled ? dock.disableMic() : dock.enableMic())}
-            aria-label={micEnabled ? "Disable microphone input" : "Enable microphone input"}
-          >
-            {micEnabled ? <MicOff size={13} /> : <Mic size={13} />}
-            {micEnabled ? "Disable mic" : "Enable mic"}
-          </button>
-        </section>
-        <section className={`preview-audio-card${trackLoaded ? " is-active" : ""}`}>
-          <div className="preview-audio-label">
-            <Play size={12} />
-            <span>Local track</span>
-          </div>
-          <p>{trackName ?? "Choose a local file to feed the live evaluator."}</p>
-          <div className="preview-audio-actions">
-            <label className="preview-audio-button preview-audio-upload">
-              <Upload size={13} />
-              {trackLoaded ? "Replace track" : "Choose track"}
-              <input
-                className="sr-only"
-                type="file"
-                accept="audio/*"
-                onChange={(event) => {
-                  const file = event.currentTarget.files?.[0];
-                  event.currentTarget.value = "";
-                  if (file) void dock.loadTrack(file);
-                }}
-              />
-            </label>
-            {trackLoaded && (
-              <button
-                className="preview-audio-button"
-                type="button"
-                onClick={() => (trackPlaying ? dock.pauseTrack() : void dock.playTrack())}
-              >
-                {trackPlaying ? <Pause size={13} /> : <Play size={13} />}
-                {trackPlaying ? "Pause" : "Play"}
-              </button>
-            )}
-            {trackLoaded && (
-              <button className="preview-audio-button preview-audio-clear" type="button" onClick={dock.clearTrack}>
-                <X size={13} />
-                Clear
-              </button>
-            )}
-          </div>
-        </section>
-      </div>
-      <p className="preview-audio-note">
-        The track keeps playing as you step between patterns. The mic only listens while a pattern detail page is open.
-      </p>
-    </div>
-  );
-}
 
 export function PatternPreview({
   pattern,
@@ -113,23 +26,6 @@ export function PatternPreview({
   const [source, setSource] = useState(pattern.previewUrl ? "Reading pattern" : "No pattern data");
   const [running, setRunning] = useState(true);
   const [trusted, setTrusted] = useState(false);
-  // Null on the homepage hero and the review screen, which render previews
-  // outside the /patterns section that owns the audio session.
-  const dock = useAudioDock();
-  const idleOverrideRef = useRef(null);
-  const overrideRef = dock?.overrideRef ?? idleOverrideRef;
-  const micEnabled = dock?.micEnabled ?? false;
-  const trackLoaded = dock?.trackLoaded ?? false;
-  const trackPlaying = dock?.trackPlaying ?? false;
-  const audioReactive = variant === "detail" && dock !== null
-    && (pattern.tags.includes("Audio Reactive") || graphIsAudioReactive(graph));
-  const audioStatus = micEnabled
-    ? "Mic live"
-    : trackPlaying
-      ? "Track live"
-      : trackLoaded
-        ? "Track ready"
-        : "Silent";
 
   useEffect(() => {
     if (!pattern.previewUrl) return;
@@ -173,7 +69,6 @@ export function PatternPreview({
           groups={graph?.groups ?? {}}
           trusted={trusted}
           running={running}
-          audioOverride={overrideRef}
         />
         <div className="preview-scanline" aria-hidden="true" />
         {needsTrust && !trusted && (
@@ -197,16 +92,8 @@ export function PatternPreview({
           </button>
         )}
       </div>
-      {audioReactive && graph && dock && <PreviewAudioPanel dock={dock} status={audioStatus} />}
-      {audioReactive && dock?.error && <p className="preview-mic-error">{dock.error}</p>}
       <div className="live-preview-readout">
         <span>{graph ? `${graph.nodes.length} nodes · ${graph.edges.length} patches` : "—"}</span>
-        {audioReactive && (
-          <span>
-            {micEnabled ? <Mic size={11} /> : trackLoaded ? <Play size={11} /> : <MicOff size={11} />}
-            {audioStatus}
-          </span>
-        )}
         <span><Radio size={11} /> Live render</span>
       </div>
     </div>
