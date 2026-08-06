@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
+import { createContext, useContext, useEffect, useRef, useState, type ReactNode, type RefObject } from "react";
 import { AudioEngine, type AudioData } from "@/lib/evaluator/audio/audioEngine";
 import type { AudioOverride } from "@/lib/evaluator/state/graphEvaluator";
 
@@ -32,14 +33,40 @@ function describeAudioError(err: unknown, fallback: string) {
   return fallback;
 }
 
+export type AudioDock = {
+  micEnabled: boolean;
+  trackLoaded: boolean;
+  trackPlaying: boolean;
+  trackName: string | null;
+  error: string | null;
+  enableMic: () => void;
+  disableMic: () => void;
+  loadTrack: (file: File) => Promise<void>;
+  playTrack: () => Promise<void>;
+  pauseTrack: () => void;
+  clearTrack: () => void;
+  overrideRef: RefObject<AudioOverride | null>;
+};
+
+const AudioDockContext = createContext<AudioDock | null>(null);
+
+/** Only pattern detail routes host a live evaluator that can consume the mic. */
+function isDetailRoute(pathname: string) {
+  return /^\/patterns\/[^/]+\/?$/.test(pathname);
+}
+
 /**
- * Detail-page audio sources for the live evaluator. A ref (not state) carries
- * the audio values so a 60fps render loop can read the latest frame without a
- * React re-render per frame; the UI state here is only for the surrounding
- * controls and status copy.
+ * The audio session for the whole `/patterns` section. It lives in the section
+ * layout rather than in a page, because Next preserves layout state across
+ * navigation: mounting the `<audio>` element here is what lets a loaded track
+ * keep playing while the visitor steps from one pattern to the next.
+ *
+ * A ref (not state) carries the analysis values so a 60fps render loop can read
+ * the latest frame without a React re-render per frame; the UI state here is
+ * only for the surrounding controls and status copy.
  */
-export function useLiveAudio() {
-  const [micEnabled, setMicEnabled] = useState(false);
+export function AudioDockProvider({ children }: { children: ReactNode }) {
+  const [micArmed, setMicArmed] = useState(false);
   const [trackLoaded, setTrackLoaded] = useState(false);
   const [trackPlaying, setTrackPlaying] = useState(false);
   const [trackName, setTrackName] = useState<string | null>(null);
@@ -47,6 +74,7 @@ export function useLiveAudio() {
   const overrideRef = useRef<AudioOverride | null>(null);
   const trackRef = useRef<HTMLAudioElement | null>(null);
   const trackUrlRef = useRef<string | null>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     const unsubscribe = AudioEngine.instance.subscribe((data) => {
@@ -71,15 +99,9 @@ export function useLiveAudio() {
     track.addEventListener("error", handleError);
     trackRef.current = track;
 
-    const clearTrackUrl = () => {
-      if (!trackUrlRef.current) return;
-      URL.revokeObjectURL(trackUrlRef.current);
-      trackUrlRef.current = null;
-    };
-
-    // Never leave the mic hot if the visitor navigates away from the one
-    // page that uses it — this is a client-side-routed SPA, so the engine
-    // singleton otherwise survives the navigation.
+    // Never leave the mic hot once the visitor leaves the patterns section
+    // entirely — this is a client-side-routed SPA, so the engine singleton
+    // otherwise survives the navigation.
     return () => {
       unsubscribe();
       track.pause();
@@ -89,28 +111,47 @@ export function useLiveAudio() {
       track.removeEventListener("error", handleError);
       track.removeAttribute("src");
       track.load();
-      clearTrackUrl();
+      if (trackUrlRef.current) URL.revokeObjectURL(trackUrlRef.current);
+      trackUrlRef.current = null;
       trackRef.current = null;
       AudioEngine.instance.stop();
     };
   }, []);
 
-  const enableMic = async () => {
-    setError(null);
-    const track = trackRef.current;
-    track?.pause();
-    try {
-      await AudioEngine.instance.start();
-      setMicEnabled(true);
-    } catch (err) {
-      setError(describeAudioError(err, "Microphone access was denied."));
-      setMicEnabled(false);
+  // The gallery has no live evaluator to drive, so a mic left listening there
+  // would be recording the room for nothing. Arming is the visitor's decision
+  // and it sticks; whether the mic actually runs is the route's decision, so
+  // stepping out to the gallery and back resumes it without a second click.
+  // Track playback deliberately survives the same navigation either way.
+  const onDetailRoute = isDetailRoute(pathname);
+  const micEnabled = micArmed && onDetailRoute;
+
+  useEffect(() => {
+    if (!micArmed) return;
+    if (!onDetailRoute) {
+      AudioEngine.instance.stop();
+      return;
     }
+    let cancelled = false;
+    void AudioEngine.instance.start().catch((err: unknown) => {
+      if (cancelled) return;
+      setError(describeAudioError(err, "Microphone access was denied."));
+      setMicArmed(false);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [micArmed, onDetailRoute]);
+
+  const enableMic = () => {
+    setError(null);
+    trackRef.current?.pause();
+    setMicArmed(true);
   };
 
   const disableMic = () => {
     AudioEngine.instance.stop();
-    setMicEnabled(false);
+    setMicArmed(false);
   };
 
   const loadTrack = async (file: File) => {
@@ -122,7 +163,7 @@ export function useLiveAudio() {
     setError(null);
     track.pause();
     AudioEngine.instance.stop();
-    setMicEnabled(false);
+    setMicArmed(false);
     if (trackUrlRef.current) URL.revokeObjectURL(trackUrlRef.current);
     trackUrlRef.current = URL.createObjectURL(file);
     track.src = trackUrlRef.current;
@@ -140,7 +181,7 @@ export function useLiveAudio() {
     try {
       await AudioEngine.instance.startTrack(track);
       await track.play();
-      setMicEnabled(false);
+      setMicArmed(false);
     } catch (err) {
       AudioEngine.instance.stop();
       setTrackPlaying(false);
@@ -171,18 +212,30 @@ export function useLiveAudio() {
     setTrackName(null);
   };
 
-  return {
-    micEnabled,
-    trackLoaded,
-    trackPlaying,
-    trackName,
-    error,
-    enableMic,
-    disableMic,
-    loadTrack,
-    playTrack,
-    pauseTrack,
-    clearTrack,
-    overrideRef,
-  };
+  return (
+    <AudioDockContext.Provider
+      value={{
+        micEnabled,
+        trackLoaded,
+        trackPlaying,
+        trackName,
+        error,
+        enableMic,
+        disableMic,
+        loadTrack,
+        playTrack,
+        pauseTrack,
+        clearTrack,
+        overrideRef,
+      }}
+    >
+      {children}
+    </AudioDockContext.Provider>
+  );
+}
+
+/** Null outside the `/patterns` section — the homepage hero and the review
+ *  screen render previews with no audio session behind them. */
+export function useAudioDock(): AudioDock | null {
+  return useContext(AudioDockContext);
 }
