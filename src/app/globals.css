@@ -1075,18 +1075,21 @@ body::before {
 .stage-mic-button.is-active { color: var(--cyan); border-color: rgba(97,228,255,.5); box-shadow: inset 0 0 0 1px rgba(97,228,255,.08); }
 .stage-transport-error { margin: 0; color: #ff9aa9; font-size: 10px; line-height: 1.5; }
 
-.stage-pattern-brand { display: flex; flex-direction: column; align-items: center; gap: 4px; margin-top: 2px; text-align: center; }
-.stage-pattern-kicker { color: #8adfff; font-family: var(--font-mono); font-size: 9px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
-.stage-pattern-name { max-width: min(92%, 320px); color: var(--cloud); font-family: var(--font-display); font-size: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-
 .stage-rail { margin-top: auto; padding-top: 14px; display: flex; flex-direction: column; gap: 12px; border-top: 1px solid rgba(255,255,255,.06); }
+.stage-rail-rating { display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
+.stage-rail-rating-kicker { color: #8adfff; font-family: var(--font-mono); font-size: 9px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+.stage-rail-rating .star-rating { gap: 9px; font-size: 14px; }
+.stage-rail-rating .star-rating-value em { font-size: 12px; }
 .stage-rail-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; overflow: hidden; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.05); border-radius: 10px; }
 .stage-rail-facts div { padding: 11px 12px; display: grid; grid-template-columns: 18px 1fr; grid-template-rows: auto auto; column-gap: 8px; background: rgba(8,11,16,.92); }
 .stage-rail-facts svg { grid-row: 1 / 3; color: var(--detail-a, var(--cyan)); }
 .stage-rail-facts span { color: var(--muted); font-family: var(--font-mono); font-size: 7px; letter-spacing: .08em; text-transform: uppercase; }
 .stage-rail-facts strong { color: #d1dbe5; font-size: 11px; align-self: end; }
+.stage-rail-facts div:last-child:nth-child(odd) { grid-column: span 2; }
 .stage-rail-delivery { display: flex; flex-direction: column; gap: 9px; }
-.stage-rail-delivery .delivery-label { display: flex; align-items: center; gap: 7px; margin: 0; color: var(--muted); }
+.stage-rail-note { display: flex; align-items: flex-start; gap: 8px; margin: 0; color: #9099a8; font-size: 11px; line-height: 1.6; }
+.stage-rail-note svg { flex: 0 0 auto; margin-top: 2px; color: var(--muted); }
+.stage-rail-note span { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; }
 .stage-rail-delivery .delivery-download { justify-content: center; }
 
 

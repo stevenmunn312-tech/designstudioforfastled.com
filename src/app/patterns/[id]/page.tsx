@@ -11,7 +11,6 @@ import {
   ChevronRight,
   FileCode2,
   ShieldCheck,
-  Star,
   UserRound,
 } from "lucide-react";
 import { SiteFooter } from "@/components/site-footer";
@@ -174,22 +173,21 @@ export default async function PatternDetailPage({ params }: PatternPageProps) {
             )}
             rail={
               <div className="stage-rail">
+                {rateable && (
+                  <div className="stage-rail-rating">
+                    <span className="stage-rail-rating-kicker">Community rating</span>
+                    <StarRating rating={rating} size={19} />
+                  </div>
+                )}
                 <div className="stage-rail-facts">
                   <div><UserRound size={15} aria-hidden="true" /><span>Maker</span><strong>{pattern.author}</strong></div>
                   <div><CalendarDays size={15} aria-hidden="true" /><span>Published</span><strong>{publishedDate}</strong></div>
                   {pattern.studioScore != null && (
                     <div><Award size={15} aria-hidden="true" /><span>Studio Score</span><strong>{pattern.studioScore}/100</strong></div>
                   )}
-                  {rateable && (
-                    <div>
-                      <Star size={15} aria-hidden="true" />
-                      <span>Community</span>
-                      <strong><StarRating rating={rating} size={13} /></strong>
-                    </div>
-                  )}
                 </div>
                 <div className="stage-rail-delivery">
-                  <span className="delivery-label"><FileCode2 size={13} aria-hidden="true" /> {pattern.fileName ?? "Source coming soon"}</span>
+                  <p className="stage-rail-note"><FileCode2 size={13} aria-hidden="true" /> <span>{pattern.description}</span></p>
                   {pattern.downloadUrl ? (
                     <a className="button button-primary delivery-download" href={pattern.downloadUrl}>
                       <ArrowDownToLine size={17} aria-hidden="true" /> Download pattern

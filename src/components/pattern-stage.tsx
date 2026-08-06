@@ -129,7 +129,7 @@ export function PatternStage({
         </div>
       </div>
 
-      <PatternStageDeck patternName={pattern.title} audioReactive={audioReactive}>
+      <PatternStageDeck audioReactive={audioReactive}>
         {rail}
       </PatternStageDeck>
     </section>

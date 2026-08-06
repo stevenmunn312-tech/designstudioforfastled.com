@@ -32,14 +32,14 @@ function fmtTime(seconds: number) {
  * drives is the one that survives stepping between patterns.
  */
 export function PatternStageDeck({
-  patternName,
   audioReactive,
   children,
 }: {
-  patternName: string;
   /** Whether this pattern's graph actually consumes the analysis bus. */
   audioReactive: boolean;
-  /** Pattern facts and the download call to action, rendered under the deck. */
+  /** Pattern rating, facts and the download call to action, rendered under
+   *  the deck. Server-rendered and passed through so the deck itself stays
+   *  concerned only with audio. */
   children?: ReactNode;
 }) {
   const dock = useAudioDock();
@@ -213,11 +213,6 @@ export function PatternStageDeck({
           </button>
         )}
         {error && <p className="stage-transport-error" role="alert">{error}</p>}
-      </div>
-
-      <div className="stage-pattern-brand">
-        <span className="stage-pattern-kicker">My Pattern</span>
-        <strong className="stage-pattern-name" title={patternName}>{patternName}</strong>
       </div>
 
       {children}
