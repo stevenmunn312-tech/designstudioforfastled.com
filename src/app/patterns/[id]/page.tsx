@@ -9,8 +9,7 @@ import {
   CalendarDays,
   ChevronLeft,
   ChevronRight,
-  FileCode2,
-  ShieldCheck,
+  Star,
   UserRound,
 } from "lucide-react";
 import { SiteFooter } from "@/components/site-footer";
@@ -173,21 +172,28 @@ export default async function PatternDetailPage({ params }: PatternPageProps) {
             )}
             rail={
               <div className="stage-rail">
-                {rateable && (
-                  <div className="stage-rail-rating">
-                    <span className="stage-rail-rating-kicker">Community rating</span>
-                    <StarRating rating={rating} size={19} />
-                  </div>
-                )}
                 <div className="stage-rail-facts">
                   <div><UserRound size={15} aria-hidden="true" /><span>Maker</span><strong>{pattern.author}</strong></div>
                   <div><CalendarDays size={15} aria-hidden="true" /><span>Published</span><strong>{publishedDate}</strong></div>
                   {pattern.studioScore != null && (
                     <div><Award size={15} aria-hidden="true" /><span>Studio Score</span><strong>{pattern.studioScore}/100</strong></div>
                   )}
+                  {rateable && (
+                    <div>
+                      <Star size={15} aria-hidden="true" />
+                      <span>Community</span>
+                      <strong><StarRating rating={rating} size={13} /></strong>
+                    </div>
+                  )}
                 </div>
+                {rateable && (
+                  <PatternRatingControl
+                    patternId={pattern.id}
+                    initialStars={viewerStars}
+                    signedIn={signedIn}
+                  />
+                )}
                 <div className="stage-rail-delivery">
-                  <p className="stage-rail-note"><FileCode2 size={13} aria-hidden="true" /> <span>{pattern.description}</span></p>
                   {pattern.downloadUrl ? (
                     <a className="button button-primary delivery-download" href={pattern.downloadUrl}>
                       <ArrowDownToLine size={17} aria-hidden="true" /> Download pattern
@@ -199,37 +205,6 @@ export default async function PatternDetailPage({ params }: PatternPageProps) {
               </div>
             }
           />
-
-          <section className="detail-bench">
-            <div className="detail-story">
-              <p className="eyebrow"><span /> Community signal</p>
-              <h1>{pattern.title}</h1>
-              <div className="detail-tags">{pattern.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
-              <p>{pattern.description}</p>
-              {rateable && (
-                <PatternRatingControl
-                  patternId={pattern.id}
-                  initialStars={viewerStars}
-                  signedIn={signedIn}
-                />
-              )}
-            </div>
-
-            <aside className="delivery-panel">
-              <span className="delivery-label">Pattern delivery</span>
-              <FileCode2 size={27} aria-hidden="true" />
-              <h2>{pattern.fileName ?? "Source coming soon"}</h2>
-              <p>{pattern.downloadUrl ? "A fresh, secure download link is ready for the approved source file." : "This curated example does not have a downloadable source file yet."}</p>
-              {pattern.downloadUrl ? (
-                <a className="button button-primary delivery-download" href={pattern.downloadUrl}>
-                  <ArrowDownToLine size={17} aria-hidden="true" /> Download pattern
-                </a>
-              ) : (
-                <Link className="button button-outline delivery-download" href="/patterns">Browse downloadable patterns</Link>
-              )}
-              <div className="delivery-safety"><ShieldCheck size={16} aria-hidden="true" /><span><strong>Bench check</strong>Read the source, confirm pin assignments, and set a safe current limit before flashing.</span></div>
-            </aside>
-          </section>
         </div>
       </main>
       <SiteFooter />
