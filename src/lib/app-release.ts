@@ -1,5 +1,5 @@
 const REPO = "stevenmunn312-tech/Design-Studio-for-FastLED";
-const VERSION = "0.6.0";
+const VERSION = "0.6.1";
 const RELEASE_BASE = `https://github.com/${REPO}/releases/download/v${VERSION}`;
 
 export const appRelease = {
