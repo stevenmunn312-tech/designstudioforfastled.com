@@ -61,7 +61,7 @@ const features = [
     heading: ["151 modules,", "kept on your shelves."],
     body: "Patterns, simulations, colour, fields, effects, audio, logic, show control, hardware input, and output. Turn any patch into a Group, save it to the Pattern Library, and reuse it in the next show.",
     points: [
-      "20 curated audio-reactive patterns built in",
+      "10 featured patterns ready to explore on first launch",
       "Custom shelves you can create, drag between, and remove",
       "Personal patterns mirrored to disk as shareable JSON",
     ],
@@ -89,12 +89,12 @@ const hardwareCards = [
   {
     icon: Cpu,
     title: "Upload",
-    body: "Compile and flash a standalone FastLED sketch straight from Matrix Output.",
+    body: "Compile and flash a standalone FastLED sketch for strips or HUB75 panels straight from Matrix Output.",
   },
   {
     icon: Radio,
     title: "Flash Wiring Test",
-    body: "Check colour order, brightness, orientation, tiles, and pixel order before the graph is finished.",
+    body: "Check colour order, brightness, orientation, tiles, pixel order, and the new HUB75 Topology view before the graph is finished.",
   },
   {
     icon: Usb,
@@ -177,14 +177,21 @@ export default async function Home() {
                 </div>
               )}
             </div>
-            <div className="download-oss-badge">
-              <Image
-                src="/badges/open-source-badge.png"
-                alt="Open Source Software"
-                width={1536}
-                height={1024}
-              />
-              <a className="studio-text-link download-oss-badge-link" href={appRelease.releasesUrl} target="_blank" rel="noreferrer">All releases &amp; source <ArrowRight size={14} /></a>
+            <div className="release-spotlight">
+              <p className="studio-kicker"><span /> New in v{appRelease.version}</p>
+              <h3>HUB75 panels, smarter wiring tests, and a tighter beta loop.</h3>
+              <p>
+                Released {appRelease.releasedOn}, Design Studio for FastLED v{appRelease.version} expands Matrix Output with first-class HUB75 support and sharpens the desktop beta with better diagnostics, curated patterns, and closer preview parity.
+              </p>
+              <ul className="release-highlights">
+                {appRelease.highlights.map((highlight) => (
+                  <li key={highlight}><CheckCircle2 size={14} /> {highlight}</li>
+                ))}
+              </ul>
+              <div className="release-spotlight-links">
+                <a className="studio-text-link" href={appRelease.releaseUrl} target="_blank" rel="noreferrer">Read the v{appRelease.version} release notes <ArrowRight size={14} /></a>
+                <a className="studio-text-link" href={appRelease.releasesUrl} target="_blank" rel="noreferrer">All releases &amp; source <ArrowRight size={14} /></a>
+              </div>
             </div>
           </div>
           <p className="download-note">
@@ -253,7 +260,7 @@ export default async function Home() {
                 <p className="studio-kicker"><span /> From preview to hardware</p>
                 <h2>The same design,<br /><em>running on the strip.</em></h2>
               </div>
-              <p>Set the controller, size, chipset, colour order, pins, brightness, layout, and power cap on Matrix Output, then pick the route that fits the moment.</p>
+              <p>Set the controller, size, chipset, colour order, pins, brightness, panel layout, and power cap on Matrix Output, then pick the route that fits the moment.</p>
             </div>
             <figure className="app-shot node-to-code-shot">
               <figcaption>
@@ -282,7 +289,7 @@ export default async function Home() {
             <div className="hardware-note">
               <Gauge size={18} />
               <p>
-                Graph Health runs continuously, and the controller-capacity meter performs a real compile-only check against the selected board to report measured flash and RAM use. Hardware support is deliberately narrow during the beta—see the <a href={`${appRelease.sourceUrl}/blob/main/docs/release/beta-support-matrix.md`} target="_blank" rel="noreferrer">beta support matrix</a> for the combinations validated end to end.
+                Graph Health runs continuously, and the controller-capacity meter performs a real compile-only check against the selected board to report measured flash and RAM use. In v{appRelease.version}, single-panel 64×64 HUB75 upload and wiring diagnostics have recorded hardware validation, while multi-panel chains, folded and rotated layouts, streaming, show playback, and music sync remain experimental. See the <a href={`${appRelease.sourceUrl}/blob/main/docs/release/beta-support-matrix.md`} target="_blank" rel="noreferrer">beta support matrix</a> for the combinations validated end to end.
               </p>
             </div>
           </div>

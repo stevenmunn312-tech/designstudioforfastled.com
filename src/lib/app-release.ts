@@ -1,11 +1,18 @@
 const REPO = "stevenmunn312-tech/Design-Studio-for-FastLED";
-const VERSION = "0.6.1";
+const VERSION = "0.7.0";
 const RELEASE_BASE = `https://github.com/${REPO}/releases/download/v${VERSION}`;
 
 export const appRelease = {
   version: VERSION,
+  releasedOn: "August 9, 2026",
   releasesUrl: `https://github.com/${REPO}/releases`,
+  releaseUrl: `https://github.com/${REPO}/releases/tag/v${VERSION}`,
   sourceUrl: `https://github.com/${REPO}`,
+  highlights: [
+    "First-class HUB75 Matrix Output support for ESP32, ESP32-S2, and ESP32-S3, including chained, folded, serpentine, and rotated panel layouts.",
+    "A dedicated HUB75 Topology mode in Flash Wiring Test, with per-panel orientation markers that make 2D panel layouts easier to verify.",
+    "Better preview-to-firmware palette parity, more trustworthy RAM estimates, ten curated featured patterns, and a fix for silent first frames in live-audio recording.",
+  ],
 };
 
 export type DownloadTargetId = "windows" | "macos" | "linux";

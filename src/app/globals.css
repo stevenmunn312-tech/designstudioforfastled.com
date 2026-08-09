@@ -702,6 +702,15 @@ body::before {
 
 .download-section { padding-bottom: 0; }
 .download-section .studio-section-heading { grid-template-columns: 1fr 1fr; align-items: start; }
+.release-spotlight { padding: 28px 30px; background: linear-gradient(160deg, rgba(18,23,31,.92), rgba(11,15,21,.96)); border: 1px solid #313946; border-left: 3px solid var(--pink); border-radius: 12px; box-shadow: 0 24px 54px rgba(0,0,0,.24); }
+.release-spotlight .studio-kicker { margin-bottom: 14px; }
+.release-spotlight h3 { margin: 0; font-family: var(--font-display); font-size: clamp(28px, 3vw, 38px); line-height: 1.02; letter-spacing: -.045em; }
+.release-spotlight > p:not(.studio-kicker) { margin: 14px 0 0; color: #8d95a3; font-size: 13px; line-height: 1.8; }
+.release-highlights { margin: 22px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.release-highlights li { display: flex; align-items: flex-start; gap: 10px; color: #b3bac6; font-size: 12px; line-height: 1.65; }
+.release-highlights svg { flex: none; margin-top: 1px; color: var(--green); }
+.release-spotlight-links { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 18px; }
+.release-spotlight-links .studio-text-link { margin-top: 0; }
 .feature-section { padding-top: 60px; }
 .feature-section .studio-section-heading { grid-template-columns: 1fr 380px; align-items: center; margin-bottom: 60px; }
 .feature-section .studio-section-heading > div:first-child > p { margin: 14px 0 0; max-width: 560px; color: #8d95a3; font-size: 13px; line-height: 1.8; }
