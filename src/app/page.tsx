@@ -9,33 +9,34 @@ import {
   FileCode2,
   Gauge,
   Monitor,
+  Network,
+  NotebookPen,
   Radio,
   Sparkles,
   UploadCloud,
   Usb,
 } from "lucide-react";
-import { MotionSafeVideo } from "@/components/motion-safe-video";
 import { PatternCard } from "@/components/pattern-card";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { headers } from "next/headers";
 import { getPublishedPatterns } from "@/lib/published-patterns";
-import { appRelease, detectDownloadTarget, downloadTargets } from "@/lib/app-release";
+import { appRelease, detectDownloadTarget, downloadTargets, hardwareDevelopment } from "@/lib/app-release";
 
 const features = [
   {
     id: "start",
     kicker: "Start gallery",
     heading: ["Start with a spark,", "not a blank canvas."],
-    body: "Guided patches for Juggle, Fire, scrolling text, live audio, field warping, generative shows, and music-synced SD playback. Each starter opens with an editable Comment node telling you what to try next.",
+    body: "Start with Juggle, Fire, live audio, field warping, or a slideshow. Guided control patches show how a knob, button, or encoder reaches the LEDs through a visible cable. Each starter includes a note explaining what to try next.",
     points: [
-      "Eight ready-made starting points",
+      "Guided starters for patterns, shows, and physical controls",
       "Quick recipes drop whole audio-reactive chains on the canvas",
       "Blank canvas is always one click away",
     ],
-    image: "/app/design-studio-start-gallery.png",
+    image: "/app/hardware/design-studio-start-gallery.webp",
     caption: "Start Gallery",
-    alt: "The Design Studio Start Gallery showing beginner, audio, field, and show starter patches",
+    alt: "The Hardware branch Start Gallery with guided patches for patterns, audio, fields, and shows",
   },
   {
     id: "canvas",
@@ -45,27 +46,23 @@ const features = [
     points: [
       { emoji: "⚡", label: "Live Signal Inspection", text: "Every frame-producing node shows its own local preview so you can debug signal flows instantly." },
       { emoji: "🔌", label: "Smart Cable Snap", text: "Drag a cable onto open canvas—only compatible input nodes appear." },
-      { emoji: "🛡️", label: "Built-in Safety Checks", text: "Real-time Graph Health alerts you to power limits, pin conflicts, and memory usage before you flash." },
+      { emoji: "🛡️", label: "Graph Health", text: "Check incomplete wiring, pin conflicts, board compatibility, and memory pressure before upload." },
     ],
-    image: "/app/design-studio-patch.png",
-    // The one section whose claim is about motion — a still cannot show a
-    // slider being dragged. Rendered frame-exact by /dev/hero-loop; see
-    // docs/devel/hero-loop-render.md.
-    video: { webm: "/app/juggle-loop.webm", mp4: "/app/juggle-loop.mp4" },
-    caption: "Patch editor",
-    alt: "A Juggle pattern's Count slider dragged from 1 to 8 and back, the LED matrix responding live",
+    image: "/app/hardware/design-studio-patch.webp",
+    caption: "Graph workspace",
+    alt: "A Fire 2012 patch connected to an LED Matrix in the Graph workspace",
   },
   {
     id: "library",
     kicker: "Node library",
-    heading: ["151 modules,", "kept on your shelves."],
+    heading: ["232 modules,", "room to experiment."],
     body: "Patterns, simulations, colour, fields, effects, audio, logic, show control, hardware input, and output. Turn any patch into a Group, save it to the Pattern Library, and reuse it in the next show.",
     points: [
-      "10 featured patterns ready to explore on first launch",
+      "73 included patterns to explore and adapt",
       "Custom shelves you can create, drag between, and remove",
       "Personal patterns mirrored to disk as shareable JSON",
     ],
-    image: "/app/design-studio-pattern-library.png",
+    image: "/app/hardware/design-studio-pattern-library.webp",
     caption: "Pattern Library",
     alt: "The Pattern Library panel open beside a live Field Warp patch",
   },
@@ -73,38 +70,38 @@ const features = [
     id: "stage",
     kicker: "Performance",
     heading: ["Put the visuals", "centre stage."],
-    body: "Press Stage or F10 and the workspace becomes a clean performance view. The output matrix takes the room while spectrum, transport, frame rate, memory, and signal state stay in reach. Esc returns to the editor.",
+    body: "Press Stage View or F10 and the workspace becomes a clean performance view. The output matrix takes the room while spectrum, transport, frame rate, memory, and signal state stay in reach. Esc returns to the editor.",
     points: [
-      "Stage Mode, Performance Deck, and music transport",
+      "Live Focus, Control Deck, Stage View, and music transport",
       "16 transition styles and beat-driven particle bursts",
       "Toggle the 3D presentation or cycle spectrum styles live",
     ],
     image: "/app/design-studio-stage.png",
-    caption: "Stage Mode",
-    alt: "Stage Mode showing a full-screen live LED matrix with spectrum and transport controls",
+    caption: "Stage View",
+    alt: "Stage View showing a full-screen live LED matrix with spectrum and transport controls",
   },
 ] as const;
 
 const hardwareCards = [
   {
     icon: Cpu,
-    title: "Upload",
-    body: "Compile and flash a standalone FastLED sketch for strips or HUB75 panels straight from Matrix Output.",
+    title: "Hardware",
+    body: "Choose the exact board and add your parts from the Hardware shelf. Inspect physical modules, board-aware GPIO choices, and the rig at a shared scale.",
   },
   {
-    icon: Radio,
-    title: "Flash Wiring Test",
-    body: "Check colour order, brightness, orientation, tiles, pixel order, and the new HUB75 Topology view before the graph is finished.",
+    icon: Network,
+    title: "Graph",
+    body: "Connect patterns, effects, and hardware signals. Wire buttons, knobs, and sensors into the same graph that drives your LED output.",
   },
   {
     icon: Usb,
-    title: "Live Stream",
-    body: "Flash the receiver once, then send preview frames over USB without recompiling after every edit.",
+    title: "Upload",
+    body: "Resolve Graph Health issues, check capacity, select a serial port, and flash firmware. Follow progress in the embedded Output/Serial console.",
   },
   {
-    icon: FileCode2,
-    title: "Export .ino",
-    body: "Read, modify, or build the generated sketch yourself — the code is yours either way.",
+    icon: NotebookPen,
+    title: "Build Diagram",
+    body: "Take the wiring plan to the bench: real controller pin maps, power distribution, fuse blocks, CSV parts and connection lists, and printable assembly sheets.",
   },
 ] as const;
 
@@ -122,18 +119,19 @@ export default async function Home() {
       <main className="studio-home">
         <section className="studio-hero shell">
           <div className="studio-hero-copy">
-            <p className="studio-kicker"><span /> Free · node-based LED design</p>
-            <h1>Wire the Nodes.<br /><em>Light Up the Room.</em></h1>
+            <p className="studio-kicker"><span /> Hardware branch · development preview</p>
+            <h1>Design the light.<br /><em>Build the rig.</em></h1>
             <p>
-              The visual, node-based workspace for makers, lighting designers, and Arduino/ESP32 developers.
+              Choose your board and parts, connect the signals, and turn your LED design into firmware and a wiring plan. One project, from the first pattern to the physical build.
             </p>
             <div className="hero-actions">
-              <a className="button button-gradient" href="#download">Download the app <Download size={17} /></a>
-              <a className="button button-outline" href="#features">See what it does</a>
+              <a className="button button-gradient" href={hardwareDevelopment.setupUrl} target="_blank" rel="noreferrer">Try the Hardware branch <ArrowRight size={17} /></a>
+              <a className="button button-outline" href="#hardware">Explore the workspaces</a>
             </div>
+            <a className="studio-text-link" href="#download">Published beta downloads <Download size={14} /></a>
             <div className="hero-trust">
-              <span><CheckCircle2 size={13} /> Public beta</span>
-              <span><Boxes size={13} /> 151 modules</span>
+              <span><CheckCircle2 size={13} /> Free · MIT core</span>
+              <span><Boxes size={13} /> 232 modules</span>
               <span><Monitor size={13} /> Windows · macOS · Linux</span>
             </div>
           </div>
@@ -141,20 +139,20 @@ export default async function Home() {
           <div className="studio-hero-preview">
             <figure className="app-shot app-shot-hero">
               <figcaption>
-                <i /> Design Studio for FastLED <strong>v{appRelease.version}</strong>
+                <i /> Design Studio for FastLED <strong>Hardware branch</strong>
               </figcaption>
               <Image
-                src="/app/design-studio-overview.png"
-                alt="An audio-reactive spectrum patch running in Design Studio for FastLED, with the mic-to-FFT-to-matrix node chain and live LED preview visible"
-                width={1440}
+                src="/app/hardware/design-studio-overview.webp"
+                alt="A Field Warp patch running in the Hardware branch of Design Studio for FastLED"
+                width={1600}
                 height={900}
-                priority
+                preload
               />
             </figure>
             <div className="hero-project-chip">
-              <span>Desktop beta</span>
-              <strong>v{appRelease.version}</strong>
-              <small>portable · no install</small>
+              <span>One project</span>
+              <strong>Four workspaces</strong>
+              <small>parts · signals · firmware · wiring</small>
             </div>
           </div>
         </section>
@@ -163,39 +161,95 @@ export default async function Home() {
           <span className="rail-lime" /> INPUT <i /> AUDIO <span className="rail-green" /> SIGNALS <i /> COLOR <span className="rail-cyan" /> PATTERNS <i /> FIELDS <span className="rail-blue" /> EFFECTS <i /> SHOW <span className="rail-magenta" /> OUTPUT
         </div>
 
+        <section className="graph-section" id="hardware">
+          <div className="shell">
+            <div className="studio-section-heading graph-heading">
+              <div>
+                <p className="studio-kicker"><span /> Hardware · Graph · Upload · Build Diagram</p>
+                <h2>Four workspaces.<br /><em>One physical build.</em></h2>
+              </div>
+              <p>The Board owns brightness, power cap, and controller settings. The LED output owns dimensions, layout, and colour correction. Their wiring and signals stay connected across the project.</p>
+            </div>
+            <figure className="app-shot hardware-workspace-shot">
+              <figcaption>
+                <i /> Hardware workspace <strong>Board · parts · wiring</strong>
+              </figcaption>
+              <Image
+                src="/app/hardware/design-studio-hardware.webp"
+                alt="The Hardware shelf beside an ESP32 board connected to a 16 by 16 LED matrix at a shared physical scale"
+                width={1600}
+                height={900}
+                loading="lazy"
+              />
+            </figure>
+            <div className="hardware-grid">
+              {hardwareCards.map((card) => {
+                const Icon = card.icon;
+                return (
+                  <article className="hardware-card" key={card.title}>
+                    <div><Icon size={19} /></div>
+                    <h3>{card.title}</h3>
+                    <p>{card.body}</p>
+                  </article>
+                );
+              })}
+            </div>
+            <div className="hardware-note">
+              <Gauge size={18} />
+              <p>
+                Check capacity compiles for the selected board without flashing and reports measured flash/RAM use when the toolchain provides it. Flash Wiring Test checks the physical LEDs; Flash Stream Receiver and Live Stream send preview frames over USB. A passing preview or compile does not establish hardware support. See the <a href={hardwareDevelopment.supportUrl} target="_blank" rel="noreferrer">Hardware branch support matrix</a> for exact validated combinations; other configurations remain experimental.
+              </p>
+            </div>
+            <div className="hardware-guides">
+              <a className="studio-text-link" href={hardwareDevelopment.firstProjectUrl} target="_blank" rel="noreferrer">Build your first project <ArrowRight size={14} /></a>
+              <a className="studio-text-link" href={hardwareDevelopment.guideUrl} target="_blank" rel="noreferrer">Read the hardware guide <ArrowRight size={14} /></a>
+            </div>
+          </div>
+        </section>
+
         <section className="studio-section download-section shell" id="download">
           <div className="studio-section-heading">
             <div>
-              <p className="studio-kicker"><span /> Get the app</p>
-              <h2>Portable desktop<br /><em>beta, free to run.</em></h2>
+              <p className="studio-kicker"><span /> Published desktop beta</p>
+              <h2>Download v{appRelease.version}.<br /><em>Or build what’s next.</em></h2>
+              <p className="download-description">The portable v{appRelease.version} release is separate from the Hardware branch shown here. Use the source setup for the four-workspace experience.</p>
               {detectedTarget && (
                 <div className="download-primary">
                   <a className="button button-gradient" href={detectedTarget.url}>
-                    <Download size={17} /> Download for {detectedTarget.label}
+                    <Download size={17} /> v{appRelease.version} for {detectedTarget.label}
                   </a>
                   <span>v{appRelease.version} · {detectedTarget.detail}</span>
                 </div>
               )}
+              <div className="download-platforms" aria-label="All desktop beta downloads">
+                {downloadTargets.map((target) => (
+                  <div key={target.id}>
+                    <a href={target.url}>{target.label} <span>{target.detail}</span></a>
+                    {"secondary" in target && <a href={target.secondary.url}>{target.secondary.label}</a>}
+                  </div>
+                ))}
+              </div>
+              <a className="studio-text-link" href={appRelease.releaseUrl} target="_blank" rel="noreferrer">Read v{appRelease.version} release notes <ArrowRight size={14} /></a>
             </div>
             <div className="release-spotlight">
-              <p className="studio-kicker"><span /> New in v{appRelease.version}</p>
-              <h3>HUB75 panels, smarter wiring tests, and a tighter beta loop.</h3>
+              <p className="studio-kicker"><span /> Active development</p>
+              <h3>Get the Hardware workspace from source.</h3>
               <p>
-                Released {appRelease.releasedOn}, Design Studio for FastLED v{appRelease.version} expands Matrix Output with first-class HUB75 support and sharpens the desktop beta with better diagnostics, curated patterns, and closer preview parity.
+                The Hardware branch brings the physical rig into the project: exact boards, parts, pin assignments, and assembly plans. It is a development build; hardware support depends on the exact tested configuration.
               </p>
               <ul className="release-highlights">
-                {appRelease.highlights.map((highlight) => (
-                  <li key={highlight}><CheckCircle2 size={14} /> {highlight}</li>
-                ))}
+                <li><CheckCircle2 size={14} /> Browser authoring, preview, and code export work without the local helper.</li>
+                <li><CheckCircle2 size={14} /> Compilation, USB upload, serial monitoring, and live streaming require the helper.</li>
+                <li><CheckCircle2 size={14} /> Follow the branch setup guide for Node.js, Python, and build tools.</li>
               </ul>
               <div className="release-spotlight-links">
-                <a className="studio-text-link" href={appRelease.releaseUrl} target="_blank" rel="noreferrer">Read the v{appRelease.version} release notes <ArrowRight size={14} /></a>
-                <a className="studio-text-link" href={appRelease.releasesUrl} target="_blank" rel="noreferrer">All releases &amp; source <ArrowRight size={14} /></a>
+                <a className="studio-text-link" href={hardwareDevelopment.setupUrl} target="_blank" rel="noreferrer">Set up the Hardware branch <ArrowRight size={14} /></a>
+                <a className="studio-text-link" href={hardwareDevelopment.helperUrl} target="_blank" rel="noreferrer">Set up the upload helper <ArrowRight size={14} /></a>
               </div>
             </div>
           </div>
           <p className="download-note">
-            Public beta archives are not yet code-signed or notarized—only run builds downloaded from the official release page above. Prefer to build it yourself? <a href={appRelease.sourceUrl} target="_blank" rel="noreferrer">Run from source on GitHub</a>.
+            Public beta archives are not yet code-signed or notarized. Only run builds downloaded from the <a href={appRelease.releasesUrl} target="_blank" rel="noreferrer">official release page</a>. <a href={hardwareDevelopment.sourceUrl} target="_blank" rel="noreferrer">Browse the Hardware branch source</a>.
           </p>
         </section>
 
@@ -204,12 +258,12 @@ export default async function Home() {
             <div>
               <p className="studio-kicker"><span /> Inside the app</p>
               <h2>Everything between<br /><em>idea and LEDs.</em></h2>
-              <p>Design, preview, and deploy from a single window. Our real-time graph evaluator and C++ generator stay 1:1 in sync&mdash;ensuring what you see on screen is exactly what flashes to your microcontroller.</p>
+              <p>Design, preview, and prepare firmware in one project. The graph evaluator and C++ generator are designed together; check the support matrix for combinations validated on real hardware.</p>
             </div>
             <ul className="feature-value-props">
-              <li><span aria-hidden="true">⚡</span> <span><strong>Unified Workflow:</strong> No switching between IDEs, compilers, and previewers.</span></li>
-              <li><span aria-hidden="true">🔄</span> <span><strong>1:1 Code Sync:</strong> Live evaluator directly mirrors generated C++ output.</span></li>
-              <li><span aria-hidden="true">🎯</span> <span><strong>Hardware-Aware:</strong> Built specifically for FastLED on ESP32, Arduino, and more.</span></li>
+              <li><Cpu size={20} aria-hidden="true" /> <span><strong>Your physical rig:</strong> Board profiles, parts, and pin assignments belong to the project.</span></li>
+              <li><Radio size={20} aria-hidden="true" /> <span><strong>Visible control paths:</strong> Connect buttons, knobs, sensors, and audio to the design.</span></li>
+              <li><FileCode2 size={20} aria-hidden="true" /> <span><strong>Portable output:</strong> Inspect generated code or export an .ino to build yourself.</span></li>
             </ul>
           </div>
 
@@ -235,63 +289,10 @@ export default async function Home() {
                 </div>
                 <figure className="app-shot">
                   <figcaption><i /> {feature.caption}</figcaption>
-                  {"video" in feature && feature.video ? (
-                    <MotionSafeVideo
-                      webm={feature.video.webm}
-                      mp4={feature.video.mp4}
-                      poster={feature.image}
-                      alt={feature.alt}
-                      width={1440}
-                      height={900}
-                    />
-                  ) : (
-                    <Image src={feature.image} alt={feature.alt} width={1440} height={900} loading="lazy" />
-                  )}
+                  <Image src={feature.image} alt={feature.alt} width={feature.id === "stage" ? 1440 : 1600} height={900} loading="lazy" />
                 </figure>
               </article>
             ))}
-          </div>
-        </section>
-
-        <section className="graph-section" id="hardware">
-          <div className="shell">
-            <div className="studio-section-heading graph-heading">
-              <div>
-                <p className="studio-kicker"><span /> From preview to hardware</p>
-                <h2>The same design,<br /><em>running on the strip.</em></h2>
-              </div>
-              <p>Set the controller, size, chipset, colour order, pins, brightness, panel layout, and power cap on Matrix Output, then pick the route that fits the moment.</p>
-            </div>
-            <figure className="app-shot node-to-code-shot">
-              <figcaption>
-                <i /> Graph → generated sketch <strong>ESP32-S3 · 16 × 16</strong>
-              </figcaption>
-              <Image
-                src="/app/design-studio-node-to-code.webp"
-                alt="A live microphone, FFT, and palette graph wired into Matrix Output, with the FastLED C++ sketch it generates printing out beside it"
-                width={1561}
-                height={1007}
-                loading="lazy"
-              />
-            </figure>
-            <div className="hardware-grid">
-              {hardwareCards.map((card) => {
-                const Icon = card.icon;
-                return (
-                  <article className="hardware-card" key={card.title}>
-                    <div><Icon size={19} /></div>
-                    <h3>{card.title}</h3>
-                    <p>{card.body}</p>
-                  </article>
-                );
-              })}
-            </div>
-            <div className="hardware-note">
-              <Gauge size={18} />
-              <p>
-                Graph Health runs continuously, and the controller-capacity meter performs a real compile-only check against the selected board to report measured flash and RAM use. In v{appRelease.version}, single-panel 64×64 HUB75 upload and wiring diagnostics have recorded hardware validation, while multi-panel chains, folded and rotated layouts, streaming, show playback, and music sync remain experimental. See the <a href={`${appRelease.sourceUrl}/blob/main/docs/release/beta-support-matrix.md`} target="_blank" rel="noreferrer">beta support matrix</a> for the combinations validated end to end.
-              </p>
-            </div>
           </div>
         </section>
 
@@ -325,12 +326,12 @@ export default async function Home() {
         <section className="studio-cta shell">
           <div>
             <p className="studio-kicker"><span /> Ready when you are</p>
-            <h2>Download it and<br /><em>light something up.</em></h2>
+            <h2>From a first pattern<br /><em>to your next build.</em></h2>
           </div>
           <div>
             <Sparkles size={28} />
-            <p>Free, MIT-licensed at its core, and portable—extract the archive and the Studio opens on its first patch. Built something good? Send it to the community library.</p>
-            <a className="button button-gradient" href="#download">Download v{appRelease.version} <Download size={17} /></a>
+            <p>Start with a guided patch, choose the parts on your bench, and follow the project through to firmware. Free and MIT-licensed at its core. Share your patterns with the community as you build.</p>
+            <a className="button button-gradient" href={hardwareDevelopment.setupUrl} target="_blank" rel="noreferrer">Try the Hardware branch <ArrowRight size={17} /></a>
             <Link className="studio-text-link" href="/upload">Share a project instead <ArrowRight size={14} /></Link>
           </div>
         </section>

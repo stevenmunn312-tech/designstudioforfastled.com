@@ -13,10 +13,11 @@ export function SiteFooter() {
           height={243}
         />
         <p>
-          The project library for Design Studio for FastLED.
+          Design the light, plan the hardware, and share your FastLED projects.
         </p>
       </div>
       <div className="footer-links">
+        <Link href="/#hardware">Hardware</Link>
         <Link href="/#download">Download</Link>
         <Link href="/patterns">Patterns</Link>
         <Link href="/upload">Upload project</Link>

@@ -15,6 +15,7 @@ export function SiteHeader() {
         />
       </Link>
       <nav className="site-nav" aria-label="Main navigation">
+        <Link href="/#hardware">Hardware</Link>
         <Link href="/#download">Download</Link>
         <Link href="/patterns">Patterns</Link>
         <Link href="/upload">Upload project</Link>

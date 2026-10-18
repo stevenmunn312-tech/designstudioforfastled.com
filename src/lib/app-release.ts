@@ -2,6 +2,17 @@ const REPO = "stevenmunn312-tech/Design-Studio-for-FastLED";
 const VERSION = "0.7.0";
 const RELEASE_BASE = `https://github.com/${REPO}/releases/download/v${VERSION}`;
 
+// Hardware is an active development line, separate from the frozen v0.7.0 beta.
+const HARDWARE_DOCS = `https://github.com/${REPO}/blob/Hardware/docs`;
+export const hardwareDevelopment = {
+  sourceUrl: `https://github.com/${REPO}/tree/Hardware`,
+  setupUrl: `${HARDWARE_DOCS}/getting-started/development-setup.md`,
+  firstProjectUrl: `${HARDWARE_DOCS}/getting-started/first-project.md`,
+  guideUrl: `${HARDWARE_DOCS}/user/hardware-workbench.md`,
+  helperUrl: `${HARDWARE_DOCS}/getting-started/upload-helper.md`,
+  supportUrl: `${HARDWARE_DOCS}/release/beta-support-matrix.md`,
+};
+
 export const appRelease = {
   version: VERSION,
   releasedOn: "August 9, 2026",
