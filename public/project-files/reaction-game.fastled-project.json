@@ -1,0 +1,2346 @@
+{
+  "id": "example-reaction-game",
+  "name": "Reaction game",
+  "createdAt": 1794700800000,
+  "updatedAt": 1794700800000,
+  "workspace": {
+    "nodes": [
+      {
+        "id": "round",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": 0
+        },
+        "data": {
+          "label": "New target every 1.2 s",
+          "nodeType": "Interval",
+          "category": "signal",
+          "properties": {
+            "interval": 1.2
+          },
+          "inputs": [
+            {
+              "id": "interval",
+              "label": "Interval",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "pulse",
+              "label": "Pulse",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "target",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 0
+        },
+        "data": {
+          "label": "Random",
+          "nodeType": "Random",
+          "category": "signal",
+          "properties": {
+            "min": 0,
+            "max": 3.999,
+            "seed": 0
+          },
+          "inputs": [
+            {
+              "id": "trigger",
+              "label": "Trigger",
+              "dataType": "bool"
+            },
+            {
+              "id": "min",
+              "label": "Min",
+              "dataType": "float"
+            },
+            {
+              "id": "max",
+              "label": "Max",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "value",
+              "label": "Value",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "past1",
+        "type": "studioNode",
+        "position": {
+          "x": 520,
+          "y": 0
+        },
+        "data": {
+          "label": "Compare",
+          "nodeType": "Compare",
+          "category": "math",
+          "properties": {
+            "compareOp": "greaterOrEqual",
+            "a": 0,
+            "b": 1,
+            "hysteresis": 0
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "past2",
+        "type": "studioNode",
+        "position": {
+          "x": 520,
+          "y": 180
+        },
+        "data": {
+          "label": "Compare",
+          "nodeType": "Compare",
+          "category": "math",
+          "properties": {
+            "compareOp": "greaterOrEqual",
+            "a": 0,
+            "b": 2,
+            "hysteresis": 0
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "past3",
+        "type": "studioNode",
+        "position": {
+          "x": 520,
+          "y": 360
+        },
+        "data": {
+          "label": "Compare",
+          "nodeType": "Compare",
+          "category": "math",
+          "properties": {
+            "compareOp": "greaterOrEqual",
+            "a": 0,
+            "b": 3,
+            "hysteresis": 0
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "pad1",
+        "type": "studioNode",
+        "position": {
+          "x": 780,
+          "y": 0
+        },
+        "data": {
+          "label": "Pad 1 lit",
+          "nodeType": "Not",
+          "category": "math",
+          "properties": {},
+          "inputs": [
+            {
+              "id": "x",
+              "label": "X",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "pad2",
+        "type": "studioNode",
+        "position": {
+          "x": 780,
+          "y": 180
+        },
+        "data": {
+          "label": "Pad 2 lit",
+          "nodeType": "Logic",
+          "category": "math",
+          "properties": {
+            "logicOp": "xor"
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "bool"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "pad3",
+        "type": "studioNode",
+        "position": {
+          "x": 780,
+          "y": 360
+        },
+        "data": {
+          "label": "Pad 3 lit",
+          "nodeType": "Logic",
+          "category": "math",
+          "properties": {
+            "logicOp": "xor"
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "bool"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "buttons",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": 720
+        },
+        "data": {
+          "label": "Button",
+          "nodeType": "ButtonBank",
+          "category": "input",
+          "properties": {
+            "buttons": [
+              {
+                "id": "1",
+                "label": "Pad 1",
+                "pin": 4,
+                "pullup": true,
+                "assignedBoard": "espressif-esp32-s3-devkitc-1",
+                "assignedPin": 4
+              },
+              {
+                "id": "2",
+                "label": "Pad 2",
+                "pin": 6,
+                "pullup": true,
+                "assignedBoard": "espressif-esp32-s3-devkitc-1",
+                "assignedPin": 6
+              },
+              {
+                "id": "3",
+                "label": "Pad 3",
+                "pin": 7,
+                "pullup": true,
+                "assignedBoard": "espressif-esp32-s3-devkitc-1",
+                "assignedPin": 7
+              },
+              {
+                "id": "4",
+                "label": "Pad 4",
+                "pin": 8,
+                "pullup": true,
+                "assignedBoard": "espressif-esp32-s3-devkitc-1",
+                "assignedPin": 8
+              }
+            ]
+          },
+          "inputs": [],
+          "outputs": [
+            {
+              "id": "button-1",
+              "label": "Pad 1",
+              "dataType": "bool"
+            },
+            {
+              "id": "button-2",
+              "label": "Pad 2",
+              "dataType": "bool"
+            },
+            {
+              "id": "button-3",
+              "label": "Pad 3",
+              "dataType": "bool"
+            },
+            {
+              "id": "button-4",
+              "label": "Pad 4",
+              "dataType": "bool"
+            },
+            {
+              "id": "add-button",
+              "label": "Add button…",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "hit1",
+        "type": "studioNode",
+        "position": {
+          "x": 1040,
+          "y": 720
+        },
+        "data": {
+          "label": "Hit pad 1",
+          "nodeType": "Logic",
+          "category": "math",
+          "properties": {
+            "logicOp": "and"
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "bool"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "hit2",
+        "type": "studioNode",
+        "position": {
+          "x": 1040,
+          "y": 900
+        },
+        "data": {
+          "label": "Hit pad 2",
+          "nodeType": "Logic",
+          "category": "math",
+          "properties": {
+            "logicOp": "and"
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "bool"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "hit3",
+        "type": "studioNode",
+        "position": {
+          "x": 1040,
+          "y": 1080
+        },
+        "data": {
+          "label": "Hit pad 3",
+          "nodeType": "Logic",
+          "category": "math",
+          "properties": {
+            "logicOp": "and"
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "bool"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "hit4",
+        "type": "studioNode",
+        "position": {
+          "x": 1040,
+          "y": 1260
+        },
+        "data": {
+          "label": "Hit pad 4",
+          "nodeType": "Logic",
+          "category": "math",
+          "properties": {
+            "logicOp": "and"
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "bool"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "hit12",
+        "type": "studioNode",
+        "position": {
+          "x": 1300,
+          "y": 720
+        },
+        "data": {
+          "label": "Logic",
+          "nodeType": "Logic",
+          "category": "math",
+          "properties": {
+            "logicOp": "or"
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "bool"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "hit34",
+        "type": "studioNode",
+        "position": {
+          "x": 1300,
+          "y": 1080
+        },
+        "data": {
+          "label": "Logic",
+          "nodeType": "Logic",
+          "category": "math",
+          "properties": {
+            "logicOp": "or"
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "bool"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "hit",
+        "type": "studioNode",
+        "position": {
+          "x": 1560,
+          "y": 900
+        },
+        "data": {
+          "label": "A hit",
+          "nodeType": "Logic",
+          "category": "math",
+          "properties": {
+            "logicOp": "or"
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "bool"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "press12",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 1440
+        },
+        "data": {
+          "label": "Logic",
+          "nodeType": "Logic",
+          "category": "math",
+          "properties": {
+            "logicOp": "or"
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "bool"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "press34",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 1620
+        },
+        "data": {
+          "label": "Logic",
+          "nodeType": "Logic",
+          "category": "math",
+          "properties": {
+            "logicOp": "or"
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "bool"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "press",
+        "type": "studioNode",
+        "position": {
+          "x": 520,
+          "y": 1440
+        },
+        "data": {
+          "label": "Any press",
+          "nodeType": "Logic",
+          "category": "math",
+          "properties": {
+            "logicOp": "or"
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "bool"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "noHit",
+        "type": "studioNode",
+        "position": {
+          "x": 1560,
+          "y": 1260
+        },
+        "data": {
+          "label": "Not",
+          "nodeType": "Not",
+          "category": "math",
+          "properties": {},
+          "inputs": [
+            {
+              "id": "x",
+              "label": "X",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "miss",
+        "type": "studioNode",
+        "position": {
+          "x": 1820,
+          "y": 1260
+        },
+        "data": {
+          "label": "A miss",
+          "nodeType": "Logic",
+          "category": "math",
+          "properties": {
+            "logicOp": "and"
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "bool"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "score",
+        "type": "studioNode",
+        "position": {
+          "x": 1820,
+          "y": 900
+        },
+        "data": {
+          "label": "Step Value",
+          "nodeType": "StepValue",
+          "category": "math",
+          "properties": {
+            "initial": 0,
+            "minimum": 0,
+            "maximum": 9999,
+            "step": 1,
+            "wrap": false
+          },
+          "inputs": [
+            {
+              "id": "increase",
+              "label": "Increase",
+              "dataType": "bool"
+            },
+            {
+              "id": "decrease",
+              "label": "Decrease",
+              "dataType": "bool"
+            },
+            {
+              "id": "reset",
+              "label": "Reset",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "value",
+              "label": "Value",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "scoreText",
+        "type": "studioNode",
+        "position": {
+          "x": 2080,
+          "y": 900
+        },
+        "data": {
+          "label": "Format Number",
+          "nodeType": "FormatNumber",
+          "category": "math",
+          "properties": {
+            "value": 0,
+            "decimals": 0,
+            "padWidth": 1,
+            "showSign": false,
+            "maxIntegerDigits": 6,
+            "prefix": "",
+            "suffix": ""
+          },
+          "inputs": [
+            {
+              "id": "value",
+              "label": "Value",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "text",
+              "label": "Text",
+              "dataType": "string"
+            }
+          ]
+        }
+      },
+      {
+        "id": "scoreboard",
+        "type": "studioNode",
+        "position": {
+          "x": 2340,
+          "y": 900
+        },
+        "data": {
+          "label": "Text",
+          "nodeType": "Text",
+          "category": "pattern",
+          "properties": {
+            "text": "HELLO",
+            "units": "normalized",
+            "x": 0.5,
+            "y": 0.5,
+            "scroll": 0,
+            "wrap": false,
+            "r": 255,
+            "g": 180,
+            "b": 40,
+            "hAlign": "center",
+            "vAlign": "middle",
+            "scrollAxis": "horizontal",
+            "letterSpacing": 1,
+            "size": 1,
+            "font": "3x5"
+          },
+          "inputs": [
+            {
+              "id": "base",
+              "label": "Base",
+              "dataType": "frame"
+            },
+            {
+              "id": "text",
+              "label": "Text",
+              "dataType": "string"
+            },
+            {
+              "id": "color",
+              "label": "Color",
+              "dataType": "color"
+            },
+            {
+              "id": "x",
+              "label": "X",
+              "dataType": "float"
+            },
+            {
+              "id": "y",
+              "label": "Y",
+              "dataType": "float"
+            },
+            {
+              "id": "scroll",
+              "label": "Scroll",
+              "dataType": "float"
+            },
+            {
+              "id": "r",
+              "label": "R",
+              "dataType": "float"
+            },
+            {
+              "id": "g",
+              "label": "G",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "missBeep",
+        "type": "studioNode",
+        "position": {
+          "x": 2080,
+          "y": 1260
+        },
+        "data": {
+          "label": "Short beep",
+          "nodeType": "Envelope",
+          "category": "signal",
+          "properties": {
+            "attack": 0,
+            "decay": 0.4
+          },
+          "inputs": [
+            {
+              "id": "trigger",
+              "label": "Trigger",
+              "dataType": "bool"
+            },
+            {
+              "id": "attack",
+              "label": "Attack",
+              "dataType": "float"
+            },
+            {
+              "id": "decay",
+              "label": "Decay",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "buzzer",
+        "type": "studioNode",
+        "position": {
+          "x": 2340,
+          "y": 1260
+        },
+        "data": {
+          "label": "Buzzer",
+          "nodeType": "BuzzerOutput",
+          "category": "output",
+          "properties": {
+            "partId": "ky-012-active-buzzer-module",
+            "sigPin": 1,
+            "pitchHz": 2000,
+            "assignedPins": {
+              "sigPin": 1
+            },
+            "assignedPinsBoard": "espressif-esp32-s3-devkitc-1",
+            "userPinsByBoard": {}
+          },
+          "inputs": [
+            {
+              "id": "on",
+              "label": "Sound",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": []
+        }
+      },
+      {
+        "id": "colour1",
+        "type": "studioNode",
+        "position": {
+          "x": 1040,
+          "y": -180
+        },
+        "data": {
+          "label": "Pad 1 red",
+          "nodeType": "SolidColor",
+          "category": "pattern",
+          "properties": {
+            "r": 255,
+            "g": 0,
+            "b": 0
+          },
+          "inputs": [
+            {
+              "id": "color",
+              "label": "Color",
+              "dataType": "color"
+            },
+            {
+              "id": "r",
+              "label": "R",
+              "dataType": "float"
+            },
+            {
+              "id": "g",
+              "label": "G",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "colour2",
+        "type": "studioNode",
+        "position": {
+          "x": 1040,
+          "y": -270
+        },
+        "data": {
+          "label": "Pad 2 green",
+          "nodeType": "SolidColor",
+          "category": "pattern",
+          "properties": {
+            "r": 0,
+            "g": 255,
+            "b": 40
+          },
+          "inputs": [
+            {
+              "id": "color",
+              "label": "Color",
+              "dataType": "color"
+            },
+            {
+              "id": "r",
+              "label": "R",
+              "dataType": "float"
+            },
+            {
+              "id": "g",
+              "label": "G",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "colour3",
+        "type": "studioNode",
+        "position": {
+          "x": 1040,
+          "y": -360
+        },
+        "data": {
+          "label": "Pad 3 blue",
+          "nodeType": "SolidColor",
+          "category": "pattern",
+          "properties": {
+            "r": 0,
+            "g": 80,
+            "b": 255
+          },
+          "inputs": [
+            {
+              "id": "color",
+              "label": "Color",
+              "dataType": "color"
+            },
+            {
+              "id": "r",
+              "label": "R",
+              "dataType": "float"
+            },
+            {
+              "id": "g",
+              "label": "G",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "colour4",
+        "type": "studioNode",
+        "position": {
+          "x": 1040,
+          "y": -450
+        },
+        "data": {
+          "label": "Pad 4 yellow",
+          "nodeType": "SolidColor",
+          "category": "pattern",
+          "properties": {
+            "r": 255,
+            "g": 200,
+            "b": 0
+          },
+          "inputs": [
+            {
+              "id": "color",
+              "label": "Color",
+              "dataType": "color"
+            },
+            {
+              "id": "r",
+              "label": "R",
+              "dataType": "float"
+            },
+            {
+              "id": "g",
+              "label": "G",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "light1",
+        "type": "studioNode",
+        "position": {
+          "x": 1300,
+          "y": -270
+        },
+        "data": {
+          "label": "Pad 1 light",
+          "nodeType": "BrightnessMod",
+          "category": "composite",
+          "properties": {
+            "brightness": 1
+          },
+          "inputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            },
+            {
+              "id": "brightness",
+              "label": "Brightness",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "light2",
+        "type": "studioNode",
+        "position": {
+          "x": 1300,
+          "y": -180
+        },
+        "data": {
+          "label": "Pad 2 light",
+          "nodeType": "BrightnessMod",
+          "category": "composite",
+          "properties": {
+            "brightness": 1
+          },
+          "inputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            },
+            {
+              "id": "brightness",
+              "label": "Brightness",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "light3",
+        "type": "studioNode",
+        "position": {
+          "x": 1300,
+          "y": -90
+        },
+        "data": {
+          "label": "Pad 3 light",
+          "nodeType": "BrightnessMod",
+          "category": "composite",
+          "properties": {
+            "brightness": 1
+          },
+          "inputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            },
+            {
+              "id": "brightness",
+              "label": "Brightness",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "light4",
+        "type": "studioNode",
+        "position": {
+          "x": 1300,
+          "y": 0
+        },
+        "data": {
+          "label": "Pad 4 light",
+          "nodeType": "BrightnessMod",
+          "category": "composite",
+          "properties": {
+            "brightness": 1
+          },
+          "inputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            },
+            {
+              "id": "brightness",
+              "label": "Brightness",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "pads",
+        "type": "studioNode",
+        "position": {
+          "x": 1820,
+          "y": 0
+        },
+        "data": {
+          "label": "Zones",
+          "nodeType": "Zones",
+          "category": "composite",
+          "properties": {
+            "aEnabled": true,
+            "aX": 0,
+            "aY": 0,
+            "aW": 0.25,
+            "aH": 1,
+            "aFit": false,
+            "bEnabled": true,
+            "bX": 0.25,
+            "bY": 0,
+            "bW": 0.25,
+            "bH": 1,
+            "bFit": false,
+            "cEnabled": true,
+            "cX": 0.5,
+            "cY": 0,
+            "cW": 0.25,
+            "cH": 1,
+            "cFit": false,
+            "dEnabled": true,
+            "dX": 0.75,
+            "dY": 0,
+            "dW": 0.25,
+            "dH": 1,
+            "dFit": false
+          },
+          "inputs": [
+            {
+              "id": "base",
+              "label": "Base",
+              "dataType": "frame"
+            },
+            {
+              "id": "a",
+              "label": "Zone A",
+              "dataType": "frame"
+            },
+            {
+              "id": "b",
+              "label": "Zone B",
+              "dataType": "frame"
+            },
+            {
+              "id": "c",
+              "label": "Zone C",
+              "dataType": "frame"
+            },
+            {
+              "id": "d",
+              "label": "Zone D",
+              "dataType": "frame"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "padStrip",
+        "type": "studioNode",
+        "position": {
+          "x": 2080,
+          "y": 0
+        },
+        "data": {
+          "label": "Pad lights",
+          "nodeType": "MatrixOutput",
+          "category": "output",
+          "properties": {
+            "form": "strip",
+            "outputGamma": 1,
+            "width": 16,
+            "height": 16,
+            "ledCount": 32,
+            "ringStartAngle": 0,
+            "ringDirection": "cw",
+            "corkscrewTurns": 6,
+            "corkscrewStartAngle": 0,
+            "corkscrewDirection": "cw",
+            "corkscrewDiameterMm": 100,
+            "corkscrewHeightMm": 300,
+            "chipset": "WS2812B",
+            "dataLink": "Direct",
+            "colorOrder": "GRB",
+            "dataPin": 2,
+            "dataLanes": 1,
+            "lanePins": [],
+            "clockPin": 6,
+            "dataRateMhz": 0,
+            "serpentine": true,
+            "startCorner": "top-left",
+            "firstRun": "horizontal",
+            "layout": "matrix",
+            "tilesX": 1,
+            "tilesY": 1,
+            "tileSerpentine": false,
+            "tileRotations": "",
+            "customXYMap": "",
+            "stripLayout": "line",
+            "positionsPreset": "catenary",
+            "positionsWidth": 32,
+            "positionsHeight": 16,
+            "positionsMmPerUnit": 10,
+            "positions": "",
+            "networkPreset": "hexagons",
+            "network": "",
+            "ledsPerEdge": 14,
+            "routeMode": "native",
+            "routeX": 0,
+            "routeY": 0,
+            "renderResolution": "Full",
+            "correction": "none",
+            "whitePoint": "none",
+            "dither": true,
+            "hub75R1Pin": 1,
+            "hub75G1Pin": 2,
+            "hub75B1Pin": 3,
+            "hub75R2Pin": 4,
+            "hub75G2Pin": 5,
+            "hub75B2Pin": 12,
+            "hub75APin": 13,
+            "hub75BPin": 14,
+            "hub75CPin": 15,
+            "hub75DPin": 16,
+            "hub75EPin": 33,
+            "hub75ClkPin": 0,
+            "hub75LatPin": 17,
+            "hub75OePin": 18,
+            "hub75WideScan": false,
+            "hub75ColorDepthBits": 8,
+            "assignedPins": {
+              "dataPin": 2
+            },
+            "assignedPinsBoard": "espressif-esp32-s3-devkitc-1",
+            "userPinsByBoard": {}
+          },
+          "inputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            },
+            {
+              "id": "enabled",
+              "label": "Enabled",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightness",
+              "label": "Brightness",
+              "dataType": "float"
+            },
+            {
+              "id": "controls",
+              "label": "Controls",
+              "dataType": "playercontrols"
+            },
+            {
+              "id": "ledToggle",
+              "label": "Toggle blackout",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightnessUp",
+              "label": "Brightness Up",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightnessDown",
+              "label": "Brightness Down",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "display",
+              "label": "Display",
+              "dataType": "display"
+            }
+          ]
+        }
+      },
+      {
+        "id": "scoreMatrix",
+        "type": "studioNode",
+        "position": {
+          "x": 2600,
+          "y": 900
+        },
+        "data": {
+          "label": "Score display",
+          "nodeType": "MatrixOutput",
+          "category": "output",
+          "properties": {
+            "form": "matrix",
+            "outputGamma": 1,
+            "width": 16,
+            "height": 8,
+            "ledCount": 60,
+            "ringStartAngle": 0,
+            "ringDirection": "cw",
+            "corkscrewTurns": 6,
+            "corkscrewStartAngle": 0,
+            "corkscrewDirection": "cw",
+            "corkscrewDiameterMm": 100,
+            "corkscrewHeightMm": 300,
+            "chipset": "WS2812B",
+            "dataLink": "Direct",
+            "colorOrder": "GRB",
+            "dataPin": 5,
+            "dataLanes": 1,
+            "lanePins": [],
+            "clockPin": 6,
+            "dataRateMhz": 0,
+            "serpentine": true,
+            "startCorner": "top-left",
+            "firstRun": "horizontal",
+            "layout": "matrix",
+            "tilesX": 1,
+            "tilesY": 1,
+            "tileSerpentine": false,
+            "tileRotations": "",
+            "customXYMap": "",
+            "stripLayout": "line",
+            "positionsPreset": "catenary",
+            "positionsWidth": 32,
+            "positionsHeight": 16,
+            "positionsMmPerUnit": 10,
+            "positions": "",
+            "networkPreset": "hexagons",
+            "network": "",
+            "ledsPerEdge": 14,
+            "routeMode": "native",
+            "routeX": 0,
+            "routeY": 0,
+            "renderResolution": "Full",
+            "correction": "none",
+            "whitePoint": "none",
+            "dither": true,
+            "hub75R1Pin": 1,
+            "hub75G1Pin": 2,
+            "hub75B1Pin": 3,
+            "hub75R2Pin": 4,
+            "hub75G2Pin": 5,
+            "hub75B2Pin": 12,
+            "hub75APin": 13,
+            "hub75BPin": 14,
+            "hub75CPin": 15,
+            "hub75DPin": 16,
+            "hub75EPin": 33,
+            "hub75ClkPin": 0,
+            "hub75LatPin": 17,
+            "hub75OePin": 18,
+            "hub75WideScan": false,
+            "hub75ColorDepthBits": 8
+          },
+          "inputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            },
+            {
+              "id": "enabled",
+              "label": "Enabled",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightness",
+              "label": "Brightness",
+              "dataType": "float"
+            },
+            {
+              "id": "controls",
+              "label": "Controls",
+              "dataType": "playercontrols"
+            },
+            {
+              "id": "ledToggle",
+              "label": "Toggle blackout",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightnessUp",
+              "label": "Brightness Up",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightnessDown",
+              "label": "Brightness Down",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "display",
+              "label": "Display",
+              "dataType": "display"
+            }
+          ]
+        }
+      },
+      {
+        "id": "guide",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": -180
+        },
+        "data": {
+          "label": "Comment",
+          "nodeType": "Comment",
+          "category": "note",
+          "properties": {
+            "text": "REACTION GAME\nOne pad lights at a time. Hit it before it moves on to score.\nPress the wrong pad and the buzzer sounds and the score resets.\nShorten the Interval to make it harder.",
+            "color": "#74d7ff"
+          },
+          "inputs": [],
+          "outputs": []
+        }
+      },
+      {
+        "id": "board",
+        "type": "studioNode",
+        "position": {
+          "x": -260,
+          "y": 0
+        },
+        "data": {
+          "label": "Board",
+          "nodeType": "Board",
+          "category": "output",
+          "properties": {
+            "profileId": "espressif-esp32-s3-devkitc-1",
+            "brightness": 128,
+            "overclock": 1,
+            "frameRate": 60,
+            "ledDriver": "auto",
+            "powerLimit": true,
+            "milliamps": 9600,
+            "psramPolicy": "auto",
+            "psramMode": "opi",
+            "serialRoute": "auto",
+            "reportTelemetry": false,
+            "clockSync": "off",
+            "wifiHostname": "",
+            "useDhcp": true,
+            "staticIp": "",
+            "staticGateway": "",
+            "staticSubnet": "255.255.255.0",
+            "staticDns": ""
+          },
+          "inputs": [],
+          "outputs": []
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e-round-target-pulse-trigger",
+        "source": "round",
+        "sourceHandle": "pulse",
+        "target": "target",
+        "targetHandle": "trigger",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-target-past1-value-a",
+        "source": "target",
+        "sourceHandle": "value",
+        "target": "past1",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-target-past2-value-a",
+        "source": "target",
+        "sourceHandle": "value",
+        "target": "past2",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-target-past3-value-a",
+        "source": "target",
+        "sourceHandle": "value",
+        "target": "past3",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-past1-pad1-result-x",
+        "source": "past1",
+        "sourceHandle": "result",
+        "target": "pad1",
+        "targetHandle": "x",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-past1-pad2-result-a",
+        "source": "past1",
+        "sourceHandle": "result",
+        "target": "pad2",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-past2-pad2-result-b",
+        "source": "past2",
+        "sourceHandle": "result",
+        "target": "pad2",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-past2-pad3-result-a",
+        "source": "past2",
+        "sourceHandle": "result",
+        "target": "pad3",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-past3-pad3-result-b",
+        "source": "past3",
+        "sourceHandle": "result",
+        "target": "pad3",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-buttons-hit1-button-1-a",
+        "source": "buttons",
+        "sourceHandle": "button-1",
+        "target": "hit1",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-pad1-hit1-result-b",
+        "source": "pad1",
+        "sourceHandle": "result",
+        "target": "hit1",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-buttons-hit2-button-2-a",
+        "source": "buttons",
+        "sourceHandle": "button-2",
+        "target": "hit2",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-pad2-hit2-result-b",
+        "source": "pad2",
+        "sourceHandle": "result",
+        "target": "hit2",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-buttons-hit3-button-3-a",
+        "source": "buttons",
+        "sourceHandle": "button-3",
+        "target": "hit3",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-pad3-hit3-result-b",
+        "source": "pad3",
+        "sourceHandle": "result",
+        "target": "hit3",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-buttons-hit4-button-4-a",
+        "source": "buttons",
+        "sourceHandle": "button-4",
+        "target": "hit4",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-past3-hit4-result-b",
+        "source": "past3",
+        "sourceHandle": "result",
+        "target": "hit4",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-hit1-hit12-result-a",
+        "source": "hit1",
+        "sourceHandle": "result",
+        "target": "hit12",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-hit2-hit12-result-b",
+        "source": "hit2",
+        "sourceHandle": "result",
+        "target": "hit12",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-hit3-hit34-result-a",
+        "source": "hit3",
+        "sourceHandle": "result",
+        "target": "hit34",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-hit4-hit34-result-b",
+        "source": "hit4",
+        "sourceHandle": "result",
+        "target": "hit34",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-hit12-hit-result-a",
+        "source": "hit12",
+        "sourceHandle": "result",
+        "target": "hit",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-hit34-hit-result-b",
+        "source": "hit34",
+        "sourceHandle": "result",
+        "target": "hit",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-buttons-press12-button-1-a",
+        "source": "buttons",
+        "sourceHandle": "button-1",
+        "target": "press12",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-buttons-press12-button-2-b",
+        "source": "buttons",
+        "sourceHandle": "button-2",
+        "target": "press12",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-buttons-press34-button-3-a",
+        "source": "buttons",
+        "sourceHandle": "button-3",
+        "target": "press34",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-buttons-press34-button-4-b",
+        "source": "buttons",
+        "sourceHandle": "button-4",
+        "target": "press34",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-press12-press-result-a",
+        "source": "press12",
+        "sourceHandle": "result",
+        "target": "press",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-press34-press-result-b",
+        "source": "press34",
+        "sourceHandle": "result",
+        "target": "press",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-hit-noHit-result-x",
+        "source": "hit",
+        "sourceHandle": "result",
+        "target": "noHit",
+        "targetHandle": "x",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-press-miss-result-a",
+        "source": "press",
+        "sourceHandle": "result",
+        "target": "miss",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-noHit-miss-result-b",
+        "source": "noHit",
+        "sourceHandle": "result",
+        "target": "miss",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-hit-score-result-increase",
+        "source": "hit",
+        "sourceHandle": "result",
+        "target": "score",
+        "targetHandle": "increase",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-miss-score-result-reset",
+        "source": "miss",
+        "sourceHandle": "result",
+        "target": "score",
+        "targetHandle": "reset",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-score-scoreText-value-value",
+        "source": "score",
+        "sourceHandle": "value",
+        "target": "scoreText",
+        "targetHandle": "value",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-scoreText-scoreboard-text-text",
+        "source": "scoreText",
+        "sourceHandle": "text",
+        "target": "scoreboard",
+        "targetHandle": "text",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#ff7bb0"
+        }
+      },
+      {
+        "id": "e-miss-missBeep-result-trigger",
+        "source": "miss",
+        "sourceHandle": "result",
+        "target": "missBeep",
+        "targetHandle": "trigger",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-missBeep-buzzer-result-on",
+        "source": "missBeep",
+        "sourceHandle": "result",
+        "target": "buzzer",
+        "targetHandle": "on",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-colour1-light1-frame-frame",
+        "source": "colour1",
+        "sourceHandle": "frame",
+        "target": "light1",
+        "targetHandle": "frame",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-colour2-light2-frame-frame",
+        "source": "colour2",
+        "sourceHandle": "frame",
+        "target": "light2",
+        "targetHandle": "frame",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-colour3-light3-frame-frame",
+        "source": "colour3",
+        "sourceHandle": "frame",
+        "target": "light3",
+        "targetHandle": "frame",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-colour4-light4-frame-frame",
+        "source": "colour4",
+        "sourceHandle": "frame",
+        "target": "light4",
+        "targetHandle": "frame",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-pad1-light1-result-brightness",
+        "source": "pad1",
+        "sourceHandle": "result",
+        "target": "light1",
+        "targetHandle": "brightness",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-pad2-light2-result-brightness",
+        "source": "pad2",
+        "sourceHandle": "result",
+        "target": "light2",
+        "targetHandle": "brightness",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-pad3-light3-result-brightness",
+        "source": "pad3",
+        "sourceHandle": "result",
+        "target": "light3",
+        "targetHandle": "brightness",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-past3-light4-result-brightness",
+        "source": "past3",
+        "sourceHandle": "result",
+        "target": "light4",
+        "targetHandle": "brightness",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-light1-pads-frame-a",
+        "source": "light1",
+        "sourceHandle": "frame",
+        "target": "pads",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-light2-pads-frame-b",
+        "source": "light2",
+        "sourceHandle": "frame",
+        "target": "pads",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-light3-pads-frame-c",
+        "source": "light3",
+        "sourceHandle": "frame",
+        "target": "pads",
+        "targetHandle": "c",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-light4-pads-frame-d",
+        "source": "light4",
+        "sourceHandle": "frame",
+        "target": "pads",
+        "targetHandle": "d",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-pads-padStrip-frame-frame",
+        "source": "pads",
+        "sourceHandle": "frame",
+        "target": "padStrip",
+        "targetHandle": "frame",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-scoreboard-scoreMatrix-frame-frame",
+        "source": "scoreboard",
+        "sourceHandle": "frame",
+        "target": "scoreMatrix",
+        "targetHandle": "frame",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      }
+    ]
+  }
+}

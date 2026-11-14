@@ -1,0 +1,1358 @@
+{
+  "id": "example-digital-hourglass",
+  "name": "Digital hourglass",
+  "createdAt": 1794700800000,
+  "updatedAt": 1794700800000,
+  "workspace": {
+    "nodes": [
+      {
+        "id": "imu",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": 180
+        },
+        "data": {
+          "label": "Accel & Gyro",
+          "nodeType": "MotionVectorInput",
+          "category": "input",
+          "properties": {
+            "partId": "gy-521-mpu6050-module",
+            "sdaPin": 8,
+            "sclPin": 9,
+            "i2cAddress": "0x68"
+          },
+          "inputs": [],
+          "outputs": [
+            {
+              "id": "accelX",
+              "label": "Accel X (g)",
+              "dataType": "float"
+            },
+            {
+              "id": "accelY",
+              "label": "Accel Y (g)",
+              "dataType": "float"
+            },
+            {
+              "id": "accelZ",
+              "label": "Accel Z (g)",
+              "dataType": "float"
+            },
+            {
+              "id": "gyroX",
+              "label": "Gyro X (°/s)",
+              "dataType": "float"
+            },
+            {
+              "id": "gyroY",
+              "label": "Gyro Y (°/s)",
+              "dataType": "float"
+            },
+            {
+              "id": "gyroZ",
+              "label": "Gyro Z (°/s)",
+              "dataType": "float"
+            },
+            {
+              "id": "shake",
+              "label": "Shake (g)",
+              "dataType": "float"
+            },
+            {
+              "id": "connected",
+              "label": "Connected",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "upright",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 180
+        },
+        "data": {
+          "label": "This way up",
+          "nodeType": "Compare",
+          "category": "math",
+          "properties": {
+            "compareOp": "greater",
+            "a": 0,
+            "b": 0,
+            "hysteresis": 0.3
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "flipped",
+        "type": "studioNode",
+        "position": {
+          "x": 520,
+          "y": 360
+        },
+        "data": {
+          "label": "Just flipped",
+          "nodeType": "Trigger",
+          "category": "math",
+          "properties": {
+            "triggerOp": "changed",
+            "initialState": false,
+            "stableTime": 0.05,
+            "holdTime": 0.1,
+            "divideBy": 2,
+            "delayTime": 0.5
+          },
+          "inputs": [
+            {
+              "id": "trigger",
+              "label": "Trigger",
+              "dataType": "bool"
+            },
+            {
+              "id": "on",
+              "label": "On",
+              "dataType": "bool"
+            },
+            {
+              "id": "off",
+              "label": "Off",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "out",
+              "label": "Out",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "timer",
+        "type": "studioNode",
+        "position": {
+          "x": 780,
+          "y": 360
+        },
+        "data": {
+          "label": "Five-minute timer",
+          "nodeType": "ClockDisplay",
+          "category": "pattern",
+          "properties": {
+            "displayMode": "Timer",
+            "units": "normalized",
+            "x": 0.5,
+            "y": 0.5,
+            "radius": 6,
+            "scaleWithMatrix": true,
+            "run": true,
+            "reset": false,
+            "durationSec": 300,
+            "r": 255,
+            "g": 220,
+            "b": 90,
+            "hAlign": "center",
+            "vAlign": "middle",
+            "size": 1,
+            "font": "3x5"
+          },
+          "inputs": [
+            {
+              "id": "dateTime",
+              "label": "DateTime",
+              "dataType": "datetime"
+            },
+            {
+              "id": "base",
+              "label": "Base",
+              "dataType": "frame"
+            },
+            {
+              "id": "color",
+              "label": "Color",
+              "dataType": "color"
+            },
+            {
+              "id": "run",
+              "label": "Run",
+              "dataType": "bool"
+            },
+            {
+              "id": "reset",
+              "label": "Reset",
+              "dataType": "bool"
+            },
+            {
+              "id": "durationSec",
+              "label": "Duration (s)",
+              "dataType": "float"
+            },
+            {
+              "id": "x",
+              "label": "X",
+              "dataType": "float"
+            },
+            {
+              "id": "y",
+              "label": "Y",
+              "dataType": "float"
+            },
+            {
+              "id": "radius",
+              "label": "Radius",
+              "dataType": "float"
+            },
+            {
+              "id": "r",
+              "label": "R",
+              "dataType": "float"
+            },
+            {
+              "id": "g",
+              "label": "G",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            },
+            {
+              "id": "seconds",
+              "label": "Seconds",
+              "dataType": "float"
+            },
+            {
+              "id": "done",
+              "label": "Done",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "left",
+        "type": "studioNode",
+        "position": {
+          "x": 1040,
+          "y": 360
+        },
+        "data": {
+          "label": "Sand left 0–1",
+          "nodeType": "Math",
+          "category": "math",
+          "properties": {
+            "mathOp": "divide",
+            "a": 0,
+            "b": 300
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "fallen",
+        "type": "studioNode",
+        "position": {
+          "x": 1300,
+          "y": 540
+        },
+        "data": {
+          "label": "Sand fallen",
+          "nodeType": "Math",
+          "category": "math",
+          "properties": {
+            "mathOp": "subtract",
+            "a": 1,
+            "b": 0
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "topSand",
+        "type": "studioNode",
+        "position": {
+          "x": 1560,
+          "y": 180
+        },
+        "data": {
+          "label": "Top bulb",
+          "nodeType": "Gauge",
+          "category": "pattern",
+          "properties": {
+            "gaugeStyle": "bar",
+            "direction": "up",
+            "value": 0.6,
+            "segments": 0,
+            "peakHold": 0,
+            "thickness": 1,
+            "arcStart": 225,
+            "arcSweep": 270,
+            "ringLeds": 60,
+            "palette": "honeycomb"
+          },
+          "inputs": [
+            {
+              "id": "value",
+              "label": "Value",
+              "dataType": "float"
+            },
+            {
+              "id": "base",
+              "label": "Base",
+              "dataType": "frame"
+            },
+            {
+              "id": "paletteIn",
+              "label": "Palette",
+              "dataType": "palette"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "bottomSand",
+        "type": "studioNode",
+        "position": {
+          "x": 1560,
+          "y": 540
+        },
+        "data": {
+          "label": "Bottom bulb",
+          "nodeType": "Gauge",
+          "category": "pattern",
+          "properties": {
+            "gaugeStyle": "bar",
+            "direction": "up",
+            "value": 0.6,
+            "segments": 0,
+            "peakHold": 0,
+            "thickness": 1,
+            "arcStart": 225,
+            "arcSweep": 270,
+            "ringLeds": 60,
+            "palette": "honeycomb"
+          },
+          "inputs": [
+            {
+              "id": "value",
+              "label": "Value",
+              "dataType": "float"
+            },
+            {
+              "id": "base",
+              "label": "Base",
+              "dataType": "frame"
+            },
+            {
+              "id": "paletteIn",
+              "label": "Palette",
+              "dataType": "palette"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "stream",
+        "type": "studioNode",
+        "position": {
+          "x": 1300,
+          "y": 0
+        },
+        "data": {
+          "label": "Falling grains",
+          "nodeType": "Particles",
+          "category": "pattern",
+          "properties": {
+            "particleType": "drops",
+            "rate": 0.6,
+            "decay": 0.92,
+            "palette": "honeycomb",
+            "size": 1,
+            "count": 24,
+            "spread": 1,
+            "gravity": 1.5,
+            "bounce": 1,
+            "seed": 0
+          },
+          "inputs": [
+            {
+              "id": "rate",
+              "label": "Rate",
+              "dataType": "float"
+            },
+            {
+              "id": "decay",
+              "label": "Decay",
+              "dataType": "float"
+            },
+            {
+              "id": "paletteIn",
+              "label": "Palette",
+              "dataType": "palette"
+            },
+            {
+              "id": "size",
+              "label": "Size",
+              "dataType": "float"
+            },
+            {
+              "id": "spread",
+              "label": "Spread",
+              "dataType": "float"
+            },
+            {
+              "id": "gravity",
+              "label": "Gravity",
+              "dataType": "float"
+            },
+            {
+              "id": "bounce",
+              "label": "Bounce",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "running",
+        "type": "studioNode",
+        "position": {
+          "x": 1040,
+          "y": 720
+        },
+        "data": {
+          "label": "Not",
+          "nodeType": "Not",
+          "category": "math",
+          "properties": {},
+          "inputs": [
+            {
+              "id": "x",
+              "label": "X",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "streamOn",
+        "type": "studioNode",
+        "position": {
+          "x": 1560,
+          "y": 0
+        },
+        "data": {
+          "label": "Brightness",
+          "nodeType": "BrightnessMod",
+          "category": "composite",
+          "properties": {
+            "brightness": 1
+          },
+          "inputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            },
+            {
+              "id": "brightness",
+              "label": "Brightness",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "glass",
+        "type": "studioNode",
+        "position": {
+          "x": 1820,
+          "y": 360
+        },
+        "data": {
+          "label": "Zones",
+          "nodeType": "Zones",
+          "category": "composite",
+          "properties": {
+            "aEnabled": true,
+            "aX": 0,
+            "aY": 0,
+            "aW": 1,
+            "aH": 0.5,
+            "aFit": true,
+            "bEnabled": true,
+            "bX": 0,
+            "bY": 0.5,
+            "bW": 1,
+            "bH": 0.5,
+            "bFit": true,
+            "cEnabled": true,
+            "cX": 0.375,
+            "cY": 0.5,
+            "cW": 0.25,
+            "cH": 0.5,
+            "cFit": true,
+            "dEnabled": false,
+            "dX": 0.5,
+            "dY": 0.5,
+            "dW": 0.5,
+            "dH": 0.5,
+            "dFit": false
+          },
+          "inputs": [
+            {
+              "id": "base",
+              "label": "Base",
+              "dataType": "frame"
+            },
+            {
+              "id": "a",
+              "label": "Zone A",
+              "dataType": "frame"
+            },
+            {
+              "id": "b",
+              "label": "Zone B",
+              "dataType": "frame"
+            },
+            {
+              "id": "c",
+              "label": "Zone C",
+              "dataType": "frame"
+            },
+            {
+              "id": "d",
+              "label": "Zone D",
+              "dataType": "frame"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "turn",
+        "type": "studioNode",
+        "position": {
+          "x": 1820,
+          "y": 0
+        },
+        "data": {
+          "label": "0° or 180°",
+          "nodeType": "Switch",
+          "category": "math",
+          "properties": {
+            "a": 180,
+            "b": 0,
+            "select": false
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            },
+            {
+              "id": "sel",
+              "label": "Select",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "rotate",
+        "type": "studioNode",
+        "position": {
+          "x": 2080,
+          "y": 180
+        },
+        "data": {
+          "label": "Frame Transform",
+          "nodeType": "FrameTransform",
+          "category": "composite",
+          "properties": {
+            "mode": "exact",
+            "rotate": 0,
+            "rotateRate": 0,
+            "scale": 1,
+            "scaleRate": 0,
+            "flipX": false,
+            "flipY": false,
+            "offsetX": 0,
+            "offsetY": 0,
+            "offsetXRate": 0,
+            "offsetYRate": 0,
+            "edgeMode": "black",
+            "sampling": "bilinear"
+          },
+          "inputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            },
+            {
+              "id": "rotate",
+              "label": "Rotate (°)",
+              "dataType": "float"
+            },
+            {
+              "id": "rotateRate",
+              "label": "Rate (°/s)",
+              "dataType": "float"
+            },
+            {
+              "id": "scale",
+              "label": "Scale (×)",
+              "dataType": "float"
+            },
+            {
+              "id": "scaleRate",
+              "label": "Rate (%/s)",
+              "dataType": "float"
+            },
+            {
+              "id": "offsetX",
+              "label": "Offset X (px)",
+              "dataType": "float"
+            },
+            {
+              "id": "offsetY",
+              "label": "Offset Y (px)",
+              "dataType": "float"
+            },
+            {
+              "id": "offsetXRate",
+              "label": "X Rate (px/s)",
+              "dataType": "float"
+            },
+            {
+              "id": "offsetYRate",
+              "label": "Y Rate (px/s)",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "ended",
+        "type": "studioNode",
+        "position": {
+          "x": 1300,
+          "y": 900
+        },
+        "data": {
+          "label": "Ring for three seconds",
+          "nodeType": "Envelope",
+          "category": "signal",
+          "properties": {
+            "attack": 0,
+            "decay": 3
+          },
+          "inputs": [
+            {
+              "id": "trigger",
+              "label": "Trigger",
+              "dataType": "bool"
+            },
+            {
+              "id": "attack",
+              "label": "Attack",
+              "dataType": "float"
+            },
+            {
+              "id": "decay",
+              "label": "Decay",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "beep",
+        "type": "studioNode",
+        "position": {
+          "x": 1300,
+          "y": 1080
+        },
+        "data": {
+          "label": "Wave",
+          "nodeType": "Wave",
+          "category": "signal",
+          "properties": {
+            "amplitude": 1,
+            "frequency": 4,
+            "rateUnit": "Hz",
+            "bpm": 60,
+            "phase": 0,
+            "offset": 0,
+            "unipolar": true,
+            "waveform": "square"
+          },
+          "inputs": [
+            {
+              "id": "amplitude",
+              "label": "Amplitude",
+              "dataType": "float"
+            },
+            {
+              "id": "frequency",
+              "label": "Frequency",
+              "dataType": "float"
+            },
+            {
+              "id": "bpm",
+              "label": "BPM",
+              "dataType": "float"
+            },
+            {
+              "id": "phase",
+              "label": "Phase",
+              "dataType": "float"
+            },
+            {
+              "id": "offset",
+              "label": "Offset",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "ring",
+        "type": "studioNode",
+        "position": {
+          "x": 1560,
+          "y": 900
+        },
+        "data": {
+          "label": "Logic",
+          "nodeType": "Logic",
+          "category": "math",
+          "properties": {
+            "logicOp": "and"
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "bool"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "out",
+        "type": "studioNode",
+        "position": {
+          "x": 2340,
+          "y": 180
+        },
+        "data": {
+          "label": "LED Matrix",
+          "nodeType": "MatrixOutput",
+          "category": "output",
+          "properties": {
+            "form": "matrix",
+            "outputGamma": 1,
+            "width": 8,
+            "height": 16,
+            "ledCount": 60,
+            "ringStartAngle": 0,
+            "ringDirection": "cw",
+            "corkscrewTurns": 6,
+            "corkscrewStartAngle": 0,
+            "corkscrewDirection": "cw",
+            "corkscrewDiameterMm": 100,
+            "corkscrewHeightMm": 300,
+            "chipset": "WS2812B",
+            "dataLink": "Direct",
+            "colorOrder": "GRB",
+            "dataPin": 5,
+            "dataLanes": 1,
+            "lanePins": [],
+            "clockPin": 6,
+            "dataRateMhz": 0,
+            "serpentine": true,
+            "startCorner": "top-left",
+            "firstRun": "horizontal",
+            "layout": "matrix",
+            "tilesX": 1,
+            "tilesY": 1,
+            "tileSerpentine": false,
+            "tileRotations": "",
+            "customXYMap": "",
+            "stripLayout": "line",
+            "positionsPreset": "catenary",
+            "positionsWidth": 32,
+            "positionsHeight": 16,
+            "positionsMmPerUnit": 10,
+            "positions": "",
+            "networkPreset": "hexagons",
+            "network": "",
+            "ledsPerEdge": 14,
+            "routeMode": "native",
+            "routeX": 0,
+            "routeY": 0,
+            "renderResolution": "Full",
+            "correction": "none",
+            "whitePoint": "none",
+            "dither": true,
+            "hub75R1Pin": 1,
+            "hub75G1Pin": 2,
+            "hub75B1Pin": 3,
+            "hub75R2Pin": 4,
+            "hub75G2Pin": 5,
+            "hub75B2Pin": 12,
+            "hub75APin": 13,
+            "hub75BPin": 14,
+            "hub75CPin": 15,
+            "hub75DPin": 16,
+            "hub75EPin": 33,
+            "hub75ClkPin": 0,
+            "hub75LatPin": 17,
+            "hub75OePin": 18,
+            "hub75WideScan": false,
+            "hub75ColorDepthBits": 8
+          },
+          "inputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            },
+            {
+              "id": "enabled",
+              "label": "Enabled",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightness",
+              "label": "Brightness",
+              "dataType": "float"
+            },
+            {
+              "id": "controls",
+              "label": "Controls",
+              "dataType": "playercontrols"
+            },
+            {
+              "id": "ledToggle",
+              "label": "Toggle blackout",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightnessUp",
+              "label": "Brightness Up",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightnessDown",
+              "label": "Brightness Down",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "display",
+              "label": "Display",
+              "dataType": "display"
+            }
+          ]
+        }
+      },
+      {
+        "id": "buzzer",
+        "type": "studioNode",
+        "position": {
+          "x": 1820,
+          "y": 900
+        },
+        "data": {
+          "label": "Buzzer",
+          "nodeType": "BuzzerOutput",
+          "category": "output",
+          "properties": {
+            "partId": "ky-012-active-buzzer-module",
+            "sigPin": 1,
+            "pitchHz": 2000,
+            "assignedPins": {
+              "sigPin": 1
+            },
+            "assignedPinsBoard": "espressif-esp32-s3-devkitc-1",
+            "userPinsByBoard": {}
+          },
+          "inputs": [
+            {
+              "id": "on",
+              "label": "Sound",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": []
+        }
+      },
+      {
+        "id": "guide",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": -180
+        },
+        "data": {
+          "label": "Comment",
+          "nodeType": "Comment",
+          "category": "note",
+          "properties": {
+            "text": "DIGITAL HOURGLASS\nFlip the frame to start a five-minute timer; the sand pours to the new bottom.\nIt beeps when the top bulb runs out.\nChange the duration on the timer and on 'Sand left' together.",
+            "color": "#74d7ff"
+          },
+          "inputs": [],
+          "outputs": []
+        }
+      },
+      {
+        "id": "board",
+        "type": "studioNode",
+        "position": {
+          "x": -260,
+          "y": 0
+        },
+        "data": {
+          "label": "Board",
+          "nodeType": "Board",
+          "category": "output",
+          "properties": {
+            "profileId": "espressif-esp32-s3-devkitc-1",
+            "brightness": 128,
+            "overclock": 1,
+            "frameRate": 60,
+            "ledDriver": "auto",
+            "powerLimit": true,
+            "milliamps": 7700,
+            "psramPolicy": "auto",
+            "psramMode": "opi",
+            "serialRoute": "auto",
+            "reportTelemetry": false,
+            "clockSync": "off",
+            "wifiHostname": "",
+            "useDhcp": true,
+            "staticIp": "",
+            "staticGateway": "",
+            "staticSubnet": "255.255.255.0",
+            "staticDns": ""
+          },
+          "inputs": [],
+          "outputs": []
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e-imu-upright-accelY-a",
+        "source": "imu",
+        "sourceHandle": "accelY",
+        "target": "upright",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-upright-flipped-result-trigger",
+        "source": "upright",
+        "sourceHandle": "result",
+        "target": "flipped",
+        "targetHandle": "trigger",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-flipped-timer-out-reset",
+        "source": "flipped",
+        "sourceHandle": "out",
+        "target": "timer",
+        "targetHandle": "reset",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-timer-left-seconds-a",
+        "source": "timer",
+        "sourceHandle": "seconds",
+        "target": "left",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-left-fallen-result-b",
+        "source": "left",
+        "sourceHandle": "result",
+        "target": "fallen",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-left-topSand-result-value",
+        "source": "left",
+        "sourceHandle": "result",
+        "target": "topSand",
+        "targetHandle": "value",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-fallen-bottomSand-result-value",
+        "source": "fallen",
+        "sourceHandle": "result",
+        "target": "bottomSand",
+        "targetHandle": "value",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-timer-running-done-x",
+        "source": "timer",
+        "sourceHandle": "done",
+        "target": "running",
+        "targetHandle": "x",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-stream-streamOn-frame-frame",
+        "source": "stream",
+        "sourceHandle": "frame",
+        "target": "streamOn",
+        "targetHandle": "frame",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-running-streamOn-result-brightness",
+        "source": "running",
+        "sourceHandle": "result",
+        "target": "streamOn",
+        "targetHandle": "brightness",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-topSand-glass-frame-a",
+        "source": "topSand",
+        "sourceHandle": "frame",
+        "target": "glass",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-bottomSand-glass-frame-b",
+        "source": "bottomSand",
+        "sourceHandle": "frame",
+        "target": "glass",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-streamOn-glass-frame-c",
+        "source": "streamOn",
+        "sourceHandle": "frame",
+        "target": "glass",
+        "targetHandle": "c",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-upright-turn-result-sel",
+        "source": "upright",
+        "sourceHandle": "result",
+        "target": "turn",
+        "targetHandle": "sel",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-glass-rotate-frame-frame",
+        "source": "glass",
+        "sourceHandle": "frame",
+        "target": "rotate",
+        "targetHandle": "frame",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-turn-rotate-result-rotate",
+        "source": "turn",
+        "sourceHandle": "result",
+        "target": "rotate",
+        "targetHandle": "rotate",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-timer-ended-done-trigger",
+        "source": "timer",
+        "sourceHandle": "done",
+        "target": "ended",
+        "targetHandle": "trigger",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-ended-ring-result-a",
+        "source": "ended",
+        "sourceHandle": "result",
+        "target": "ring",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-beep-ring-result-b",
+        "source": "beep",
+        "sourceHandle": "result",
+        "target": "ring",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-rotate-out-frame-frame",
+        "source": "rotate",
+        "sourceHandle": "frame",
+        "target": "out",
+        "targetHandle": "frame",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-ring-buzzer-result-on",
+        "source": "ring",
+        "sourceHandle": "result",
+        "target": "buzzer",
+        "targetHandle": "on",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      }
+    ]
+  }
+}

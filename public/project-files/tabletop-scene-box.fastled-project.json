@@ -1,0 +1,2031 @@
+{
+  "id": "example-tabletop-scene-box",
+  "name": "Tabletop scene box",
+  "createdAt": 1794700800000,
+  "updatedAt": 1794700800000,
+  "workspace": {
+    "nodes": [
+      {
+        "id": "keypad",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": 540
+        },
+        "data": {
+          "label": "Keypad",
+          "nodeType": "KeypadInput",
+          "category": "input",
+          "properties": {
+            "partId": "matrix-keypad-4x4",
+            "row1Pin": 1,
+            "row2Pin": 2,
+            "row3Pin": 4,
+            "row4Pin": 6,
+            "col1Pin": 7,
+            "col2Pin": 8,
+            "col3Pin": 9,
+            "col4Pin": 10,
+            "assignedPins": {
+              "row1Pin": 1,
+              "row2Pin": 2,
+              "row3Pin": 4,
+              "row4Pin": 6,
+              "col1Pin": 7,
+              "col2Pin": 8,
+              "col3Pin": 9,
+              "col4Pin": 10
+            },
+            "assignedPinsBoard": "espressif-esp32-s3-devkitc-1",
+            "userPinsByBoard": {}
+          },
+          "inputs": [],
+          "outputs": [
+            {
+              "id": "key",
+              "label": "Key (0-15)",
+              "dataType": "float"
+            },
+            {
+              "id": "pressed",
+              "label": "Pressed",
+              "dataType": "bool"
+            },
+            {
+              "id": "digit",
+              "label": "Digit (0-9)",
+              "dataType": "float"
+            },
+            {
+              "id": "key0",
+              "label": "Key 1",
+              "dataType": "bool"
+            },
+            {
+              "id": "key1",
+              "label": "Key 2",
+              "dataType": "bool"
+            },
+            {
+              "id": "key2",
+              "label": "Key 3",
+              "dataType": "bool"
+            },
+            {
+              "id": "key3",
+              "label": "Key A",
+              "dataType": "bool"
+            },
+            {
+              "id": "key4",
+              "label": "Key 4",
+              "dataType": "bool"
+            },
+            {
+              "id": "key5",
+              "label": "Key 5",
+              "dataType": "bool"
+            },
+            {
+              "id": "key6",
+              "label": "Key 6",
+              "dataType": "bool"
+            },
+            {
+              "id": "key7",
+              "label": "Key B",
+              "dataType": "bool"
+            },
+            {
+              "id": "key8",
+              "label": "Key 7",
+              "dataType": "bool"
+            },
+            {
+              "id": "key9",
+              "label": "Key 8",
+              "dataType": "bool"
+            },
+            {
+              "id": "key10",
+              "label": "Key 9",
+              "dataType": "bool"
+            },
+            {
+              "id": "key11",
+              "label": "Key C",
+              "dataType": "bool"
+            },
+            {
+              "id": "key12",
+              "label": "Key *",
+              "dataType": "bool"
+            },
+            {
+              "id": "key13",
+              "label": "Key 0",
+              "dataType": "bool"
+            },
+            {
+              "id": "key14",
+              "label": "Key #",
+              "dataType": "bool"
+            },
+            {
+              "id": "key15",
+              "label": "Key D",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "notTavern",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 0
+        },
+        "data": {
+          "label": "Logic",
+          "nodeType": "Logic",
+          "category": "math",
+          "properties": {
+            "logicOp": "or"
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "bool"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "notStorm",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 180
+        },
+        "data": {
+          "label": "Logic",
+          "nodeType": "Logic",
+          "category": "math",
+          "properties": {
+            "logicOp": "or"
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "bool"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "tavern",
+        "type": "studioNode",
+        "position": {
+          "x": 520,
+          "y": 0
+        },
+        "data": {
+          "label": "A: tavern",
+          "nodeType": "Trigger",
+          "category": "math",
+          "properties": {
+            "triggerOp": "toggle",
+            "initialState": true,
+            "stableTime": 0.05,
+            "holdTime": 0.1,
+            "divideBy": 2,
+            "delayTime": 0.5
+          },
+          "inputs": [
+            {
+              "id": "trigger",
+              "label": "Trigger",
+              "dataType": "bool"
+            },
+            {
+              "id": "on",
+              "label": "On",
+              "dataType": "bool"
+            },
+            {
+              "id": "off",
+              "label": "Off",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "out",
+              "label": "Out",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "storm",
+        "type": "studioNode",
+        "position": {
+          "x": 520,
+          "y": 180
+        },
+        "data": {
+          "label": "B: storm",
+          "nodeType": "Trigger",
+          "category": "math",
+          "properties": {
+            "triggerOp": "toggle",
+            "initialState": false,
+            "stableTime": 0.05,
+            "holdTime": 0.1,
+            "divideBy": 2,
+            "delayTime": 0.5
+          },
+          "inputs": [
+            {
+              "id": "trigger",
+              "label": "Trigger",
+              "dataType": "bool"
+            },
+            {
+              "id": "on",
+              "label": "On",
+              "dataType": "bool"
+            },
+            {
+              "id": "off",
+              "label": "Off",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "out",
+              "label": "Out",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "fire",
+        "type": "studioNode",
+        "position": {
+          "x": 780,
+          "y": 0
+        },
+        "data": {
+          "label": "Tavern hearth",
+          "nodeType": "Fire",
+          "category": "pattern",
+          "properties": {
+            "intensity": 0.5,
+            "cooling": 55,
+            "sparking": 120,
+            "palette": "fire",
+            "direction": "auto",
+            "turbulence": 1,
+            "mirror": false,
+            "seed": 0,
+            "fireStyle": "classic"
+          },
+          "inputs": [
+            {
+              "id": "intensity",
+              "label": "Intensity",
+              "dataType": "float"
+            },
+            {
+              "id": "cooling",
+              "label": "Cooling",
+              "dataType": "float"
+            },
+            {
+              "id": "sparking",
+              "label": "Sparking",
+              "dataType": "float"
+            },
+            {
+              "id": "paletteIn",
+              "label": "Palette",
+              "dataType": "palette"
+            },
+            {
+              "id": "turbulence",
+              "label": "Turbulence",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "rain",
+        "type": "studioNode",
+        "position": {
+          "x": 780,
+          "y": 180
+        },
+        "data": {
+          "label": "Rain",
+          "nodeType": "Pacifica",
+          "category": "pattern",
+          "properties": {
+            "speed": 0.6,
+            "scale": 0.5,
+            "palette": "deepsea"
+          },
+          "inputs": [
+            {
+              "id": "speed",
+              "label": "Speed",
+              "dataType": "float"
+            },
+            {
+              "id": "scale",
+              "label": "Scale",
+              "dataType": "float"
+            },
+            {
+              "id": "paletteIn",
+              "label": "Palette",
+              "dataType": "palette"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "rainDim",
+        "type": "studioNode",
+        "position": {
+          "x": 1040,
+          "y": 180
+        },
+        "data": {
+          "label": "Brightness",
+          "nodeType": "BrightnessMod",
+          "category": "composite",
+          "properties": {
+            "brightness": 0.35
+          },
+          "inputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            },
+            {
+              "id": "brightness",
+              "label": "Brightness",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "lightning",
+        "type": "studioNode",
+        "position": {
+          "x": 1040,
+          "y": 360
+        },
+        "data": {
+          "label": "Lightning",
+          "nodeType": "Lightning",
+          "category": "pattern",
+          "properties": {
+            "rate": 6,
+            "intensity": 1,
+            "color": "#cfe0ff"
+          },
+          "inputs": [
+            {
+              "id": "rate",
+              "label": "Rate",
+              "dataType": "float"
+            },
+            {
+              "id": "intensity",
+              "label": "Intensity",
+              "dataType": "float"
+            },
+            {
+              "id": "trigger",
+              "label": "Trigger",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "stormy",
+        "type": "studioNode",
+        "position": {
+          "x": 1300,
+          "y": 180
+        },
+        "data": {
+          "label": "Blend",
+          "nodeType": "Blend",
+          "category": "composite",
+          "properties": {
+            "blendMode": "lighten",
+            "amount": 1
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "frame"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "frame"
+            },
+            {
+              "id": "amount",
+              "label": "Opacity",
+              "dataType": "float"
+            },
+            {
+              "id": "mask",
+              "label": "Mask",
+              "dataType": "frame"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "dungeon",
+        "type": "studioNode",
+        "position": {
+          "x": 780,
+          "y": 540
+        },
+        "data": {
+          "label": "C: dungeon",
+          "nodeType": "Noise",
+          "category": "pattern",
+          "properties": {
+            "noiseType": "fbm",
+            "speed": 0.15,
+            "scale": 0.5,
+            "palette": "forest",
+            "seed": 0,
+            "wrapX": false,
+            "noiseShape": "plain",
+            "worleyMode": "f1",
+            "octaves": 4,
+            "frequency": 1.2,
+            "orientation": 45,
+            "contrast": 1
+          },
+          "inputs": [
+            {
+              "id": "speed",
+              "label": "Speed",
+              "dataType": "float"
+            },
+            {
+              "id": "scale",
+              "label": "Scale",
+              "dataType": "float"
+            },
+            {
+              "id": "paletteIn",
+              "label": "Palette",
+              "dataType": "palette"
+            },
+            {
+              "id": "octaves",
+              "label": "Octaves",
+              "dataType": "float"
+            },
+            {
+              "id": "frequency",
+              "label": "Frequency",
+              "dataType": "float"
+            },
+            {
+              "id": "orientation",
+              "label": "Orientation",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            },
+            {
+              "id": "field",
+              "label": "Field",
+              "dataType": "field"
+            }
+          ]
+        }
+      },
+      {
+        "id": "dungeonDim",
+        "type": "studioNode",
+        "position": {
+          "x": 1040,
+          "y": 540
+        },
+        "data": {
+          "label": "Brightness",
+          "nodeType": "BrightnessMod",
+          "category": "composite",
+          "properties": {
+            "brightness": 0.3
+          },
+          "inputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            },
+            {
+              "id": "brightness",
+              "label": "Brightness",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "ifStorm",
+        "type": "studioNode",
+        "position": {
+          "x": 1560,
+          "y": 360
+        },
+        "data": {
+          "label": "Frame Switch",
+          "nodeType": "FrameSwitch",
+          "category": "composite",
+          "properties": {
+            "select": false
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "Frame A",
+              "dataType": "frame"
+            },
+            {
+              "id": "b",
+              "label": "Frame B",
+              "dataType": "frame"
+            },
+            {
+              "id": "sel",
+              "label": "Select",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "scene",
+        "type": "studioNode",
+        "position": {
+          "x": 1820,
+          "y": 180
+        },
+        "data": {
+          "label": "Frame Switch",
+          "nodeType": "FrameSwitch",
+          "category": "composite",
+          "properties": {
+            "select": false
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "Frame A",
+              "dataType": "frame"
+            },
+            {
+              "id": "b",
+              "label": "Frame B",
+              "dataType": "frame"
+            },
+            {
+              "id": "sel",
+              "label": "Select",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "turn",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 900
+        },
+        "data": {
+          "label": "D: next player",
+          "nodeType": "StepValue",
+          "category": "math",
+          "properties": {
+            "initial": 0,
+            "minimum": 0,
+            "maximum": 3,
+            "step": 1,
+            "wrap": true
+          },
+          "inputs": [
+            {
+              "id": "increase",
+              "label": "Increase",
+              "dataType": "bool"
+            },
+            {
+              "id": "decrease",
+              "label": "Decrease",
+              "dataType": "bool"
+            },
+            {
+              "id": "reset",
+              "label": "Reset",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "value",
+              "label": "Value",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "past1",
+        "type": "studioNode",
+        "position": {
+          "x": 520,
+          "y": 900
+        },
+        "data": {
+          "label": "Compare",
+          "nodeType": "Compare",
+          "category": "math",
+          "properties": {
+            "compareOp": "greater",
+            "a": 0,
+            "b": 0.5,
+            "hysteresis": 0
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "past2",
+        "type": "studioNode",
+        "position": {
+          "x": 520,
+          "y": 1080
+        },
+        "data": {
+          "label": "Compare",
+          "nodeType": "Compare",
+          "category": "math",
+          "properties": {
+            "compareOp": "greater",
+            "a": 0,
+            "b": 1.5,
+            "hysteresis": 0
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "past3",
+        "type": "studioNode",
+        "position": {
+          "x": 520,
+          "y": 1260
+        },
+        "data": {
+          "label": "Compare",
+          "nodeType": "Compare",
+          "category": "math",
+          "properties": {
+            "compareOp": "greater",
+            "a": 0,
+            "b": 2.5,
+            "hysteresis": 0
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "seat1",
+        "type": "studioNode",
+        "position": {
+          "x": 780,
+          "y": 900
+        },
+        "data": {
+          "label": "Player 1's turn",
+          "nodeType": "Not",
+          "category": "math",
+          "properties": {},
+          "inputs": [
+            {
+              "id": "x",
+              "label": "X",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "seat2",
+        "type": "studioNode",
+        "position": {
+          "x": 780,
+          "y": 1080
+        },
+        "data": {
+          "label": "Player 2's turn",
+          "nodeType": "Logic",
+          "category": "math",
+          "properties": {
+            "logicOp": "xor"
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "bool"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "seat3",
+        "type": "studioNode",
+        "position": {
+          "x": 780,
+          "y": 1260
+        },
+        "data": {
+          "label": "Player 3's turn",
+          "nodeType": "Logic",
+          "category": "math",
+          "properties": {
+            "logicOp": "xor"
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "bool"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "spot",
+        "type": "studioNode",
+        "position": {
+          "x": 1300,
+          "y": 900
+        },
+        "data": {
+          "label": "Turn spotlight",
+          "nodeType": "Breathe",
+          "category": "pattern",
+          "properties": {
+            "bpm": 20,
+            "minLevel": 0.2,
+            "curve": "natural",
+            "palette": "arctic"
+          },
+          "inputs": [
+            {
+              "id": "bpm",
+              "label": "BPM",
+              "dataType": "float"
+            },
+            {
+              "id": "minLevel",
+              "label": "Min Level",
+              "dataType": "float"
+            },
+            {
+              "id": "paletteIn",
+              "label": "Palette",
+              "dataType": "palette"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "spotlit",
+        "type": "studioNode",
+        "position": {
+          "x": 1560,
+          "y": 900
+        },
+        "data": {
+          "label": "Blend",
+          "nodeType": "Blend",
+          "category": "composite",
+          "properties": {
+            "blendMode": "lighten",
+            "amount": 1
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "frame"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "frame"
+            },
+            {
+              "id": "amount",
+              "label": "Opacity",
+              "dataType": "float"
+            },
+            {
+              "id": "mask",
+              "label": "Mask",
+              "dataType": "frame"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "seatShow1",
+        "type": "studioNode",
+        "position": {
+          "x": 1820,
+          "y": 900
+        },
+        "data": {
+          "label": "Seat 1",
+          "nodeType": "FrameSwitch",
+          "category": "composite",
+          "properties": {
+            "select": false
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "Frame A",
+              "dataType": "frame"
+            },
+            {
+              "id": "b",
+              "label": "Frame B",
+              "dataType": "frame"
+            },
+            {
+              "id": "sel",
+              "label": "Select",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "seatShow2",
+        "type": "studioNode",
+        "position": {
+          "x": 1820,
+          "y": 1080
+        },
+        "data": {
+          "label": "Seat 2",
+          "nodeType": "FrameSwitch",
+          "category": "composite",
+          "properties": {
+            "select": false
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "Frame A",
+              "dataType": "frame"
+            },
+            {
+              "id": "b",
+              "label": "Frame B",
+              "dataType": "frame"
+            },
+            {
+              "id": "sel",
+              "label": "Select",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "seatShow3",
+        "type": "studioNode",
+        "position": {
+          "x": 1820,
+          "y": 1260
+        },
+        "data": {
+          "label": "Seat 3",
+          "nodeType": "FrameSwitch",
+          "category": "composite",
+          "properties": {
+            "select": false
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "Frame A",
+              "dataType": "frame"
+            },
+            {
+              "id": "b",
+              "label": "Frame B",
+              "dataType": "frame"
+            },
+            {
+              "id": "sel",
+              "label": "Select",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "seatShow4",
+        "type": "studioNode",
+        "position": {
+          "x": 1820,
+          "y": 1440
+        },
+        "data": {
+          "label": "Seat 4",
+          "nodeType": "FrameSwitch",
+          "category": "composite",
+          "properties": {
+            "select": false
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "Frame A",
+              "dataType": "frame"
+            },
+            {
+              "id": "b",
+              "label": "Frame B",
+              "dataType": "frame"
+            },
+            {
+              "id": "sel",
+              "label": "Select",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "table",
+        "type": "studioNode",
+        "position": {
+          "x": 2080,
+          "y": 540
+        },
+        "data": {
+          "label": "Zones",
+          "nodeType": "Zones",
+          "category": "composite",
+          "properties": {
+            "aEnabled": true,
+            "aX": 0,
+            "aY": 0,
+            "aW": 0.25,
+            "aH": 1,
+            "aFit": false,
+            "bEnabled": true,
+            "bX": 0.25,
+            "bY": 0,
+            "bW": 0.25,
+            "bH": 1,
+            "bFit": false,
+            "cEnabled": true,
+            "cX": 0.5,
+            "cY": 0,
+            "cW": 0.25,
+            "cH": 1,
+            "cFit": false,
+            "dEnabled": true,
+            "dX": 0.75,
+            "dY": 0,
+            "dW": 0.25,
+            "dH": 1,
+            "dFit": false
+          },
+          "inputs": [
+            {
+              "id": "base",
+              "label": "Base",
+              "dataType": "frame"
+            },
+            {
+              "id": "a",
+              "label": "Zone A",
+              "dataType": "frame"
+            },
+            {
+              "id": "b",
+              "label": "Zone B",
+              "dataType": "frame"
+            },
+            {
+              "id": "c",
+              "label": "Zone C",
+              "dataType": "frame"
+            },
+            {
+              "id": "d",
+              "label": "Zone D",
+              "dataType": "frame"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "out",
+        "type": "studioNode",
+        "position": {
+          "x": 2340,
+          "y": 540
+        },
+        "data": {
+          "label": "LED Matrix",
+          "nodeType": "MatrixOutput",
+          "category": "output",
+          "properties": {
+            "form": "strip",
+            "outputGamma": 1,
+            "width": 16,
+            "height": 16,
+            "ledCount": 120,
+            "ringStartAngle": 0,
+            "ringDirection": "cw",
+            "corkscrewTurns": 6,
+            "corkscrewStartAngle": 0,
+            "corkscrewDirection": "cw",
+            "corkscrewDiameterMm": 100,
+            "corkscrewHeightMm": 300,
+            "chipset": "WS2812B",
+            "dataLink": "Direct",
+            "colorOrder": "GRB",
+            "dataPin": 5,
+            "dataLanes": 1,
+            "lanePins": [],
+            "clockPin": 6,
+            "dataRateMhz": 0,
+            "serpentine": true,
+            "startCorner": "top-left",
+            "firstRun": "horizontal",
+            "layout": "matrix",
+            "tilesX": 1,
+            "tilesY": 1,
+            "tileSerpentine": false,
+            "tileRotations": "",
+            "customXYMap": "",
+            "stripLayout": "line",
+            "positionsPreset": "catenary",
+            "positionsWidth": 32,
+            "positionsHeight": 16,
+            "positionsMmPerUnit": 10,
+            "positions": "",
+            "networkPreset": "hexagons",
+            "network": "",
+            "ledsPerEdge": 14,
+            "routeMode": "native",
+            "routeX": 0,
+            "routeY": 0,
+            "renderResolution": "Full",
+            "correction": "none",
+            "whitePoint": "none",
+            "dither": true,
+            "hub75R1Pin": 1,
+            "hub75G1Pin": 2,
+            "hub75B1Pin": 3,
+            "hub75R2Pin": 4,
+            "hub75G2Pin": 5,
+            "hub75B2Pin": 12,
+            "hub75APin": 13,
+            "hub75BPin": 14,
+            "hub75CPin": 15,
+            "hub75DPin": 16,
+            "hub75EPin": 33,
+            "hub75ClkPin": 0,
+            "hub75LatPin": 17,
+            "hub75OePin": 18,
+            "hub75WideScan": false,
+            "hub75ColorDepthBits": 8
+          },
+          "inputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            },
+            {
+              "id": "enabled",
+              "label": "Enabled",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightness",
+              "label": "Brightness",
+              "dataType": "float"
+            },
+            {
+              "id": "controls",
+              "label": "Controls",
+              "dataType": "playercontrols"
+            },
+            {
+              "id": "ledToggle",
+              "label": "Toggle blackout",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightnessUp",
+              "label": "Brightness Up",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightnessDown",
+              "label": "Brightness Down",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "display",
+              "label": "Display",
+              "dataType": "display"
+            }
+          ]
+        }
+      },
+      {
+        "id": "guide",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": -180
+        },
+        "data": {
+          "label": "Comment",
+          "nodeType": "Comment",
+          "category": "note",
+          "properties": {
+            "text": "SCENE BOX\nA: tavern fire. B: storm. C: dungeon. D: next player's turn.\nThe strip runs round the table edge, a quarter per seat; the player whose turn it is gets a slow spotlight.",
+            "color": "#74d7ff"
+          },
+          "inputs": [],
+          "outputs": []
+        }
+      },
+      {
+        "id": "board",
+        "type": "studioNode",
+        "position": {
+          "x": -260,
+          "y": 0
+        },
+        "data": {
+          "label": "Board",
+          "nodeType": "Board",
+          "category": "output",
+          "properties": {
+            "profileId": "espressif-esp32-s3-devkitc-1",
+            "brightness": 128,
+            "overclock": 1,
+            "frameRate": 60,
+            "ledDriver": "auto",
+            "powerLimit": true,
+            "milliamps": 7200,
+            "psramPolicy": "auto",
+            "psramMode": "opi",
+            "serialRoute": "auto",
+            "reportTelemetry": false,
+            "clockSync": "off",
+            "wifiHostname": "",
+            "useDhcp": true,
+            "staticIp": "",
+            "staticGateway": "",
+            "staticSubnet": "255.255.255.0",
+            "staticDns": ""
+          },
+          "inputs": [],
+          "outputs": []
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e-keypad-notTavern-key7-a",
+        "source": "keypad",
+        "sourceHandle": "key7",
+        "target": "notTavern",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-keypad-notTavern-key11-b",
+        "source": "keypad",
+        "sourceHandle": "key11",
+        "target": "notTavern",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-keypad-notStorm-key3-a",
+        "source": "keypad",
+        "sourceHandle": "key3",
+        "target": "notStorm",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-keypad-notStorm-key11-b",
+        "source": "keypad",
+        "sourceHandle": "key11",
+        "target": "notStorm",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-keypad-tavern-key3-on",
+        "source": "keypad",
+        "sourceHandle": "key3",
+        "target": "tavern",
+        "targetHandle": "on",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-notTavern-tavern-result-off",
+        "source": "notTavern",
+        "sourceHandle": "result",
+        "target": "tavern",
+        "targetHandle": "off",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-keypad-storm-key7-on",
+        "source": "keypad",
+        "sourceHandle": "key7",
+        "target": "storm",
+        "targetHandle": "on",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-notStorm-storm-result-off",
+        "source": "notStorm",
+        "sourceHandle": "result",
+        "target": "storm",
+        "targetHandle": "off",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-rain-rainDim-frame-frame",
+        "source": "rain",
+        "sourceHandle": "frame",
+        "target": "rainDim",
+        "targetHandle": "frame",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-rainDim-stormy-frame-a",
+        "source": "rainDim",
+        "sourceHandle": "frame",
+        "target": "stormy",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-lightning-stormy-frame-b",
+        "source": "lightning",
+        "sourceHandle": "frame",
+        "target": "stormy",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-dungeon-dungeonDim-frame-frame",
+        "source": "dungeon",
+        "sourceHandle": "frame",
+        "target": "dungeonDim",
+        "targetHandle": "frame",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-dungeonDim-ifStorm-frame-a",
+        "source": "dungeonDim",
+        "sourceHandle": "frame",
+        "target": "ifStorm",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-stormy-ifStorm-frame-b",
+        "source": "stormy",
+        "sourceHandle": "frame",
+        "target": "ifStorm",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-storm-ifStorm-out-sel",
+        "source": "storm",
+        "sourceHandle": "out",
+        "target": "ifStorm",
+        "targetHandle": "sel",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-ifStorm-scene-frame-a",
+        "source": "ifStorm",
+        "sourceHandle": "frame",
+        "target": "scene",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-fire-scene-frame-b",
+        "source": "fire",
+        "sourceHandle": "frame",
+        "target": "scene",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-tavern-scene-out-sel",
+        "source": "tavern",
+        "sourceHandle": "out",
+        "target": "scene",
+        "targetHandle": "sel",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-keypad-turn-key15-increase",
+        "source": "keypad",
+        "sourceHandle": "key15",
+        "target": "turn",
+        "targetHandle": "increase",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-turn-past1-value-a",
+        "source": "turn",
+        "sourceHandle": "value",
+        "target": "past1",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-turn-past2-value-a",
+        "source": "turn",
+        "sourceHandle": "value",
+        "target": "past2",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-turn-past3-value-a",
+        "source": "turn",
+        "sourceHandle": "value",
+        "target": "past3",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-past1-seat1-result-x",
+        "source": "past1",
+        "sourceHandle": "result",
+        "target": "seat1",
+        "targetHandle": "x",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-past1-seat2-result-a",
+        "source": "past1",
+        "sourceHandle": "result",
+        "target": "seat2",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-past2-seat2-result-b",
+        "source": "past2",
+        "sourceHandle": "result",
+        "target": "seat2",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-past2-seat3-result-a",
+        "source": "past2",
+        "sourceHandle": "result",
+        "target": "seat3",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-past3-seat3-result-b",
+        "source": "past3",
+        "sourceHandle": "result",
+        "target": "seat3",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-scene-spotlit-frame-a",
+        "source": "scene",
+        "sourceHandle": "frame",
+        "target": "spotlit",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-spot-spotlit-frame-b",
+        "source": "spot",
+        "sourceHandle": "frame",
+        "target": "spotlit",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-scene-seatShow1-frame-a",
+        "source": "scene",
+        "sourceHandle": "frame",
+        "target": "seatShow1",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-spotlit-seatShow1-frame-b",
+        "source": "spotlit",
+        "sourceHandle": "frame",
+        "target": "seatShow1",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-scene-seatShow2-frame-a",
+        "source": "scene",
+        "sourceHandle": "frame",
+        "target": "seatShow2",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-spotlit-seatShow2-frame-b",
+        "source": "spotlit",
+        "sourceHandle": "frame",
+        "target": "seatShow2",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-scene-seatShow3-frame-a",
+        "source": "scene",
+        "sourceHandle": "frame",
+        "target": "seatShow3",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-spotlit-seatShow3-frame-b",
+        "source": "spotlit",
+        "sourceHandle": "frame",
+        "target": "seatShow3",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-scene-seatShow4-frame-a",
+        "source": "scene",
+        "sourceHandle": "frame",
+        "target": "seatShow4",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-spotlit-seatShow4-frame-b",
+        "source": "spotlit",
+        "sourceHandle": "frame",
+        "target": "seatShow4",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-seat1-seatShow1-result-sel",
+        "source": "seat1",
+        "sourceHandle": "result",
+        "target": "seatShow1",
+        "targetHandle": "sel",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-seat2-seatShow2-result-sel",
+        "source": "seat2",
+        "sourceHandle": "result",
+        "target": "seatShow2",
+        "targetHandle": "sel",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-seat3-seatShow3-result-sel",
+        "source": "seat3",
+        "sourceHandle": "result",
+        "target": "seatShow3",
+        "targetHandle": "sel",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-past3-seatShow4-result-sel",
+        "source": "past3",
+        "sourceHandle": "result",
+        "target": "seatShow4",
+        "targetHandle": "sel",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-scene-table-frame-base",
+        "source": "scene",
+        "sourceHandle": "frame",
+        "target": "table",
+        "targetHandle": "base",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-seatShow1-table-frame-a",
+        "source": "seatShow1",
+        "sourceHandle": "frame",
+        "target": "table",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-seatShow2-table-frame-b",
+        "source": "seatShow2",
+        "sourceHandle": "frame",
+        "target": "table",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-seatShow3-table-frame-c",
+        "source": "seatShow3",
+        "sourceHandle": "frame",
+        "target": "table",
+        "targetHandle": "c",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-seatShow4-table-frame-d",
+        "source": "seatShow4",
+        "sourceHandle": "frame",
+        "target": "table",
+        "targetHandle": "d",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-table-out-frame-frame",
+        "source": "table",
+        "sourceHandle": "frame",
+        "target": "out",
+        "targetHandle": "frame",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      }
+    ]
+  }
+}

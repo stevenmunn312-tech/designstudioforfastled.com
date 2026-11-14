@@ -1,0 +1,687 @@
+{
+  "id": "example-stage-fixture",
+  "name": "Real stage fixture",
+  "createdAt": 1794700800000,
+  "updatedAt": 1794700800000,
+  "workspace": {
+    "nodes": [
+      {
+        "id": "ddp",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": 0
+        },
+        "data": {
+          "label": "DDP Input",
+          "nodeType": "DdpInput",
+          "category": "input",
+          "properties": {
+            "udpPort": 4048
+          },
+          "inputs": [],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            },
+            {
+              "id": "live",
+              "label": "Live",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "dmx",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": 360
+        },
+        "data": {
+          "label": "DMX / Art-Net",
+          "nodeType": "DMXInput",
+          "category": "input",
+          "properties": {
+            "inputMode": "Art-Net",
+            "universe": 0,
+            "udpPort": 6454
+          },
+          "inputs": [],
+          "outputs": [
+            {
+              "id": "dmx",
+              "label": "DMX",
+              "dataType": "dmx"
+            },
+            {
+              "id": "live",
+              "label": "Live",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "dimmer",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 360
+        },
+        "data": {
+          "label": "Ch 1: dimmer",
+          "nodeType": "DMXChannel",
+          "category": "signal",
+          "properties": {
+            "channel": 1,
+            "activeThreshold": 1
+          },
+          "inputs": [
+            {
+              "id": "dmx",
+              "label": "DMX",
+              "dataType": "dmx"
+            },
+            {
+              "id": "activeThreshold",
+              "label": "Threshold",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "value",
+              "label": "Value (0–1)",
+              "dataType": "float"
+            },
+            {
+              "id": "byte",
+              "label": "Byte (0–255)",
+              "dataType": "float"
+            },
+            {
+              "id": "active",
+              "label": "Active",
+              "dataType": "bool"
+            },
+            {
+              "id": "changed",
+              "label": "Changed",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "hue",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 540
+        },
+        "data": {
+          "label": "Ch 2: hue shift",
+          "nodeType": "DMXChannel",
+          "category": "signal",
+          "properties": {
+            "channel": 2,
+            "activeThreshold": 1
+          },
+          "inputs": [
+            {
+              "id": "dmx",
+              "label": "DMX",
+              "dataType": "dmx"
+            },
+            {
+              "id": "activeThreshold",
+              "label": "Threshold",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "value",
+              "label": "Value (0–1)",
+              "dataType": "float"
+            },
+            {
+              "id": "byte",
+              "label": "Byte (0–255)",
+              "dataType": "float"
+            },
+            {
+              "id": "active",
+              "label": "Active",
+              "dataType": "bool"
+            },
+            {
+              "id": "changed",
+              "label": "Changed",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "standby",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 180
+        },
+        "data": {
+          "label": "Standby look",
+          "nodeType": "Plasma",
+          "category": "pattern",
+          "properties": {
+            "plasmaStyle": "classic",
+            "speed": 0.2,
+            "scale": 0.5,
+            "palette": "aurora"
+          },
+          "inputs": [
+            {
+              "id": "speed",
+              "label": "Speed",
+              "dataType": "float"
+            },
+            {
+              "id": "scale",
+              "label": "Scale",
+              "dataType": "float"
+            },
+            {
+              "id": "paletteIn",
+              "label": "Palette",
+              "dataType": "palette"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "source",
+        "type": "studioNode",
+        "position": {
+          "x": 520,
+          "y": 0
+        },
+        "data": {
+          "label": "Pixels from the desk",
+          "nodeType": "FrameSwitch",
+          "category": "composite",
+          "properties": {
+            "select": false
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "Frame A",
+              "dataType": "frame"
+            },
+            {
+              "id": "b",
+              "label": "Frame B",
+              "dataType": "frame"
+            },
+            {
+              "id": "sel",
+              "label": "Select",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "level",
+        "type": "studioNode",
+        "position": {
+          "x": 520,
+          "y": 360
+        },
+        "data": {
+          "label": "Desk dimmer when patched",
+          "nodeType": "Switch",
+          "category": "math",
+          "properties": {
+            "a": 1,
+            "b": 1,
+            "select": false
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            },
+            {
+              "id": "sel",
+              "label": "Select",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "dim",
+        "type": "studioNode",
+        "position": {
+          "x": 780,
+          "y": 0
+        },
+        "data": {
+          "label": "Brightness",
+          "nodeType": "BrightnessMod",
+          "category": "composite",
+          "properties": {
+            "brightness": 1
+          },
+          "inputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            },
+            {
+              "id": "brightness",
+              "label": "Brightness",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "shift",
+        "type": "studioNode",
+        "position": {
+          "x": 1040,
+          "y": 0
+        },
+        "data": {
+          "label": "Hue Shift",
+          "nodeType": "HueShift",
+          "category": "composite",
+          "properties": {
+            "shift": 0
+          },
+          "inputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            },
+            {
+              "id": "shift",
+              "label": "Shift",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "out",
+        "type": "studioNode",
+        "position": {
+          "x": 1300,
+          "y": 0
+        },
+        "data": {
+          "label": "LED Matrix",
+          "nodeType": "MatrixOutput",
+          "category": "output",
+          "properties": {
+            "form": "matrix",
+            "outputGamma": 1,
+            "width": 16,
+            "height": 16,
+            "ledCount": 60,
+            "ringStartAngle": 0,
+            "ringDirection": "cw",
+            "corkscrewTurns": 6,
+            "corkscrewStartAngle": 0,
+            "corkscrewDirection": "cw",
+            "corkscrewDiameterMm": 100,
+            "corkscrewHeightMm": 300,
+            "chipset": "WS2812B",
+            "dataLink": "Direct",
+            "colorOrder": "GRB",
+            "dataPin": 5,
+            "dataLanes": 1,
+            "lanePins": [],
+            "clockPin": 6,
+            "dataRateMhz": 0,
+            "serpentine": true,
+            "startCorner": "top-left",
+            "firstRun": "horizontal",
+            "layout": "matrix",
+            "tilesX": 1,
+            "tilesY": 1,
+            "tileSerpentine": false,
+            "tileRotations": "",
+            "customXYMap": "",
+            "stripLayout": "line",
+            "positionsPreset": "catenary",
+            "positionsWidth": 32,
+            "positionsHeight": 16,
+            "positionsMmPerUnit": 10,
+            "positions": "",
+            "networkPreset": "hexagons",
+            "network": "",
+            "ledsPerEdge": 14,
+            "routeMode": "native",
+            "routeX": 0,
+            "routeY": 0,
+            "renderResolution": "Full",
+            "correction": "none",
+            "whitePoint": "none",
+            "dither": true,
+            "hub75R1Pin": 1,
+            "hub75G1Pin": 2,
+            "hub75B1Pin": 3,
+            "hub75R2Pin": 4,
+            "hub75G2Pin": 5,
+            "hub75B2Pin": 12,
+            "hub75APin": 13,
+            "hub75BPin": 14,
+            "hub75CPin": 15,
+            "hub75DPin": 16,
+            "hub75EPin": 33,
+            "hub75ClkPin": 0,
+            "hub75LatPin": 17,
+            "hub75OePin": 18,
+            "hub75WideScan": false,
+            "hub75ColorDepthBits": 8
+          },
+          "inputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            },
+            {
+              "id": "enabled",
+              "label": "Enabled",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightness",
+              "label": "Brightness",
+              "dataType": "float"
+            },
+            {
+              "id": "controls",
+              "label": "Controls",
+              "dataType": "playercontrols"
+            },
+            {
+              "id": "ledToggle",
+              "label": "Toggle blackout",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightnessUp",
+              "label": "Brightness Up",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightnessDown",
+              "label": "Brightness Down",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "display",
+              "label": "Display",
+              "dataType": "display"
+            }
+          ]
+        }
+      },
+      {
+        "id": "guide",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": -180
+        },
+        "data": {
+          "label": "Comment",
+          "nodeType": "Comment",
+          "category": "note",
+          "properties": {
+            "text": "STAGE FIXTURE\nxLights, LedFx or WLED send pixels by DDP; a lighting desk sends Art-Net.\nCh 1 is the dimmer, Ch 2 a hue shift.\nWith no stream it shows a calm standby look.\nEnter your Wi-Fi on the Board before uploading.",
+            "color": "#74d7ff"
+          },
+          "inputs": [],
+          "outputs": []
+        }
+      },
+      {
+        "id": "board",
+        "type": "studioNode",
+        "position": {
+          "x": -260,
+          "y": 0
+        },
+        "data": {
+          "label": "Board",
+          "nodeType": "Board",
+          "category": "output",
+          "properties": {
+            "profileId": "espressif-esp32-s3-devkitc-1",
+            "brightness": 128,
+            "overclock": 1,
+            "frameRate": 60,
+            "ledDriver": "auto",
+            "powerLimit": true,
+            "milliamps": 15400,
+            "psramPolicy": "auto",
+            "psramMode": "opi",
+            "serialRoute": "auto",
+            "reportTelemetry": false,
+            "clockSync": "off",
+            "wifiHostname": "",
+            "useDhcp": true,
+            "staticIp": "",
+            "staticGateway": "",
+            "staticSubnet": "255.255.255.0",
+            "staticDns": ""
+          },
+          "inputs": [],
+          "outputs": []
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e-dmx-dimmer-dmx-dmx",
+        "source": "dmx",
+        "sourceHandle": "dmx",
+        "target": "dimmer",
+        "targetHandle": "dmx",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#6bf8ff"
+        }
+      },
+      {
+        "id": "e-dmx-hue-dmx-dmx",
+        "source": "dmx",
+        "sourceHandle": "dmx",
+        "target": "hue",
+        "targetHandle": "dmx",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#6bf8ff"
+        }
+      },
+      {
+        "id": "e-standby-source-frame-a",
+        "source": "standby",
+        "sourceHandle": "frame",
+        "target": "source",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-ddp-source-frame-b",
+        "source": "ddp",
+        "sourceHandle": "frame",
+        "target": "source",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-ddp-source-live-sel",
+        "source": "ddp",
+        "sourceHandle": "live",
+        "target": "source",
+        "targetHandle": "sel",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-dimmer-level-value-b",
+        "source": "dimmer",
+        "sourceHandle": "value",
+        "target": "level",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-dmx-level-live-sel",
+        "source": "dmx",
+        "sourceHandle": "live",
+        "target": "level",
+        "targetHandle": "sel",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-source-dim-frame-frame",
+        "source": "source",
+        "sourceHandle": "frame",
+        "target": "dim",
+        "targetHandle": "frame",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-level-dim-result-brightness",
+        "source": "level",
+        "sourceHandle": "result",
+        "target": "dim",
+        "targetHandle": "brightness",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-dim-shift-frame-frame",
+        "source": "dim",
+        "sourceHandle": "frame",
+        "target": "shift",
+        "targetHandle": "frame",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-hue-shift-value-shift",
+        "source": "hue",
+        "sourceHandle": "value",
+        "target": "shift",
+        "targetHandle": "shift",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-shift-out-frame-frame",
+        "source": "shift",
+        "sourceHandle": "frame",
+        "target": "out",
+        "targetHandle": "frame",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      }
+    ]
+  }
+}

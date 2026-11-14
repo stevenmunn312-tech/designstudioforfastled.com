@@ -1,0 +1,1225 @@
+{
+  "id": "example-deaf-accessible-alert",
+  "name": "Deaf-accessible sound alert",
+  "createdAt": 1794700800000,
+  "updatedAt": 1794700800000,
+  "workspace": {
+    "nodes": [
+      {
+        "id": "mic",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": 180
+        },
+        "hidden": true,
+        "selectable": false,
+        "draggable": false,
+        "data": {
+          "label": "Microphone",
+          "nodeType": "MicInput",
+          "category": "input",
+          "properties": {
+            "gain": 1,
+            "noiseGate": 500,
+            "i2sWs": 39,
+            "i2sSck": 40,
+            "i2sSd": 41,
+            "channel": "Left",
+            "serialDebug": false
+          },
+          "inputs": [],
+          "outputs": [
+            {
+              "id": "audio",
+              "label": "Audio",
+              "dataType": "audio"
+            }
+          ]
+        }
+      },
+      {
+        "id": "audio",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": 180
+        },
+        "data": {
+          "label": "Audio",
+          "nodeType": "Audio",
+          "category": "input",
+          "properties": {
+            "sourceId": "mic"
+          },
+          "inputs": [],
+          "outputs": [
+            {
+              "id": "audio",
+              "label": "Audio",
+              "dataType": "audio"
+            }
+          ]
+        }
+      },
+      {
+        "id": "bellBand",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 0
+        },
+        "data": {
+          "label": "Doorbell tone",
+          "nodeType": "FrequencyBand",
+          "category": "audio",
+          "properties": {
+            "band": "Custom",
+            "lowHz": 600,
+            "highHz": 1100,
+            "gain": 1,
+            "smoothing": 0.3
+          },
+          "inputs": [
+            {
+              "id": "audio",
+              "label": "Audio",
+              "dataType": "audio"
+            },
+            {
+              "id": "lowHz",
+              "label": "Low Hz",
+              "dataType": "float"
+            },
+            {
+              "id": "highHz",
+              "label": "High Hz",
+              "dataType": "float"
+            },
+            {
+              "id": "gain",
+              "label": "Gain",
+              "dataType": "float"
+            },
+            {
+              "id": "smoothing",
+              "label": "Smoothing",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "level",
+              "label": "Level",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "alarmBand",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 360
+        },
+        "data": {
+          "label": "Smoke-alarm tone",
+          "nodeType": "FrequencyBand",
+          "category": "audio",
+          "properties": {
+            "band": "Custom",
+            "lowHz": 2900,
+            "highHz": 3500,
+            "gain": 1,
+            "smoothing": 0.3
+          },
+          "inputs": [
+            {
+              "id": "audio",
+              "label": "Audio",
+              "dataType": "audio"
+            },
+            {
+              "id": "lowHz",
+              "label": "Low Hz",
+              "dataType": "float"
+            },
+            {
+              "id": "highHz",
+              "label": "High Hz",
+              "dataType": "float"
+            },
+            {
+              "id": "gain",
+              "label": "Gain",
+              "dataType": "float"
+            },
+            {
+              "id": "smoothing",
+              "label": "Smoothing",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "level",
+              "label": "Level",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "bellLoud",
+        "type": "studioNode",
+        "position": {
+          "x": 520,
+          "y": 0
+        },
+        "data": {
+          "label": "Compare",
+          "nodeType": "Compare",
+          "category": "math",
+          "properties": {
+            "compareOp": "greater",
+            "a": 0,
+            "b": 0.45,
+            "hysteresis": 0.1
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "alarmLoud",
+        "type": "studioNode",
+        "position": {
+          "x": 520,
+          "y": 360
+        },
+        "data": {
+          "label": "Compare",
+          "nodeType": "Compare",
+          "category": "math",
+          "properties": {
+            "compareOp": "greater",
+            "a": 0,
+            "b": 0.45,
+            "hysteresis": 0.1
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "bellHeld",
+        "type": "studioNode",
+        "position": {
+          "x": 780,
+          "y": 0
+        },
+        "data": {
+          "label": "Doorbell, not speech",
+          "nodeType": "Trigger",
+          "category": "math",
+          "properties": {
+            "triggerOp": "debounce",
+            "initialState": false,
+            "stableTime": 0.25,
+            "holdTime": 0.1,
+            "divideBy": 2,
+            "delayTime": 0.5
+          },
+          "inputs": [
+            {
+              "id": "trigger",
+              "label": "Trigger",
+              "dataType": "bool"
+            },
+            {
+              "id": "on",
+              "label": "On",
+              "dataType": "bool"
+            },
+            {
+              "id": "off",
+              "label": "Off",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "out",
+              "label": "Out",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "alarmHeld",
+        "type": "studioNode",
+        "position": {
+          "x": 780,
+          "y": 360
+        },
+        "data": {
+          "label": "Alarm, not speech",
+          "nodeType": "Trigger",
+          "category": "math",
+          "properties": {
+            "triggerOp": "debounce",
+            "initialState": false,
+            "stableTime": 0.5,
+            "holdTime": 0.1,
+            "divideBy": 2,
+            "delayTime": 0.5
+          },
+          "inputs": [
+            {
+              "id": "trigger",
+              "label": "Trigger",
+              "dataType": "bool"
+            },
+            {
+              "id": "on",
+              "label": "On",
+              "dataType": "bool"
+            },
+            {
+              "id": "off",
+              "label": "Off",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "out",
+              "label": "Out",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "bellEnv",
+        "type": "studioNode",
+        "position": {
+          "x": 1040,
+          "y": 0
+        },
+        "data": {
+          "label": "Envelope",
+          "nodeType": "Envelope",
+          "category": "signal",
+          "properties": {
+            "attack": 0,
+            "decay": 5
+          },
+          "inputs": [
+            {
+              "id": "trigger",
+              "label": "Trigger",
+              "dataType": "bool"
+            },
+            {
+              "id": "attack",
+              "label": "Attack",
+              "dataType": "float"
+            },
+            {
+              "id": "decay",
+              "label": "Decay",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "alarmEnv",
+        "type": "studioNode",
+        "position": {
+          "x": 1040,
+          "y": 360
+        },
+        "data": {
+          "label": "Envelope",
+          "nodeType": "Envelope",
+          "category": "signal",
+          "properties": {
+            "attack": 0,
+            "decay": 5
+          },
+          "inputs": [
+            {
+              "id": "trigger",
+              "label": "Trigger",
+              "dataType": "bool"
+            },
+            {
+              "id": "attack",
+              "label": "Attack",
+              "dataType": "float"
+            },
+            {
+              "id": "decay",
+              "label": "Decay",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "bellBlink",
+        "type": "studioNode",
+        "position": {
+          "x": 1040,
+          "y": 180
+        },
+        "data": {
+          "label": "Wave",
+          "nodeType": "Wave",
+          "category": "signal",
+          "properties": {
+            "amplitude": 1,
+            "frequency": 1.5,
+            "rateUnit": "Hz",
+            "bpm": 60,
+            "phase": 0,
+            "offset": 0,
+            "unipolar": true,
+            "waveform": "square"
+          },
+          "inputs": [
+            {
+              "id": "amplitude",
+              "label": "Amplitude",
+              "dataType": "float"
+            },
+            {
+              "id": "frequency",
+              "label": "Frequency",
+              "dataType": "float"
+            },
+            {
+              "id": "bpm",
+              "label": "BPM",
+              "dataType": "float"
+            },
+            {
+              "id": "phase",
+              "label": "Phase",
+              "dataType": "float"
+            },
+            {
+              "id": "offset",
+              "label": "Offset",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "alarmBlink",
+        "type": "studioNode",
+        "position": {
+          "x": 1040,
+          "y": 540
+        },
+        "data": {
+          "label": "Wave",
+          "nodeType": "Wave",
+          "category": "signal",
+          "properties": {
+            "amplitude": 1,
+            "frequency": 4,
+            "rateUnit": "Hz",
+            "bpm": 60,
+            "phase": 0,
+            "offset": 0,
+            "unipolar": true,
+            "waveform": "square"
+          },
+          "inputs": [
+            {
+              "id": "amplitude",
+              "label": "Amplitude",
+              "dataType": "float"
+            },
+            {
+              "id": "frequency",
+              "label": "Frequency",
+              "dataType": "float"
+            },
+            {
+              "id": "bpm",
+              "label": "BPM",
+              "dataType": "float"
+            },
+            {
+              "id": "phase",
+              "label": "Phase",
+              "dataType": "float"
+            },
+            {
+              "id": "offset",
+              "label": "Offset",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "bellLevel",
+        "type": "studioNode",
+        "position": {
+          "x": 1300,
+          "y": 0
+        },
+        "data": {
+          "label": "Math",
+          "nodeType": "Math",
+          "category": "math",
+          "properties": {
+            "mathOp": "multiply",
+            "a": 0,
+            "b": 0
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "alarmLevel",
+        "type": "studioNode",
+        "position": {
+          "x": 1300,
+          "y": 360
+        },
+        "data": {
+          "label": "Math",
+          "nodeType": "Math",
+          "category": "math",
+          "properties": {
+            "mathOp": "multiply",
+            "a": 0,
+            "b": 0
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "bellColour",
+        "type": "studioNode",
+        "position": {
+          "x": 1300,
+          "y": 180
+        },
+        "data": {
+          "label": "Doorbell blue",
+          "nodeType": "SolidColor",
+          "category": "pattern",
+          "properties": {
+            "r": 30,
+            "g": 90,
+            "b": 255
+          },
+          "inputs": [
+            {
+              "id": "color",
+              "label": "Color",
+              "dataType": "color"
+            },
+            {
+              "id": "r",
+              "label": "R",
+              "dataType": "float"
+            },
+            {
+              "id": "g",
+              "label": "G",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "alarmColour",
+        "type": "studioNode",
+        "position": {
+          "x": 1300,
+          "y": 540
+        },
+        "data": {
+          "label": "Alarm red",
+          "nodeType": "SolidColor",
+          "category": "pattern",
+          "properties": {
+            "r": 255,
+            "g": 0,
+            "b": 0
+          },
+          "inputs": [
+            {
+              "id": "color",
+              "label": "Color",
+              "dataType": "color"
+            },
+            {
+              "id": "r",
+              "label": "R",
+              "dataType": "float"
+            },
+            {
+              "id": "g",
+              "label": "G",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "bellFlash",
+        "type": "studioNode",
+        "position": {
+          "x": 1560,
+          "y": 0
+        },
+        "data": {
+          "label": "Brightness",
+          "nodeType": "BrightnessMod",
+          "category": "composite",
+          "properties": {
+            "brightness": 1
+          },
+          "inputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            },
+            {
+              "id": "brightness",
+              "label": "Brightness",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "alarmFlash",
+        "type": "studioNode",
+        "position": {
+          "x": 1560,
+          "y": 360
+        },
+        "data": {
+          "label": "Brightness",
+          "nodeType": "BrightnessMod",
+          "category": "composite",
+          "properties": {
+            "brightness": 1
+          },
+          "inputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            },
+            {
+              "id": "brightness",
+              "label": "Brightness",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "mix",
+        "type": "studioNode",
+        "position": {
+          "x": 1820,
+          "y": 180
+        },
+        "data": {
+          "label": "Blend",
+          "nodeType": "Blend",
+          "category": "composite",
+          "properties": {
+            "blendMode": "add",
+            "amount": 1
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "frame"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "frame"
+            },
+            {
+              "id": "amount",
+              "label": "Opacity",
+              "dataType": "float"
+            },
+            {
+              "id": "mask",
+              "label": "Mask",
+              "dataType": "frame"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "out",
+        "type": "studioNode",
+        "position": {
+          "x": 2080,
+          "y": 180
+        },
+        "data": {
+          "label": "LED Matrix",
+          "nodeType": "MatrixOutput",
+          "category": "output",
+          "properties": {
+            "form": "strip",
+            "outputGamma": 1,
+            "width": 16,
+            "height": 16,
+            "ledCount": 120,
+            "ringStartAngle": 0,
+            "ringDirection": "cw",
+            "corkscrewTurns": 6,
+            "corkscrewStartAngle": 0,
+            "corkscrewDirection": "cw",
+            "corkscrewDiameterMm": 100,
+            "corkscrewHeightMm": 300,
+            "chipset": "WS2812B",
+            "dataLink": "Direct",
+            "colorOrder": "GRB",
+            "dataPin": 5,
+            "dataLanes": 1,
+            "lanePins": [],
+            "clockPin": 6,
+            "dataRateMhz": 0,
+            "serpentine": true,
+            "startCorner": "top-left",
+            "firstRun": "horizontal",
+            "layout": "matrix",
+            "tilesX": 1,
+            "tilesY": 1,
+            "tileSerpentine": false,
+            "tileRotations": "",
+            "customXYMap": "",
+            "stripLayout": "line",
+            "positionsPreset": "catenary",
+            "positionsWidth": 32,
+            "positionsHeight": 16,
+            "positionsMmPerUnit": 10,
+            "positions": "",
+            "networkPreset": "hexagons",
+            "network": "",
+            "ledsPerEdge": 14,
+            "routeMode": "native",
+            "routeX": 0,
+            "routeY": 0,
+            "renderResolution": "Full",
+            "correction": "none",
+            "whitePoint": "none",
+            "dither": true,
+            "hub75R1Pin": 1,
+            "hub75G1Pin": 2,
+            "hub75B1Pin": 3,
+            "hub75R2Pin": 4,
+            "hub75G2Pin": 5,
+            "hub75B2Pin": 12,
+            "hub75APin": 13,
+            "hub75BPin": 14,
+            "hub75CPin": 15,
+            "hub75DPin": 16,
+            "hub75EPin": 33,
+            "hub75ClkPin": 0,
+            "hub75LatPin": 17,
+            "hub75OePin": 18,
+            "hub75WideScan": false,
+            "hub75ColorDepthBits": 8
+          },
+          "inputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            },
+            {
+              "id": "enabled",
+              "label": "Enabled",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightness",
+              "label": "Brightness",
+              "dataType": "float"
+            },
+            {
+              "id": "controls",
+              "label": "Controls",
+              "dataType": "playercontrols"
+            },
+            {
+              "id": "ledToggle",
+              "label": "Toggle blackout",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightnessUp",
+              "label": "Brightness Up",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightnessDown",
+              "label": "Brightness Down",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "display",
+              "label": "Display",
+              "dataType": "display"
+            }
+          ]
+        }
+      },
+      {
+        "id": "guide",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": -180
+        },
+        "data": {
+          "label": "Comment",
+          "nodeType": "Comment",
+          "category": "note",
+          "properties": {
+            "text": "SOUND-TO-LIGHT ALERT\nDoorbell flashes blue, smoke alarm flashes red.\nTune each band's Low/High Hz to your own doorbell and alarm.\nThis is an extra signal, never a replacement for a certified alarm.",
+            "color": "#74d7ff"
+          },
+          "inputs": [],
+          "outputs": []
+        }
+      },
+      {
+        "id": "board",
+        "type": "studioNode",
+        "position": {
+          "x": -260,
+          "y": 0
+        },
+        "data": {
+          "label": "Board",
+          "nodeType": "Board",
+          "category": "output",
+          "properties": {
+            "profileId": "espressif-esp32-s3-devkitc-1",
+            "brightness": 220,
+            "overclock": 1,
+            "frameRate": 60,
+            "ledDriver": "auto",
+            "powerLimit": true,
+            "milliamps": 7200,
+            "psramPolicy": "auto",
+            "psramMode": "opi",
+            "serialRoute": "auto",
+            "reportTelemetry": false,
+            "clockSync": "off",
+            "wifiHostname": "",
+            "useDhcp": true,
+            "staticIp": "",
+            "staticGateway": "",
+            "staticSubnet": "255.255.255.0",
+            "staticDns": ""
+          },
+          "inputs": [],
+          "outputs": []
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e-audio-bellBand-audio-audio",
+        "source": "audio",
+        "sourceHandle": "audio",
+        "target": "bellBand",
+        "targetHandle": "audio",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#00e0a4"
+        }
+      },
+      {
+        "id": "e-audio-alarmBand-audio-audio",
+        "source": "audio",
+        "sourceHandle": "audio",
+        "target": "alarmBand",
+        "targetHandle": "audio",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#00e0a4"
+        }
+      },
+      {
+        "id": "e-bellBand-bellLoud-level-a",
+        "source": "bellBand",
+        "sourceHandle": "level",
+        "target": "bellLoud",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-alarmBand-alarmLoud-level-a",
+        "source": "alarmBand",
+        "sourceHandle": "level",
+        "target": "alarmLoud",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-bellLoud-bellHeld-result-trigger",
+        "source": "bellLoud",
+        "sourceHandle": "result",
+        "target": "bellHeld",
+        "targetHandle": "trigger",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-alarmLoud-alarmHeld-result-trigger",
+        "source": "alarmLoud",
+        "sourceHandle": "result",
+        "target": "alarmHeld",
+        "targetHandle": "trigger",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-bellHeld-bellEnv-out-trigger",
+        "source": "bellHeld",
+        "sourceHandle": "out",
+        "target": "bellEnv",
+        "targetHandle": "trigger",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-alarmHeld-alarmEnv-out-trigger",
+        "source": "alarmHeld",
+        "sourceHandle": "out",
+        "target": "alarmEnv",
+        "targetHandle": "trigger",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-bellEnv-bellLevel-result-a",
+        "source": "bellEnv",
+        "sourceHandle": "result",
+        "target": "bellLevel",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-bellBlink-bellLevel-result-b",
+        "source": "bellBlink",
+        "sourceHandle": "result",
+        "target": "bellLevel",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-alarmEnv-alarmLevel-result-a",
+        "source": "alarmEnv",
+        "sourceHandle": "result",
+        "target": "alarmLevel",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-alarmBlink-alarmLevel-result-b",
+        "source": "alarmBlink",
+        "sourceHandle": "result",
+        "target": "alarmLevel",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-bellColour-bellFlash-frame-frame",
+        "source": "bellColour",
+        "sourceHandle": "frame",
+        "target": "bellFlash",
+        "targetHandle": "frame",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-bellLevel-bellFlash-result-brightness",
+        "source": "bellLevel",
+        "sourceHandle": "result",
+        "target": "bellFlash",
+        "targetHandle": "brightness",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-alarmColour-alarmFlash-frame-frame",
+        "source": "alarmColour",
+        "sourceHandle": "frame",
+        "target": "alarmFlash",
+        "targetHandle": "frame",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-alarmLevel-alarmFlash-result-brightness",
+        "source": "alarmLevel",
+        "sourceHandle": "result",
+        "target": "alarmFlash",
+        "targetHandle": "brightness",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-bellFlash-mix-frame-a",
+        "source": "bellFlash",
+        "sourceHandle": "frame",
+        "target": "mix",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-alarmFlash-mix-frame-b",
+        "source": "alarmFlash",
+        "sourceHandle": "frame",
+        "target": "mix",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-mix-out-frame-frame",
+        "source": "mix",
+        "sourceHandle": "frame",
+        "target": "out",
+        "targetHandle": "frame",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,1371 @@
+{
+  "id": "example-escape-room-prop",
+  "name": "Escape-room keypad lock",
+  "createdAt": 1794700800000,
+  "updatedAt": 1794700800000,
+  "workspace": {
+    "nodes": [
+      {
+        "id": "keypad",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": 360
+        },
+        "data": {
+          "label": "Keypad",
+          "nodeType": "KeypadInput",
+          "category": "input",
+          "properties": {
+            "partId": "matrix-keypad-4x4",
+            "row1Pin": 1,
+            "row2Pin": 2,
+            "row3Pin": 4,
+            "row4Pin": 6,
+            "col1Pin": 7,
+            "col2Pin": 8,
+            "col3Pin": 9,
+            "col4Pin": 10,
+            "assignedPins": {
+              "row1Pin": 1,
+              "row2Pin": 2,
+              "row3Pin": 4,
+              "row4Pin": 6,
+              "col1Pin": 7,
+              "col2Pin": 8,
+              "col3Pin": 9,
+              "col4Pin": 10
+            },
+            "assignedPinsBoard": "espressif-esp32-s3-devkitc-1",
+            "userPinsByBoard": {}
+          },
+          "inputs": [],
+          "outputs": [
+            {
+              "id": "key",
+              "label": "Key (0-15)",
+              "dataType": "float"
+            },
+            {
+              "id": "pressed",
+              "label": "Pressed",
+              "dataType": "bool"
+            },
+            {
+              "id": "digit",
+              "label": "Digit (0-9)",
+              "dataType": "float"
+            },
+            {
+              "id": "key0",
+              "label": "Key 1",
+              "dataType": "bool"
+            },
+            {
+              "id": "key1",
+              "label": "Key 2",
+              "dataType": "bool"
+            },
+            {
+              "id": "key2",
+              "label": "Key 3",
+              "dataType": "bool"
+            },
+            {
+              "id": "key3",
+              "label": "Key A",
+              "dataType": "bool"
+            },
+            {
+              "id": "key4",
+              "label": "Key 4",
+              "dataType": "bool"
+            },
+            {
+              "id": "key5",
+              "label": "Key 5",
+              "dataType": "bool"
+            },
+            {
+              "id": "key6",
+              "label": "Key 6",
+              "dataType": "bool"
+            },
+            {
+              "id": "key7",
+              "label": "Key B",
+              "dataType": "bool"
+            },
+            {
+              "id": "key8",
+              "label": "Key 7",
+              "dataType": "bool"
+            },
+            {
+              "id": "key9",
+              "label": "Key 8",
+              "dataType": "bool"
+            },
+            {
+              "id": "key10",
+              "label": "Key 9",
+              "dataType": "bool"
+            },
+            {
+              "id": "key11",
+              "label": "Key C",
+              "dataType": "bool"
+            },
+            {
+              "id": "key12",
+              "label": "Key *",
+              "dataType": "bool"
+            },
+            {
+              "id": "key13",
+              "label": "Key 0",
+              "dataType": "bool"
+            },
+            {
+              "id": "key14",
+              "label": "Key #",
+              "dataType": "bool"
+            },
+            {
+              "id": "key15",
+              "label": "Key D",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "digit1",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 0
+        },
+        "data": {
+          "label": "Code digit 1: 2",
+          "nodeType": "Trigger",
+          "category": "math",
+          "properties": {
+            "triggerOp": "toggle",
+            "initialState": false,
+            "stableTime": 0.05,
+            "holdTime": 0.1,
+            "divideBy": 2,
+            "delayTime": 0.5
+          },
+          "inputs": [
+            {
+              "id": "trigger",
+              "label": "Trigger",
+              "dataType": "bool"
+            },
+            {
+              "id": "on",
+              "label": "On",
+              "dataType": "bool"
+            },
+            {
+              "id": "off",
+              "label": "Off",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "out",
+              "label": "Out",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "then5",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 180
+        },
+        "data": {
+          "label": "Logic",
+          "nodeType": "Logic",
+          "category": "math",
+          "properties": {
+            "logicOp": "and"
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "bool"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "digit2",
+        "type": "studioNode",
+        "position": {
+          "x": 520,
+          "y": 180
+        },
+        "data": {
+          "label": "Code digit 2: 5",
+          "nodeType": "Trigger",
+          "category": "math",
+          "properties": {
+            "triggerOp": "toggle",
+            "initialState": false,
+            "stableTime": 0.05,
+            "holdTime": 0.1,
+            "divideBy": 2,
+            "delayTime": 0.5
+          },
+          "inputs": [
+            {
+              "id": "trigger",
+              "label": "Trigger",
+              "dataType": "bool"
+            },
+            {
+              "id": "on",
+              "label": "On",
+              "dataType": "bool"
+            },
+            {
+              "id": "off",
+              "label": "Off",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "out",
+              "label": "Out",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "then8",
+        "type": "studioNode",
+        "position": {
+          "x": 520,
+          "y": 360
+        },
+        "data": {
+          "label": "Logic",
+          "nodeType": "Logic",
+          "category": "math",
+          "properties": {
+            "logicOp": "and"
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "bool"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "digit3",
+        "type": "studioNode",
+        "position": {
+          "x": 780,
+          "y": 360
+        },
+        "data": {
+          "label": "Code digit 3: 8",
+          "nodeType": "Trigger",
+          "category": "math",
+          "properties": {
+            "triggerOp": "toggle",
+            "initialState": false,
+            "stableTime": 0.05,
+            "holdTime": 0.1,
+            "divideBy": 2,
+            "delayTime": 0.5
+          },
+          "inputs": [
+            {
+              "id": "trigger",
+              "label": "Trigger",
+              "dataType": "bool"
+            },
+            {
+              "id": "on",
+              "label": "On",
+              "dataType": "bool"
+            },
+            {
+              "id": "off",
+              "label": "Off",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "out",
+              "label": "Out",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "then0",
+        "type": "studioNode",
+        "position": {
+          "x": 780,
+          "y": 540
+        },
+        "data": {
+          "label": "Logic",
+          "nodeType": "Logic",
+          "category": "math",
+          "properties": {
+            "logicOp": "and"
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "bool"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "open",
+        "type": "studioNode",
+        "position": {
+          "x": 1040,
+          "y": 540
+        },
+        "data": {
+          "label": "Code complete: open",
+          "nodeType": "Trigger",
+          "category": "math",
+          "properties": {
+            "triggerOp": "toggle",
+            "initialState": false,
+            "stableTime": 0.05,
+            "holdTime": 0.1,
+            "divideBy": 2,
+            "delayTime": 0.5
+          },
+          "inputs": [
+            {
+              "id": "trigger",
+              "label": "Trigger",
+              "dataType": "bool"
+            },
+            {
+              "id": "on",
+              "label": "On",
+              "dataType": "bool"
+            },
+            {
+              "id": "off",
+              "label": "Off",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "out",
+              "label": "Out",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "sum1",
+        "type": "studioNode",
+        "position": {
+          "x": 1040,
+          "y": 0
+        },
+        "data": {
+          "label": "Math",
+          "nodeType": "Math",
+          "category": "math",
+          "properties": {
+            "mathOp": "add",
+            "a": 0,
+            "b": 0
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "sum2",
+        "type": "studioNode",
+        "position": {
+          "x": 1300,
+          "y": 0
+        },
+        "data": {
+          "label": "Math",
+          "nodeType": "Math",
+          "category": "math",
+          "properties": {
+            "mathOp": "add",
+            "a": 0,
+            "b": 0
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "sum3",
+        "type": "studioNode",
+        "position": {
+          "x": 1560,
+          "y": 0
+        },
+        "data": {
+          "label": "Math",
+          "nodeType": "Math",
+          "category": "math",
+          "properties": {
+            "mathOp": "add",
+            "a": 0,
+            "b": 0
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "progress",
+        "type": "studioNode",
+        "position": {
+          "x": 1820,
+          "y": 0
+        },
+        "data": {
+          "label": "Digits right 0–1",
+          "nodeType": "Math",
+          "category": "math",
+          "properties": {
+            "mathOp": "divide",
+            "a": 0,
+            "b": 4
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "dial",
+        "type": "studioNode",
+        "position": {
+          "x": 2080,
+          "y": 0
+        },
+        "data": {
+          "label": "Gauge",
+          "nodeType": "Gauge",
+          "category": "pattern",
+          "properties": {
+            "gaugeStyle": "ring",
+            "direction": "right",
+            "value": 0.6,
+            "segments": 4,
+            "peakHold": 0,
+            "thickness": 1,
+            "arcStart": 225,
+            "arcSweep": 270,
+            "ringLeds": 16,
+            "palette": "ice"
+          },
+          "inputs": [
+            {
+              "id": "value",
+              "label": "Value",
+              "dataType": "float"
+            },
+            {
+              "id": "base",
+              "label": "Base",
+              "dataType": "frame"
+            },
+            {
+              "id": "paletteIn",
+              "label": "Palette",
+              "dataType": "palette"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "celebrate",
+        "type": "studioNode",
+        "position": {
+          "x": 2080,
+          "y": 360
+        },
+        "data": {
+          "label": "Confetti",
+          "nodeType": "Confetti",
+          "category": "pattern",
+          "properties": {
+            "speed": 0.45,
+            "density": 0.6,
+            "trail": 0.35,
+            "palette": "mojito",
+            "seed": 0
+          },
+          "inputs": [
+            {
+              "id": "speed",
+              "label": "Color Drift",
+              "dataType": "float"
+            },
+            {
+              "id": "paletteIn",
+              "label": "Palette",
+              "dataType": "palette"
+            },
+            {
+              "id": "density",
+              "label": "Density",
+              "dataType": "float"
+            },
+            {
+              "id": "trail",
+              "label": "Trail",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "show",
+        "type": "studioNode",
+        "position": {
+          "x": 2340,
+          "y": 180
+        },
+        "data": {
+          "label": "Frame Switch",
+          "nodeType": "FrameSwitch",
+          "category": "composite",
+          "properties": {
+            "select": false
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "Frame A",
+              "dataType": "frame"
+            },
+            {
+              "id": "b",
+              "label": "Frame B",
+              "dataType": "frame"
+            },
+            {
+              "id": "sel",
+              "label": "Select",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "out",
+        "type": "studioNode",
+        "position": {
+          "x": 2600,
+          "y": 180
+        },
+        "data": {
+          "label": "LED Matrix",
+          "nodeType": "MatrixOutput",
+          "category": "output",
+          "properties": {
+            "form": "ring",
+            "outputGamma": 1,
+            "width": 16,
+            "height": 16,
+            "ledCount": 16,
+            "ringStartAngle": 0,
+            "ringDirection": "cw",
+            "corkscrewTurns": 6,
+            "corkscrewStartAngle": 0,
+            "corkscrewDirection": "cw",
+            "corkscrewDiameterMm": 100,
+            "corkscrewHeightMm": 300,
+            "chipset": "WS2812B",
+            "dataLink": "Direct",
+            "colorOrder": "GRB",
+            "dataPin": 11,
+            "dataLanes": 1,
+            "lanePins": [],
+            "clockPin": 6,
+            "dataRateMhz": 0,
+            "serpentine": true,
+            "startCorner": "top-left",
+            "firstRun": "horizontal",
+            "layout": "matrix",
+            "tilesX": 1,
+            "tilesY": 1,
+            "tileSerpentine": false,
+            "tileRotations": "",
+            "customXYMap": "",
+            "stripLayout": "line",
+            "positionsPreset": "catenary",
+            "positionsWidth": 32,
+            "positionsHeight": 16,
+            "positionsMmPerUnit": 10,
+            "positions": "",
+            "networkPreset": "hexagons",
+            "network": "",
+            "ledsPerEdge": 14,
+            "routeMode": "native",
+            "routeX": 0,
+            "routeY": 0,
+            "renderResolution": "Full",
+            "correction": "none",
+            "whitePoint": "none",
+            "dither": true,
+            "hub75R1Pin": 1,
+            "hub75G1Pin": 2,
+            "hub75B1Pin": 3,
+            "hub75R2Pin": 4,
+            "hub75G2Pin": 5,
+            "hub75B2Pin": 12,
+            "hub75APin": 13,
+            "hub75BPin": 14,
+            "hub75CPin": 15,
+            "hub75DPin": 16,
+            "hub75EPin": 33,
+            "hub75ClkPin": 0,
+            "hub75LatPin": 17,
+            "hub75OePin": 18,
+            "hub75WideScan": false,
+            "hub75ColorDepthBits": 8,
+            "assignedPins": {
+              "dataPin": 11
+            },
+            "assignedPinsBoard": "espressif-esp32-s3-devkitc-1",
+            "userPinsByBoard": {}
+          },
+          "inputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            },
+            {
+              "id": "enabled",
+              "label": "Enabled",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightness",
+              "label": "Brightness",
+              "dataType": "float"
+            },
+            {
+              "id": "controls",
+              "label": "Controls",
+              "dataType": "playercontrols"
+            },
+            {
+              "id": "ledToggle",
+              "label": "Toggle blackout",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightnessUp",
+              "label": "Brightness Up",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightnessDown",
+              "label": "Brightness Down",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "display",
+              "label": "Display",
+              "dataType": "display"
+            }
+          ]
+        }
+      },
+      {
+        "id": "lock",
+        "type": "studioNode",
+        "position": {
+          "x": 2600,
+          "y": 540
+        },
+        "data": {
+          "label": "Maglock relay",
+          "nodeType": "RelayOutput",
+          "category": "output",
+          "properties": {
+            "partId": "relay-module-1ch-5v",
+            "in1Pin": 5,
+            "in2Pin": 16,
+            "in3Pin": 17,
+            "in4Pin": 18,
+            "in5Pin": 19,
+            "in6Pin": 21,
+            "in7Pin": 22,
+            "in8Pin": 23
+          },
+          "inputs": [
+            {
+              "id": "channel1",
+              "label": "Channel 1",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": []
+        }
+      },
+      {
+        "id": "fanfare",
+        "type": "studioNode",
+        "position": {
+          "x": 2600,
+          "y": 720
+        },
+        "data": {
+          "label": "DFPlayer Mini",
+          "nodeType": "DFPlayerOutput",
+          "category": "output",
+          "properties": {
+            "partId": "dfplayer-mini",
+            "uartRxPin": 12,
+            "uartTxPin": 13,
+            "busyPin": 14,
+            "play": false,
+            "track": 1,
+            "volume": 0.8,
+            "audioOutput": "Speaker",
+            "assignedPins": {
+              "uartRxPin": 12,
+              "uartTxPin": 13,
+              "busyPin": 14
+            },
+            "assignedPinsBoard": "espressif-esp32-s3-devkitc-1",
+            "userPinsByBoard": {}
+          },
+          "inputs": [
+            {
+              "id": "play",
+              "label": "Play",
+              "dataType": "bool"
+            },
+            {
+              "id": "next",
+              "label": "Next",
+              "dataType": "bool"
+            },
+            {
+              "id": "previous",
+              "label": "Previous",
+              "dataType": "bool"
+            },
+            {
+              "id": "track",
+              "label": "Track",
+              "dataType": "float"
+            },
+            {
+              "id": "volume",
+              "label": "Volume",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "playing",
+              "label": "Playing",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "click",
+        "type": "studioNode",
+        "position": {
+          "x": 2600,
+          "y": 900
+        },
+        "data": {
+          "label": "Key click",
+          "nodeType": "BuzzerOutput",
+          "category": "output",
+          "properties": {
+            "partId": "ky-012-active-buzzer-module",
+            "sigPin": 15,
+            "pitchHz": 2000,
+            "assignedPins": {
+              "sigPin": 15
+            },
+            "assignedPinsBoard": "espressif-esp32-s3-devkitc-1",
+            "userPinsByBoard": {}
+          },
+          "inputs": [
+            {
+              "id": "on",
+              "label": "Sound",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": []
+        }
+      },
+      {
+        "id": "guide",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": -180
+        },
+        "data": {
+          "label": "Comment",
+          "nodeType": "Comment",
+          "category": "note",
+          "properties": {
+            "text": "ESCAPE-ROOM KEYPAD\nThe code is 2 5 8 0. Each right digit lights a quarter of the ring.\nThe last digit releases the maglock, plays 0001.mp3 and throws confetti.\n* clears the code and locks again.",
+            "color": "#74d7ff"
+          },
+          "inputs": [],
+          "outputs": []
+        }
+      },
+      {
+        "id": "board",
+        "type": "studioNode",
+        "position": {
+          "x": -260,
+          "y": 0
+        },
+        "data": {
+          "label": "Board",
+          "nodeType": "Board",
+          "category": "output",
+          "properties": {
+            "profileId": "espressif-esp32-s3-devkitc-1",
+            "brightness": 128,
+            "overclock": 1,
+            "frameRate": 60,
+            "ledDriver": "auto",
+            "powerLimit": true,
+            "milliamps": 1000,
+            "psramPolicy": "auto",
+            "psramMode": "opi",
+            "serialRoute": "auto",
+            "reportTelemetry": false,
+            "clockSync": "off",
+            "wifiHostname": "",
+            "useDhcp": true,
+            "staticIp": "",
+            "staticGateway": "",
+            "staticSubnet": "255.255.255.0",
+            "staticDns": ""
+          },
+          "inputs": [],
+          "outputs": []
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e-keypad-digit1-key1-on",
+        "source": "keypad",
+        "sourceHandle": "key1",
+        "target": "digit1",
+        "targetHandle": "on",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-keypad-digit1-key12-off",
+        "source": "keypad",
+        "sourceHandle": "key12",
+        "target": "digit1",
+        "targetHandle": "off",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-digit1-then5-out-a",
+        "source": "digit1",
+        "sourceHandle": "out",
+        "target": "then5",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-keypad-then5-key5-b",
+        "source": "keypad",
+        "sourceHandle": "key5",
+        "target": "then5",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-then5-digit2-result-on",
+        "source": "then5",
+        "sourceHandle": "result",
+        "target": "digit2",
+        "targetHandle": "on",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-keypad-digit2-key12-off",
+        "source": "keypad",
+        "sourceHandle": "key12",
+        "target": "digit2",
+        "targetHandle": "off",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-digit2-then8-out-a",
+        "source": "digit2",
+        "sourceHandle": "out",
+        "target": "then8",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-keypad-then8-key9-b",
+        "source": "keypad",
+        "sourceHandle": "key9",
+        "target": "then8",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-then8-digit3-result-on",
+        "source": "then8",
+        "sourceHandle": "result",
+        "target": "digit3",
+        "targetHandle": "on",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-keypad-digit3-key12-off",
+        "source": "keypad",
+        "sourceHandle": "key12",
+        "target": "digit3",
+        "targetHandle": "off",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-digit3-then0-out-a",
+        "source": "digit3",
+        "sourceHandle": "out",
+        "target": "then0",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-keypad-then0-key13-b",
+        "source": "keypad",
+        "sourceHandle": "key13",
+        "target": "then0",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-then0-open-result-on",
+        "source": "then0",
+        "sourceHandle": "result",
+        "target": "open",
+        "targetHandle": "on",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-keypad-open-key12-off",
+        "source": "keypad",
+        "sourceHandle": "key12",
+        "target": "open",
+        "targetHandle": "off",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-digit1-sum1-out-a",
+        "source": "digit1",
+        "sourceHandle": "out",
+        "target": "sum1",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-digit2-sum1-out-b",
+        "source": "digit2",
+        "sourceHandle": "out",
+        "target": "sum1",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-sum1-sum2-result-a",
+        "source": "sum1",
+        "sourceHandle": "result",
+        "target": "sum2",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-digit3-sum2-out-b",
+        "source": "digit3",
+        "sourceHandle": "out",
+        "target": "sum2",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-sum2-sum3-result-a",
+        "source": "sum2",
+        "sourceHandle": "result",
+        "target": "sum3",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-open-sum3-out-b",
+        "source": "open",
+        "sourceHandle": "out",
+        "target": "sum3",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-sum3-progress-result-a",
+        "source": "sum3",
+        "sourceHandle": "result",
+        "target": "progress",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-progress-dial-result-value",
+        "source": "progress",
+        "sourceHandle": "result",
+        "target": "dial",
+        "targetHandle": "value",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-dial-show-frame-a",
+        "source": "dial",
+        "sourceHandle": "frame",
+        "target": "show",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-celebrate-show-frame-b",
+        "source": "celebrate",
+        "sourceHandle": "frame",
+        "target": "show",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-open-show-out-sel",
+        "source": "open",
+        "sourceHandle": "out",
+        "target": "show",
+        "targetHandle": "sel",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-show-out-frame-frame",
+        "source": "show",
+        "sourceHandle": "frame",
+        "target": "out",
+        "targetHandle": "frame",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-open-lock-out-channel1",
+        "source": "open",
+        "sourceHandle": "out",
+        "target": "lock",
+        "targetHandle": "channel1",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-open-fanfare-out-play",
+        "source": "open",
+        "sourceHandle": "out",
+        "target": "fanfare",
+        "targetHandle": "play",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-keypad-click-pressed-on",
+        "source": "keypad",
+        "sourceHandle": "pressed",
+        "target": "click",
+        "targetHandle": "on",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      }
+    ]
+  }
+}

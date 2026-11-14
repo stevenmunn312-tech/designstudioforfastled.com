@@ -1,0 +1,640 @@
+{
+  "id": "example-diorama-town",
+  "name": "Diorama and model railway town",
+  "createdAt": 1794700800000,
+  "updatedAt": 1794700800000,
+  "workspace": {
+    "nodes": [
+      {
+        "id": "street",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": 0
+        },
+        "data": {
+          "label": "Street lamps 2700 K",
+          "nodeType": "Temperature",
+          "category": "color",
+          "properties": {
+            "kelvin": 2700
+          },
+          "inputs": [
+            {
+              "id": "kelvin",
+              "label": "Kelvin (K)",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "color",
+              "label": "Color",
+              "dataType": "color"
+            }
+          ]
+        }
+      },
+      {
+        "id": "streetFill",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 0
+        },
+        "data": {
+          "label": "Solid Color",
+          "nodeType": "SolidColor",
+          "category": "pattern",
+          "properties": {
+            "r": 255,
+            "g": 0,
+            "b": 128
+          },
+          "inputs": [
+            {
+              "id": "color",
+              "label": "Color",
+              "dataType": "color"
+            },
+            {
+              "id": "r",
+              "label": "R",
+              "dataType": "float"
+            },
+            {
+              "id": "g",
+              "label": "G",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "streetDim",
+        "type": "studioNode",
+        "position": {
+          "x": 520,
+          "y": 0
+        },
+        "data": {
+          "label": "Brightness",
+          "nodeType": "BrightnessMod",
+          "category": "composite",
+          "properties": {
+            "brightness": 0.35
+          },
+          "inputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            },
+            {
+              "id": "brightness",
+              "label": "Brightness",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "tv",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 180
+        },
+        "data": {
+          "label": "House: TV in the window",
+          "nodeType": "TVSimulator",
+          "category": "pattern",
+          "properties": {
+            "cutRate": 0.5,
+            "brightness": 0.7
+          },
+          "inputs": [
+            {
+              "id": "cutRate",
+              "label": "Cut Rate",
+              "dataType": "float"
+            },
+            {
+              "id": "brightness",
+              "label": "Brightness",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "candle",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 360
+        },
+        "data": {
+          "label": "Cottage: candle",
+          "nodeType": "Candle",
+          "category": "pattern",
+          "properties": {
+            "mode": "perPixel",
+            "flicker": 0.6,
+            "warmth": 0.6
+          },
+          "inputs": [
+            {
+              "id": "flicker",
+              "label": "Flicker",
+              "dataType": "float"
+            },
+            {
+              "id": "warmth",
+              "label": "Warmth",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "welder",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 540
+        },
+        "data": {
+          "label": "Workshop: welder",
+          "nodeType": "Lightning",
+          "category": "pattern",
+          "properties": {
+            "rate": 30,
+            "intensity": 1,
+            "color": "#bcd4ff"
+          },
+          "inputs": [
+            {
+              "id": "rate",
+              "label": "Rate",
+              "dataType": "float"
+            },
+            {
+              "id": "intensity",
+              "label": "Intensity",
+              "dataType": "float"
+            },
+            {
+              "id": "trigger",
+              "label": "Trigger",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "pub",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 720
+        },
+        "data": {
+          "label": "Pub: open fire",
+          "nodeType": "Fire",
+          "category": "pattern",
+          "properties": {
+            "intensity": 0.6,
+            "cooling": 55,
+            "sparking": 120,
+            "palette": "fire",
+            "direction": "auto",
+            "turbulence": 1,
+            "mirror": false,
+            "seed": 0,
+            "fireStyle": "classic"
+          },
+          "inputs": [
+            {
+              "id": "intensity",
+              "label": "Intensity",
+              "dataType": "float"
+            },
+            {
+              "id": "cooling",
+              "label": "Cooling",
+              "dataType": "float"
+            },
+            {
+              "id": "sparking",
+              "label": "Sparking",
+              "dataType": "float"
+            },
+            {
+              "id": "paletteIn",
+              "label": "Palette",
+              "dataType": "palette"
+            },
+            {
+              "id": "turbulence",
+              "label": "Turbulence",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "zones",
+        "type": "studioNode",
+        "position": {
+          "x": 780,
+          "y": 360
+        },
+        "data": {
+          "label": "Zones",
+          "nodeType": "Zones",
+          "category": "composite",
+          "properties": {
+            "aEnabled": true,
+            "aX": 0.1,
+            "aY": 0,
+            "aW": 0.15,
+            "aH": 1,
+            "aFit": false,
+            "bEnabled": true,
+            "bX": 0.3,
+            "bY": 0,
+            "bW": 0.15,
+            "bH": 1,
+            "bFit": false,
+            "cEnabled": true,
+            "cX": 0.5,
+            "cY": 0,
+            "cW": 0.15,
+            "cH": 1,
+            "cFit": false,
+            "dEnabled": true,
+            "dX": 0.7,
+            "dY": 0,
+            "dW": 0.15,
+            "dH": 1,
+            "dFit": false
+          },
+          "inputs": [
+            {
+              "id": "base",
+              "label": "Base",
+              "dataType": "frame"
+            },
+            {
+              "id": "a",
+              "label": "Zone A",
+              "dataType": "frame"
+            },
+            {
+              "id": "b",
+              "label": "Zone B",
+              "dataType": "frame"
+            },
+            {
+              "id": "c",
+              "label": "Zone C",
+              "dataType": "frame"
+            },
+            {
+              "id": "d",
+              "label": "Zone D",
+              "dataType": "frame"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "out",
+        "type": "studioNode",
+        "position": {
+          "x": 1040,
+          "y": 360
+        },
+        "data": {
+          "label": "LED Matrix",
+          "nodeType": "MatrixOutput",
+          "category": "output",
+          "properties": {
+            "form": "strip",
+            "outputGamma": 1,
+            "width": 16,
+            "height": 16,
+            "ledCount": 40,
+            "ringStartAngle": 0,
+            "ringDirection": "cw",
+            "corkscrewTurns": 6,
+            "corkscrewStartAngle": 0,
+            "corkscrewDirection": "cw",
+            "corkscrewDiameterMm": 100,
+            "corkscrewHeightMm": 300,
+            "chipset": "WS2812B",
+            "dataLink": "Direct",
+            "colorOrder": "GRB",
+            "dataPin": 5,
+            "dataLanes": 1,
+            "lanePins": [],
+            "clockPin": 6,
+            "dataRateMhz": 0,
+            "serpentine": true,
+            "startCorner": "top-left",
+            "firstRun": "horizontal",
+            "layout": "matrix",
+            "tilesX": 1,
+            "tilesY": 1,
+            "tileSerpentine": false,
+            "tileRotations": "",
+            "customXYMap": "",
+            "stripLayout": "line",
+            "positionsPreset": "catenary",
+            "positionsWidth": 32,
+            "positionsHeight": 16,
+            "positionsMmPerUnit": 10,
+            "positions": "",
+            "networkPreset": "hexagons",
+            "network": "",
+            "ledsPerEdge": 14,
+            "routeMode": "native",
+            "routeX": 0,
+            "routeY": 0,
+            "renderResolution": "Full",
+            "correction": "none",
+            "whitePoint": "none",
+            "dither": true,
+            "hub75R1Pin": 1,
+            "hub75G1Pin": 2,
+            "hub75B1Pin": 3,
+            "hub75R2Pin": 4,
+            "hub75G2Pin": 5,
+            "hub75B2Pin": 12,
+            "hub75APin": 13,
+            "hub75BPin": 14,
+            "hub75CPin": 15,
+            "hub75DPin": 16,
+            "hub75EPin": 33,
+            "hub75ClkPin": 0,
+            "hub75LatPin": 17,
+            "hub75OePin": 18,
+            "hub75WideScan": false,
+            "hub75ColorDepthBits": 8
+          },
+          "inputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            },
+            {
+              "id": "enabled",
+              "label": "Enabled",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightness",
+              "label": "Brightness",
+              "dataType": "float"
+            },
+            {
+              "id": "controls",
+              "label": "Controls",
+              "dataType": "playercontrols"
+            },
+            {
+              "id": "ledToggle",
+              "label": "Toggle blackout",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightnessUp",
+              "label": "Brightness Up",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightnessDown",
+              "label": "Brightness Down",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "display",
+              "label": "Display",
+              "dataType": "display"
+            }
+          ]
+        }
+      },
+      {
+        "id": "guide",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": -180
+        },
+        "data": {
+          "label": "Comment",
+          "nodeType": "Comment",
+          "category": "note",
+          "properties": {
+            "text": "MODEL TOWN\nOne strip snakes through the buildings.\nEach Zone is a stretch of the strip: set its X and W to match where the strip passes through that building.\nEverything else is street lighting.",
+            "color": "#74d7ff"
+          },
+          "inputs": [],
+          "outputs": []
+        }
+      },
+      {
+        "id": "board",
+        "type": "studioNode",
+        "position": {
+          "x": -260,
+          "y": 0
+        },
+        "data": {
+          "label": "Board",
+          "nodeType": "Board",
+          "category": "output",
+          "properties": {
+            "profileId": "espressif-esp32-s3-devkitc-1",
+            "brightness": 128,
+            "overclock": 1,
+            "frameRate": 60,
+            "ledDriver": "auto",
+            "powerLimit": true,
+            "milliamps": 2400,
+            "psramPolicy": "auto",
+            "psramMode": "opi",
+            "serialRoute": "auto",
+            "reportTelemetry": false,
+            "clockSync": "off",
+            "wifiHostname": "",
+            "useDhcp": true,
+            "staticIp": "",
+            "staticGateway": "",
+            "staticSubnet": "255.255.255.0",
+            "staticDns": ""
+          },
+          "inputs": [],
+          "outputs": []
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e-street-streetFill-color-color",
+        "source": "street",
+        "sourceHandle": "color",
+        "target": "streetFill",
+        "targetHandle": "color",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#ffd24a"
+        }
+      },
+      {
+        "id": "e-streetFill-streetDim-frame-frame",
+        "source": "streetFill",
+        "sourceHandle": "frame",
+        "target": "streetDim",
+        "targetHandle": "frame",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-streetDim-zones-frame-base",
+        "source": "streetDim",
+        "sourceHandle": "frame",
+        "target": "zones",
+        "targetHandle": "base",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-tv-zones-frame-a",
+        "source": "tv",
+        "sourceHandle": "frame",
+        "target": "zones",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-candle-zones-frame-b",
+        "source": "candle",
+        "sourceHandle": "frame",
+        "target": "zones",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-welder-zones-frame-c",
+        "source": "welder",
+        "sourceHandle": "frame",
+        "target": "zones",
+        "targetHandle": "c",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-pub-zones-frame-d",
+        "source": "pub",
+        "sourceHandle": "frame",
+        "target": "zones",
+        "targetHandle": "d",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-zones-out-frame-frame",
+        "source": "zones",
+        "sourceHandle": "frame",
+        "target": "out",
+        "targetHandle": "frame",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      }
+    ]
+  }
+}

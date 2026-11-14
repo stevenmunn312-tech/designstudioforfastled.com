@@ -1,0 +1,1181 @@
+{
+  "id": "example-breathing-coach",
+  "name": "Breathing coach",
+  "createdAt": 1794700800000,
+  "updatedAt": 1794700800000,
+  "workspace": {
+    "nodes": [
+      {
+        "id": "start",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": 0
+        },
+        "data": {
+          "label": "Button",
+          "nodeType": "ButtonBank",
+          "category": "input",
+          "properties": {
+            "buttons": [
+              {
+                "id": "1",
+                "label": "Start session",
+                "pin": 1,
+                "pullup": true,
+                "assignedBoard": "espressif-esp32-s3-devkitc-1",
+                "assignedPin": 1
+              }
+            ]
+          },
+          "inputs": [],
+          "outputs": [
+            {
+              "id": "button-1",
+              "label": "Start session",
+              "dataType": "bool"
+            },
+            {
+              "id": "add-button",
+              "label": "Add button…",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "stopwatch",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 0
+        },
+        "data": {
+          "label": "Session time",
+          "nodeType": "ClockDisplay",
+          "category": "pattern",
+          "properties": {
+            "displayMode": "Stopwatch",
+            "units": "normalized",
+            "x": 0.5,
+            "y": 0.5,
+            "radius": 6,
+            "scaleWithMatrix": true,
+            "run": true,
+            "reset": false,
+            "durationSec": 300,
+            "r": 255,
+            "g": 220,
+            "b": 90,
+            "hAlign": "center",
+            "vAlign": "middle",
+            "size": 1,
+            "font": "3x5"
+          },
+          "inputs": [
+            {
+              "id": "dateTime",
+              "label": "DateTime",
+              "dataType": "datetime"
+            },
+            {
+              "id": "base",
+              "label": "Base",
+              "dataType": "frame"
+            },
+            {
+              "id": "color",
+              "label": "Color",
+              "dataType": "color"
+            },
+            {
+              "id": "run",
+              "label": "Run",
+              "dataType": "bool"
+            },
+            {
+              "id": "reset",
+              "label": "Reset",
+              "dataType": "bool"
+            },
+            {
+              "id": "durationSec",
+              "label": "Duration (s)",
+              "dataType": "float"
+            },
+            {
+              "id": "x",
+              "label": "X",
+              "dataType": "float"
+            },
+            {
+              "id": "y",
+              "label": "Y",
+              "dataType": "float"
+            },
+            {
+              "id": "radius",
+              "label": "Radius",
+              "dataType": "float"
+            },
+            {
+              "id": "r",
+              "label": "R",
+              "dataType": "float"
+            },
+            {
+              "id": "g",
+              "label": "G",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            },
+            {
+              "id": "seconds",
+              "label": "Seconds",
+              "dataType": "float"
+            },
+            {
+              "id": "done",
+              "label": "Done",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "inCycle",
+        "type": "studioNode",
+        "position": {
+          "x": 520,
+          "y": 0
+        },
+        "data": {
+          "label": "Seconds into this breath",
+          "nodeType": "Math",
+          "category": "math",
+          "properties": {
+            "mathOp": "modulo",
+            "a": 0,
+            "b": 19
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "inhale",
+        "type": "studioNode",
+        "position": {
+          "x": 780,
+          "y": 0
+        },
+        "data": {
+          "label": "Breathe in for 4",
+          "nodeType": "Math",
+          "category": "math",
+          "properties": {
+            "mathOp": "divide",
+            "a": 0,
+            "b": 4
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "sinceHold",
+        "type": "studioNode",
+        "position": {
+          "x": 780,
+          "y": 180
+        },
+        "data": {
+          "label": "Math",
+          "nodeType": "Math",
+          "category": "math",
+          "properties": {
+            "mathOp": "subtract",
+            "a": 0,
+            "b": 11
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "outShare",
+        "type": "studioNode",
+        "position": {
+          "x": 1040,
+          "y": 180
+        },
+        "data": {
+          "label": "Math",
+          "nodeType": "Math",
+          "category": "math",
+          "properties": {
+            "mathOp": "divide",
+            "a": 0,
+            "b": 8
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "exhale",
+        "type": "studioNode",
+        "position": {
+          "x": 1300,
+          "y": 180
+        },
+        "data": {
+          "label": "Breathe out for 8",
+          "nodeType": "Math",
+          "category": "math",
+          "properties": {
+            "mathOp": "subtract",
+            "a": 1,
+            "b": 0
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "breath",
+        "type": "studioNode",
+        "position": {
+          "x": 1560,
+          "y": 0
+        },
+        "data": {
+          "label": "In, hold 7, out",
+          "nodeType": "Math",
+          "category": "math",
+          "properties": {
+            "mathOp": "min",
+            "a": 0,
+            "b": 0
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "lungs",
+        "type": "studioNode",
+        "position": {
+          "x": 1820,
+          "y": 0
+        },
+        "data": {
+          "label": "Clamp",
+          "nodeType": "Clamp",
+          "category": "math",
+          "properties": {
+            "value": 0,
+            "min": 0,
+            "max": 1
+          },
+          "inputs": [
+            {
+              "id": "value",
+              "label": "Value",
+              "dataType": "float"
+            },
+            {
+              "id": "min",
+              "label": "Min",
+              "dataType": "float"
+            },
+            {
+              "id": "max",
+              "label": "Max",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "glow",
+        "type": "studioNode",
+        "position": {
+          "x": 2080,
+          "y": 0
+        },
+        "data": {
+          "label": "5–100% glow",
+          "nodeType": "MapRange",
+          "category": "math",
+          "properties": {
+            "value": 0,
+            "inMin": 0,
+            "inMax": 1,
+            "outMin": 0.05,
+            "outMax": 1,
+            "clampOutput": false
+          },
+          "inputs": [
+            {
+              "id": "value",
+              "label": "Value",
+              "dataType": "float"
+            },
+            {
+              "id": "inMin",
+              "label": "In Min",
+              "dataType": "float"
+            },
+            {
+              "id": "inMax",
+              "label": "In Max",
+              "dataType": "float"
+            },
+            {
+              "id": "outMin",
+              "label": "Out Min",
+              "dataType": "float"
+            },
+            {
+              "id": "outMax",
+              "label": "Out Max",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "warmth",
+        "type": "studioNode",
+        "position": {
+          "x": 520,
+          "y": 360
+        },
+        "data": {
+          "label": "6500 K to 2200 K over the session",
+          "nodeType": "MapRange",
+          "category": "math",
+          "properties": {
+            "value": 0,
+            "inMin": 0,
+            "inMax": 76,
+            "outMin": 6500,
+            "outMax": 2200,
+            "clampOutput": true
+          },
+          "inputs": [
+            {
+              "id": "value",
+              "label": "Value",
+              "dataType": "float"
+            },
+            {
+              "id": "inMin",
+              "label": "In Min",
+              "dataType": "float"
+            },
+            {
+              "id": "inMax",
+              "label": "In Max",
+              "dataType": "float"
+            },
+            {
+              "id": "outMin",
+              "label": "Out Min",
+              "dataType": "float"
+            },
+            {
+              "id": "outMax",
+              "label": "Out Max",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "white",
+        "type": "studioNode",
+        "position": {
+          "x": 780,
+          "y": 360
+        },
+        "data": {
+          "label": "Color Temperature",
+          "nodeType": "Temperature",
+          "category": "color",
+          "properties": {
+            "kelvin": 4000
+          },
+          "inputs": [
+            {
+              "id": "kelvin",
+              "label": "Kelvin (K)",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "color",
+              "label": "Color",
+              "dataType": "color"
+            }
+          ]
+        }
+      },
+      {
+        "id": "fill",
+        "type": "studioNode",
+        "position": {
+          "x": 1040,
+          "y": 360
+        },
+        "data": {
+          "label": "Solid Color",
+          "nodeType": "SolidColor",
+          "category": "pattern",
+          "properties": {
+            "r": 255,
+            "g": 0,
+            "b": 128
+          },
+          "inputs": [
+            {
+              "id": "color",
+              "label": "Color",
+              "dataType": "color"
+            },
+            {
+              "id": "r",
+              "label": "R",
+              "dataType": "float"
+            },
+            {
+              "id": "g",
+              "label": "G",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "paced",
+        "type": "studioNode",
+        "position": {
+          "x": 2340,
+          "y": 180
+        },
+        "data": {
+          "label": "Brightness",
+          "nodeType": "BrightnessMod",
+          "category": "composite",
+          "properties": {
+            "brightness": 1
+          },
+          "inputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            },
+            {
+              "id": "brightness",
+              "label": "Brightness",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "finished",
+        "type": "studioNode",
+        "position": {
+          "x": 520,
+          "y": 540
+        },
+        "data": {
+          "label": "Four breaths done",
+          "nodeType": "Compare",
+          "category": "math",
+          "properties": {
+            "compareOp": "greater",
+            "a": 0,
+            "b": 76,
+            "hysteresis": 0
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "rest",
+        "type": "studioNode",
+        "position": {
+          "x": 2340,
+          "y": 540
+        },
+        "data": {
+          "label": "Free breathing",
+          "nodeType": "Breathe",
+          "category": "pattern",
+          "properties": {
+            "bpm": 6,
+            "minLevel": 0.1,
+            "curve": "natural",
+            "palette": "emberglow"
+          },
+          "inputs": [
+            {
+              "id": "bpm",
+              "label": "BPM",
+              "dataType": "float"
+            },
+            {
+              "id": "minLevel",
+              "label": "Min Level",
+              "dataType": "float"
+            },
+            {
+              "id": "paletteIn",
+              "label": "Palette",
+              "dataType": "palette"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "show",
+        "type": "studioNode",
+        "position": {
+          "x": 2600,
+          "y": 360
+        },
+        "data": {
+          "label": "Frame Switch",
+          "nodeType": "FrameSwitch",
+          "category": "composite",
+          "properties": {
+            "select": false
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "Frame A",
+              "dataType": "frame"
+            },
+            {
+              "id": "b",
+              "label": "Frame B",
+              "dataType": "frame"
+            },
+            {
+              "id": "sel",
+              "label": "Select",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "out",
+        "type": "studioNode",
+        "position": {
+          "x": 2860,
+          "y": 360
+        },
+        "data": {
+          "label": "LED Matrix",
+          "nodeType": "MatrixOutput",
+          "category": "output",
+          "properties": {
+            "form": "ring",
+            "outputGamma": 1,
+            "width": 16,
+            "height": 16,
+            "ledCount": 24,
+            "ringStartAngle": 0,
+            "ringDirection": "cw",
+            "corkscrewTurns": 6,
+            "corkscrewStartAngle": 0,
+            "corkscrewDirection": "cw",
+            "corkscrewDiameterMm": 100,
+            "corkscrewHeightMm": 300,
+            "chipset": "WS2812B",
+            "dataLink": "Direct",
+            "colorOrder": "GRB",
+            "dataPin": 5,
+            "dataLanes": 1,
+            "lanePins": [],
+            "clockPin": 6,
+            "dataRateMhz": 0,
+            "serpentine": true,
+            "startCorner": "top-left",
+            "firstRun": "horizontal",
+            "layout": "matrix",
+            "tilesX": 1,
+            "tilesY": 1,
+            "tileSerpentine": false,
+            "tileRotations": "",
+            "customXYMap": "",
+            "stripLayout": "line",
+            "positionsPreset": "catenary",
+            "positionsWidth": 32,
+            "positionsHeight": 16,
+            "positionsMmPerUnit": 10,
+            "positions": "",
+            "networkPreset": "hexagons",
+            "network": "",
+            "ledsPerEdge": 14,
+            "routeMode": "native",
+            "routeX": 0,
+            "routeY": 0,
+            "renderResolution": "Full",
+            "correction": "none",
+            "whitePoint": "none",
+            "dither": true,
+            "hub75R1Pin": 1,
+            "hub75G1Pin": 2,
+            "hub75B1Pin": 3,
+            "hub75R2Pin": 4,
+            "hub75G2Pin": 5,
+            "hub75B2Pin": 12,
+            "hub75APin": 13,
+            "hub75BPin": 14,
+            "hub75CPin": 15,
+            "hub75DPin": 16,
+            "hub75EPin": 33,
+            "hub75ClkPin": 0,
+            "hub75LatPin": 17,
+            "hub75OePin": 18,
+            "hub75WideScan": false,
+            "hub75ColorDepthBits": 8
+          },
+          "inputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            },
+            {
+              "id": "enabled",
+              "label": "Enabled",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightness",
+              "label": "Brightness",
+              "dataType": "float"
+            },
+            {
+              "id": "controls",
+              "label": "Controls",
+              "dataType": "playercontrols"
+            },
+            {
+              "id": "ledToggle",
+              "label": "Toggle blackout",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightnessUp",
+              "label": "Brightness Up",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightnessDown",
+              "label": "Brightness Down",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "display",
+              "label": "Display",
+              "dataType": "display"
+            }
+          ]
+        }
+      },
+      {
+        "id": "guide",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": -180
+        },
+        "data": {
+          "label": "Comment",
+          "nodeType": "Comment",
+          "category": "note",
+          "properties": {
+            "text": "BREATHING COACH\nPress Start: breathe in as it brightens (4 s), hold while it stays bright (7 s), out as it fades (8 s).\nThe light warms over four breaths, then settles into a slow, free Breathe.",
+            "color": "#74d7ff"
+          },
+          "inputs": [],
+          "outputs": []
+        }
+      },
+      {
+        "id": "board",
+        "type": "studioNode",
+        "position": {
+          "x": -260,
+          "y": 0
+        },
+        "data": {
+          "label": "Board",
+          "nodeType": "Board",
+          "category": "output",
+          "properties": {
+            "profileId": "espressif-esp32-s3-devkitc-1",
+            "brightness": 120,
+            "overclock": 1,
+            "frameRate": 60,
+            "ledDriver": "auto",
+            "powerLimit": true,
+            "milliamps": 1500,
+            "psramPolicy": "auto",
+            "psramMode": "opi",
+            "serialRoute": "auto",
+            "reportTelemetry": false,
+            "clockSync": "off",
+            "wifiHostname": "",
+            "useDhcp": true,
+            "staticIp": "",
+            "staticGateway": "",
+            "staticSubnet": "255.255.255.0",
+            "staticDns": ""
+          },
+          "inputs": [],
+          "outputs": []
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e-start-stopwatch-button-1-reset",
+        "source": "start",
+        "sourceHandle": "button-1",
+        "target": "stopwatch",
+        "targetHandle": "reset",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-stopwatch-inCycle-seconds-a",
+        "source": "stopwatch",
+        "sourceHandle": "seconds",
+        "target": "inCycle",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-inCycle-inhale-result-a",
+        "source": "inCycle",
+        "sourceHandle": "result",
+        "target": "inhale",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-inCycle-sinceHold-result-a",
+        "source": "inCycle",
+        "sourceHandle": "result",
+        "target": "sinceHold",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-sinceHold-outShare-result-a",
+        "source": "sinceHold",
+        "sourceHandle": "result",
+        "target": "outShare",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-outShare-exhale-result-b",
+        "source": "outShare",
+        "sourceHandle": "result",
+        "target": "exhale",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-inhale-breath-result-a",
+        "source": "inhale",
+        "sourceHandle": "result",
+        "target": "breath",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-exhale-breath-result-b",
+        "source": "exhale",
+        "sourceHandle": "result",
+        "target": "breath",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-breath-lungs-result-value",
+        "source": "breath",
+        "sourceHandle": "result",
+        "target": "lungs",
+        "targetHandle": "value",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-lungs-glow-result-value",
+        "source": "lungs",
+        "sourceHandle": "result",
+        "target": "glow",
+        "targetHandle": "value",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-stopwatch-warmth-seconds-value",
+        "source": "stopwatch",
+        "sourceHandle": "seconds",
+        "target": "warmth",
+        "targetHandle": "value",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-warmth-white-result-kelvin",
+        "source": "warmth",
+        "sourceHandle": "result",
+        "target": "white",
+        "targetHandle": "kelvin",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-white-fill-color-color",
+        "source": "white",
+        "sourceHandle": "color",
+        "target": "fill",
+        "targetHandle": "color",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#ffd24a"
+        }
+      },
+      {
+        "id": "e-fill-paced-frame-frame",
+        "source": "fill",
+        "sourceHandle": "frame",
+        "target": "paced",
+        "targetHandle": "frame",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-glow-paced-result-brightness",
+        "source": "glow",
+        "sourceHandle": "result",
+        "target": "paced",
+        "targetHandle": "brightness",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-stopwatch-finished-seconds-a",
+        "source": "stopwatch",
+        "sourceHandle": "seconds",
+        "target": "finished",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-paced-show-frame-a",
+        "source": "paced",
+        "sourceHandle": "frame",
+        "target": "show",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-rest-show-frame-b",
+        "source": "rest",
+        "sourceHandle": "frame",
+        "target": "show",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-finished-show-result-sel",
+        "source": "finished",
+        "sourceHandle": "result",
+        "target": "show",
+        "targetHandle": "sel",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-show-out-frame-frame",
+        "source": "show",
+        "sourceHandle": "frame",
+        "target": "out",
+        "targetHandle": "frame",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      }
+    ]
+  }
+}

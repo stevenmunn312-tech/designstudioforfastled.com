@@ -1,0 +1,1767 @@
+{
+  "id": "example-instrument-tuner",
+  "name": "Singing and instrument tuner",
+  "createdAt": 1794700800000,
+  "updatedAt": 1794700800000,
+  "workspace": {
+    "nodes": [
+      {
+        "id": "mic",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": 180
+        },
+        "hidden": true,
+        "selectable": false,
+        "draggable": false,
+        "data": {
+          "label": "Microphone",
+          "nodeType": "MicInput",
+          "category": "input",
+          "properties": {
+            "gain": 1,
+            "noiseGate": 500,
+            "i2sWs": 39,
+            "i2sSck": 40,
+            "i2sSd": 41,
+            "channel": "Left",
+            "serialDebug": false
+          },
+          "inputs": [],
+          "outputs": [
+            {
+              "id": "audio",
+              "label": "Audio",
+              "dataType": "audio"
+            }
+          ]
+        }
+      },
+      {
+        "id": "audio",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": 180
+        },
+        "data": {
+          "label": "Audio",
+          "nodeType": "Audio",
+          "category": "input",
+          "properties": {
+            "sourceId": "mic"
+          },
+          "inputs": [],
+          "outputs": [
+            {
+              "id": "audio",
+              "label": "Audio",
+              "dataType": "audio"
+            }
+          ]
+        }
+      },
+      {
+        "id": "pitch",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 180
+        },
+        "data": {
+          "label": "Pitch Detect",
+          "nodeType": "PitchDetect",
+          "category": "audio",
+          "properties": {},
+          "inputs": [
+            {
+              "id": "audio",
+              "label": "Audio",
+              "dataType": "audio"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "hz",
+              "label": "Hz",
+              "dataType": "float"
+            },
+            {
+              "id": "note",
+              "label": "Note",
+              "dataType": "float"
+            },
+            {
+              "id": "pitchClass",
+              "label": "Pitch class",
+              "dataType": "float"
+            },
+            {
+              "id": "noteOn",
+              "label": "Note on",
+              "dataType": "bool"
+            },
+            {
+              "id": "velocity",
+              "label": "Velocity",
+              "dataType": "float"
+            },
+            {
+              "id": "confidence",
+              "label": "Confidence",
+              "dataType": "float"
+            },
+            {
+              "id": "keyRoot",
+              "label": "Key root",
+              "dataType": "float"
+            },
+            {
+              "id": "keyMinor",
+              "label": "Key minor",
+              "dataType": "bool"
+            },
+            {
+              "id": "keyConfidence",
+              "label": "Key confidence",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "nextString",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": 540
+        },
+        "data": {
+          "label": "Button",
+          "nodeType": "ButtonBank",
+          "category": "input",
+          "properties": {
+            "buttons": [
+              {
+                "id": "1",
+                "label": "Next string",
+                "pin": 1,
+                "pullup": true,
+                "assignedBoard": "espressif-esp32-s3-devkitc-1",
+                "assignedPin": 1
+              }
+            ]
+          },
+          "inputs": [],
+          "outputs": [
+            {
+              "id": "button-1",
+              "label": "Next string",
+              "dataType": "bool"
+            },
+            {
+              "id": "add-button",
+              "label": "Add button…",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "string",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 540
+        },
+        "data": {
+          "label": "String 0–5",
+          "nodeType": "StepValue",
+          "category": "math",
+          "properties": {
+            "initial": 0,
+            "minimum": 0,
+            "maximum": 5,
+            "step": 1,
+            "wrap": true
+          },
+          "inputs": [
+            {
+              "id": "increase",
+              "label": "Increase",
+              "dataType": "bool"
+            },
+            {
+              "id": "decrease",
+              "label": "Decrease",
+              "dataType": "bool"
+            },
+            {
+              "id": "reset",
+              "label": "Reset",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "value",
+              "label": "Value",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "atLeast1",
+        "type": "studioNode",
+        "position": {
+          "x": 520,
+          "y": 540
+        },
+        "data": {
+          "label": "String 2 or later",
+          "nodeType": "Compare",
+          "category": "math",
+          "properties": {
+            "compareOp": "greaterOrEqual",
+            "a": 0,
+            "b": 0.5,
+            "hysteresis": 0
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "atLeast2",
+        "type": "studioNode",
+        "position": {
+          "x": 520,
+          "y": 720
+        },
+        "data": {
+          "label": "String 3 or later",
+          "nodeType": "Compare",
+          "category": "math",
+          "properties": {
+            "compareOp": "greaterOrEqual",
+            "a": 0,
+            "b": 1.5,
+            "hysteresis": 0
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "atLeast3",
+        "type": "studioNode",
+        "position": {
+          "x": 520,
+          "y": 900
+        },
+        "data": {
+          "label": "String 4 or later",
+          "nodeType": "Compare",
+          "category": "math",
+          "properties": {
+            "compareOp": "greaterOrEqual",
+            "a": 0,
+            "b": 2.5,
+            "hysteresis": 0
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "atLeast4",
+        "type": "studioNode",
+        "position": {
+          "x": 520,
+          "y": 1080
+        },
+        "data": {
+          "label": "String 5 or later",
+          "nodeType": "Compare",
+          "category": "math",
+          "properties": {
+            "compareOp": "greaterOrEqual",
+            "a": 0,
+            "b": 3.5,
+            "hysteresis": 0
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "atLeast5",
+        "type": "studioNode",
+        "position": {
+          "x": 520,
+          "y": 1260
+        },
+        "data": {
+          "label": "String 6 or later",
+          "nodeType": "Compare",
+          "category": "math",
+          "properties": {
+            "compareOp": "greaterOrEqual",
+            "a": 0,
+            "b": 4.5,
+            "hysteresis": 0
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "target1",
+        "type": "studioNode",
+        "position": {
+          "x": 780,
+          "y": 540
+        },
+        "data": {
+          "label": "E2 or A2",
+          "nodeType": "Switch",
+          "category": "math",
+          "properties": {
+            "a": 82.41,
+            "b": 110,
+            "select": false
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            },
+            {
+              "id": "sel",
+              "label": "Select",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "target2",
+        "type": "studioNode",
+        "position": {
+          "x": 1040,
+          "y": 720
+        },
+        "data": {
+          "label": "…or D3",
+          "nodeType": "Switch",
+          "category": "math",
+          "properties": {
+            "a": 0,
+            "b": 146.83,
+            "select": false
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            },
+            {
+              "id": "sel",
+              "label": "Select",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "target3",
+        "type": "studioNode",
+        "position": {
+          "x": 1300,
+          "y": 900
+        },
+        "data": {
+          "label": "…or G3",
+          "nodeType": "Switch",
+          "category": "math",
+          "properties": {
+            "a": 0,
+            "b": 196,
+            "select": false
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            },
+            {
+              "id": "sel",
+              "label": "Select",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "target4",
+        "type": "studioNode",
+        "position": {
+          "x": 1560,
+          "y": 1080
+        },
+        "data": {
+          "label": "…or B3",
+          "nodeType": "Switch",
+          "category": "math",
+          "properties": {
+            "a": 0,
+            "b": 246.94,
+            "select": false
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            },
+            {
+              "id": "sel",
+              "label": "Select",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "target5",
+        "type": "studioNode",
+        "position": {
+          "x": 1820,
+          "y": 1260
+        },
+        "data": {
+          "label": "Target Hz (…or E4)",
+          "nodeType": "Switch",
+          "category": "math",
+          "properties": {
+            "a": 0,
+            "b": 329.63,
+            "select": false
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            },
+            {
+              "id": "sel",
+              "label": "Select",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "ratio",
+        "type": "studioNode",
+        "position": {
+          "x": 2080,
+          "y": 180
+        },
+        "data": {
+          "label": "Played ÷ target",
+          "nodeType": "Math",
+          "category": "math",
+          "properties": {
+            "mathOp": "divide",
+            "a": 0,
+            "b": 0
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "cents",
+        "type": "studioNode",
+        "position": {
+          "x": 2340,
+          "y": 180
+        },
+        "data": {
+          "label": "−50 to +50 cents",
+          "nodeType": "MapRange",
+          "category": "math",
+          "properties": {
+            "value": 0,
+            "inMin": 0.9715,
+            "inMax": 1.0293,
+            "outMin": 0,
+            "outMax": 1,
+            "clampOutput": true
+          },
+          "inputs": [
+            {
+              "id": "value",
+              "label": "Value",
+              "dataType": "float"
+            },
+            {
+              "id": "inMin",
+              "label": "In Min",
+              "dataType": "float"
+            },
+            {
+              "id": "inMax",
+              "label": "In Max",
+              "dataType": "float"
+            },
+            {
+              "id": "outMin",
+              "label": "Out Min",
+              "dataType": "float"
+            },
+            {
+              "id": "outMax",
+              "label": "Out Max",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "red",
+        "type": "studioNode",
+        "position": {
+          "x": 2340,
+          "y": 540
+        },
+        "data": {
+          "label": "Color",
+          "nodeType": "Color",
+          "category": "color",
+          "properties": {
+            "color": "#ff1000"
+          },
+          "inputs": [],
+          "outputs": [
+            {
+              "id": "color",
+              "label": "Color",
+              "dataType": "color"
+            }
+          ]
+        }
+      },
+      {
+        "id": "green",
+        "type": "studioNode",
+        "position": {
+          "x": 2340,
+          "y": 720
+        },
+        "data": {
+          "label": "Color",
+          "nodeType": "Color",
+          "category": "color",
+          "properties": {
+            "color": "#00ff30"
+          },
+          "inputs": [],
+          "outputs": [
+            {
+              "id": "color",
+              "label": "Color",
+              "dataType": "color"
+            }
+          ]
+        }
+      },
+      {
+        "id": "green2",
+        "type": "studioNode",
+        "position": {
+          "x": 2340,
+          "y": 900
+        },
+        "data": {
+          "label": "Color",
+          "nodeType": "Color",
+          "category": "color",
+          "properties": {
+            "color": "#00ff30"
+          },
+          "inputs": [],
+          "outputs": [
+            {
+              "id": "color",
+              "label": "Color",
+              "dataType": "color"
+            }
+          ]
+        }
+      },
+      {
+        "id": "red2",
+        "type": "studioNode",
+        "position": {
+          "x": 2340,
+          "y": 1080
+        },
+        "data": {
+          "label": "Color",
+          "nodeType": "Color",
+          "category": "color",
+          "properties": {
+            "color": "#ff1000"
+          },
+          "inputs": [],
+          "outputs": [
+            {
+              "id": "color",
+              "label": "Color",
+              "dataType": "color"
+            }
+          ]
+        }
+      },
+      {
+        "id": "flatSharp",
+        "type": "studioNode",
+        "position": {
+          "x": 2600,
+          "y": 720
+        },
+        "data": {
+          "label": "Flat, in tune, sharp",
+          "nodeType": "CustomPalette",
+          "category": "color",
+          "properties": {},
+          "inputs": [
+            {
+              "id": "color0",
+              "label": "Color 1",
+              "dataType": "color"
+            },
+            {
+              "id": "color1",
+              "label": "Color 2",
+              "dataType": "color"
+            },
+            {
+              "id": "color2",
+              "label": "Color 3",
+              "dataType": "color"
+            },
+            {
+              "id": "color3",
+              "label": "Color 4",
+              "dataType": "color"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "palette",
+              "label": "Palette",
+              "dataType": "palette"
+            }
+          ]
+        }
+      },
+      {
+        "id": "needle",
+        "type": "studioNode",
+        "position": {
+          "x": 2600,
+          "y": 180
+        },
+        "data": {
+          "label": "Gauge",
+          "nodeType": "Gauge",
+          "category": "pattern",
+          "properties": {
+            "gaugeStyle": "dot",
+            "direction": "right",
+            "value": 0.6,
+            "segments": 0,
+            "peakHold": 0,
+            "thickness": 1,
+            "arcStart": 225,
+            "arcSweep": 270,
+            "ringLeds": 60,
+            "palette": "heat"
+          },
+          "inputs": [
+            {
+              "id": "value",
+              "label": "Value",
+              "dataType": "float"
+            },
+            {
+              "id": "base",
+              "label": "Base",
+              "dataType": "frame"
+            },
+            {
+              "id": "paletteIn",
+              "label": "Palette",
+              "dataType": "palette"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "sure",
+        "type": "studioNode",
+        "position": {
+          "x": 2600,
+          "y": 0
+        },
+        "data": {
+          "label": "Pitch confidence",
+          "nodeType": "MapRange",
+          "category": "math",
+          "properties": {
+            "value": 0,
+            "inMin": 0.4,
+            "inMax": 0.8,
+            "outMin": 0,
+            "outMax": 1,
+            "clampOutput": true
+          },
+          "inputs": [
+            {
+              "id": "value",
+              "label": "Value",
+              "dataType": "float"
+            },
+            {
+              "id": "inMin",
+              "label": "In Min",
+              "dataType": "float"
+            },
+            {
+              "id": "inMax",
+              "label": "In Max",
+              "dataType": "float"
+            },
+            {
+              "id": "outMin",
+              "label": "Out Min",
+              "dataType": "float"
+            },
+            {
+              "id": "outMax",
+              "label": "Out Max",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "heard",
+        "type": "studioNode",
+        "position": {
+          "x": 2860,
+          "y": 180
+        },
+        "data": {
+          "label": "Only while a note sounds",
+          "nodeType": "BrightnessMod",
+          "category": "composite",
+          "properties": {
+            "brightness": 1
+          },
+          "inputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            },
+            {
+              "id": "brightness",
+              "label": "Brightness",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "stringNumber",
+        "type": "studioNode",
+        "position": {
+          "x": 2080,
+          "y": 1440
+        },
+        "data": {
+          "label": "Math",
+          "nodeType": "Math",
+          "category": "math",
+          "properties": {
+            "mathOp": "add",
+            "a": 0,
+            "b": 1
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "stringShare",
+        "type": "studioNode",
+        "position": {
+          "x": 2340,
+          "y": 1440
+        },
+        "data": {
+          "label": "Math",
+          "nodeType": "Math",
+          "category": "math",
+          "properties": {
+            "mathOp": "divide",
+            "a": 0,
+            "b": 6
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "stringBar",
+        "type": "studioNode",
+        "position": {
+          "x": 2600,
+          "y": 1440
+        },
+        "data": {
+          "label": "Which string",
+          "nodeType": "Gauge",
+          "category": "pattern",
+          "properties": {
+            "gaugeStyle": "bar",
+            "direction": "right",
+            "value": 0.6,
+            "segments": 0,
+            "peakHold": 0,
+            "thickness": 1,
+            "arcStart": 225,
+            "arcSweep": 270,
+            "ringLeds": 60,
+            "palette": "ice"
+          },
+          "inputs": [
+            {
+              "id": "value",
+              "label": "Value",
+              "dataType": "float"
+            },
+            {
+              "id": "base",
+              "label": "Base",
+              "dataType": "frame"
+            },
+            {
+              "id": "paletteIn",
+              "label": "Palette",
+              "dataType": "palette"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "zones",
+        "type": "studioNode",
+        "position": {
+          "x": 3120,
+          "y": 540
+        },
+        "data": {
+          "label": "Zones",
+          "nodeType": "Zones",
+          "category": "composite",
+          "properties": {
+            "aEnabled": true,
+            "aX": 0,
+            "aY": 0,
+            "aW": 0.8378378378378378,
+            "aH": 1,
+            "aFit": true,
+            "bEnabled": true,
+            "bX": 0.8378378378378378,
+            "bY": 0,
+            "bW": 0.16216216216216217,
+            "bH": 1,
+            "bFit": true,
+            "cEnabled": false,
+            "cX": 0,
+            "cY": 0.5,
+            "cW": 0.5,
+            "cH": 0.5,
+            "cFit": false,
+            "dEnabled": false,
+            "dX": 0.5,
+            "dY": 0.5,
+            "dW": 0.5,
+            "dH": 0.5,
+            "dFit": false
+          },
+          "inputs": [
+            {
+              "id": "base",
+              "label": "Base",
+              "dataType": "frame"
+            },
+            {
+              "id": "a",
+              "label": "Zone A",
+              "dataType": "frame"
+            },
+            {
+              "id": "b",
+              "label": "Zone B",
+              "dataType": "frame"
+            },
+            {
+              "id": "c",
+              "label": "Zone C",
+              "dataType": "frame"
+            },
+            {
+              "id": "d",
+              "label": "Zone D",
+              "dataType": "frame"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "out",
+        "type": "studioNode",
+        "position": {
+          "x": 3380,
+          "y": 540
+        },
+        "data": {
+          "label": "LED Matrix",
+          "nodeType": "MatrixOutput",
+          "category": "output",
+          "properties": {
+            "form": "strip",
+            "outputGamma": 1,
+            "width": 16,
+            "height": 16,
+            "ledCount": 37,
+            "ringStartAngle": 0,
+            "ringDirection": "cw",
+            "corkscrewTurns": 6,
+            "corkscrewStartAngle": 0,
+            "corkscrewDirection": "cw",
+            "corkscrewDiameterMm": 100,
+            "corkscrewHeightMm": 300,
+            "chipset": "WS2812B",
+            "dataLink": "Direct",
+            "colorOrder": "GRB",
+            "dataPin": 5,
+            "dataLanes": 1,
+            "lanePins": [],
+            "clockPin": 6,
+            "dataRateMhz": 0,
+            "serpentine": true,
+            "startCorner": "top-left",
+            "firstRun": "horizontal",
+            "layout": "matrix",
+            "tilesX": 1,
+            "tilesY": 1,
+            "tileSerpentine": false,
+            "tileRotations": "",
+            "customXYMap": "",
+            "stripLayout": "line",
+            "positionsPreset": "catenary",
+            "positionsWidth": 32,
+            "positionsHeight": 16,
+            "positionsMmPerUnit": 10,
+            "positions": "",
+            "networkPreset": "hexagons",
+            "network": "",
+            "ledsPerEdge": 14,
+            "routeMode": "native",
+            "routeX": 0,
+            "routeY": 0,
+            "renderResolution": "Full",
+            "correction": "none",
+            "whitePoint": "none",
+            "dither": true,
+            "hub75R1Pin": 1,
+            "hub75G1Pin": 2,
+            "hub75B1Pin": 3,
+            "hub75R2Pin": 4,
+            "hub75G2Pin": 5,
+            "hub75B2Pin": 12,
+            "hub75APin": 13,
+            "hub75BPin": 14,
+            "hub75CPin": 15,
+            "hub75DPin": 16,
+            "hub75EPin": 33,
+            "hub75ClkPin": 0,
+            "hub75LatPin": 17,
+            "hub75OePin": 18,
+            "hub75WideScan": false,
+            "hub75ColorDepthBits": 8
+          },
+          "inputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            },
+            {
+              "id": "enabled",
+              "label": "Enabled",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightness",
+              "label": "Brightness",
+              "dataType": "float"
+            },
+            {
+              "id": "controls",
+              "label": "Controls",
+              "dataType": "playercontrols"
+            },
+            {
+              "id": "ledToggle",
+              "label": "Toggle blackout",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightnessUp",
+              "label": "Brightness Up",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightnessDown",
+              "label": "Brightness Down",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "display",
+              "label": "Display",
+              "dataType": "display"
+            }
+          ]
+        }
+      },
+      {
+        "id": "guide",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": -180
+        },
+        "data": {
+          "label": "Comment",
+          "nodeType": "Comment",
+          "category": "note",
+          "properties": {
+            "text": "TUNER\nThe dot sits in the middle, green, when the string is in tune; left is flat, right is sharp.\nThe button steps through E A D G B E; the last six LEDs show which string.\nChange the Hz on the five Switch nodes for another instrument.",
+            "color": "#74d7ff"
+          },
+          "inputs": [],
+          "outputs": []
+        }
+      },
+      {
+        "id": "board",
+        "type": "studioNode",
+        "position": {
+          "x": -260,
+          "y": 0
+        },
+        "data": {
+          "label": "Board",
+          "nodeType": "Board",
+          "category": "output",
+          "properties": {
+            "profileId": "espressif-esp32-s3-devkitc-1",
+            "brightness": 128,
+            "overclock": 1,
+            "frameRate": 60,
+            "ledDriver": "auto",
+            "powerLimit": true,
+            "milliamps": 2300,
+            "psramPolicy": "auto",
+            "psramMode": "opi",
+            "serialRoute": "auto",
+            "reportTelemetry": false,
+            "clockSync": "off",
+            "wifiHostname": "",
+            "useDhcp": true,
+            "staticIp": "",
+            "staticGateway": "",
+            "staticSubnet": "255.255.255.0",
+            "staticDns": ""
+          },
+          "inputs": [],
+          "outputs": []
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e-audio-pitch-audio-audio",
+        "source": "audio",
+        "sourceHandle": "audio",
+        "target": "pitch",
+        "targetHandle": "audio",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#00e0a4"
+        }
+      },
+      {
+        "id": "e-nextString-string-button-1-increase",
+        "source": "nextString",
+        "sourceHandle": "button-1",
+        "target": "string",
+        "targetHandle": "increase",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-string-atLeast1-value-a",
+        "source": "string",
+        "sourceHandle": "value",
+        "target": "atLeast1",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-string-atLeast2-value-a",
+        "source": "string",
+        "sourceHandle": "value",
+        "target": "atLeast2",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-string-atLeast3-value-a",
+        "source": "string",
+        "sourceHandle": "value",
+        "target": "atLeast3",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-string-atLeast4-value-a",
+        "source": "string",
+        "sourceHandle": "value",
+        "target": "atLeast4",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-string-atLeast5-value-a",
+        "source": "string",
+        "sourceHandle": "value",
+        "target": "atLeast5",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-atLeast1-target1-result-sel",
+        "source": "atLeast1",
+        "sourceHandle": "result",
+        "target": "target1",
+        "targetHandle": "sel",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-target1-target2-result-a",
+        "source": "target1",
+        "sourceHandle": "result",
+        "target": "target2",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-atLeast2-target2-result-sel",
+        "source": "atLeast2",
+        "sourceHandle": "result",
+        "target": "target2",
+        "targetHandle": "sel",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-target2-target3-result-a",
+        "source": "target2",
+        "sourceHandle": "result",
+        "target": "target3",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-atLeast3-target3-result-sel",
+        "source": "atLeast3",
+        "sourceHandle": "result",
+        "target": "target3",
+        "targetHandle": "sel",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-target3-target4-result-a",
+        "source": "target3",
+        "sourceHandle": "result",
+        "target": "target4",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-atLeast4-target4-result-sel",
+        "source": "atLeast4",
+        "sourceHandle": "result",
+        "target": "target4",
+        "targetHandle": "sel",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-target4-target5-result-a",
+        "source": "target4",
+        "sourceHandle": "result",
+        "target": "target5",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-atLeast5-target5-result-sel",
+        "source": "atLeast5",
+        "sourceHandle": "result",
+        "target": "target5",
+        "targetHandle": "sel",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-pitch-ratio-hz-a",
+        "source": "pitch",
+        "sourceHandle": "hz",
+        "target": "ratio",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-target5-ratio-result-b",
+        "source": "target5",
+        "sourceHandle": "result",
+        "target": "ratio",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-ratio-cents-result-value",
+        "source": "ratio",
+        "sourceHandle": "result",
+        "target": "cents",
+        "targetHandle": "value",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-red-flatSharp-color-color0",
+        "source": "red",
+        "sourceHandle": "color",
+        "target": "flatSharp",
+        "targetHandle": "color0",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#ffd24a"
+        }
+      },
+      {
+        "id": "e-green-flatSharp-color-color1",
+        "source": "green",
+        "sourceHandle": "color",
+        "target": "flatSharp",
+        "targetHandle": "color1",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#ffd24a"
+        }
+      },
+      {
+        "id": "e-green2-flatSharp-color-color2",
+        "source": "green2",
+        "sourceHandle": "color",
+        "target": "flatSharp",
+        "targetHandle": "color2",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#ffd24a"
+        }
+      },
+      {
+        "id": "e-red2-flatSharp-color-color3",
+        "source": "red2",
+        "sourceHandle": "color",
+        "target": "flatSharp",
+        "targetHandle": "color3",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#ffd24a"
+        }
+      },
+      {
+        "id": "e-cents-needle-result-value",
+        "source": "cents",
+        "sourceHandle": "result",
+        "target": "needle",
+        "targetHandle": "value",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-flatSharp-needle-palette-paletteIn",
+        "source": "flatSharp",
+        "sourceHandle": "palette",
+        "target": "needle",
+        "targetHandle": "paletteIn",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#ff5cf0"
+        }
+      },
+      {
+        "id": "e-needle-heard-frame-frame",
+        "source": "needle",
+        "sourceHandle": "frame",
+        "target": "heard",
+        "targetHandle": "frame",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-pitch-sure-confidence-value",
+        "source": "pitch",
+        "sourceHandle": "confidence",
+        "target": "sure",
+        "targetHandle": "value",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-sure-heard-result-brightness",
+        "source": "sure",
+        "sourceHandle": "result",
+        "target": "heard",
+        "targetHandle": "brightness",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-string-stringNumber-value-a",
+        "source": "string",
+        "sourceHandle": "value",
+        "target": "stringNumber",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-stringNumber-stringShare-result-a",
+        "source": "stringNumber",
+        "sourceHandle": "result",
+        "target": "stringShare",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-stringShare-stringBar-result-value",
+        "source": "stringShare",
+        "sourceHandle": "result",
+        "target": "stringBar",
+        "targetHandle": "value",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-heard-zones-frame-a",
+        "source": "heard",
+        "sourceHandle": "frame",
+        "target": "zones",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-stringBar-zones-frame-b",
+        "source": "stringBar",
+        "sourceHandle": "frame",
+        "target": "zones",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-zones-out-frame-frame",
+        "source": "zones",
+        "sourceHandle": "frame",
+        "target": "out",
+        "targetHandle": "frame",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      }
+    ]
+  }
+}

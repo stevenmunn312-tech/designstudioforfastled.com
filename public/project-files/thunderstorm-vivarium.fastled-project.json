@@ -1,0 +1,1546 @@
+{
+  "id": "example-thunderstorm-vivarium",
+  "name": "Thunderstorm vivarium",
+  "createdAt": 1794700800000,
+  "updatedAt": 1794700800000,
+  "workspace": {
+    "nodes": [
+      {
+        "id": "clock",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": 360
+        },
+        "data": {
+          "label": "Clock",
+          "nodeType": "RTCInput",
+          "category": "input",
+          "properties": {
+            "timeSource": "DS3231",
+            "ntpServer": "pool.ntp.org",
+            "timeZone": "UTC",
+            "startYear": 2026,
+            "startMonth": 1,
+            "startDay": 1,
+            "startHour": 12,
+            "startMinute": 0,
+            "startSecond": 0
+          },
+          "inputs": [],
+          "outputs": [
+            {
+              "id": "display",
+              "label": "Display",
+              "dataType": "display"
+            },
+            {
+              "id": "dateTime",
+              "label": "DateTime",
+              "dataType": "datetime"
+            },
+            {
+              "id": "valid",
+              "label": "Valid",
+              "dataType": "bool"
+            },
+            {
+              "id": "synced",
+              "label": "Synced",
+              "dataType": "bool"
+            },
+            {
+              "id": "stale",
+              "label": "Stale",
+              "dataType": "bool"
+            },
+            {
+              "id": "hour",
+              "label": "Hour",
+              "dataType": "float"
+            },
+            {
+              "id": "minute",
+              "label": "Minute",
+              "dataType": "float"
+            },
+            {
+              "id": "second",
+              "label": "Second",
+              "dataType": "float"
+            },
+            {
+              "id": "weekday",
+              "label": "Weekday",
+              "dataType": "float"
+            },
+            {
+              "id": "day",
+              "label": "Day",
+              "dataType": "float"
+            },
+            {
+              "id": "month",
+              "label": "Month",
+              "dataType": "float"
+            },
+            {
+              "id": "year",
+              "label": "Year",
+              "dataType": "float"
+            },
+            {
+              "id": "secondsOfDay",
+              "label": "Seconds Today",
+              "dataType": "float"
+            },
+            {
+              "id": "weekend",
+              "label": "Weekend",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "rtc",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": 540
+        },
+        "data": {
+          "label": "DS3231 RTC",
+          "nodeType": "RtcModule",
+          "category": "hardware",
+          "properties": {
+            "partId": "ds3231-rtc-module",
+            "sdaPin": 8,
+            "sclPin": 9
+          },
+          "inputs": [],
+          "outputs": []
+        }
+      },
+      {
+        "id": "dawn",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 0
+        },
+        "data": {
+          "label": "Dawn",
+          "nodeType": "ScheduleTrigger",
+          "category": "signal",
+          "properties": {
+            "scheduleMode": "Window",
+            "dayMode": "Every day",
+            "start": "07:00",
+            "end": "08:00",
+            "monday": true,
+            "tuesday": true,
+            "wednesday": true,
+            "thursday": true,
+            "friday": true,
+            "saturday": true,
+            "sunday": true,
+            "requireSync": false,
+            "enable": true
+          },
+          "inputs": [
+            {
+              "id": "dateTime",
+              "label": "DateTime",
+              "dataType": "datetime"
+            },
+            {
+              "id": "enable",
+              "label": "Enable",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "active",
+              "label": "Active",
+              "dataType": "bool"
+            },
+            {
+              "id": "start",
+              "label": "Start Pulse",
+              "dataType": "bool"
+            },
+            {
+              "id": "end",
+              "label": "End Pulse",
+              "dataType": "bool"
+            },
+            {
+              "id": "progress",
+              "label": "Progress",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "day",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 180
+        },
+        "data": {
+          "label": "Day",
+          "nodeType": "ScheduleTrigger",
+          "category": "signal",
+          "properties": {
+            "scheduleMode": "Window",
+            "dayMode": "Every day",
+            "start": "08:00",
+            "end": "19:00",
+            "monday": true,
+            "tuesday": true,
+            "wednesday": true,
+            "thursday": true,
+            "friday": true,
+            "saturday": true,
+            "sunday": true,
+            "requireSync": false,
+            "enable": true
+          },
+          "inputs": [
+            {
+              "id": "dateTime",
+              "label": "DateTime",
+              "dataType": "datetime"
+            },
+            {
+              "id": "enable",
+              "label": "Enable",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "active",
+              "label": "Active",
+              "dataType": "bool"
+            },
+            {
+              "id": "start",
+              "label": "Start Pulse",
+              "dataType": "bool"
+            },
+            {
+              "id": "end",
+              "label": "End Pulse",
+              "dataType": "bool"
+            },
+            {
+              "id": "progress",
+              "label": "Progress",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "dusk",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 360
+        },
+        "data": {
+          "label": "Dusk",
+          "nodeType": "ScheduleTrigger",
+          "category": "signal",
+          "properties": {
+            "scheduleMode": "Window",
+            "dayMode": "Every day",
+            "start": "19:00",
+            "end": "20:00",
+            "monday": true,
+            "tuesday": true,
+            "wednesday": true,
+            "thursday": true,
+            "friday": true,
+            "saturday": true,
+            "sunday": true,
+            "requireSync": false,
+            "enable": true
+          },
+          "inputs": [
+            {
+              "id": "dateTime",
+              "label": "DateTime",
+              "dataType": "datetime"
+            },
+            {
+              "id": "enable",
+              "label": "Enable",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "active",
+              "label": "Active",
+              "dataType": "bool"
+            },
+            {
+              "id": "start",
+              "label": "Start Pulse",
+              "dataType": "bool"
+            },
+            {
+              "id": "end",
+              "label": "End Pulse",
+              "dataType": "bool"
+            },
+            {
+              "id": "progress",
+              "label": "Progress",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "storm",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 540
+        },
+        "data": {
+          "label": "Afternoon storm",
+          "nodeType": "ScheduleTrigger",
+          "category": "signal",
+          "properties": {
+            "scheduleMode": "Window",
+            "dayMode": "Every day",
+            "start": "15:00",
+            "end": "15:15",
+            "monday": true,
+            "tuesday": true,
+            "wednesday": true,
+            "thursday": true,
+            "friday": true,
+            "saturday": true,
+            "sunday": true,
+            "requireSync": false,
+            "enable": true
+          },
+          "inputs": [
+            {
+              "id": "dateTime",
+              "label": "DateTime",
+              "dataType": "datetime"
+            },
+            {
+              "id": "enable",
+              "label": "Enable",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "active",
+              "label": "Active",
+              "dataType": "bool"
+            },
+            {
+              "id": "start",
+              "label": "Start Pulse",
+              "dataType": "bool"
+            },
+            {
+              "id": "end",
+              "label": "End Pulse",
+              "dataType": "bool"
+            },
+            {
+              "id": "progress",
+              "label": "Progress",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "moon",
+        "type": "studioNode",
+        "position": {
+          "x": 520,
+          "y": 900
+        },
+        "data": {
+          "label": "Moonlight",
+          "nodeType": "Pacifica",
+          "category": "pattern",
+          "properties": {
+            "speed": 0.15,
+            "scale": 0.5,
+            "palette": "deepsea"
+          },
+          "inputs": [
+            {
+              "id": "speed",
+              "label": "Speed",
+              "dataType": "float"
+            },
+            {
+              "id": "scale",
+              "label": "Scale",
+              "dataType": "float"
+            },
+            {
+              "id": "paletteIn",
+              "label": "Palette",
+              "dataType": "palette"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "moonDim",
+        "type": "studioNode",
+        "position": {
+          "x": 780,
+          "y": 900
+        },
+        "data": {
+          "label": "Brightness",
+          "nodeType": "BrightnessMod",
+          "category": "composite",
+          "properties": {
+            "brightness": 0.15
+          },
+          "inputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            },
+            {
+              "id": "brightness",
+              "label": "Brightness",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "sunrise",
+        "type": "studioNode",
+        "position": {
+          "x": 520,
+          "y": 0
+        },
+        "data": {
+          "label": "Sunrise",
+          "nodeType": "Sunrise",
+          "category": "pattern",
+          "properties": {
+            "mode": "manual",
+            "duration": 30,
+            "start": 0,
+            "progress": 0
+          },
+          "inputs": [
+            {
+              "id": "progress",
+              "label": "Progress",
+              "dataType": "float"
+            },
+            {
+              "id": "duration",
+              "label": "Duration",
+              "dataType": "float"
+            },
+            {
+              "id": "start",
+              "label": "Start",
+              "dataType": "float"
+            },
+            {
+              "id": "trigger",
+              "label": "Trigger",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "remaining",
+        "type": "studioNode",
+        "position": {
+          "x": 520,
+          "y": 360
+        },
+        "data": {
+          "label": "Dusk, backwards",
+          "nodeType": "Math",
+          "category": "math",
+          "properties": {
+            "mathOp": "subtract",
+            "a": 1,
+            "b": 0
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "sunset",
+        "type": "studioNode",
+        "position": {
+          "x": 780,
+          "y": 360
+        },
+        "data": {
+          "label": "Sunset",
+          "nodeType": "Sunrise",
+          "category": "pattern",
+          "properties": {
+            "mode": "manual",
+            "duration": 30,
+            "start": 0,
+            "progress": 0
+          },
+          "inputs": [
+            {
+              "id": "progress",
+              "label": "Progress",
+              "dataType": "float"
+            },
+            {
+              "id": "duration",
+              "label": "Duration",
+              "dataType": "float"
+            },
+            {
+              "id": "start",
+              "label": "Start",
+              "dataType": "float"
+            },
+            {
+              "id": "trigger",
+              "label": "Trigger",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "daylightWhite",
+        "type": "studioNode",
+        "position": {
+          "x": 520,
+          "y": 180
+        },
+        "data": {
+          "label": "Color Temperature",
+          "nodeType": "Temperature",
+          "category": "color",
+          "properties": {
+            "kelvin": 6000
+          },
+          "inputs": [
+            {
+              "id": "kelvin",
+              "label": "Kelvin (K)",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "color",
+              "label": "Color",
+              "dataType": "color"
+            }
+          ]
+        }
+      },
+      {
+        "id": "daylight",
+        "type": "studioNode",
+        "position": {
+          "x": 780,
+          "y": 180
+        },
+        "data": {
+          "label": "Solid Color",
+          "nodeType": "SolidColor",
+          "category": "pattern",
+          "properties": {
+            "r": 255,
+            "g": 0,
+            "b": 128
+          },
+          "inputs": [
+            {
+              "id": "color",
+              "label": "Color",
+              "dataType": "color"
+            },
+            {
+              "id": "r",
+              "label": "R",
+              "dataType": "float"
+            },
+            {
+              "id": "g",
+              "label": "G",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "overcast",
+        "type": "studioNode",
+        "position": {
+          "x": 780,
+          "y": 540
+        },
+        "data": {
+          "label": "Storm clouds",
+          "nodeType": "BrightnessMod",
+          "category": "composite",
+          "properties": {
+            "brightness": 0.2
+          },
+          "inputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            },
+            {
+              "id": "brightness",
+              "label": "Brightness",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "lightning",
+        "type": "studioNode",
+        "position": {
+          "x": 780,
+          "y": 720
+        },
+        "data": {
+          "label": "Lightning",
+          "nodeType": "Lightning",
+          "category": "pattern",
+          "properties": {
+            "rate": 8,
+            "intensity": 1,
+            "color": "#cfe0ff"
+          },
+          "inputs": [
+            {
+              "id": "rate",
+              "label": "Rate",
+              "dataType": "float"
+            },
+            {
+              "id": "intensity",
+              "label": "Intensity",
+              "dataType": "float"
+            },
+            {
+              "id": "trigger",
+              "label": "Trigger",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "stormSky",
+        "type": "studioNode",
+        "position": {
+          "x": 1040,
+          "y": 540
+        },
+        "data": {
+          "label": "Blend",
+          "nodeType": "Blend",
+          "category": "composite",
+          "properties": {
+            "blendMode": "lighten",
+            "amount": 1
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "frame"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "frame"
+            },
+            {
+              "id": "amount",
+              "label": "Opacity",
+              "dataType": "float"
+            },
+            {
+              "id": "mask",
+              "label": "Mask",
+              "dataType": "frame"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "atDawn",
+        "type": "studioNode",
+        "position": {
+          "x": 1040,
+          "y": 0
+        },
+        "data": {
+          "label": "Frame Switch",
+          "nodeType": "FrameSwitch",
+          "category": "composite",
+          "properties": {
+            "select": false
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "Frame A",
+              "dataType": "frame"
+            },
+            {
+              "id": "b",
+              "label": "Frame B",
+              "dataType": "frame"
+            },
+            {
+              "id": "sel",
+              "label": "Select",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "atDay",
+        "type": "studioNode",
+        "position": {
+          "x": 1300,
+          "y": 180
+        },
+        "data": {
+          "label": "Frame Switch",
+          "nodeType": "FrameSwitch",
+          "category": "composite",
+          "properties": {
+            "select": false
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "Frame A",
+              "dataType": "frame"
+            },
+            {
+              "id": "b",
+              "label": "Frame B",
+              "dataType": "frame"
+            },
+            {
+              "id": "sel",
+              "label": "Select",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "atDusk",
+        "type": "studioNode",
+        "position": {
+          "x": 1560,
+          "y": 360
+        },
+        "data": {
+          "label": "Frame Switch",
+          "nodeType": "FrameSwitch",
+          "category": "composite",
+          "properties": {
+            "select": false
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "Frame A",
+              "dataType": "frame"
+            },
+            {
+              "id": "b",
+              "label": "Frame B",
+              "dataType": "frame"
+            },
+            {
+              "id": "sel",
+              "label": "Select",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "atStorm",
+        "type": "studioNode",
+        "position": {
+          "x": 1820,
+          "y": 540
+        },
+        "data": {
+          "label": "Frame Switch",
+          "nodeType": "FrameSwitch",
+          "category": "composite",
+          "properties": {
+            "select": false
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "Frame A",
+              "dataType": "frame"
+            },
+            {
+              "id": "b",
+              "label": "Frame B",
+              "dataType": "frame"
+            },
+            {
+              "id": "sel",
+              "label": "Select",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "out",
+        "type": "studioNode",
+        "position": {
+          "x": 2080,
+          "y": 540
+        },
+        "data": {
+          "label": "LED Matrix",
+          "nodeType": "MatrixOutput",
+          "category": "output",
+          "properties": {
+            "form": "strip",
+            "outputGamma": 1,
+            "width": 16,
+            "height": 16,
+            "ledCount": 60,
+            "ringStartAngle": 0,
+            "ringDirection": "cw",
+            "corkscrewTurns": 6,
+            "corkscrewStartAngle": 0,
+            "corkscrewDirection": "cw",
+            "corkscrewDiameterMm": 100,
+            "corkscrewHeightMm": 300,
+            "chipset": "WS2812B",
+            "dataLink": "Direct",
+            "colorOrder": "GRB",
+            "dataPin": 1,
+            "dataLanes": 1,
+            "lanePins": [],
+            "clockPin": 6,
+            "dataRateMhz": 0,
+            "serpentine": true,
+            "startCorner": "top-left",
+            "firstRun": "horizontal",
+            "layout": "matrix",
+            "tilesX": 1,
+            "tilesY": 1,
+            "tileSerpentine": false,
+            "tileRotations": "",
+            "customXYMap": "",
+            "stripLayout": "line",
+            "positionsPreset": "catenary",
+            "positionsWidth": 32,
+            "positionsHeight": 16,
+            "positionsMmPerUnit": 10,
+            "positions": "",
+            "networkPreset": "hexagons",
+            "network": "",
+            "ledsPerEdge": 14,
+            "routeMode": "native",
+            "routeX": 0,
+            "routeY": 0,
+            "renderResolution": "Full",
+            "correction": "none",
+            "whitePoint": "none",
+            "dither": true,
+            "hub75R1Pin": 1,
+            "hub75G1Pin": 2,
+            "hub75B1Pin": 3,
+            "hub75R2Pin": 4,
+            "hub75G2Pin": 5,
+            "hub75B2Pin": 12,
+            "hub75APin": 13,
+            "hub75BPin": 14,
+            "hub75CPin": 15,
+            "hub75DPin": 16,
+            "hub75EPin": 33,
+            "hub75ClkPin": 0,
+            "hub75LatPin": 17,
+            "hub75OePin": 18,
+            "hub75WideScan": false,
+            "hub75ColorDepthBits": 8,
+            "assignedPins": {
+              "dataPin": 1
+            },
+            "assignedPinsBoard": "espressif-esp32-s3-devkitc-1",
+            "userPinsByBoard": {}
+          },
+          "inputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            },
+            {
+              "id": "enabled",
+              "label": "Enabled",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightness",
+              "label": "Brightness",
+              "dataType": "float"
+            },
+            {
+              "id": "controls",
+              "label": "Controls",
+              "dataType": "playercontrols"
+            },
+            {
+              "id": "ledToggle",
+              "label": "Toggle blackout",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightnessUp",
+              "label": "Brightness Up",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightnessDown",
+              "label": "Brightness Down",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "display",
+              "label": "Display",
+              "dataType": "display"
+            }
+          ]
+        }
+      },
+      {
+        "id": "thunder",
+        "type": "studioNode",
+        "position": {
+          "x": 2080,
+          "y": 900
+        },
+        "data": {
+          "label": "DFPlayer Mini",
+          "nodeType": "DFPlayerOutput",
+          "category": "output",
+          "properties": {
+            "partId": "dfplayer-mini",
+            "uartRxPin": 2,
+            "uartTxPin": 4,
+            "busyPin": 6,
+            "play": false,
+            "track": 1,
+            "volume": 0.6,
+            "audioOutput": "Speaker",
+            "assignedPins": {
+              "uartRxPin": 2,
+              "uartTxPin": 4,
+              "busyPin": 6
+            },
+            "assignedPinsBoard": "espressif-esp32-s3-devkitc-1",
+            "userPinsByBoard": {}
+          },
+          "inputs": [
+            {
+              "id": "play",
+              "label": "Play",
+              "dataType": "bool"
+            },
+            {
+              "id": "next",
+              "label": "Next",
+              "dataType": "bool"
+            },
+            {
+              "id": "previous",
+              "label": "Previous",
+              "dataType": "bool"
+            },
+            {
+              "id": "track",
+              "label": "Track",
+              "dataType": "float"
+            },
+            {
+              "id": "volume",
+              "label": "Volume",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "playing",
+              "label": "Playing",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "mister",
+        "type": "studioNode",
+        "position": {
+          "x": 2080,
+          "y": 1080
+        },
+        "data": {
+          "label": "Relay Module",
+          "nodeType": "RelayOutput",
+          "category": "output",
+          "properties": {
+            "partId": "relay-module-1ch-5v",
+            "in1Pin": 5,
+            "in2Pin": 16,
+            "in3Pin": 17,
+            "in4Pin": 18,
+            "in5Pin": 19,
+            "in6Pin": 21,
+            "in7Pin": 22,
+            "in8Pin": 23
+          },
+          "inputs": [
+            {
+              "id": "channel1",
+              "label": "Channel 1",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": []
+        }
+      },
+      {
+        "id": "guide",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": -180
+        },
+        "data": {
+          "label": "Comment",
+          "nodeType": "Comment",
+          "category": "note",
+          "properties": {
+            "text": "THUNDERSTORM VIVARIUM\nDawn, daylight, dusk and moonlight follow the clock.\nAt 15:00 a 15-minute storm: lightning, thunder (0001.mp3 on the DFPlayer card) and the mister on the relay.\nMove the storm window to suit your animals.",
+            "color": "#74d7ff"
+          },
+          "inputs": [],
+          "outputs": []
+        }
+      },
+      {
+        "id": "board",
+        "type": "studioNode",
+        "position": {
+          "x": -260,
+          "y": 0
+        },
+        "data": {
+          "label": "Board",
+          "nodeType": "Board",
+          "category": "output",
+          "properties": {
+            "profileId": "espressif-esp32-s3-devkitc-1",
+            "brightness": 128,
+            "overclock": 1,
+            "frameRate": 60,
+            "ledDriver": "auto",
+            "powerLimit": true,
+            "milliamps": 3600,
+            "psramPolicy": "auto",
+            "psramMode": "opi",
+            "serialRoute": "auto",
+            "reportTelemetry": false,
+            "clockSync": "off",
+            "wifiHostname": "",
+            "useDhcp": true,
+            "staticIp": "",
+            "staticGateway": "",
+            "staticSubnet": "255.255.255.0",
+            "staticDns": ""
+          },
+          "inputs": [],
+          "outputs": []
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e-clock-dawn-dateTime-dateTime",
+        "source": "clock",
+        "sourceHandle": "dateTime",
+        "target": "dawn",
+        "targetHandle": "dateTime",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#d8ff63"
+        }
+      },
+      {
+        "id": "e-clock-day-dateTime-dateTime",
+        "source": "clock",
+        "sourceHandle": "dateTime",
+        "target": "day",
+        "targetHandle": "dateTime",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#d8ff63"
+        }
+      },
+      {
+        "id": "e-clock-dusk-dateTime-dateTime",
+        "source": "clock",
+        "sourceHandle": "dateTime",
+        "target": "dusk",
+        "targetHandle": "dateTime",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#d8ff63"
+        }
+      },
+      {
+        "id": "e-clock-storm-dateTime-dateTime",
+        "source": "clock",
+        "sourceHandle": "dateTime",
+        "target": "storm",
+        "targetHandle": "dateTime",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#d8ff63"
+        }
+      },
+      {
+        "id": "e-moon-moonDim-frame-frame",
+        "source": "moon",
+        "sourceHandle": "frame",
+        "target": "moonDim",
+        "targetHandle": "frame",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-dawn-sunrise-progress-progress",
+        "source": "dawn",
+        "sourceHandle": "progress",
+        "target": "sunrise",
+        "targetHandle": "progress",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-dusk-remaining-progress-b",
+        "source": "dusk",
+        "sourceHandle": "progress",
+        "target": "remaining",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-remaining-sunset-result-progress",
+        "source": "remaining",
+        "sourceHandle": "result",
+        "target": "sunset",
+        "targetHandle": "progress",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-daylightWhite-daylight-color-color",
+        "source": "daylightWhite",
+        "sourceHandle": "color",
+        "target": "daylight",
+        "targetHandle": "color",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#ffd24a"
+        }
+      },
+      {
+        "id": "e-daylight-overcast-frame-frame",
+        "source": "daylight",
+        "sourceHandle": "frame",
+        "target": "overcast",
+        "targetHandle": "frame",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-overcast-stormSky-frame-a",
+        "source": "overcast",
+        "sourceHandle": "frame",
+        "target": "stormSky",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-lightning-stormSky-frame-b",
+        "source": "lightning",
+        "sourceHandle": "frame",
+        "target": "stormSky",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-moonDim-atDawn-frame-a",
+        "source": "moonDim",
+        "sourceHandle": "frame",
+        "target": "atDawn",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-sunrise-atDawn-frame-b",
+        "source": "sunrise",
+        "sourceHandle": "frame",
+        "target": "atDawn",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-dawn-atDawn-active-sel",
+        "source": "dawn",
+        "sourceHandle": "active",
+        "target": "atDawn",
+        "targetHandle": "sel",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-atDawn-atDay-frame-a",
+        "source": "atDawn",
+        "sourceHandle": "frame",
+        "target": "atDay",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-daylight-atDay-frame-b",
+        "source": "daylight",
+        "sourceHandle": "frame",
+        "target": "atDay",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-day-atDay-active-sel",
+        "source": "day",
+        "sourceHandle": "active",
+        "target": "atDay",
+        "targetHandle": "sel",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-atDay-atDusk-frame-a",
+        "source": "atDay",
+        "sourceHandle": "frame",
+        "target": "atDusk",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-sunset-atDusk-frame-b",
+        "source": "sunset",
+        "sourceHandle": "frame",
+        "target": "atDusk",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-dusk-atDusk-active-sel",
+        "source": "dusk",
+        "sourceHandle": "active",
+        "target": "atDusk",
+        "targetHandle": "sel",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-atDusk-atStorm-frame-a",
+        "source": "atDusk",
+        "sourceHandle": "frame",
+        "target": "atStorm",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-stormSky-atStorm-frame-b",
+        "source": "stormSky",
+        "sourceHandle": "frame",
+        "target": "atStorm",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-storm-atStorm-active-sel",
+        "source": "storm",
+        "sourceHandle": "active",
+        "target": "atStorm",
+        "targetHandle": "sel",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-atStorm-out-frame-frame",
+        "source": "atStorm",
+        "sourceHandle": "frame",
+        "target": "out",
+        "targetHandle": "frame",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-storm-thunder-active-play",
+        "source": "storm",
+        "sourceHandle": "active",
+        "target": "thunder",
+        "targetHandle": "play",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-storm-mister-active-channel1",
+        "source": "storm",
+        "sourceHandle": "active",
+        "target": "mister",
+        "targetHandle": "channel1",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      }
+    ]
+  }
+}

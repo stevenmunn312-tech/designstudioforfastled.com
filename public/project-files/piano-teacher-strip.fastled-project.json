@@ -1,0 +1,3022 @@
+{
+  "id": "example-piano-teacher-strip",
+  "name": "Piano teacher strip",
+  "createdAt": 1794700800000,
+  "updatedAt": 1794700800000,
+  "workspace": {
+    "nodes": [
+      {
+        "id": "midiPort",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": -180
+        },
+        "data": {
+          "label": "MIDI Interface",
+          "nodeType": "MidiInterface",
+          "category": "hardware",
+          "properties": {
+            "partId": "adafruit-midi-featherwing",
+            "midiRxPin": 1,
+            "assignedPins": {
+              "midiRxPin": 1
+            },
+            "assignedPinsBoard": "espressif-esp32-s3-devkitc-1",
+            "userPinsByBoard": {}
+          },
+          "inputs": [],
+          "outputs": []
+        }
+      },
+      {
+        "id": "guide",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": -180
+        },
+        "data": {
+          "label": "Comment",
+          "nodeType": "Comment",
+          "category": "note",
+          "properties": {
+            "text": "PIANO TEACHER\nBlue shows the next note of the lesson; keys you play light green.\nThe lesson is C E G E, a note every two seconds.\nMove the four blue Lines to teach a different phrase.",
+            "color": "#74d7ff"
+          },
+          "inputs": [],
+          "outputs": []
+        }
+      },
+      {
+        "id": "key0",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": 0
+        },
+        "data": {
+          "label": "C4",
+          "nodeType": "MidiInput",
+          "category": "input",
+          "properties": {
+            "note": 60,
+            "cc": 1,
+            "channel": 0,
+            "midiSource": "DIN (UART)"
+          },
+          "inputs": [],
+          "outputs": [
+            {
+              "id": "note",
+              "label": "Velocity",
+              "dataType": "float"
+            },
+            {
+              "id": "gate",
+              "label": "Gate",
+              "dataType": "bool"
+            },
+            {
+              "id": "cc",
+              "label": "CC",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "lit0",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 0
+        },
+        "data": {
+          "label": "C4 green",
+          "nodeType": "Math",
+          "category": "math",
+          "properties": {
+            "mathOp": "multiply",
+            "a": 0,
+            "b": 255
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "draw0",
+        "type": "studioNode",
+        "position": {
+          "x": 520,
+          "y": 0
+        },
+        "data": {
+          "label": "C4 key",
+          "nodeType": "Line",
+          "category": "pattern",
+          "properties": {
+            "units": "pixels",
+            "x1": 0,
+            "y1": 0,
+            "x2": 1,
+            "y2": 0,
+            "thickness": 1,
+            "r": 0,
+            "g": 0,
+            "b": 0
+          },
+          "inputs": [
+            {
+              "id": "base",
+              "label": "Base",
+              "dataType": "frame"
+            },
+            {
+              "id": "color",
+              "label": "Color",
+              "dataType": "color"
+            },
+            {
+              "id": "x1",
+              "label": "X1",
+              "dataType": "float"
+            },
+            {
+              "id": "y1",
+              "label": "Y1",
+              "dataType": "float"
+            },
+            {
+              "id": "x2",
+              "label": "X2",
+              "dataType": "float"
+            },
+            {
+              "id": "y2",
+              "label": "Y2",
+              "dataType": "float"
+            },
+            {
+              "id": "thickness",
+              "label": "Thickness",
+              "dataType": "float"
+            },
+            {
+              "id": "r",
+              "label": "R",
+              "dataType": "float"
+            },
+            {
+              "id": "g",
+              "label": "G",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "key1",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": 180
+        },
+        "data": {
+          "label": "C♯4",
+          "nodeType": "MidiInput",
+          "category": "input",
+          "properties": {
+            "note": 61,
+            "cc": 1,
+            "channel": 0,
+            "midiSource": "DIN (UART)"
+          },
+          "inputs": [],
+          "outputs": [
+            {
+              "id": "note",
+              "label": "Velocity",
+              "dataType": "float"
+            },
+            {
+              "id": "gate",
+              "label": "Gate",
+              "dataType": "bool"
+            },
+            {
+              "id": "cc",
+              "label": "CC",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "lit1",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 180
+        },
+        "data": {
+          "label": "C♯4 green",
+          "nodeType": "Math",
+          "category": "math",
+          "properties": {
+            "mathOp": "multiply",
+            "a": 0,
+            "b": 255
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "draw1",
+        "type": "studioNode",
+        "position": {
+          "x": 585,
+          "y": 180
+        },
+        "data": {
+          "label": "C♯4 key",
+          "nodeType": "Line",
+          "category": "pattern",
+          "properties": {
+            "units": "pixels",
+            "x1": 2,
+            "y1": 0,
+            "x2": 3,
+            "y2": 0,
+            "thickness": 1,
+            "r": 0,
+            "g": 0,
+            "b": 0
+          },
+          "inputs": [
+            {
+              "id": "base",
+              "label": "Base",
+              "dataType": "frame"
+            },
+            {
+              "id": "color",
+              "label": "Color",
+              "dataType": "color"
+            },
+            {
+              "id": "x1",
+              "label": "X1",
+              "dataType": "float"
+            },
+            {
+              "id": "y1",
+              "label": "Y1",
+              "dataType": "float"
+            },
+            {
+              "id": "x2",
+              "label": "X2",
+              "dataType": "float"
+            },
+            {
+              "id": "y2",
+              "label": "Y2",
+              "dataType": "float"
+            },
+            {
+              "id": "thickness",
+              "label": "Thickness",
+              "dataType": "float"
+            },
+            {
+              "id": "r",
+              "label": "R",
+              "dataType": "float"
+            },
+            {
+              "id": "g",
+              "label": "G",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "key2",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": 360
+        },
+        "data": {
+          "label": "D4",
+          "nodeType": "MidiInput",
+          "category": "input",
+          "properties": {
+            "note": 62,
+            "cc": 1,
+            "channel": 0,
+            "midiSource": "DIN (UART)"
+          },
+          "inputs": [],
+          "outputs": [
+            {
+              "id": "note",
+              "label": "Velocity",
+              "dataType": "float"
+            },
+            {
+              "id": "gate",
+              "label": "Gate",
+              "dataType": "bool"
+            },
+            {
+              "id": "cc",
+              "label": "CC",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "lit2",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 360
+        },
+        "data": {
+          "label": "D4 green",
+          "nodeType": "Math",
+          "category": "math",
+          "properties": {
+            "mathOp": "multiply",
+            "a": 0,
+            "b": 255
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "draw2",
+        "type": "studioNode",
+        "position": {
+          "x": 650,
+          "y": 360
+        },
+        "data": {
+          "label": "D4 key",
+          "nodeType": "Line",
+          "category": "pattern",
+          "properties": {
+            "units": "pixels",
+            "x1": 4,
+            "y1": 0,
+            "x2": 5,
+            "y2": 0,
+            "thickness": 1,
+            "r": 0,
+            "g": 0,
+            "b": 0
+          },
+          "inputs": [
+            {
+              "id": "base",
+              "label": "Base",
+              "dataType": "frame"
+            },
+            {
+              "id": "color",
+              "label": "Color",
+              "dataType": "color"
+            },
+            {
+              "id": "x1",
+              "label": "X1",
+              "dataType": "float"
+            },
+            {
+              "id": "y1",
+              "label": "Y1",
+              "dataType": "float"
+            },
+            {
+              "id": "x2",
+              "label": "X2",
+              "dataType": "float"
+            },
+            {
+              "id": "y2",
+              "label": "Y2",
+              "dataType": "float"
+            },
+            {
+              "id": "thickness",
+              "label": "Thickness",
+              "dataType": "float"
+            },
+            {
+              "id": "r",
+              "label": "R",
+              "dataType": "float"
+            },
+            {
+              "id": "g",
+              "label": "G",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "key3",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": 540
+        },
+        "data": {
+          "label": "D♯4",
+          "nodeType": "MidiInput",
+          "category": "input",
+          "properties": {
+            "note": 63,
+            "cc": 1,
+            "channel": 0,
+            "midiSource": "DIN (UART)"
+          },
+          "inputs": [],
+          "outputs": [
+            {
+              "id": "note",
+              "label": "Velocity",
+              "dataType": "float"
+            },
+            {
+              "id": "gate",
+              "label": "Gate",
+              "dataType": "bool"
+            },
+            {
+              "id": "cc",
+              "label": "CC",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "lit3",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 540
+        },
+        "data": {
+          "label": "D♯4 green",
+          "nodeType": "Math",
+          "category": "math",
+          "properties": {
+            "mathOp": "multiply",
+            "a": 0,
+            "b": 255
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "draw3",
+        "type": "studioNode",
+        "position": {
+          "x": 715,
+          "y": 540
+        },
+        "data": {
+          "label": "D♯4 key",
+          "nodeType": "Line",
+          "category": "pattern",
+          "properties": {
+            "units": "pixels",
+            "x1": 6,
+            "y1": 0,
+            "x2": 7,
+            "y2": 0,
+            "thickness": 1,
+            "r": 0,
+            "g": 0,
+            "b": 0
+          },
+          "inputs": [
+            {
+              "id": "base",
+              "label": "Base",
+              "dataType": "frame"
+            },
+            {
+              "id": "color",
+              "label": "Color",
+              "dataType": "color"
+            },
+            {
+              "id": "x1",
+              "label": "X1",
+              "dataType": "float"
+            },
+            {
+              "id": "y1",
+              "label": "Y1",
+              "dataType": "float"
+            },
+            {
+              "id": "x2",
+              "label": "X2",
+              "dataType": "float"
+            },
+            {
+              "id": "y2",
+              "label": "Y2",
+              "dataType": "float"
+            },
+            {
+              "id": "thickness",
+              "label": "Thickness",
+              "dataType": "float"
+            },
+            {
+              "id": "r",
+              "label": "R",
+              "dataType": "float"
+            },
+            {
+              "id": "g",
+              "label": "G",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "key4",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": 720
+        },
+        "data": {
+          "label": "E4",
+          "nodeType": "MidiInput",
+          "category": "input",
+          "properties": {
+            "note": 64,
+            "cc": 1,
+            "channel": 0,
+            "midiSource": "DIN (UART)"
+          },
+          "inputs": [],
+          "outputs": [
+            {
+              "id": "note",
+              "label": "Velocity",
+              "dataType": "float"
+            },
+            {
+              "id": "gate",
+              "label": "Gate",
+              "dataType": "bool"
+            },
+            {
+              "id": "cc",
+              "label": "CC",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "lit4",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 720
+        },
+        "data": {
+          "label": "E4 green",
+          "nodeType": "Math",
+          "category": "math",
+          "properties": {
+            "mathOp": "multiply",
+            "a": 0,
+            "b": 255
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "draw4",
+        "type": "studioNode",
+        "position": {
+          "x": 780,
+          "y": 720
+        },
+        "data": {
+          "label": "E4 key",
+          "nodeType": "Line",
+          "category": "pattern",
+          "properties": {
+            "units": "pixels",
+            "x1": 8,
+            "y1": 0,
+            "x2": 9,
+            "y2": 0,
+            "thickness": 1,
+            "r": 0,
+            "g": 0,
+            "b": 0
+          },
+          "inputs": [
+            {
+              "id": "base",
+              "label": "Base",
+              "dataType": "frame"
+            },
+            {
+              "id": "color",
+              "label": "Color",
+              "dataType": "color"
+            },
+            {
+              "id": "x1",
+              "label": "X1",
+              "dataType": "float"
+            },
+            {
+              "id": "y1",
+              "label": "Y1",
+              "dataType": "float"
+            },
+            {
+              "id": "x2",
+              "label": "X2",
+              "dataType": "float"
+            },
+            {
+              "id": "y2",
+              "label": "Y2",
+              "dataType": "float"
+            },
+            {
+              "id": "thickness",
+              "label": "Thickness",
+              "dataType": "float"
+            },
+            {
+              "id": "r",
+              "label": "R",
+              "dataType": "float"
+            },
+            {
+              "id": "g",
+              "label": "G",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "key5",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": 900
+        },
+        "data": {
+          "label": "F4",
+          "nodeType": "MidiInput",
+          "category": "input",
+          "properties": {
+            "note": 65,
+            "cc": 1,
+            "channel": 0,
+            "midiSource": "DIN (UART)"
+          },
+          "inputs": [],
+          "outputs": [
+            {
+              "id": "note",
+              "label": "Velocity",
+              "dataType": "float"
+            },
+            {
+              "id": "gate",
+              "label": "Gate",
+              "dataType": "bool"
+            },
+            {
+              "id": "cc",
+              "label": "CC",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "lit5",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 900
+        },
+        "data": {
+          "label": "F4 green",
+          "nodeType": "Math",
+          "category": "math",
+          "properties": {
+            "mathOp": "multiply",
+            "a": 0,
+            "b": 255
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "draw5",
+        "type": "studioNode",
+        "position": {
+          "x": 845,
+          "y": 900
+        },
+        "data": {
+          "label": "F4 key",
+          "nodeType": "Line",
+          "category": "pattern",
+          "properties": {
+            "units": "pixels",
+            "x1": 10,
+            "y1": 0,
+            "x2": 11,
+            "y2": 0,
+            "thickness": 1,
+            "r": 0,
+            "g": 0,
+            "b": 0
+          },
+          "inputs": [
+            {
+              "id": "base",
+              "label": "Base",
+              "dataType": "frame"
+            },
+            {
+              "id": "color",
+              "label": "Color",
+              "dataType": "color"
+            },
+            {
+              "id": "x1",
+              "label": "X1",
+              "dataType": "float"
+            },
+            {
+              "id": "y1",
+              "label": "Y1",
+              "dataType": "float"
+            },
+            {
+              "id": "x2",
+              "label": "X2",
+              "dataType": "float"
+            },
+            {
+              "id": "y2",
+              "label": "Y2",
+              "dataType": "float"
+            },
+            {
+              "id": "thickness",
+              "label": "Thickness",
+              "dataType": "float"
+            },
+            {
+              "id": "r",
+              "label": "R",
+              "dataType": "float"
+            },
+            {
+              "id": "g",
+              "label": "G",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "key6",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": 1080
+        },
+        "data": {
+          "label": "F♯4",
+          "nodeType": "MidiInput",
+          "category": "input",
+          "properties": {
+            "note": 66,
+            "cc": 1,
+            "channel": 0,
+            "midiSource": "DIN (UART)"
+          },
+          "inputs": [],
+          "outputs": [
+            {
+              "id": "note",
+              "label": "Velocity",
+              "dataType": "float"
+            },
+            {
+              "id": "gate",
+              "label": "Gate",
+              "dataType": "bool"
+            },
+            {
+              "id": "cc",
+              "label": "CC",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "lit6",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 1080
+        },
+        "data": {
+          "label": "F♯4 green",
+          "nodeType": "Math",
+          "category": "math",
+          "properties": {
+            "mathOp": "multiply",
+            "a": 0,
+            "b": 255
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "draw6",
+        "type": "studioNode",
+        "position": {
+          "x": 910,
+          "y": 1080
+        },
+        "data": {
+          "label": "F♯4 key",
+          "nodeType": "Line",
+          "category": "pattern",
+          "properties": {
+            "units": "pixels",
+            "x1": 12,
+            "y1": 0,
+            "x2": 13,
+            "y2": 0,
+            "thickness": 1,
+            "r": 0,
+            "g": 0,
+            "b": 0
+          },
+          "inputs": [
+            {
+              "id": "base",
+              "label": "Base",
+              "dataType": "frame"
+            },
+            {
+              "id": "color",
+              "label": "Color",
+              "dataType": "color"
+            },
+            {
+              "id": "x1",
+              "label": "X1",
+              "dataType": "float"
+            },
+            {
+              "id": "y1",
+              "label": "Y1",
+              "dataType": "float"
+            },
+            {
+              "id": "x2",
+              "label": "X2",
+              "dataType": "float"
+            },
+            {
+              "id": "y2",
+              "label": "Y2",
+              "dataType": "float"
+            },
+            {
+              "id": "thickness",
+              "label": "Thickness",
+              "dataType": "float"
+            },
+            {
+              "id": "r",
+              "label": "R",
+              "dataType": "float"
+            },
+            {
+              "id": "g",
+              "label": "G",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "key7",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": 1260
+        },
+        "data": {
+          "label": "G4",
+          "nodeType": "MidiInput",
+          "category": "input",
+          "properties": {
+            "note": 67,
+            "cc": 1,
+            "channel": 0,
+            "midiSource": "DIN (UART)"
+          },
+          "inputs": [],
+          "outputs": [
+            {
+              "id": "note",
+              "label": "Velocity",
+              "dataType": "float"
+            },
+            {
+              "id": "gate",
+              "label": "Gate",
+              "dataType": "bool"
+            },
+            {
+              "id": "cc",
+              "label": "CC",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "lit7",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 1260
+        },
+        "data": {
+          "label": "G4 green",
+          "nodeType": "Math",
+          "category": "math",
+          "properties": {
+            "mathOp": "multiply",
+            "a": 0,
+            "b": 255
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "draw7",
+        "type": "studioNode",
+        "position": {
+          "x": 975,
+          "y": 1260
+        },
+        "data": {
+          "label": "G4 key",
+          "nodeType": "Line",
+          "category": "pattern",
+          "properties": {
+            "units": "pixels",
+            "x1": 14,
+            "y1": 0,
+            "x2": 15,
+            "y2": 0,
+            "thickness": 1,
+            "r": 0,
+            "g": 0,
+            "b": 0
+          },
+          "inputs": [
+            {
+              "id": "base",
+              "label": "Base",
+              "dataType": "frame"
+            },
+            {
+              "id": "color",
+              "label": "Color",
+              "dataType": "color"
+            },
+            {
+              "id": "x1",
+              "label": "X1",
+              "dataType": "float"
+            },
+            {
+              "id": "y1",
+              "label": "Y1",
+              "dataType": "float"
+            },
+            {
+              "id": "x2",
+              "label": "X2",
+              "dataType": "float"
+            },
+            {
+              "id": "y2",
+              "label": "Y2",
+              "dataType": "float"
+            },
+            {
+              "id": "thickness",
+              "label": "Thickness",
+              "dataType": "float"
+            },
+            {
+              "id": "r",
+              "label": "R",
+              "dataType": "float"
+            },
+            {
+              "id": "g",
+              "label": "G",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "key8",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": 1440
+        },
+        "data": {
+          "label": "G♯4",
+          "nodeType": "MidiInput",
+          "category": "input",
+          "properties": {
+            "note": 68,
+            "cc": 1,
+            "channel": 0,
+            "midiSource": "DIN (UART)"
+          },
+          "inputs": [],
+          "outputs": [
+            {
+              "id": "note",
+              "label": "Velocity",
+              "dataType": "float"
+            },
+            {
+              "id": "gate",
+              "label": "Gate",
+              "dataType": "bool"
+            },
+            {
+              "id": "cc",
+              "label": "CC",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "lit8",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 1440
+        },
+        "data": {
+          "label": "G♯4 green",
+          "nodeType": "Math",
+          "category": "math",
+          "properties": {
+            "mathOp": "multiply",
+            "a": 0,
+            "b": 255
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "draw8",
+        "type": "studioNode",
+        "position": {
+          "x": 1040,
+          "y": 1440
+        },
+        "data": {
+          "label": "G♯4 key",
+          "nodeType": "Line",
+          "category": "pattern",
+          "properties": {
+            "units": "pixels",
+            "x1": 16,
+            "y1": 0,
+            "x2": 17,
+            "y2": 0,
+            "thickness": 1,
+            "r": 0,
+            "g": 0,
+            "b": 0
+          },
+          "inputs": [
+            {
+              "id": "base",
+              "label": "Base",
+              "dataType": "frame"
+            },
+            {
+              "id": "color",
+              "label": "Color",
+              "dataType": "color"
+            },
+            {
+              "id": "x1",
+              "label": "X1",
+              "dataType": "float"
+            },
+            {
+              "id": "y1",
+              "label": "Y1",
+              "dataType": "float"
+            },
+            {
+              "id": "x2",
+              "label": "X2",
+              "dataType": "float"
+            },
+            {
+              "id": "y2",
+              "label": "Y2",
+              "dataType": "float"
+            },
+            {
+              "id": "thickness",
+              "label": "Thickness",
+              "dataType": "float"
+            },
+            {
+              "id": "r",
+              "label": "R",
+              "dataType": "float"
+            },
+            {
+              "id": "g",
+              "label": "G",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "key9",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": 1620
+        },
+        "data": {
+          "label": "A4",
+          "nodeType": "MidiInput",
+          "category": "input",
+          "properties": {
+            "note": 69,
+            "cc": 1,
+            "channel": 0,
+            "midiSource": "DIN (UART)"
+          },
+          "inputs": [],
+          "outputs": [
+            {
+              "id": "note",
+              "label": "Velocity",
+              "dataType": "float"
+            },
+            {
+              "id": "gate",
+              "label": "Gate",
+              "dataType": "bool"
+            },
+            {
+              "id": "cc",
+              "label": "CC",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "lit9",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 1620
+        },
+        "data": {
+          "label": "A4 green",
+          "nodeType": "Math",
+          "category": "math",
+          "properties": {
+            "mathOp": "multiply",
+            "a": 0,
+            "b": 255
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "draw9",
+        "type": "studioNode",
+        "position": {
+          "x": 1105,
+          "y": 1620
+        },
+        "data": {
+          "label": "A4 key",
+          "nodeType": "Line",
+          "category": "pattern",
+          "properties": {
+            "units": "pixels",
+            "x1": 18,
+            "y1": 0,
+            "x2": 19,
+            "y2": 0,
+            "thickness": 1,
+            "r": 0,
+            "g": 0,
+            "b": 0
+          },
+          "inputs": [
+            {
+              "id": "base",
+              "label": "Base",
+              "dataType": "frame"
+            },
+            {
+              "id": "color",
+              "label": "Color",
+              "dataType": "color"
+            },
+            {
+              "id": "x1",
+              "label": "X1",
+              "dataType": "float"
+            },
+            {
+              "id": "y1",
+              "label": "Y1",
+              "dataType": "float"
+            },
+            {
+              "id": "x2",
+              "label": "X2",
+              "dataType": "float"
+            },
+            {
+              "id": "y2",
+              "label": "Y2",
+              "dataType": "float"
+            },
+            {
+              "id": "thickness",
+              "label": "Thickness",
+              "dataType": "float"
+            },
+            {
+              "id": "r",
+              "label": "R",
+              "dataType": "float"
+            },
+            {
+              "id": "g",
+              "label": "G",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "key10",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": 1800
+        },
+        "data": {
+          "label": "A♯4",
+          "nodeType": "MidiInput",
+          "category": "input",
+          "properties": {
+            "note": 70,
+            "cc": 1,
+            "channel": 0,
+            "midiSource": "DIN (UART)"
+          },
+          "inputs": [],
+          "outputs": [
+            {
+              "id": "note",
+              "label": "Velocity",
+              "dataType": "float"
+            },
+            {
+              "id": "gate",
+              "label": "Gate",
+              "dataType": "bool"
+            },
+            {
+              "id": "cc",
+              "label": "CC",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "lit10",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 1800
+        },
+        "data": {
+          "label": "A♯4 green",
+          "nodeType": "Math",
+          "category": "math",
+          "properties": {
+            "mathOp": "multiply",
+            "a": 0,
+            "b": 255
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "draw10",
+        "type": "studioNode",
+        "position": {
+          "x": 1170,
+          "y": 1800
+        },
+        "data": {
+          "label": "A♯4 key",
+          "nodeType": "Line",
+          "category": "pattern",
+          "properties": {
+            "units": "pixels",
+            "x1": 20,
+            "y1": 0,
+            "x2": 21,
+            "y2": 0,
+            "thickness": 1,
+            "r": 0,
+            "g": 0,
+            "b": 0
+          },
+          "inputs": [
+            {
+              "id": "base",
+              "label": "Base",
+              "dataType": "frame"
+            },
+            {
+              "id": "color",
+              "label": "Color",
+              "dataType": "color"
+            },
+            {
+              "id": "x1",
+              "label": "X1",
+              "dataType": "float"
+            },
+            {
+              "id": "y1",
+              "label": "Y1",
+              "dataType": "float"
+            },
+            {
+              "id": "x2",
+              "label": "X2",
+              "dataType": "float"
+            },
+            {
+              "id": "y2",
+              "label": "Y2",
+              "dataType": "float"
+            },
+            {
+              "id": "thickness",
+              "label": "Thickness",
+              "dataType": "float"
+            },
+            {
+              "id": "r",
+              "label": "R",
+              "dataType": "float"
+            },
+            {
+              "id": "g",
+              "label": "G",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "key11",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": 1980
+        },
+        "data": {
+          "label": "B4",
+          "nodeType": "MidiInput",
+          "category": "input",
+          "properties": {
+            "note": 71,
+            "cc": 1,
+            "channel": 0,
+            "midiSource": "DIN (UART)"
+          },
+          "inputs": [],
+          "outputs": [
+            {
+              "id": "note",
+              "label": "Velocity",
+              "dataType": "float"
+            },
+            {
+              "id": "gate",
+              "label": "Gate",
+              "dataType": "bool"
+            },
+            {
+              "id": "cc",
+              "label": "CC",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "lit11",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 1980
+        },
+        "data": {
+          "label": "B4 green",
+          "nodeType": "Math",
+          "category": "math",
+          "properties": {
+            "mathOp": "multiply",
+            "a": 0,
+            "b": 255
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "draw11",
+        "type": "studioNode",
+        "position": {
+          "x": 1235,
+          "y": 1980
+        },
+        "data": {
+          "label": "B4 key",
+          "nodeType": "Line",
+          "category": "pattern",
+          "properties": {
+            "units": "pixels",
+            "x1": 22,
+            "y1": 0,
+            "x2": 23,
+            "y2": 0,
+            "thickness": 1,
+            "r": 0,
+            "g": 0,
+            "b": 0
+          },
+          "inputs": [
+            {
+              "id": "base",
+              "label": "Base",
+              "dataType": "frame"
+            },
+            {
+              "id": "color",
+              "label": "Color",
+              "dataType": "color"
+            },
+            {
+              "id": "x1",
+              "label": "X1",
+              "dataType": "float"
+            },
+            {
+              "id": "y1",
+              "label": "Y1",
+              "dataType": "float"
+            },
+            {
+              "id": "x2",
+              "label": "X2",
+              "dataType": "float"
+            },
+            {
+              "id": "y2",
+              "label": "Y2",
+              "dataType": "float"
+            },
+            {
+              "id": "thickness",
+              "label": "Thickness",
+              "dataType": "float"
+            },
+            {
+              "id": "r",
+              "label": "R",
+              "dataType": "float"
+            },
+            {
+              "id": "g",
+              "label": "G",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "step0",
+        "type": "studioNode",
+        "position": {
+          "x": 780,
+          "y": 2340
+        },
+        "data": {
+          "label": "Lesson note 1: C4",
+          "nodeType": "Line",
+          "category": "pattern",
+          "properties": {
+            "units": "pixels",
+            "x1": 0,
+            "y1": 0,
+            "x2": 1,
+            "y2": 0,
+            "thickness": 1,
+            "r": 0,
+            "g": 60,
+            "b": 255
+          },
+          "inputs": [
+            {
+              "id": "base",
+              "label": "Base",
+              "dataType": "frame"
+            },
+            {
+              "id": "color",
+              "label": "Color",
+              "dataType": "color"
+            },
+            {
+              "id": "x1",
+              "label": "X1",
+              "dataType": "float"
+            },
+            {
+              "id": "y1",
+              "label": "Y1",
+              "dataType": "float"
+            },
+            {
+              "id": "x2",
+              "label": "X2",
+              "dataType": "float"
+            },
+            {
+              "id": "y2",
+              "label": "Y2",
+              "dataType": "float"
+            },
+            {
+              "id": "thickness",
+              "label": "Thickness",
+              "dataType": "float"
+            },
+            {
+              "id": "r",
+              "label": "R",
+              "dataType": "float"
+            },
+            {
+              "id": "g",
+              "label": "G",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "step1",
+        "type": "studioNode",
+        "position": {
+          "x": 780,
+          "y": 2520
+        },
+        "data": {
+          "label": "Lesson note 2: E4",
+          "nodeType": "Line",
+          "category": "pattern",
+          "properties": {
+            "units": "pixels",
+            "x1": 8,
+            "y1": 0,
+            "x2": 9,
+            "y2": 0,
+            "thickness": 1,
+            "r": 0,
+            "g": 60,
+            "b": 255
+          },
+          "inputs": [
+            {
+              "id": "base",
+              "label": "Base",
+              "dataType": "frame"
+            },
+            {
+              "id": "color",
+              "label": "Color",
+              "dataType": "color"
+            },
+            {
+              "id": "x1",
+              "label": "X1",
+              "dataType": "float"
+            },
+            {
+              "id": "y1",
+              "label": "Y1",
+              "dataType": "float"
+            },
+            {
+              "id": "x2",
+              "label": "X2",
+              "dataType": "float"
+            },
+            {
+              "id": "y2",
+              "label": "Y2",
+              "dataType": "float"
+            },
+            {
+              "id": "thickness",
+              "label": "Thickness",
+              "dataType": "float"
+            },
+            {
+              "id": "r",
+              "label": "R",
+              "dataType": "float"
+            },
+            {
+              "id": "g",
+              "label": "G",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "step2",
+        "type": "studioNode",
+        "position": {
+          "x": 780,
+          "y": 2700
+        },
+        "data": {
+          "label": "Lesson note 3: G4",
+          "nodeType": "Line",
+          "category": "pattern",
+          "properties": {
+            "units": "pixels",
+            "x1": 14,
+            "y1": 0,
+            "x2": 15,
+            "y2": 0,
+            "thickness": 1,
+            "r": 0,
+            "g": 60,
+            "b": 255
+          },
+          "inputs": [
+            {
+              "id": "base",
+              "label": "Base",
+              "dataType": "frame"
+            },
+            {
+              "id": "color",
+              "label": "Color",
+              "dataType": "color"
+            },
+            {
+              "id": "x1",
+              "label": "X1",
+              "dataType": "float"
+            },
+            {
+              "id": "y1",
+              "label": "Y1",
+              "dataType": "float"
+            },
+            {
+              "id": "x2",
+              "label": "X2",
+              "dataType": "float"
+            },
+            {
+              "id": "y2",
+              "label": "Y2",
+              "dataType": "float"
+            },
+            {
+              "id": "thickness",
+              "label": "Thickness",
+              "dataType": "float"
+            },
+            {
+              "id": "r",
+              "label": "R",
+              "dataType": "float"
+            },
+            {
+              "id": "g",
+              "label": "G",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "step3",
+        "type": "studioNode",
+        "position": {
+          "x": 780,
+          "y": 2880
+        },
+        "data": {
+          "label": "Lesson note 4: E4",
+          "nodeType": "Line",
+          "category": "pattern",
+          "properties": {
+            "units": "pixels",
+            "x1": 8,
+            "y1": 0,
+            "x2": 9,
+            "y2": 0,
+            "thickness": 1,
+            "r": 0,
+            "g": 60,
+            "b": 255
+          },
+          "inputs": [
+            {
+              "id": "base",
+              "label": "Base",
+              "dataType": "frame"
+            },
+            {
+              "id": "color",
+              "label": "Color",
+              "dataType": "color"
+            },
+            {
+              "id": "x1",
+              "label": "X1",
+              "dataType": "float"
+            },
+            {
+              "id": "y1",
+              "label": "Y1",
+              "dataType": "float"
+            },
+            {
+              "id": "x2",
+              "label": "X2",
+              "dataType": "float"
+            },
+            {
+              "id": "y2",
+              "label": "Y2",
+              "dataType": "float"
+            },
+            {
+              "id": "thickness",
+              "label": "Thickness",
+              "dataType": "float"
+            },
+            {
+              "id": "r",
+              "label": "R",
+              "dataType": "float"
+            },
+            {
+              "id": "g",
+              "label": "G",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "lesson",
+        "type": "studioNode",
+        "position": {
+          "x": 1040,
+          "y": 2520
+        },
+        "data": {
+          "label": "Crossfade Cycle",
+          "nodeType": "Sequencer",
+          "category": "show",
+          "properties": {
+            "interval": 2,
+            "fade": 0.2
+          },
+          "inputs": [
+            {
+              "id": "p0",
+              "label": "Pattern 1",
+              "dataType": "frame"
+            },
+            {
+              "id": "p1",
+              "label": "Pattern 2",
+              "dataType": "frame"
+            },
+            {
+              "id": "p2",
+              "label": "Pattern 3",
+              "dataType": "frame"
+            },
+            {
+              "id": "p3",
+              "label": "Pattern 4",
+              "dataType": "frame"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "mix",
+        "type": "studioNode",
+        "position": {
+          "x": 1300,
+          "y": 2160
+        },
+        "data": {
+          "label": "Blend",
+          "nodeType": "Blend",
+          "category": "composite",
+          "properties": {
+            "blendMode": "lighten",
+            "amount": 1
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "frame"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "frame"
+            },
+            {
+              "id": "amount",
+              "label": "Opacity",
+              "dataType": "float"
+            },
+            {
+              "id": "mask",
+              "label": "Mask",
+              "dataType": "frame"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "out",
+        "type": "studioNode",
+        "position": {
+          "x": 1560,
+          "y": 2160
+        },
+        "data": {
+          "label": "LED Matrix",
+          "nodeType": "MatrixOutput",
+          "category": "output",
+          "properties": {
+            "form": "strip",
+            "outputGamma": 1,
+            "width": 16,
+            "height": 16,
+            "ledCount": 24,
+            "ringStartAngle": 0,
+            "ringDirection": "cw",
+            "corkscrewTurns": 6,
+            "corkscrewStartAngle": 0,
+            "corkscrewDirection": "cw",
+            "corkscrewDiameterMm": 100,
+            "corkscrewHeightMm": 300,
+            "chipset": "WS2812B",
+            "dataLink": "Direct",
+            "colorOrder": "GRB",
+            "dataPin": 5,
+            "dataLanes": 1,
+            "lanePins": [],
+            "clockPin": 6,
+            "dataRateMhz": 0,
+            "serpentine": true,
+            "startCorner": "top-left",
+            "firstRun": "horizontal",
+            "layout": "matrix",
+            "tilesX": 1,
+            "tilesY": 1,
+            "tileSerpentine": false,
+            "tileRotations": "",
+            "customXYMap": "",
+            "stripLayout": "line",
+            "positionsPreset": "catenary",
+            "positionsWidth": 32,
+            "positionsHeight": 16,
+            "positionsMmPerUnit": 10,
+            "positions": "",
+            "networkPreset": "hexagons",
+            "network": "",
+            "ledsPerEdge": 14,
+            "routeMode": "native",
+            "routeX": 0,
+            "routeY": 0,
+            "renderResolution": "Full",
+            "correction": "none",
+            "whitePoint": "none",
+            "dither": true,
+            "hub75R1Pin": 1,
+            "hub75G1Pin": 2,
+            "hub75B1Pin": 3,
+            "hub75R2Pin": 4,
+            "hub75G2Pin": 5,
+            "hub75B2Pin": 12,
+            "hub75APin": 13,
+            "hub75BPin": 14,
+            "hub75CPin": 15,
+            "hub75DPin": 16,
+            "hub75EPin": 33,
+            "hub75ClkPin": 0,
+            "hub75LatPin": 17,
+            "hub75OePin": 18,
+            "hub75WideScan": false,
+            "hub75ColorDepthBits": 8
+          },
+          "inputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            },
+            {
+              "id": "enabled",
+              "label": "Enabled",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightness",
+              "label": "Brightness",
+              "dataType": "float"
+            },
+            {
+              "id": "controls",
+              "label": "Controls",
+              "dataType": "playercontrols"
+            },
+            {
+              "id": "ledToggle",
+              "label": "Toggle blackout",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightnessUp",
+              "label": "Brightness Up",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightnessDown",
+              "label": "Brightness Down",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "display",
+              "label": "Display",
+              "dataType": "display"
+            }
+          ]
+        }
+      },
+      {
+        "id": "board",
+        "type": "studioNode",
+        "position": {
+          "x": -260,
+          "y": 0
+        },
+        "data": {
+          "label": "Board",
+          "nodeType": "Board",
+          "category": "output",
+          "properties": {
+            "profileId": "espressif-esp32-s3-devkitc-1",
+            "brightness": 128,
+            "overclock": 1,
+            "frameRate": 60,
+            "ledDriver": "auto",
+            "powerLimit": true,
+            "milliamps": 1500,
+            "psramPolicy": "auto",
+            "psramMode": "opi",
+            "serialRoute": "auto",
+            "reportTelemetry": false,
+            "clockSync": "off",
+            "wifiHostname": "",
+            "useDhcp": true,
+            "staticIp": "",
+            "staticGateway": "",
+            "staticSubnet": "255.255.255.0",
+            "staticDns": ""
+          },
+          "inputs": [],
+          "outputs": []
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e-key0-lit0-gate-a",
+        "source": "key0",
+        "sourceHandle": "gate",
+        "target": "lit0",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-lit0-draw0-result-g",
+        "source": "lit0",
+        "sourceHandle": "result",
+        "target": "draw0",
+        "targetHandle": "g",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-key1-lit1-gate-a",
+        "source": "key1",
+        "sourceHandle": "gate",
+        "target": "lit1",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-lit1-draw1-result-g",
+        "source": "lit1",
+        "sourceHandle": "result",
+        "target": "draw1",
+        "targetHandle": "g",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-draw0-draw1-frame-base",
+        "source": "draw0",
+        "sourceHandle": "frame",
+        "target": "draw1",
+        "targetHandle": "base",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-key2-lit2-gate-a",
+        "source": "key2",
+        "sourceHandle": "gate",
+        "target": "lit2",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-lit2-draw2-result-g",
+        "source": "lit2",
+        "sourceHandle": "result",
+        "target": "draw2",
+        "targetHandle": "g",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-draw1-draw2-frame-base",
+        "source": "draw1",
+        "sourceHandle": "frame",
+        "target": "draw2",
+        "targetHandle": "base",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-key3-lit3-gate-a",
+        "source": "key3",
+        "sourceHandle": "gate",
+        "target": "lit3",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-lit3-draw3-result-g",
+        "source": "lit3",
+        "sourceHandle": "result",
+        "target": "draw3",
+        "targetHandle": "g",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-draw2-draw3-frame-base",
+        "source": "draw2",
+        "sourceHandle": "frame",
+        "target": "draw3",
+        "targetHandle": "base",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-key4-lit4-gate-a",
+        "source": "key4",
+        "sourceHandle": "gate",
+        "target": "lit4",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-lit4-draw4-result-g",
+        "source": "lit4",
+        "sourceHandle": "result",
+        "target": "draw4",
+        "targetHandle": "g",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-draw3-draw4-frame-base",
+        "source": "draw3",
+        "sourceHandle": "frame",
+        "target": "draw4",
+        "targetHandle": "base",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-key5-lit5-gate-a",
+        "source": "key5",
+        "sourceHandle": "gate",
+        "target": "lit5",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-lit5-draw5-result-g",
+        "source": "lit5",
+        "sourceHandle": "result",
+        "target": "draw5",
+        "targetHandle": "g",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-draw4-draw5-frame-base",
+        "source": "draw4",
+        "sourceHandle": "frame",
+        "target": "draw5",
+        "targetHandle": "base",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-key6-lit6-gate-a",
+        "source": "key6",
+        "sourceHandle": "gate",
+        "target": "lit6",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-lit6-draw6-result-g",
+        "source": "lit6",
+        "sourceHandle": "result",
+        "target": "draw6",
+        "targetHandle": "g",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-draw5-draw6-frame-base",
+        "source": "draw5",
+        "sourceHandle": "frame",
+        "target": "draw6",
+        "targetHandle": "base",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-key7-lit7-gate-a",
+        "source": "key7",
+        "sourceHandle": "gate",
+        "target": "lit7",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-lit7-draw7-result-g",
+        "source": "lit7",
+        "sourceHandle": "result",
+        "target": "draw7",
+        "targetHandle": "g",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-draw6-draw7-frame-base",
+        "source": "draw6",
+        "sourceHandle": "frame",
+        "target": "draw7",
+        "targetHandle": "base",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-key8-lit8-gate-a",
+        "source": "key8",
+        "sourceHandle": "gate",
+        "target": "lit8",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-lit8-draw8-result-g",
+        "source": "lit8",
+        "sourceHandle": "result",
+        "target": "draw8",
+        "targetHandle": "g",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-draw7-draw8-frame-base",
+        "source": "draw7",
+        "sourceHandle": "frame",
+        "target": "draw8",
+        "targetHandle": "base",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-key9-lit9-gate-a",
+        "source": "key9",
+        "sourceHandle": "gate",
+        "target": "lit9",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-lit9-draw9-result-g",
+        "source": "lit9",
+        "sourceHandle": "result",
+        "target": "draw9",
+        "targetHandle": "g",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-draw8-draw9-frame-base",
+        "source": "draw8",
+        "sourceHandle": "frame",
+        "target": "draw9",
+        "targetHandle": "base",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-key10-lit10-gate-a",
+        "source": "key10",
+        "sourceHandle": "gate",
+        "target": "lit10",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-lit10-draw10-result-g",
+        "source": "lit10",
+        "sourceHandle": "result",
+        "target": "draw10",
+        "targetHandle": "g",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-draw9-draw10-frame-base",
+        "source": "draw9",
+        "sourceHandle": "frame",
+        "target": "draw10",
+        "targetHandle": "base",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-key11-lit11-gate-a",
+        "source": "key11",
+        "sourceHandle": "gate",
+        "target": "lit11",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-lit11-draw11-result-g",
+        "source": "lit11",
+        "sourceHandle": "result",
+        "target": "draw11",
+        "targetHandle": "g",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-draw10-draw11-frame-base",
+        "source": "draw10",
+        "sourceHandle": "frame",
+        "target": "draw11",
+        "targetHandle": "base",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-step0-lesson-frame-p0",
+        "source": "step0",
+        "sourceHandle": "frame",
+        "target": "lesson",
+        "targetHandle": "p0",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-step1-lesson-frame-p1",
+        "source": "step1",
+        "sourceHandle": "frame",
+        "target": "lesson",
+        "targetHandle": "p1",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-step2-lesson-frame-p2",
+        "source": "step2",
+        "sourceHandle": "frame",
+        "target": "lesson",
+        "targetHandle": "p2",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-step3-lesson-frame-p3",
+        "source": "step3",
+        "sourceHandle": "frame",
+        "target": "lesson",
+        "targetHandle": "p3",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-lesson-mix-frame-a",
+        "source": "lesson",
+        "sourceHandle": "frame",
+        "target": "mix",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-draw11-mix-frame-b",
+        "source": "draw11",
+        "sourceHandle": "frame",
+        "target": "mix",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-mix-out-frame-frame",
+        "source": "mix",
+        "sourceHandle": "frame",
+        "target": "out",
+        "targetHandle": "frame",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      }
+    ]
+  }
+}

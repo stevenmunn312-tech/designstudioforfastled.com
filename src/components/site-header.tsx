@@ -10,6 +10,7 @@ const navLinks = [
   { href: "/#hardware", label: "Hardware" },
   { href: "/#download", label: "Download" },
   { href: "/patterns", label: "Patterns" },
+  { href: "/projects", label: "Projects" },
   { href: "/tutorials", label: "Tutorials" },
   { href: "/upload", label: "Upload project" },
 ];

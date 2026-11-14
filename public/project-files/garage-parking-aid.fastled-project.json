@@ -1,0 +1,1171 @@
+{
+  "id": "example-garage-parking-aid",
+  "name": "Garage parking aid",
+  "createdAt": 1794700800000,
+  "updatedAt": 1794700800000,
+  "workspace": {
+    "nodes": [
+      {
+        "id": "distance",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": 180
+        },
+        "data": {
+          "label": "Distance Sensor",
+          "nodeType": "DistanceInput",
+          "category": "input",
+          "properties": {
+            "partId": "hc-sr04-ultrasonic-module",
+            "trigPin": 1,
+            "echoPin": 2,
+            "sdaPin": 21,
+            "sclPin": 22,
+            "i2cAddress": "0x29",
+            "xshutPin": 255,
+            "assignedPins": {
+              "trigPin": 1,
+              "echoPin": 2
+            },
+            "assignedPinsBoard": "espressif-esp32-s3-devkitc-1",
+            "userPinsByBoard": {}
+          },
+          "inputs": [],
+          "outputs": [
+            {
+              "id": "distance",
+              "label": "Distance (mm)",
+              "dataType": "float"
+            },
+            {
+              "id": "connected",
+              "label": "Connected",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "closeness",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 0
+        },
+        "data": {
+          "label": "Closeness 0–1",
+          "nodeType": "MapRange",
+          "category": "math",
+          "properties": {
+            "value": 0,
+            "inMin": 2500,
+            "inMax": 450,
+            "outMin": 0,
+            "outMax": 1,
+            "clampOutput": true
+          },
+          "inputs": [
+            {
+              "id": "value",
+              "label": "Value",
+              "dataType": "float"
+            },
+            {
+              "id": "inMin",
+              "label": "In Min",
+              "dataType": "float"
+            },
+            {
+              "id": "inMax",
+              "label": "In Max",
+              "dataType": "float"
+            },
+            {
+              "id": "outMin",
+              "label": "Out Min",
+              "dataType": "float"
+            },
+            {
+              "id": "outMax",
+              "label": "Out Max",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "green",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 360
+        },
+        "data": {
+          "label": "Color",
+          "nodeType": "Color",
+          "category": "color",
+          "properties": {
+            "color": "#00e040"
+          },
+          "inputs": [],
+          "outputs": [
+            {
+              "id": "color",
+              "label": "Color",
+              "dataType": "color"
+            }
+          ]
+        }
+      },
+      {
+        "id": "yellow",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 540
+        },
+        "data": {
+          "label": "Color",
+          "nodeType": "Color",
+          "category": "color",
+          "properties": {
+            "color": "#ffd000"
+          },
+          "inputs": [],
+          "outputs": [
+            {
+              "id": "color",
+              "label": "Color",
+              "dataType": "color"
+            }
+          ]
+        }
+      },
+      {
+        "id": "orange",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 720
+        },
+        "data": {
+          "label": "Color",
+          "nodeType": "Color",
+          "category": "color",
+          "properties": {
+            "color": "#ff7000"
+          },
+          "inputs": [],
+          "outputs": [
+            {
+              "id": "color",
+              "label": "Color",
+              "dataType": "color"
+            }
+          ]
+        }
+      },
+      {
+        "id": "red",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 900
+        },
+        "data": {
+          "label": "Color",
+          "nodeType": "Color",
+          "category": "color",
+          "properties": {
+            "color": "#ff0000"
+          },
+          "inputs": [],
+          "outputs": [
+            {
+              "id": "color",
+              "label": "Color",
+              "dataType": "color"
+            }
+          ]
+        }
+      },
+      {
+        "id": "goToStop",
+        "type": "studioNode",
+        "position": {
+          "x": 520,
+          "y": 540
+        },
+        "data": {
+          "label": "Custom Palette",
+          "nodeType": "CustomPalette",
+          "category": "color",
+          "properties": {},
+          "inputs": [
+            {
+              "id": "color0",
+              "label": "Color 1",
+              "dataType": "color"
+            },
+            {
+              "id": "color1",
+              "label": "Color 2",
+              "dataType": "color"
+            },
+            {
+              "id": "color2",
+              "label": "Color 3",
+              "dataType": "color"
+            },
+            {
+              "id": "color3",
+              "label": "Color 4",
+              "dataType": "color"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "palette",
+              "label": "Palette",
+              "dataType": "palette"
+            }
+          ]
+        }
+      },
+      {
+        "id": "gauge",
+        "type": "studioNode",
+        "position": {
+          "x": 780,
+          "y": 0
+        },
+        "data": {
+          "label": "Gauge",
+          "nodeType": "Gauge",
+          "category": "pattern",
+          "properties": {
+            "gaugeStyle": "bar",
+            "direction": "right",
+            "value": 0.6,
+            "segments": 0,
+            "peakHold": 0,
+            "thickness": 1,
+            "arcStart": 225,
+            "arcSweep": 270,
+            "ringLeds": 60,
+            "palette": "heat"
+          },
+          "inputs": [
+            {
+              "id": "value",
+              "label": "Value",
+              "dataType": "float"
+            },
+            {
+              "id": "base",
+              "label": "Base",
+              "dataType": "frame"
+            },
+            {
+              "id": "paletteIn",
+              "label": "Palette",
+              "dataType": "palette"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "stop",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 180
+        },
+        "data": {
+          "label": "At the stop point",
+          "nodeType": "Compare",
+          "category": "math",
+          "properties": {
+            "compareOp": "less",
+            "a": 0,
+            "b": 450,
+            "hysteresis": 30
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "recent",
+        "type": "studioNode",
+        "position": {
+          "x": 520,
+          "y": 180
+        },
+        "data": {
+          "label": "Just arrived",
+          "nodeType": "Envelope",
+          "category": "signal",
+          "properties": {
+            "attack": 0,
+            "decay": 5
+          },
+          "inputs": [
+            {
+              "id": "trigger",
+              "label": "Trigger",
+              "dataType": "bool"
+            },
+            {
+              "id": "attack",
+              "label": "Attack",
+              "dataType": "float"
+            },
+            {
+              "id": "decay",
+              "label": "Decay",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "stillRecent",
+        "type": "studioNode",
+        "position": {
+          "x": 780,
+          "y": 180
+        },
+        "data": {
+          "label": "Compare",
+          "nodeType": "Compare",
+          "category": "math",
+          "properties": {
+            "compareOp": "greater",
+            "a": 0,
+            "b": 0.05,
+            "hysteresis": 0
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "blink",
+        "type": "studioNode",
+        "position": {
+          "x": 780,
+          "y": 360
+        },
+        "data": {
+          "label": "Wave",
+          "nodeType": "Wave",
+          "category": "signal",
+          "properties": {
+            "amplitude": 1,
+            "frequency": 3,
+            "rateUnit": "Hz",
+            "bpm": 60,
+            "phase": 0,
+            "offset": 0,
+            "unipolar": true,
+            "waveform": "square"
+          },
+          "inputs": [
+            {
+              "id": "amplitude",
+              "label": "Amplitude",
+              "dataType": "float"
+            },
+            {
+              "id": "frequency",
+              "label": "Frequency",
+              "dataType": "float"
+            },
+            {
+              "id": "bpm",
+              "label": "BPM",
+              "dataType": "float"
+            },
+            {
+              "id": "phase",
+              "label": "Phase",
+              "dataType": "float"
+            },
+            {
+              "id": "offset",
+              "label": "Offset",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "alarm",
+        "type": "studioNode",
+        "position": {
+          "x": 1040,
+          "y": 180
+        },
+        "data": {
+          "label": "Logic",
+          "nodeType": "Logic",
+          "category": "math",
+          "properties": {
+            "logicOp": "and"
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "bool"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "flash",
+        "type": "studioNode",
+        "position": {
+          "x": 1300,
+          "y": 180
+        },
+        "data": {
+          "label": "Flash now",
+          "nodeType": "Logic",
+          "category": "math",
+          "properties": {
+            "logicOp": "and"
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "bool"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "stopRed",
+        "type": "studioNode",
+        "position": {
+          "x": 1040,
+          "y": 360
+        },
+        "data": {
+          "label": "Solid Color",
+          "nodeType": "SolidColor",
+          "category": "pattern",
+          "properties": {
+            "r": 255,
+            "g": 0,
+            "b": 0
+          },
+          "inputs": [
+            {
+              "id": "color",
+              "label": "Color",
+              "dataType": "color"
+            },
+            {
+              "id": "r",
+              "label": "R",
+              "dataType": "float"
+            },
+            {
+              "id": "g",
+              "label": "G",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "show",
+        "type": "studioNode",
+        "position": {
+          "x": 1560,
+          "y": 0
+        },
+        "data": {
+          "label": "Frame Switch",
+          "nodeType": "FrameSwitch",
+          "category": "composite",
+          "properties": {
+            "select": false
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "Frame A",
+              "dataType": "frame"
+            },
+            {
+              "id": "b",
+              "label": "Frame B",
+              "dataType": "frame"
+            },
+            {
+              "id": "sel",
+              "label": "Select",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "settled",
+        "type": "studioNode",
+        "position": {
+          "x": 1040,
+          "y": 540
+        },
+        "data": {
+          "label": "Parked a while",
+          "nodeType": "Not",
+          "category": "math",
+          "properties": {},
+          "inputs": [
+            {
+              "id": "x",
+              "label": "X",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "keepLit",
+        "type": "studioNode",
+        "position": {
+          "x": 1300,
+          "y": 540
+        },
+        "data": {
+          "label": "Not parked a while",
+          "nodeType": "Logic",
+          "category": "math",
+          "properties": {
+            "logicOp": "nand"
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "bool"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "out",
+        "type": "studioNode",
+        "position": {
+          "x": 1820,
+          "y": 0
+        },
+        "data": {
+          "label": "LED Matrix",
+          "nodeType": "MatrixOutput",
+          "category": "output",
+          "properties": {
+            "form": "strip",
+            "outputGamma": 1,
+            "width": 16,
+            "height": 16,
+            "ledCount": 60,
+            "ringStartAngle": 0,
+            "ringDirection": "cw",
+            "corkscrewTurns": 6,
+            "corkscrewStartAngle": 0,
+            "corkscrewDirection": "cw",
+            "corkscrewDiameterMm": 100,
+            "corkscrewHeightMm": 300,
+            "chipset": "WS2812B",
+            "dataLink": "Direct",
+            "colorOrder": "GRB",
+            "dataPin": 5,
+            "dataLanes": 1,
+            "lanePins": [],
+            "clockPin": 6,
+            "dataRateMhz": 0,
+            "serpentine": true,
+            "startCorner": "top-left",
+            "firstRun": "horizontal",
+            "layout": "matrix",
+            "tilesX": 1,
+            "tilesY": 1,
+            "tileSerpentine": false,
+            "tileRotations": "",
+            "customXYMap": "",
+            "stripLayout": "line",
+            "positionsPreset": "catenary",
+            "positionsWidth": 32,
+            "positionsHeight": 16,
+            "positionsMmPerUnit": 10,
+            "positions": "",
+            "networkPreset": "hexagons",
+            "network": "",
+            "ledsPerEdge": 14,
+            "routeMode": "native",
+            "routeX": 0,
+            "routeY": 0,
+            "renderResolution": "Full",
+            "correction": "none",
+            "whitePoint": "none",
+            "dither": true,
+            "hub75R1Pin": 1,
+            "hub75G1Pin": 2,
+            "hub75B1Pin": 3,
+            "hub75R2Pin": 4,
+            "hub75G2Pin": 5,
+            "hub75B2Pin": 12,
+            "hub75APin": 13,
+            "hub75BPin": 14,
+            "hub75CPin": 15,
+            "hub75DPin": 16,
+            "hub75EPin": 33,
+            "hub75ClkPin": 0,
+            "hub75LatPin": 17,
+            "hub75OePin": 18,
+            "hub75WideScan": false,
+            "hub75ColorDepthBits": 8
+          },
+          "inputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            },
+            {
+              "id": "enabled",
+              "label": "Enabled",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightness",
+              "label": "Brightness",
+              "dataType": "float"
+            },
+            {
+              "id": "controls",
+              "label": "Controls",
+              "dataType": "playercontrols"
+            },
+            {
+              "id": "ledToggle",
+              "label": "Toggle blackout",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightnessUp",
+              "label": "Brightness Up",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightnessDown",
+              "label": "Brightness Down",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "display",
+              "label": "Display",
+              "dataType": "display"
+            }
+          ]
+        }
+      },
+      {
+        "id": "buzzer",
+        "type": "studioNode",
+        "position": {
+          "x": 1820,
+          "y": 360
+        },
+        "data": {
+          "label": "Buzzer",
+          "nodeType": "BuzzerOutput",
+          "category": "output",
+          "properties": {
+            "partId": "ky-012-active-buzzer-module",
+            "sigPin": 4,
+            "pitchHz": 2000,
+            "assignedPins": {
+              "sigPin": 4
+            },
+            "assignedPinsBoard": "espressif-esp32-s3-devkitc-1",
+            "userPinsByBoard": {}
+          },
+          "inputs": [
+            {
+              "id": "on",
+              "label": "Sound",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": []
+        }
+      },
+      {
+        "id": "guide",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": -180
+        },
+        "data": {
+          "label": "Comment",
+          "nodeType": "Comment",
+          "category": "note",
+          "properties": {
+            "text": "PARKING AID\nThe bar fills green to red as the car closes in.\nAt the stop point it flashes red and beeps, then goes dark once parked.\nSet the stop distance (mm) on 'At the stop point'.",
+            "color": "#74d7ff"
+          },
+          "inputs": [],
+          "outputs": []
+        }
+      },
+      {
+        "id": "board",
+        "type": "studioNode",
+        "position": {
+          "x": -260,
+          "y": 0
+        },
+        "data": {
+          "label": "Board",
+          "nodeType": "Board",
+          "category": "output",
+          "properties": {
+            "profileId": "espressif-esp32-s3-devkitc-1",
+            "brightness": 200,
+            "overclock": 1,
+            "frameRate": 60,
+            "ledDriver": "auto",
+            "powerLimit": true,
+            "milliamps": 3600,
+            "psramPolicy": "auto",
+            "psramMode": "opi",
+            "serialRoute": "auto",
+            "reportTelemetry": false,
+            "clockSync": "off",
+            "wifiHostname": "",
+            "useDhcp": true,
+            "staticIp": "",
+            "staticGateway": "",
+            "staticSubnet": "255.255.255.0",
+            "staticDns": ""
+          },
+          "inputs": [],
+          "outputs": []
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e-distance-closeness-distance-value",
+        "source": "distance",
+        "sourceHandle": "distance",
+        "target": "closeness",
+        "targetHandle": "value",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-green-goToStop-color-color0",
+        "source": "green",
+        "sourceHandle": "color",
+        "target": "goToStop",
+        "targetHandle": "color0",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#ffd24a"
+        }
+      },
+      {
+        "id": "e-yellow-goToStop-color-color1",
+        "source": "yellow",
+        "sourceHandle": "color",
+        "target": "goToStop",
+        "targetHandle": "color1",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#ffd24a"
+        }
+      },
+      {
+        "id": "e-orange-goToStop-color-color2",
+        "source": "orange",
+        "sourceHandle": "color",
+        "target": "goToStop",
+        "targetHandle": "color2",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#ffd24a"
+        }
+      },
+      {
+        "id": "e-red-goToStop-color-color3",
+        "source": "red",
+        "sourceHandle": "color",
+        "target": "goToStop",
+        "targetHandle": "color3",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#ffd24a"
+        }
+      },
+      {
+        "id": "e-closeness-gauge-result-value",
+        "source": "closeness",
+        "sourceHandle": "result",
+        "target": "gauge",
+        "targetHandle": "value",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-goToStop-gauge-palette-paletteIn",
+        "source": "goToStop",
+        "sourceHandle": "palette",
+        "target": "gauge",
+        "targetHandle": "paletteIn",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#ff5cf0"
+        }
+      },
+      {
+        "id": "e-distance-stop-distance-a",
+        "source": "distance",
+        "sourceHandle": "distance",
+        "target": "stop",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-stop-recent-result-trigger",
+        "source": "stop",
+        "sourceHandle": "result",
+        "target": "recent",
+        "targetHandle": "trigger",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-recent-stillRecent-result-a",
+        "source": "recent",
+        "sourceHandle": "result",
+        "target": "stillRecent",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-stop-alarm-result-a",
+        "source": "stop",
+        "sourceHandle": "result",
+        "target": "alarm",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-stillRecent-alarm-result-b",
+        "source": "stillRecent",
+        "sourceHandle": "result",
+        "target": "alarm",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-alarm-flash-result-a",
+        "source": "alarm",
+        "sourceHandle": "result",
+        "target": "flash",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-blink-flash-result-b",
+        "source": "blink",
+        "sourceHandle": "result",
+        "target": "flash",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-gauge-show-frame-a",
+        "source": "gauge",
+        "sourceHandle": "frame",
+        "target": "show",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-stopRed-show-frame-b",
+        "source": "stopRed",
+        "sourceHandle": "frame",
+        "target": "show",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-flash-show-result-sel",
+        "source": "flash",
+        "sourceHandle": "result",
+        "target": "show",
+        "targetHandle": "sel",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-stillRecent-settled-result-x",
+        "source": "stillRecent",
+        "sourceHandle": "result",
+        "target": "settled",
+        "targetHandle": "x",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-stop-keepLit-result-a",
+        "source": "stop",
+        "sourceHandle": "result",
+        "target": "keepLit",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-settled-keepLit-result-b",
+        "source": "settled",
+        "sourceHandle": "result",
+        "target": "keepLit",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-show-out-frame-frame",
+        "source": "show",
+        "sourceHandle": "frame",
+        "target": "out",
+        "targetHandle": "frame",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-keepLit-out-result-enabled",
+        "source": "keepLit",
+        "sourceHandle": "result",
+        "target": "out",
+        "targetHandle": "enabled",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-flash-buzzer-result-on",
+        "source": "flash",
+        "sourceHandle": "result",
+        "target": "buzzer",
+        "targetHandle": "on",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      }
+    ]
+  }
+}

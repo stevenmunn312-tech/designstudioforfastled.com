@@ -1,0 +1,1224 @@
+{
+  "id": "example-prop-sword",
+  "name": "Prop sword",
+  "createdAt": 1794700800000,
+  "updatedAt": 1794700800000,
+  "workspace": {
+    "nodes": [
+      {
+        "id": "imu",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": 180
+        },
+        "data": {
+          "label": "Accel & Gyro",
+          "nodeType": "MotionVectorInput",
+          "category": "input",
+          "properties": {
+            "partId": "gy-521-mpu6050-module",
+            "sdaPin": 5,
+            "sclPin": 6,
+            "i2cAddress": "0x68"
+          },
+          "inputs": [],
+          "outputs": [
+            {
+              "id": "accelX",
+              "label": "Accel X (g)",
+              "dataType": "float"
+            },
+            {
+              "id": "accelY",
+              "label": "Accel Y (g)",
+              "dataType": "float"
+            },
+            {
+              "id": "accelZ",
+              "label": "Accel Z (g)",
+              "dataType": "float"
+            },
+            {
+              "id": "gyroX",
+              "label": "Gyro X (°/s)",
+              "dataType": "float"
+            },
+            {
+              "id": "gyroY",
+              "label": "Gyro Y (°/s)",
+              "dataType": "float"
+            },
+            {
+              "id": "gyroZ",
+              "label": "Gyro Z (°/s)",
+              "dataType": "float"
+            },
+            {
+              "id": "shake",
+              "label": "Shake (g)",
+              "dataType": "float"
+            },
+            {
+              "id": "connected",
+              "label": "Connected",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "spinX",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 0
+        },
+        "data": {
+          "label": "Function",
+          "nodeType": "Function",
+          "category": "math",
+          "properties": {
+            "fn": "abs",
+            "x": 0
+          },
+          "inputs": [
+            {
+              "id": "x",
+              "label": "X",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "spinY",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 180
+        },
+        "data": {
+          "label": "Function",
+          "nodeType": "Function",
+          "category": "math",
+          "properties": {
+            "fn": "abs",
+            "x": 0
+          },
+          "inputs": [
+            {
+              "id": "x",
+              "label": "X",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "spinZ",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 360
+        },
+        "data": {
+          "label": "Function",
+          "nodeType": "Function",
+          "category": "math",
+          "properties": {
+            "fn": "abs",
+            "x": 0
+          },
+          "inputs": [
+            {
+              "id": "x",
+              "label": "X",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "spinXY",
+        "type": "studioNode",
+        "position": {
+          "x": 520,
+          "y": 0
+        },
+        "data": {
+          "label": "Math",
+          "nodeType": "Math",
+          "category": "math",
+          "properties": {
+            "mathOp": "max",
+            "a": 0,
+            "b": 0
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "spin",
+        "type": "studioNode",
+        "position": {
+          "x": 780,
+          "y": 180
+        },
+        "data": {
+          "label": "Fastest axis, °/s",
+          "nodeType": "Math",
+          "category": "math",
+          "properties": {
+            "mathOp": "max",
+            "a": 0,
+            "b": 0
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "swingRaw",
+        "type": "studioNode",
+        "position": {
+          "x": 1040,
+          "y": 180
+        },
+        "data": {
+          "label": "0–250 °/s to 0–1",
+          "nodeType": "MapRange",
+          "category": "math",
+          "properties": {
+            "value": 0,
+            "inMin": 20,
+            "inMax": 250,
+            "outMin": 0,
+            "outMax": 1,
+            "clampOutput": true
+          },
+          "inputs": [
+            {
+              "id": "value",
+              "label": "Value",
+              "dataType": "float"
+            },
+            {
+              "id": "inMin",
+              "label": "In Min",
+              "dataType": "float"
+            },
+            {
+              "id": "inMax",
+              "label": "In Max",
+              "dataType": "float"
+            },
+            {
+              "id": "outMin",
+              "label": "Out Min",
+              "dataType": "float"
+            },
+            {
+              "id": "outMax",
+              "label": "Out Max",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "swing",
+        "type": "studioNode",
+        "position": {
+          "x": 1300,
+          "y": 180
+        },
+        "data": {
+          "label": "Smooth",
+          "nodeType": "Smooth",
+          "category": "math",
+          "properties": {
+            "value": 0,
+            "response": 0.05,
+            "fall": 0.4
+          },
+          "inputs": [
+            {
+              "id": "value",
+              "label": "Value",
+              "dataType": "float"
+            },
+            {
+              "id": "response",
+              "label": "Response",
+              "dataType": "float"
+            },
+            {
+              "id": "fall",
+              "label": "Fall",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "bladeLevel",
+        "type": "studioNode",
+        "position": {
+          "x": 1560,
+          "y": 180
+        },
+        "data": {
+          "label": "45–100% with swing",
+          "nodeType": "MapRange",
+          "category": "math",
+          "properties": {
+            "value": 0,
+            "inMin": 0,
+            "inMax": 1,
+            "outMin": 0.45,
+            "outMax": 1,
+            "clampOutput": false
+          },
+          "inputs": [
+            {
+              "id": "value",
+              "label": "Value",
+              "dataType": "float"
+            },
+            {
+              "id": "inMin",
+              "label": "In Min",
+              "dataType": "float"
+            },
+            {
+              "id": "inMax",
+              "label": "In Max",
+              "dataType": "float"
+            },
+            {
+              "id": "outMin",
+              "label": "Out Min",
+              "dataType": "float"
+            },
+            {
+              "id": "outMax",
+              "label": "Out Max",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "blade",
+        "type": "studioNode",
+        "position": {
+          "x": 1560,
+          "y": 0
+        },
+        "data": {
+          "label": "Blade colour",
+          "nodeType": "SolidColor",
+          "category": "pattern",
+          "properties": {
+            "r": 0,
+            "g": 150,
+            "b": 255
+          },
+          "inputs": [
+            {
+              "id": "color",
+              "label": "Color",
+              "dataType": "color"
+            },
+            {
+              "id": "r",
+              "label": "R",
+              "dataType": "float"
+            },
+            {
+              "id": "g",
+              "label": "G",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "bladeLit",
+        "type": "studioNode",
+        "position": {
+          "x": 1820,
+          "y": 0
+        },
+        "data": {
+          "label": "Brightness",
+          "nodeType": "BrightnessMod",
+          "category": "composite",
+          "properties": {
+            "brightness": 1
+          },
+          "inputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            },
+            {
+              "id": "brightness",
+              "label": "Brightness",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "impact",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 720
+        },
+        "data": {
+          "label": "Impact",
+          "nodeType": "Compare",
+          "category": "math",
+          "properties": {
+            "compareOp": "greater",
+            "a": 0,
+            "b": 1.4,
+            "hysteresis": 0.4
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "flash",
+        "type": "studioNode",
+        "position": {
+          "x": 2080,
+          "y": 0
+        },
+        "data": {
+          "label": "Clash flash",
+          "nodeType": "BeatFlash",
+          "category": "pattern",
+          "properties": {
+            "decay": 0.8,
+            "attack": 0,
+            "intensity": 1,
+            "flashMode": "lighten",
+            "colorSource": "solid",
+            "palette": "rainbow",
+            "r": 255,
+            "g": 255,
+            "b": 255
+          },
+          "inputs": [
+            {
+              "id": "beat",
+              "label": "Beat",
+              "dataType": "bool"
+            },
+            {
+              "id": "frame",
+              "label": "Base",
+              "dataType": "frame"
+            },
+            {
+              "id": "attack",
+              "label": "Attack",
+              "dataType": "float"
+            },
+            {
+              "id": "decay",
+              "label": "Decay",
+              "dataType": "float"
+            },
+            {
+              "id": "intensity",
+              "label": "Intensity",
+              "dataType": "float"
+            },
+            {
+              "id": "paletteIn",
+              "label": "Palette",
+              "dataType": "palette"
+            },
+            {
+              "id": "r",
+              "label": "R",
+              "dataType": "float"
+            },
+            {
+              "id": "g",
+              "label": "G",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "clashing",
+        "type": "studioNode",
+        "position": {
+          "x": 520,
+          "y": 720
+        },
+        "data": {
+          "label": "Clash sound",
+          "nodeType": "Envelope",
+          "category": "signal",
+          "properties": {
+            "attack": 0,
+            "decay": 1
+          },
+          "inputs": [
+            {
+              "id": "trigger",
+              "label": "Trigger",
+              "dataType": "bool"
+            },
+            {
+              "id": "attack",
+              "label": "Attack",
+              "dataType": "float"
+            },
+            {
+              "id": "decay",
+              "label": "Decay",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "track",
+        "type": "studioNode",
+        "position": {
+          "x": 780,
+          "y": 720
+        },
+        "data": {
+          "label": "Hum 1, clash 2",
+          "nodeType": "Switch",
+          "category": "math",
+          "properties": {
+            "a": 1,
+            "b": 2,
+            "select": false
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            },
+            {
+              "id": "sel",
+              "label": "Select",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "volume",
+        "type": "studioNode",
+        "position": {
+          "x": 1820,
+          "y": 360
+        },
+        "data": {
+          "label": "Louder with swing",
+          "nodeType": "MapRange",
+          "category": "math",
+          "properties": {
+            "value": 0,
+            "inMin": 0,
+            "inMax": 1,
+            "outMin": 0.4,
+            "outMax": 1,
+            "clampOutput": false
+          },
+          "inputs": [
+            {
+              "id": "value",
+              "label": "Value",
+              "dataType": "float"
+            },
+            {
+              "id": "inMin",
+              "label": "In Min",
+              "dataType": "float"
+            },
+            {
+              "id": "inMax",
+              "label": "In Max",
+              "dataType": "float"
+            },
+            {
+              "id": "outMin",
+              "label": "Out Min",
+              "dataType": "float"
+            },
+            {
+              "id": "outMax",
+              "label": "Out Max",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "sound",
+        "type": "studioNode",
+        "position": {
+          "x": 2340,
+          "y": 540
+        },
+        "data": {
+          "label": "DFPlayer Mini",
+          "nodeType": "DFPlayerOutput",
+          "category": "output",
+          "properties": {
+            "partId": "dfplayer-mini",
+            "uartRxPin": 1,
+            "uartTxPin": 2,
+            "busyPin": 4,
+            "play": true,
+            "track": 1,
+            "volume": 0.6,
+            "audioOutput": "Speaker",
+            "assignedPins": {
+              "uartRxPin": 1,
+              "uartTxPin": 2,
+              "busyPin": 4
+            },
+            "assignedPinsBoard": "seeed-xiao-esp32s3",
+            "userPinsByBoard": {}
+          },
+          "inputs": [
+            {
+              "id": "play",
+              "label": "Play",
+              "dataType": "bool"
+            },
+            {
+              "id": "next",
+              "label": "Next",
+              "dataType": "bool"
+            },
+            {
+              "id": "previous",
+              "label": "Previous",
+              "dataType": "bool"
+            },
+            {
+              "id": "track",
+              "label": "Track",
+              "dataType": "float"
+            },
+            {
+              "id": "volume",
+              "label": "Volume",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "playing",
+              "label": "Playing",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "out",
+        "type": "studioNode",
+        "position": {
+          "x": 2340,
+          "y": 0
+        },
+        "data": {
+          "label": "LED Matrix",
+          "nodeType": "MatrixOutput",
+          "category": "output",
+          "properties": {
+            "form": "strip",
+            "outputGamma": 1,
+            "width": 16,
+            "height": 16,
+            "ledCount": 60,
+            "ringStartAngle": 0,
+            "ringDirection": "cw",
+            "corkscrewTurns": 6,
+            "corkscrewStartAngle": 0,
+            "corkscrewDirection": "cw",
+            "corkscrewDiameterMm": 100,
+            "corkscrewHeightMm": 300,
+            "chipset": "WS2812B",
+            "dataLink": "Direct",
+            "colorOrder": "GRB",
+            "dataPin": 7,
+            "dataLanes": 1,
+            "lanePins": [],
+            "clockPin": 6,
+            "dataRateMhz": 0,
+            "serpentine": true,
+            "startCorner": "top-left",
+            "firstRun": "horizontal",
+            "layout": "matrix",
+            "tilesX": 1,
+            "tilesY": 1,
+            "tileSerpentine": false,
+            "tileRotations": "",
+            "customXYMap": "",
+            "stripLayout": "line",
+            "positionsPreset": "catenary",
+            "positionsWidth": 32,
+            "positionsHeight": 16,
+            "positionsMmPerUnit": 10,
+            "positions": "",
+            "networkPreset": "hexagons",
+            "network": "",
+            "ledsPerEdge": 14,
+            "routeMode": "native",
+            "routeX": 0,
+            "routeY": 0,
+            "renderResolution": "Full",
+            "correction": "none",
+            "whitePoint": "none",
+            "dither": true,
+            "hub75R1Pin": 1,
+            "hub75G1Pin": 2,
+            "hub75B1Pin": 3,
+            "hub75R2Pin": 4,
+            "hub75G2Pin": 5,
+            "hub75B2Pin": 12,
+            "hub75APin": 13,
+            "hub75BPin": 14,
+            "hub75CPin": 15,
+            "hub75DPin": 16,
+            "hub75EPin": 33,
+            "hub75ClkPin": 0,
+            "hub75LatPin": 17,
+            "hub75OePin": 18,
+            "hub75WideScan": false,
+            "hub75ColorDepthBits": 8,
+            "assignedPins": {
+              "dataPin": 7
+            },
+            "assignedPinsBoard": "seeed-xiao-esp32s3",
+            "userPinsByBoard": {}
+          },
+          "inputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            },
+            {
+              "id": "enabled",
+              "label": "Enabled",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightness",
+              "label": "Brightness",
+              "dataType": "float"
+            },
+            {
+              "id": "controls",
+              "label": "Controls",
+              "dataType": "playercontrols"
+            },
+            {
+              "id": "ledToggle",
+              "label": "Toggle blackout",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightnessUp",
+              "label": "Brightness Up",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightnessDown",
+              "label": "Brightness Down",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "display",
+              "label": "Display",
+              "dataType": "display"
+            }
+          ]
+        }
+      },
+      {
+        "id": "guide",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": -180
+        },
+        "data": {
+          "label": "Comment",
+          "nodeType": "Comment",
+          "category": "note",
+          "properties": {
+            "text": "PROP SWORD\nSwing harder for a brighter blade and louder hum; a hit flashes white and plays the clash.\nDFPlayer card: 0001.mp3 a long hum, 0002.mp3 a clash.\nThe LEDs are capped at 2.4 A for a USB power bank in the hilt.",
+            "color": "#74d7ff"
+          },
+          "inputs": [],
+          "outputs": []
+        }
+      },
+      {
+        "id": "board",
+        "type": "studioNode",
+        "position": {
+          "x": -260,
+          "y": 0
+        },
+        "data": {
+          "label": "Board",
+          "nodeType": "Board",
+          "category": "output",
+          "properties": {
+            "profileId": "seeed-xiao-esp32s3",
+            "brightness": 255,
+            "overclock": 1,
+            "frameRate": 60,
+            "ledDriver": "auto",
+            "powerLimit": true,
+            "milliamps": 2400,
+            "psramPolicy": "auto",
+            "psramMode": "opi",
+            "serialRoute": "auto",
+            "reportTelemetry": false,
+            "clockSync": "off",
+            "wifiHostname": "",
+            "useDhcp": true,
+            "staticIp": "",
+            "staticGateway": "",
+            "staticSubnet": "255.255.255.0",
+            "staticDns": ""
+          },
+          "inputs": [],
+          "outputs": []
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e-imu-spinX-gyroX-x",
+        "source": "imu",
+        "sourceHandle": "gyroX",
+        "target": "spinX",
+        "targetHandle": "x",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-imu-spinY-gyroY-x",
+        "source": "imu",
+        "sourceHandle": "gyroY",
+        "target": "spinY",
+        "targetHandle": "x",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-imu-spinZ-gyroZ-x",
+        "source": "imu",
+        "sourceHandle": "gyroZ",
+        "target": "spinZ",
+        "targetHandle": "x",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-spinX-spinXY-result-a",
+        "source": "spinX",
+        "sourceHandle": "result",
+        "target": "spinXY",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-spinY-spinXY-result-b",
+        "source": "spinY",
+        "sourceHandle": "result",
+        "target": "spinXY",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-spinXY-spin-result-a",
+        "source": "spinXY",
+        "sourceHandle": "result",
+        "target": "spin",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-spinZ-spin-result-b",
+        "source": "spinZ",
+        "sourceHandle": "result",
+        "target": "spin",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-spin-swingRaw-result-value",
+        "source": "spin",
+        "sourceHandle": "result",
+        "target": "swingRaw",
+        "targetHandle": "value",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-swingRaw-swing-result-value",
+        "source": "swingRaw",
+        "sourceHandle": "result",
+        "target": "swing",
+        "targetHandle": "value",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-swing-bladeLevel-result-value",
+        "source": "swing",
+        "sourceHandle": "result",
+        "target": "bladeLevel",
+        "targetHandle": "value",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-blade-bladeLit-frame-frame",
+        "source": "blade",
+        "sourceHandle": "frame",
+        "target": "bladeLit",
+        "targetHandle": "frame",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-bladeLevel-bladeLit-result-brightness",
+        "source": "bladeLevel",
+        "sourceHandle": "result",
+        "target": "bladeLit",
+        "targetHandle": "brightness",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-imu-impact-shake-a",
+        "source": "imu",
+        "sourceHandle": "shake",
+        "target": "impact",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-bladeLit-flash-frame-frame",
+        "source": "bladeLit",
+        "sourceHandle": "frame",
+        "target": "flash",
+        "targetHandle": "frame",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-impact-flash-result-beat",
+        "source": "impact",
+        "sourceHandle": "result",
+        "target": "flash",
+        "targetHandle": "beat",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-impact-clashing-result-trigger",
+        "source": "impact",
+        "sourceHandle": "result",
+        "target": "clashing",
+        "targetHandle": "trigger",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-clashing-track-result-sel",
+        "source": "clashing",
+        "sourceHandle": "result",
+        "target": "track",
+        "targetHandle": "sel",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-track-sound-result-track",
+        "source": "track",
+        "sourceHandle": "result",
+        "target": "sound",
+        "targetHandle": "track",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-swing-volume-result-value",
+        "source": "swing",
+        "sourceHandle": "result",
+        "target": "volume",
+        "targetHandle": "value",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-volume-sound-result-volume",
+        "source": "volume",
+        "sourceHandle": "result",
+        "target": "sound",
+        "targetHandle": "volume",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-flash-out-frame-frame",
+        "source": "flash",
+        "sourceHandle": "frame",
+        "target": "out",
+        "targetHandle": "frame",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      }
+    ]
+  }
+}

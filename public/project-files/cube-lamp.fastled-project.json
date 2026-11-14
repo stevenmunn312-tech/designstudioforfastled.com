@@ -1,0 +1,1355 @@
+{
+  "id": "example-cube-lamp",
+  "name": "Cube lamp",
+  "createdAt": 1794700800000,
+  "updatedAt": 1794700800000,
+  "workspace": {
+    "nodes": [
+      {
+        "id": "imu",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": 540
+        },
+        "data": {
+          "label": "Accel & Gyro",
+          "nodeType": "MotionVectorInput",
+          "category": "input",
+          "properties": {
+            "partId": "gy-521-mpu6050-module",
+            "sdaPin": 8,
+            "sclPin": 9,
+            "i2cAddress": "0x68"
+          },
+          "inputs": [],
+          "outputs": [
+            {
+              "id": "accelX",
+              "label": "Accel X (g)",
+              "dataType": "float"
+            },
+            {
+              "id": "accelY",
+              "label": "Accel Y (g)",
+              "dataType": "float"
+            },
+            {
+              "id": "accelZ",
+              "label": "Accel Z (g)",
+              "dataType": "float"
+            },
+            {
+              "id": "gyroX",
+              "label": "Gyro X (°/s)",
+              "dataType": "float"
+            },
+            {
+              "id": "gyroY",
+              "label": "Gyro Y (°/s)",
+              "dataType": "float"
+            },
+            {
+              "id": "gyroZ",
+              "label": "Gyro Z (°/s)",
+              "dataType": "float"
+            },
+            {
+              "id": "shake",
+              "label": "Shake (g)",
+              "dataType": "float"
+            },
+            {
+              "id": "connected",
+              "label": "Connected",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "palettes",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 1260
+        },
+        "data": {
+          "label": "Palette Bank",
+          "nodeType": "PaletteBank",
+          "category": "color",
+          "properties": {
+            "palettes": [
+              "party",
+              "ocean",
+              "lava",
+              "forest",
+              "sunset",
+              "aurora"
+            ],
+            "select": 0,
+            "blend": 24
+          },
+          "inputs": [
+            {
+              "id": "next",
+              "label": "Next",
+              "dataType": "bool"
+            },
+            {
+              "id": "previous",
+              "label": "Previous",
+              "dataType": "bool"
+            },
+            {
+              "id": "select",
+              "label": "Index",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "palette",
+              "label": "Palette",
+              "dataType": "palette"
+            },
+            {
+              "id": "name",
+              "label": "Name",
+              "dataType": "string"
+            },
+            {
+              "id": "index",
+              "label": "Index",
+              "dataType": "float"
+            }
+          ]
+        }
+      },
+      {
+        "id": "shaken",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 1440
+        },
+        "data": {
+          "label": "Shaken",
+          "nodeType": "Compare",
+          "category": "math",
+          "properties": {
+            "compareOp": "greater",
+            "a": 0,
+            "b": 0.8,
+            "hysteresis": 0.3
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "xUp",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 180
+        },
+        "data": {
+          "label": "+X face up",
+          "nodeType": "Compare",
+          "category": "math",
+          "properties": {
+            "compareOp": "greater",
+            "a": 0,
+            "b": 0.7,
+            "hysteresis": 0.1
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "xDown",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 360
+        },
+        "data": {
+          "label": "−X face up",
+          "nodeType": "Compare",
+          "category": "math",
+          "properties": {
+            "compareOp": "less",
+            "a": 0,
+            "b": -0.7,
+            "hysteresis": 0.1
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "yUp",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 540
+        },
+        "data": {
+          "label": "+Y face up",
+          "nodeType": "Compare",
+          "category": "math",
+          "properties": {
+            "compareOp": "greater",
+            "a": 0,
+            "b": 0.7,
+            "hysteresis": 0.1
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "yDown",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 720
+        },
+        "data": {
+          "label": "−Y face up",
+          "nodeType": "Compare",
+          "category": "math",
+          "properties": {
+            "compareOp": "less",
+            "a": 0,
+            "b": -0.7,
+            "hysteresis": 0.1
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "zDown",
+        "type": "studioNode",
+        "position": {
+          "x": 260,
+          "y": 900
+        },
+        "data": {
+          "label": "Upside down",
+          "nodeType": "Compare",
+          "category": "math",
+          "properties": {
+            "compareOp": "less",
+            "a": 0,
+            "b": -0.7,
+            "hysteresis": 0.1
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "A",
+              "dataType": "float"
+            },
+            {
+              "id": "b",
+              "label": "B",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "result",
+              "label": "Result",
+              "dataType": "bool"
+            }
+          ]
+        }
+      },
+      {
+        "id": "ocean",
+        "type": "studioNode",
+        "position": {
+          "x": 520,
+          "y": 0
+        },
+        "data": {
+          "label": "Pacifica",
+          "nodeType": "Pacifica",
+          "category": "pattern",
+          "properties": {
+            "speed": 0.35,
+            "scale": 0.5,
+            "palette": "ocean"
+          },
+          "inputs": [
+            {
+              "id": "speed",
+              "label": "Speed",
+              "dataType": "float"
+            },
+            {
+              "id": "scale",
+              "label": "Scale",
+              "dataType": "float"
+            },
+            {
+              "id": "paletteIn",
+              "label": "Palette",
+              "dataType": "palette"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "fire",
+        "type": "studioNode",
+        "position": {
+          "x": 520,
+          "y": 180
+        },
+        "data": {
+          "label": "Fire",
+          "nodeType": "Fire",
+          "category": "pattern",
+          "properties": {
+            "intensity": 0.7,
+            "cooling": 55,
+            "sparking": 120,
+            "palette": "fire",
+            "direction": "auto",
+            "turbulence": 1,
+            "mirror": false,
+            "seed": 0,
+            "fireStyle": "classic"
+          },
+          "inputs": [
+            {
+              "id": "intensity",
+              "label": "Intensity",
+              "dataType": "float"
+            },
+            {
+              "id": "cooling",
+              "label": "Cooling",
+              "dataType": "float"
+            },
+            {
+              "id": "sparking",
+              "label": "Sparking",
+              "dataType": "float"
+            },
+            {
+              "id": "paletteIn",
+              "label": "Palette",
+              "dataType": "palette"
+            },
+            {
+              "id": "turbulence",
+              "label": "Turbulence",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "plasma",
+        "type": "studioNode",
+        "position": {
+          "x": 520,
+          "y": 360
+        },
+        "data": {
+          "label": "Plasma",
+          "nodeType": "Plasma",
+          "category": "pattern",
+          "properties": {
+            "plasmaStyle": "classic",
+            "speed": 0.5,
+            "scale": 0.5,
+            "palette": "rainbow"
+          },
+          "inputs": [
+            {
+              "id": "speed",
+              "label": "Speed",
+              "dataType": "float"
+            },
+            {
+              "id": "scale",
+              "label": "Scale",
+              "dataType": "float"
+            },
+            {
+              "id": "paletteIn",
+              "label": "Palette",
+              "dataType": "palette"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "twinkle",
+        "type": "studioNode",
+        "position": {
+          "x": 520,
+          "y": 540
+        },
+        "data": {
+          "label": "TwinkleFox",
+          "nodeType": "TwinkleFox",
+          "category": "pattern",
+          "properties": {
+            "speed": 0.5,
+            "density": 0.5,
+            "palette": "party",
+            "seed": 0
+          },
+          "inputs": [
+            {
+              "id": "speed",
+              "label": "Speed",
+              "dataType": "float"
+            },
+            {
+              "id": "paletteIn",
+              "label": "Palette",
+              "dataType": "palette"
+            },
+            {
+              "id": "density",
+              "label": "Density",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "juggle",
+        "type": "studioNode",
+        "position": {
+          "x": 520,
+          "y": 720
+        },
+        "data": {
+          "label": "Juggle",
+          "nodeType": "Juggle",
+          "category": "pattern",
+          "properties": {
+            "speed": 0.5,
+            "count": 4,
+            "palette": "rainbow",
+            "seed": 0
+          },
+          "inputs": [
+            {
+              "id": "speed",
+              "label": "Speed",
+              "dataType": "float"
+            },
+            {
+              "id": "paletteIn",
+              "label": "Palette",
+              "dataType": "palette"
+            },
+            {
+              "id": "count",
+              "label": "Count",
+              "dataType": "float"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "breathe",
+        "type": "studioNode",
+        "position": {
+          "x": 520,
+          "y": 900
+        },
+        "data": {
+          "label": "Breathe",
+          "nodeType": "Breathe",
+          "category": "pattern",
+          "properties": {
+            "bpm": 8,
+            "minLevel": 0.05,
+            "curve": "natural",
+            "palette": "ocean"
+          },
+          "inputs": [
+            {
+              "id": "bpm",
+              "label": "BPM",
+              "dataType": "float"
+            },
+            {
+              "id": "minLevel",
+              "label": "Min Level",
+              "dataType": "float"
+            },
+            {
+              "id": "paletteIn",
+              "label": "Palette",
+              "dataType": "palette"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "pick1",
+        "type": "studioNode",
+        "position": {
+          "x": 780,
+          "y": 180
+        },
+        "data": {
+          "label": "Frame Switch",
+          "nodeType": "FrameSwitch",
+          "category": "composite",
+          "properties": {
+            "select": false
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "Frame A",
+              "dataType": "frame"
+            },
+            {
+              "id": "b",
+              "label": "Frame B",
+              "dataType": "frame"
+            },
+            {
+              "id": "sel",
+              "label": "Select",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "pick2",
+        "type": "studioNode",
+        "position": {
+          "x": 1040,
+          "y": 360
+        },
+        "data": {
+          "label": "Frame Switch",
+          "nodeType": "FrameSwitch",
+          "category": "composite",
+          "properties": {
+            "select": false
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "Frame A",
+              "dataType": "frame"
+            },
+            {
+              "id": "b",
+              "label": "Frame B",
+              "dataType": "frame"
+            },
+            {
+              "id": "sel",
+              "label": "Select",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "pick3",
+        "type": "studioNode",
+        "position": {
+          "x": 1300,
+          "y": 540
+        },
+        "data": {
+          "label": "Frame Switch",
+          "nodeType": "FrameSwitch",
+          "category": "composite",
+          "properties": {
+            "select": false
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "Frame A",
+              "dataType": "frame"
+            },
+            {
+              "id": "b",
+              "label": "Frame B",
+              "dataType": "frame"
+            },
+            {
+              "id": "sel",
+              "label": "Select",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "pick4",
+        "type": "studioNode",
+        "position": {
+          "x": 1560,
+          "y": 720
+        },
+        "data": {
+          "label": "Frame Switch",
+          "nodeType": "FrameSwitch",
+          "category": "composite",
+          "properties": {
+            "select": false
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "Frame A",
+              "dataType": "frame"
+            },
+            {
+              "id": "b",
+              "label": "Frame B",
+              "dataType": "frame"
+            },
+            {
+              "id": "sel",
+              "label": "Select",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "pick5",
+        "type": "studioNode",
+        "position": {
+          "x": 1820,
+          "y": 900
+        },
+        "data": {
+          "label": "Frame Switch",
+          "nodeType": "FrameSwitch",
+          "category": "composite",
+          "properties": {
+            "select": false
+          },
+          "inputs": [
+            {
+              "id": "a",
+              "label": "Frame A",
+              "dataType": "frame"
+            },
+            {
+              "id": "b",
+              "label": "Frame B",
+              "dataType": "frame"
+            },
+            {
+              "id": "sel",
+              "label": "Select",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            }
+          ]
+        }
+      },
+      {
+        "id": "out",
+        "type": "studioNode",
+        "position": {
+          "x": 2080,
+          "y": 900
+        },
+        "data": {
+          "label": "LED Matrix",
+          "nodeType": "MatrixOutput",
+          "category": "output",
+          "properties": {
+            "form": "matrix",
+            "outputGamma": 1,
+            "width": 8,
+            "height": 8,
+            "ledCount": 60,
+            "ringStartAngle": 0,
+            "ringDirection": "cw",
+            "corkscrewTurns": 6,
+            "corkscrewStartAngle": 0,
+            "corkscrewDirection": "cw",
+            "corkscrewDiameterMm": 100,
+            "corkscrewHeightMm": 300,
+            "chipset": "WS2812B",
+            "dataLink": "Direct",
+            "colorOrder": "GRB",
+            "dataPin": 5,
+            "dataLanes": 1,
+            "lanePins": [],
+            "clockPin": 6,
+            "dataRateMhz": 0,
+            "serpentine": true,
+            "startCorner": "top-left",
+            "firstRun": "horizontal",
+            "layout": "matrix",
+            "tilesX": 1,
+            "tilesY": 1,
+            "tileSerpentine": false,
+            "tileRotations": "",
+            "customXYMap": "",
+            "stripLayout": "line",
+            "positionsPreset": "catenary",
+            "positionsWidth": 32,
+            "positionsHeight": 16,
+            "positionsMmPerUnit": 10,
+            "positions": "",
+            "networkPreset": "hexagons",
+            "network": "",
+            "ledsPerEdge": 14,
+            "routeMode": "native",
+            "routeX": 0,
+            "routeY": 0,
+            "renderResolution": "Full",
+            "correction": "none",
+            "whitePoint": "none",
+            "dither": true,
+            "hub75R1Pin": 1,
+            "hub75G1Pin": 2,
+            "hub75B1Pin": 3,
+            "hub75R2Pin": 4,
+            "hub75G2Pin": 5,
+            "hub75B2Pin": 12,
+            "hub75APin": 13,
+            "hub75BPin": 14,
+            "hub75CPin": 15,
+            "hub75DPin": 16,
+            "hub75EPin": 33,
+            "hub75ClkPin": 0,
+            "hub75LatPin": 17,
+            "hub75OePin": 18,
+            "hub75WideScan": false,
+            "hub75ColorDepthBits": 8
+          },
+          "inputs": [
+            {
+              "id": "frame",
+              "label": "Frame",
+              "dataType": "frame"
+            },
+            {
+              "id": "enabled",
+              "label": "Enabled",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightness",
+              "label": "Brightness",
+              "dataType": "float"
+            },
+            {
+              "id": "controls",
+              "label": "Controls",
+              "dataType": "playercontrols"
+            },
+            {
+              "id": "ledToggle",
+              "label": "Toggle blackout",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightnessUp",
+              "label": "Brightness Up",
+              "dataType": "bool"
+            },
+            {
+              "id": "brightnessDown",
+              "label": "Brightness Down",
+              "dataType": "bool"
+            }
+          ],
+          "outputs": [
+            {
+              "id": "display",
+              "label": "Display",
+              "dataType": "display"
+            }
+          ]
+        }
+      },
+      {
+        "id": "guide",
+        "type": "studioNode",
+        "position": {
+          "x": 0,
+          "y": -180
+        },
+        "data": {
+          "label": "Comment",
+          "nodeType": "Comment",
+          "category": "note",
+          "properties": {
+            "text": "CUBE LAMP\nEach face you turn upwards picks a different pattern.\nGive it a shake to step to the next palette.\nMount the motion sensor flat, Z axis pointing up.",
+            "color": "#74d7ff"
+          },
+          "inputs": [],
+          "outputs": []
+        }
+      },
+      {
+        "id": "board",
+        "type": "studioNode",
+        "position": {
+          "x": -260,
+          "y": 0
+        },
+        "data": {
+          "label": "Board",
+          "nodeType": "Board",
+          "category": "output",
+          "properties": {
+            "profileId": "espressif-esp32-s3-devkitc-1",
+            "brightness": 128,
+            "overclock": 1,
+            "frameRate": 60,
+            "ledDriver": "auto",
+            "powerLimit": true,
+            "milliamps": 3900,
+            "psramPolicy": "auto",
+            "psramMode": "opi",
+            "serialRoute": "auto",
+            "reportTelemetry": false,
+            "clockSync": "off",
+            "wifiHostname": "",
+            "useDhcp": true,
+            "staticIp": "",
+            "staticGateway": "",
+            "staticSubnet": "255.255.255.0",
+            "staticDns": ""
+          },
+          "inputs": [],
+          "outputs": []
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e-imu-xUp-accelX-a",
+        "source": "imu",
+        "sourceHandle": "accelX",
+        "target": "xUp",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-imu-xDown-accelX-a",
+        "source": "imu",
+        "sourceHandle": "accelX",
+        "target": "xDown",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-imu-yUp-accelY-a",
+        "source": "imu",
+        "sourceHandle": "accelY",
+        "target": "yUp",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-imu-yDown-accelY-a",
+        "source": "imu",
+        "sourceHandle": "accelY",
+        "target": "yDown",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-imu-zDown-accelZ-a",
+        "source": "imu",
+        "sourceHandle": "accelZ",
+        "target": "zDown",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-imu-shaken-shake-a",
+        "source": "imu",
+        "sourceHandle": "shake",
+        "target": "shaken",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#9aa0a6"
+        }
+      },
+      {
+        "id": "e-shaken-palettes-result-next",
+        "source": "shaken",
+        "sourceHandle": "result",
+        "target": "palettes",
+        "targetHandle": "next",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-palettes-ocean-palette-paletteIn",
+        "source": "palettes",
+        "sourceHandle": "palette",
+        "target": "ocean",
+        "targetHandle": "paletteIn",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#ff5cf0"
+        }
+      },
+      {
+        "id": "e-palettes-fire-palette-paletteIn",
+        "source": "palettes",
+        "sourceHandle": "palette",
+        "target": "fire",
+        "targetHandle": "paletteIn",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#ff5cf0"
+        }
+      },
+      {
+        "id": "e-palettes-plasma-palette-paletteIn",
+        "source": "palettes",
+        "sourceHandle": "palette",
+        "target": "plasma",
+        "targetHandle": "paletteIn",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#ff5cf0"
+        }
+      },
+      {
+        "id": "e-palettes-twinkle-palette-paletteIn",
+        "source": "palettes",
+        "sourceHandle": "palette",
+        "target": "twinkle",
+        "targetHandle": "paletteIn",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#ff5cf0"
+        }
+      },
+      {
+        "id": "e-palettes-juggle-palette-paletteIn",
+        "source": "palettes",
+        "sourceHandle": "palette",
+        "target": "juggle",
+        "targetHandle": "paletteIn",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#ff5cf0"
+        }
+      },
+      {
+        "id": "e-palettes-breathe-palette-paletteIn",
+        "source": "palettes",
+        "sourceHandle": "palette",
+        "target": "breathe",
+        "targetHandle": "paletteIn",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#ff5cf0"
+        }
+      },
+      {
+        "id": "e-ocean-pick1-frame-a",
+        "source": "ocean",
+        "sourceHandle": "frame",
+        "target": "pick1",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-fire-pick1-frame-b",
+        "source": "fire",
+        "sourceHandle": "frame",
+        "target": "pick1",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-xUp-pick1-result-sel",
+        "source": "xUp",
+        "sourceHandle": "result",
+        "target": "pick1",
+        "targetHandle": "sel",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-pick1-pick2-frame-a",
+        "source": "pick1",
+        "sourceHandle": "frame",
+        "target": "pick2",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-plasma-pick2-frame-b",
+        "source": "plasma",
+        "sourceHandle": "frame",
+        "target": "pick2",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-xDown-pick2-result-sel",
+        "source": "xDown",
+        "sourceHandle": "result",
+        "target": "pick2",
+        "targetHandle": "sel",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-pick2-pick3-frame-a",
+        "source": "pick2",
+        "sourceHandle": "frame",
+        "target": "pick3",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-twinkle-pick3-frame-b",
+        "source": "twinkle",
+        "sourceHandle": "frame",
+        "target": "pick3",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-yUp-pick3-result-sel",
+        "source": "yUp",
+        "sourceHandle": "result",
+        "target": "pick3",
+        "targetHandle": "sel",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-pick3-pick4-frame-a",
+        "source": "pick3",
+        "sourceHandle": "frame",
+        "target": "pick4",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-juggle-pick4-frame-b",
+        "source": "juggle",
+        "sourceHandle": "frame",
+        "target": "pick4",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-yDown-pick4-result-sel",
+        "source": "yDown",
+        "sourceHandle": "result",
+        "target": "pick4",
+        "targetHandle": "sel",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-pick4-pick5-frame-a",
+        "source": "pick4",
+        "sourceHandle": "frame",
+        "target": "pick5",
+        "targetHandle": "a",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-breathe-pick5-frame-b",
+        "source": "breathe",
+        "sourceHandle": "frame",
+        "target": "pick5",
+        "targetHandle": "b",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      },
+      {
+        "id": "e-zDown-pick5-result-sel",
+        "source": "zDown",
+        "sourceHandle": "result",
+        "target": "pick5",
+        "targetHandle": "sel",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#c6ff32"
+        }
+      },
+      {
+        "id": "e-pick5-out-frame-frame",
+        "source": "pick5",
+        "sourceHandle": "frame",
+        "target": "out",
+        "targetHandle": "frame",
+        "type": "glowEdge",
+        "reconnectable": "target",
+        "style": {
+          "stroke": "#5ad1ff"
+        }
+      }
+    ]
+  }
+}
