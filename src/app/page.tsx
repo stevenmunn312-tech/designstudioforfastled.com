@@ -58,12 +58,12 @@ export default async function Home() {
         <section className="home-hero" aria-labelledby="home-title">
           <div className="home-hero-footage">
             <MotionSafeVideo
-              webm="/home/bench-loop.webm"
-              mp4="/home/bench-loop.mp4"
-              poster="/home/bench-poster.jpg"
-              alt="A 16 by 16 LED matrix glowing in rainbow colours behind a small microphone board, in a dark room"
-              width={1600}
-              height={900}
+              webm="/home/workbench-loop.webm"
+              mp4="/home/workbench-loop.mp4"
+              poster="/home/workbench-poster.jpg"
+              alt="An ESP32-S3 board on a dark workbench, wired to a WS2812B LED strip that runs a rainbow chase, with a 32 by 32 LED matrix glowing slightly out of focus behind it"
+              width={1800}
+              height={1200}
               preload
             />
           </div>
@@ -88,7 +88,7 @@ export default async function Home() {
             </div>
             <p className="home-facts">v{version} beta · Windows · macOS · Linux · free, MIT core</p>
           </div>
-          <p className="home-credit">From &ldquo;Sound to Light&rdquo;, episode 07 of Learn the Studio</p>
+          <p className="home-credit">ESP32-S3, WS2812B strip and a 32×32 matrix, rendered in Blender</p>
         </section>
 
         <section className="home-steps" aria-labelledby="home-steps-title">
