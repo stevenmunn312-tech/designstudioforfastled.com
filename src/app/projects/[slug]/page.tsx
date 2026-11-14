@@ -4,18 +4,17 @@ import { notFound } from "next/navigation";
 import { ArrowDownToLine, ArrowLeft, ArrowRight, FileJson, TriangleAlert } from "lucide-react";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { findProject, projectCategory, projectFile, projectNeighbours, projects } from "@/lib/projects";
+import { findProject, projectCategory, projectFile, projectNeighbours } from "@/lib/projects";
 
 type ProjectPageProps = {
   params: Promise<{ slug: string }>;
 };
 
-/** Every project is fixed content; any other slug is a 404. */
-export const dynamicParams = false;
-
-export function generateStaticParams() {
-  return projects.map((project) => ({ slug: project.slug }));
-}
+// Rendered per request, like the site's other dynamic routes. The Cloudflare
+// worker has no incremental cache configured, so pages prerendered with
+// generateStaticParams never reach it and every project 404'd in production.
+// An unknown slug is still a 404, from notFound() below.
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
   const project = findProject((await params).slug);
