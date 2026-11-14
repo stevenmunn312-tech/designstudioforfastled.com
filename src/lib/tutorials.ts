@@ -38,7 +38,7 @@ export const tutorials: readonly Tutorial[] = [
     videoId: "Jw6y4KZ1kdc",
     title: "Welcome to the Studio",
     tagline: "From an idea on screen to light on your desk.",
-    summary: "A calm first look at Design Studio for FastLED: what it makes, how a pattern travels from the graph to real LEDs, and the four tabs you will use in every project. No hardware needed to follow along.",
+    summary: "A first look at Design Studio for FastLED: what it makes, how a pattern travels from the graph to real LEDs, and the four tabs you will use in every project. No hardware needed to follow along.",
     learn: [
       "What the Studio is for",
       "How a pattern flows from graph to LEDs",
