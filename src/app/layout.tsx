@@ -1,19 +1,23 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Mono, Manrope, Oxanium } from "next/font/google";
+import { Audiowide, IBM_Plex_Mono, Inter, JetBrains_Mono, Manrope, Oxanium } from "next/font/google";
 import "./globals.css";
 
 const display = Oxanium({ subsets: ["latin"], variable: "--font-display" });
 const body = Manrope({ subsets: ["latin"], variable: "--font-body" });
 const mono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-mono" });
+// The "Learn the Studio" series faces, used by the redesigned home page.
+const studioMark = Audiowide({ subsets: ["latin"], weight: "400", variable: "--font-studio-mark" });
+const studioSans = Inter({ subsets: ["latin"], variable: "--font-studio-sans" });
+const studioMono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-studio-mono" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://designstudioforfastled.com"),
-  title: { default: "Design Studio for FastLED — Design the Light, Build the Rig", template: "%s · Design Studio for FastLED" },
-  description: "Explore the Hardware branch of Design Studio for FastLED: choose boards and parts, wire visual patterns, prepare firmware, and print your build plan.",
+  title: { default: "Design Studio for FastLED — Build LED patterns with nodes", template: "%s · Design Studio for FastLED" },
+  description: "Build LED patterns with nodes. Send them to real lights. A free desktop app that turns a node graph into FastLED firmware, with a live preview while you patch.",
   openGraph: {
     type: "website",
-    title: "Design Studio for FastLED — Design the Light, Build the Rig",
-    description: "One project across Hardware, Graph, Upload, and Build Diagram. Explore the development branch, download the desktop beta, and share community patterns.",
+    title: "Design Studio for FastLED — Build LED patterns with nodes",
+    description: "Wire nodes into a graph, watch the matrix answer live, then flash real FastLED firmware. Download the desktop beta and browse the pattern library.",
     images: [{ url: "/og.png", width: 1536, height: 1024, alt: "Design Studio for FastLED pattern gallery" }],
   },
   twitter: { card: "summary_large_image", images: ["/og.png"] },
@@ -21,7 +25,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
+    <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable} ${studioMark.variable} ${studioSans.variable} ${studioMono.variable}`}>
       <body>{children}</body>
     </html>
   );

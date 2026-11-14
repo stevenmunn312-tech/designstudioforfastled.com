@@ -34,13 +34,18 @@ export interface MotionSafeVideoProps {
   alt: string;
   width: number;
   height: number;
+  /** Above-the-fold clips: the poster is the first paint everyone gets (the
+   *  server always renders it), so it must load eagerly rather than lazily. */
+  preload?: boolean;
 }
 
-export function MotionSafeVideo({ webm, mp4, poster, alt, width, height }: MotionSafeVideoProps) {
+export function MotionSafeVideo({ webm, mp4, poster, alt, width, height, preload = false }: MotionSafeVideoProps) {
   const prefersReducedMotion = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   if (prefersReducedMotion) {
-    return <Image src={poster} alt={alt} width={width} height={height} loading="lazy" />;
+    return preload
+      ? <Image src={poster} alt={alt} width={width} height={height} preload />
+      : <Image src={poster} alt={alt} width={width} height={height} loading="lazy" />;
   }
 
   return (
