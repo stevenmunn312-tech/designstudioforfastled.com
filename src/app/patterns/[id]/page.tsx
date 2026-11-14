@@ -115,9 +115,13 @@ function PatternStep({ direction, target }: { direction: "previous" | "next"; ta
   }
 
   return (
+    // scroll={false}: stepping is browsing in place. Next otherwise scrolls a
+    // page whose top is off-screen back to the top. PatternStage keeps the
+    // matrix where it was (see keepStageInPlace).
     <Link
       className={`pattern-step pattern-step-${direction}`}
       href={`/patterns/${target.id}`}
+      scroll={false}
       aria-label={`${direction === "previous" ? "Previous" : "Next"} pattern: ${target.title}`}
       title={target.title}
     >

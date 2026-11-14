@@ -1,7 +1,7 @@
 "use client";
 
 import { Lock, Pause, Play } from "lucide-react";
-import { useState, type ReactNode } from "react";
+import { useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import type { Pattern } from "@/lib/patterns";
 import { tagKeys } from "@/lib/pattern-tags";
 import { patternNeedsTrust } from "@/lib/evaluator/evaluateSharedPattern";
@@ -19,6 +19,25 @@ function graphIsAudioReactive(graph: LoadedGraph | null): boolean {
   if (!graph) return false;
   if (isAudioReactiveSubgraph(graph.nodes)) return true;
   return Object.values(graph.groups).some((group) => isAudioReactiveSubgraph(group.nodes));
+}
+
+/** Viewport top of the stage when a step arrow was clicked, waiting for the
+ *  next pattern's stage to mount. Module scope because the detail page — and
+ *  this component with it — is replaced on every step. */
+let pendingStageTop: number | null = null;
+
+/**
+ * Hold the matrix at the same place on screen across a step. The step links
+ * do not scroll, but the heading above the stage is a different height for
+ * each pattern (a two- or three-line description), so without this the stage
+ * would still jump by a line or two.
+ */
+function keepStageInPlace(stage: HTMLElement | null) {
+  if (!stage || pendingStageTop === null) return;
+  // Instant, not the page's smooth scroll-behavior: the correction lands
+  // before the new frame paints, so the matrix never visibly moves.
+  window.scrollBy({ top: stage.getBoundingClientRect().top - pendingStageTop, behavior: "instant" });
+  pendingStageTop = null;
 }
 
 /**
@@ -41,7 +60,10 @@ export function PatternStage({
   stepNote?: ReactNode;
   rail?: ReactNode;
 }) {
+  const stageRef = useRef<HTMLElement>(null);
   const { graph, source } = usePatternGraph(pattern.previewUrl);
+
+  useLayoutEffect(() => keepStageInPlace(stageRef.current), [pattern.id]);
   const [running, setRunning] = useState(true);
   // Trust is per pattern file, so stepping to the next pattern asks again.
   // Built-ins ship with the app, which runs their code without asking.
@@ -55,7 +77,16 @@ export function PatternStage({
   const waitingForAudio = audioReactive && graph !== null && !dock?.analysisLive;
 
   return (
-    <section className="pattern-stage">
+    <section
+      className="pattern-stage"
+      ref={stageRef}
+      onClickCapture={(event) => {
+        if (!(event.target as Element).closest(".pattern-step")) return;
+        // At the very top the visitor is reading the title, so leave the page
+        // at the top rather than pushing the next title out of view.
+        pendingStageTop = window.scrollY > 0 ? stageRef.current?.getBoundingClientRect().top ?? null : null;
+      }}
+    >
       <div className="stage-matrix">
         <div className="stage-matrix-head">
           <span className="stage-kicker">Output matrix</span>
