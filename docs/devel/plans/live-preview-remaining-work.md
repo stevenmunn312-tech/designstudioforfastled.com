@@ -111,6 +111,10 @@ cut earlier this session.
 
 ### 3. Architecture debt: the evaluator is a vendored copy, not a shared package
 
+**Update 2026-11-15:** live previews now run the app's real engine, bundled by
+`scripts/app-sync/sync.mjs` (see [app-sync.md](../app-sync.md)). The vendored
+copy below remains only for the Studio Score, clip backfill and hero-loop tool.
+
 `src/lib/evaluator/` here is a **copy** of files from
 `Design-Studio-for-FastLED/src/{state,audio,animartrix}/`, not a dependency.
 Any node type, bugfix, or behavior change made in the app's real evaluator

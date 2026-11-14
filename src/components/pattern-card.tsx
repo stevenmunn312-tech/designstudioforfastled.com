@@ -3,6 +3,7 @@ import { ArrowDownToLine, ArrowUpRight, Heart } from "lucide-react";
 import type { CSSProperties } from "react";
 import type { Pattern } from "@/lib/patterns";
 import { tagKeys } from "@/lib/pattern-tags";
+import { PatternPreviewCard } from "./pattern-preview-card";
 import { PatternPreviewMedia } from "./pattern-preview-media";
 import { PatternPreviewPlaceholder } from "./pattern-preview-placeholder";
 import { PatternCardEdit } from "./pattern-card-edit";
@@ -37,6 +38,8 @@ export function PatternCard({
       <div className="pattern-preview">
         {pattern.previewMediaUrl ? (
           <PatternPreviewMedia pattern={pattern} variant="card" />
+        ) : pattern.previewUrl ? (
+          <PatternPreviewCard pattern={pattern} />
         ) : (
           <PatternPreviewPlaceholder pattern={pattern} />
         )}
@@ -57,7 +60,7 @@ export function PatternCard({
         </div>
       </div>
       <Link className="pattern-card-link" href={`/patterns/${pattern.id}`} aria-label={`View ${pattern.title} pattern`} />
-      {isModerator && (
+      {isModerator && !pattern.builtIn && (
         <PatternCardEdit
           pattern={{
             id: pattern.id,

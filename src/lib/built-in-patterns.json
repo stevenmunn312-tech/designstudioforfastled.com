@@ -1,0 +1,2310 @@
+[
+  {
+    "id": "azure-tideglass",
+    "title": "Azure Tideglass",
+    "description": "Pattern from the Design Studio library. Built from Pacifica and Blur 2D. Best on a string and ring layout.",
+    "tags": [
+      "Standard",
+      "String",
+      "Ring"
+    ],
+    "colors": [
+      "#0fd1ff",
+      "#d0f4fd",
+      "#00bde9"
+    ],
+    "createdAt": "2026-07-29T00:00:00.000Z",
+    "fileName": "Azure Tideglass.fastled-pattern.json"
+  },
+  {
+    "id": "aurora-veil",
+    "title": "Aurora Veil",
+    "description": "Pattern from the Design Studio library. Built from Noise, Mirror and Blur 2D. Best on a ring layout.",
+    "tags": [
+      "Standard",
+      "Ring"
+    ],
+    "colors": [
+      "#24ffd3",
+      "#1dd4ae",
+      "#1bc3a1"
+    ],
+    "createdAt": "2026-07-29T00:00:00.001Z",
+    "fileName": "Aurora Veil.fastled-pattern.json"
+  },
+  {
+    "id": "opaline-plasma",
+    "title": "Opaline Plasma",
+    "description": "Pattern from the Design Studio library. Built from Plasma and Blur 2D.",
+    "tags": [
+      "Standard"
+    ],
+    "colors": [
+      "#ffca63",
+      "#5af1ff",
+      "#7ca7ff"
+    ],
+    "createdAt": "2026-07-29T00:00:00.002Z",
+    "fileName": "Opaline Plasma.fastled-pattern.json"
+  },
+  {
+    "id": "kaleido-reef",
+    "title": "Kaleido Reef",
+    "description": "Pattern from the Design Studio library. Built from Pacifica, Mirror and Blur 2D. Best on a matrix and ring layout.",
+    "tags": [
+      "Standard",
+      "Matrix",
+      "Ring"
+    ],
+    "colors": [
+      "#1be9ff",
+      "#d3e7ea",
+      "#008696"
+    ],
+    "createdAt": "2026-07-29T00:00:00.003Z",
+    "fileName": "Kaleido Reef.fastled-pattern.json"
+  },
+  {
+    "id": "velvet-prism",
+    "title": "Velvet Prism",
+    "description": "Pattern from the Design Studio library. Built from Pride 2015, Mirror and Blur 2D. Best on a string and ring layout.",
+    "tags": [
+      "Standard",
+      "String",
+      "Ring"
+    ],
+    "colors": [
+      "#ff3101",
+      "#ff002e",
+      "#3202ff"
+    ],
+    "createdAt": "2026-07-29T00:00:00.004Z",
+    "fileName": "Velvet Prism.fastled-pattern.json"
+  },
+  {
+    "id": "moonlit-lanterns",
+    "title": "Moonlit Lanterns",
+    "description": "Pattern from the Design Studio library. Built from Blend Palettes, Pacifica, TwinkleFox and Blur 2D. Best on a string and ring layout.",
+    "tags": [
+      "Standard",
+      "String",
+      "Ring"
+    ],
+    "colors": [
+      "#835cff",
+      "#154eff",
+      "#da87ff"
+    ],
+    "createdAt": "2026-07-29T00:00:00.005Z",
+    "fileName": "Moonlit Lanterns.fastled-pattern.json"
+  },
+  {
+    "id": "forest-cathedral",
+    "title": "Forest Cathedral",
+    "description": "Pattern from the Design Studio library. Built from Blend Palettes, Noise, Mirror and Wave. Best on a matrix layout.",
+    "tags": [
+      "Standard",
+      "Matrix"
+    ],
+    "colors": [
+      "#5cc6ff",
+      "#4f9fff",
+      "#49afbc"
+    ],
+    "createdAt": "2026-07-29T00:00:00.006Z",
+    "fileName": "Forest Cathedral.fastled-pattern.json"
+  },
+  {
+    "id": "spiral-bloom",
+    "title": "Spiral Bloom",
+    "description": "Pattern from the Design Studio library. Built from Spiral, Mirror and Blur 2D. Best on a matrix and ring layout.",
+    "tags": [
+      "Standard",
+      "Matrix",
+      "Ring"
+    ],
+    "colors": [
+      "#7e32ff",
+      "#cb3cff",
+      "#ff66e5"
+    ],
+    "createdAt": "2026-07-29T00:00:00.007Z",
+    "fileName": "Spiral Bloom.fastled-pattern.json"
+  },
+  {
+    "id": "cloud-chamber",
+    "title": "Cloud Chamber",
+    "description": "Pattern from the Design Studio library. Built from Noise and Blur 2D.",
+    "tags": [
+      "Standard"
+    ],
+    "colors": [
+      "#005dff",
+      "#00aeff",
+      "#00c8f5"
+    ],
+    "createdAt": "2026-07-29T00:00:00.008Z",
+    "fileName": "Cloud Chamber.fastled-pattern.json"
+  },
+  {
+    "id": "sunset-silk",
+    "title": "Sunset Silk",
+    "description": "Pattern from the Design Studio library. Built from Gradient Frame, Plasma, Blend and Blur 2D. Best on a matrix layout.",
+    "tags": [
+      "Standard",
+      "Matrix"
+    ],
+    "colors": [
+      "#ff0544",
+      "#ff13b3",
+      "#c013ff"
+    ],
+    "createdAt": "2026-07-29T00:00:00.009Z",
+    "fileName": "Sunset Silk.fastled-pattern.json"
+  },
+  {
+    "id": "celestial-weave",
+    "title": "Celestial Weave",
+    "description": "Pattern from the Design Studio library. Built from Palette Gradient, Array and Blur 2D. Best on a matrix layout.",
+    "tags": [
+      "Standard",
+      "Matrix"
+    ],
+    "colors": [
+      "#00b0ff",
+      "#0454ff",
+      "#300dff"
+    ],
+    "createdAt": "2026-07-29T00:00:00.010Z",
+    "fileName": "Celestial Weave.fastled-pattern.json"
+  },
+  {
+    "id": "silver-shoal",
+    "title": "Silver Shoal",
+    "description": "Pattern from the Design Studio library. Built from Flow Field and Blur 2D.",
+    "tags": [
+      "Standard"
+    ],
+    "colors": [
+      "#00a7ff",
+      "#0085c1",
+      "#001e34"
+    ],
+    "createdAt": "2026-07-29T00:00:00.011Z",
+    "fileName": "Silver Shoal.fastled-pattern.json"
+  },
+  {
+    "id": "amber-vapor",
+    "title": "Amber Vapor",
+    "description": "Pattern from the Design Studio library. Built from Blobs, Mirror and Blur 2D. Best on a ring layout.",
+    "tags": [
+      "Standard",
+      "Ring"
+    ],
+    "colors": [
+      "#ff5d00",
+      "#ff8c00",
+      "#ff9100"
+    ],
+    "createdAt": "2026-07-29T00:00:00.012Z",
+    "fileName": "Amber Vapor.fastled-pattern.json"
+  },
+  {
+    "id": "quiet-harbor",
+    "title": "Quiet Harbor",
+    "description": "Pattern from the Design Studio library. Built from Gradient Frame, Pacifica, Blend and Mirror. Best on a ring layout.",
+    "tags": [
+      "Standard",
+      "Ring"
+    ],
+    "colors": [
+      "#34adff",
+      "#3e98ff",
+      "#236285"
+    ],
+    "createdAt": "2026-07-29T00:00:00.013Z",
+    "fileName": "Quiet Harbor.fastled-pattern.json"
+  },
+  {
+    "id": "lantern-orbit",
+    "title": "Lantern Orbit",
+    "description": "Pattern from the Design Studio library. Built from Scanner, Array and Blur 2D. Best on a string and ring layout.",
+    "tags": [
+      "Standard",
+      "String",
+      "Ring"
+    ],
+    "colors": [
+      "#ffa001",
+      "#ff7b00",
+      "#fbb303"
+    ],
+    "createdAt": "2026-07-29T00:00:00.014Z",
+    "fileName": "Lantern Orbit.fastled-pattern.json"
+  },
+  {
+    "id": "boreal-loom",
+    "title": "Boreal Loom",
+    "description": "Pattern from the Design Studio library. Built from Noise, Mirror and Blur 2D. Best on a ring layout.",
+    "tags": [
+      "Standard",
+      "Ring"
+    ],
+    "colors": [
+      "#00ffbd",
+      "#00d4ff",
+      "#00dca2"
+    ],
+    "createdAt": "2026-07-29T00:00:00.015Z",
+    "fileName": "Boreal Loom.fastled-pattern.json"
+  },
+  {
+    "id": "petal-drift",
+    "title": "Petal Drift",
+    "description": "Pattern from the Design Studio library. Built from Gradient Frame, Boids, Blur 2D and Blend. Best on a matrix layout.",
+    "tags": [
+      "Standard",
+      "Matrix"
+    ],
+    "colors": [
+      "#ff06c5",
+      "#e607ff",
+      "#641450"
+    ],
+    "createdAt": "2026-07-29T00:00:00.016Z",
+    "fileName": "Petal Drift.fastled-pattern.json"
+  },
+  {
+    "id": "cathedral-glass",
+    "title": "Cathedral Glass",
+    "description": "Pattern from the Design Studio library. Built from Palette Gradient, Mirror and Blur 2D. Best on a matrix and ring layout.",
+    "tags": [
+      "Standard",
+      "Matrix",
+      "Ring"
+    ],
+    "colors": [
+      "#00e0ff",
+      "#00fff3",
+      "#00fdf8"
+    ],
+    "createdAt": "2026-07-29T00:00:00.017Z",
+    "fileName": "Cathedral Glass.fastled-pattern.json"
+  },
+  {
+    "id": "ink-bloom",
+    "title": "Ink Bloom",
+    "description": "Pattern from the Design Studio library. Built from Gradient Frame, Noise, Mirror and Blend. Best on a matrix layout.",
+    "tags": [
+      "Standard",
+      "Matrix"
+    ],
+    "colors": [
+      "#002cff",
+      "#001b90",
+      "#001166"
+    ],
+    "createdAt": "2026-07-29T00:00:00.018Z",
+    "fileName": "Ink Bloom.fastled-pattern.json"
+  },
+  {
+    "id": "starlace-canopy",
+    "title": "Starlace Canopy",
+    "description": "Pattern from the Design Studio library. Built from Palette Gradient, TwinkleFox, Blend and Blur 2D. Best on a string and ring layout.",
+    "tags": [
+      "Standard",
+      "String",
+      "Ring"
+    ],
+    "colors": [
+      "#0034ff",
+      "#3500ff",
+      "#be00ff"
+    ],
+    "createdAt": "2026-07-29T00:00:00.019Z",
+    "fileName": "Starlace Canopy.fastled-pattern.json"
+  },
+  {
+    "id": "breathing-rosette",
+    "title": "Breathing Rosette",
+    "description": "Pattern from the Design Studio library. Built from Slice Tiling, Field → Frame and Blur 2D. Best on a matrix and ring layout.",
+    "tags": [
+      "Standard",
+      "Matrix",
+      "Ring"
+    ],
+    "colors": [
+      "#6318ff",
+      "#8c04ff",
+      "#ffce7d"
+    ],
+    "createdAt": "2026-07-29T00:00:00.020Z",
+    "fileName": "Breathing Rosette.fastled-pattern.json"
+  },
+  {
+    "id": "liquid-mirage",
+    "title": "Liquid Mirage",
+    "description": "Pattern from the Design Studio library. Built from Noise, Field Noise, Frame Warp and Frame Feedback. Best on a matrix layout.",
+    "tags": [
+      "Standard",
+      "Matrix"
+    ],
+    "colors": [
+      "#af02ff",
+      "#ff17bf",
+      "#ff326d"
+    ],
+    "createdAt": "2026-07-29T00:00:00.021Z",
+    "fileName": "Liquid Mirage.fastled-pattern.json"
+  },
+  {
+    "id": "string-ocean-drift",
+    "title": "String Ocean Drift",
+    "description": "Pattern from the Design Studio library. Built from Pacifica. Best on a string layout.",
+    "tags": [
+      "Standard",
+      "String"
+    ],
+    "colors": [
+      "#53fff0",
+      "#16f6ff",
+      "#ecfffd"
+    ],
+    "createdAt": "2026-07-29T00:00:00.022Z",
+    "fileName": "String Ocean Drift.fastled-pattern.json"
+  },
+  {
+    "id": "string-ember-scanner",
+    "title": "String Ember Scanner",
+    "description": "Pattern from the Design Studio library. Built from Scanner. Best on a string layout.",
+    "tags": [
+      "Standard",
+      "String"
+    ],
+    "colors": [
+      "#ff510f",
+      "#ffb65c",
+      "#ffbf67"
+    ],
+    "createdAt": "2026-07-29T00:00:00.023Z",
+    "fileName": "String Ember Scanner.fastled-pattern.json"
+  },
+  {
+    "id": "string-moon-comet",
+    "title": "String Moon Comet",
+    "description": "Pattern from the Design Studio library. Built from Juggle and Trails. Best on a string layout.",
+    "tags": [
+      "Standard",
+      "String"
+    ],
+    "colors": [
+      "#0370ff",
+      "#046ef1",
+      "#001d43"
+    ],
+    "createdAt": "2026-07-29T00:00:00.024Z",
+    "fileName": "String Moon Comet.fastled-pattern.json"
+  },
+  {
+    "id": "string-carnival-juggle",
+    "title": "String Carnival Juggle",
+    "description": "Pattern from the Design Studio library. Built from Juggle and Trails. Best on a string layout.",
+    "tags": [
+      "Standard",
+      "String"
+    ],
+    "colors": [
+      "#ff1461",
+      "#ff480f",
+      "#ff0098"
+    ],
+    "createdAt": "2026-07-29T00:00:00.025Z",
+    "fileName": "String Carnival Juggle.fastled-pattern.json"
+  },
+  {
+    "id": "string-forest-fireflies",
+    "title": "String Forest Fireflies",
+    "description": "Pattern from the Design Studio library. Built from TwinkleFox. Best on a string layout.",
+    "tags": [
+      "Standard",
+      "String"
+    ],
+    "colors": [
+      "#2cff6a",
+      "#6fff38",
+      "#c0ff77"
+    ],
+    "createdAt": "2026-07-29T00:00:00.026Z",
+    "fileName": "String Forest Fireflies.fastled-pattern.json"
+  },
+  {
+    "id": "string-ice-diamonds",
+    "title": "String Ice Diamonds",
+    "description": "Pattern from the Design Studio library. Built from TwinkleFox. Best on a string layout.",
+    "tags": [
+      "Standard",
+      "String"
+    ],
+    "colors": [
+      "#107bff",
+      "#5ec7ff",
+      "#59c9f6"
+    ],
+    "createdAt": "2026-07-29T00:00:00.027Z",
+    "fileName": "String Ice Diamonds.fastled-pattern.json"
+  },
+  {
+    "id": "string-sunset-confetti",
+    "title": "String Sunset Confetti",
+    "description": "Pattern from the Design Studio library. Built from Confetti. Best on a string layout.",
+    "tags": [
+      "Standard",
+      "String"
+    ],
+    "colors": [
+      "#ff480a",
+      "#ffc06a",
+      "#ffb65c"
+    ],
+    "createdAt": "2026-07-29T00:00:00.028Z",
+    "fileName": "String Sunset Confetti.fastled-pattern.json"
+  },
+  {
+    "id": "string-candy-rain",
+    "title": "String Candy Rain",
+    "description": "Pattern from the Design Studio library. Built from Confetti. Best on a string layout.",
+    "tags": [
+      "Standard",
+      "String"
+    ],
+    "colors": [
+      "#ff1463",
+      "#ff4a11",
+      "#ff009d"
+    ],
+    "createdAt": "2026-07-29T00:00:00.029Z",
+    "fileName": "String Candy Rain.fastled-pattern.json"
+  },
+  {
+    "id": "string-rainbow-conveyor",
+    "title": "String Rainbow Conveyor",
+    "description": "Pattern from the Design Studio library. Built from Rainbow. Best on a string layout.",
+    "tags": [
+      "Standard",
+      "String"
+    ],
+    "colors": [
+      "#ff2f01",
+      "#01ff2f",
+      "#2f01ff"
+    ],
+    "createdAt": "2026-07-29T00:00:00.030Z",
+    "fileName": "String Rainbow Conveyor.fastled-pattern.json"
+  },
+  {
+    "id": "string-silk-ribbon",
+    "title": "String Silk Ribbon",
+    "description": "Pattern from the Design Studio library. Built from Pride 2015. Best on a string layout.",
+    "tags": [
+      "Standard",
+      "String"
+    ],
+    "colors": [
+      "#c002ff",
+      "#ff47ea",
+      "#7600ff"
+    ],
+    "createdAt": "2026-07-29T00:00:00.031Z",
+    "fileName": "String Silk Ribbon.fastled-pattern.json"
+  },
+  {
+    "id": "string-candle-garland",
+    "title": "String Candle Garland",
+    "description": "Pattern from the Design Studio library. Built from Candle. Best on a string layout.",
+    "tags": [
+      "Standard",
+      "String"
+    ],
+    "colors": [
+      "#ff8e10",
+      "#ee8810",
+      "#ce720d"
+    ],
+    "createdAt": "2026-07-29T00:00:00.032Z",
+    "fileName": "String Candle Garland.fastled-pattern.json"
+  },
+  {
+    "id": "string-lavender-plasma",
+    "title": "String Lavender Plasma",
+    "description": "Pattern from the Design Studio library. Built from Plasma. Best on a string layout.",
+    "tags": [
+      "Standard",
+      "String"
+    ],
+    "colors": [
+      "#be04ff",
+      "#ff4de9",
+      "#7700ff"
+    ],
+    "createdAt": "2026-07-29T00:00:00.033Z",
+    "fileName": "String Lavender Plasma.fastled-pattern.json"
+  },
+  {
+    "id": "string-moss-marble",
+    "title": "String Moss Marble",
+    "description": "Pattern from the Design Studio library. Built from Plasma. Best on a string layout.",
+    "tags": [
+      "Standard",
+      "String"
+    ],
+    "colors": [
+      "#2dff6e",
+      "#67ff35",
+      "#c1ff78"
+    ],
+    "createdAt": "2026-07-29T00:00:00.034Z",
+    "fileName": "String Moss Marble.fastled-pattern.json"
+  },
+  {
+    "id": "string-rose-heartbeat",
+    "title": "String Rose Heartbeat",
+    "description": "Pattern from the Design Studio library. Built from Breathe. Best on a string layout.",
+    "tags": [
+      "Standard",
+      "String"
+    ],
+    "colors": [
+      "#ff115f",
+      "#ffa731",
+      "#ff00a8"
+    ],
+    "createdAt": "2026-07-29T00:00:00.035Z",
+    "fileName": "String Rose Heartbeat.fastled-pattern.json"
+  },
+  {
+    "id": "string-whitecap-stars",
+    "title": "String Whitecap Stars",
+    "description": "Pattern from the Design Studio library. Built from Pacifica, TwinkleFox and Blend. Best on a string layout.",
+    "tags": [
+      "Standard",
+      "String"
+    ],
+    "colors": [
+      "#49fff3",
+      "#0fe8ff",
+      "#eafffe"
+    ],
+    "createdAt": "2026-07-29T00:00:00.036Z",
+    "fileName": "String Whitecap Stars.fastled-pattern.json"
+  },
+  {
+    "id": "string-lantern-chase",
+    "title": "String Lantern Chase",
+    "description": "Pattern from the Design Studio library. Built from Candle, Scanner and Blend. Best on a string layout.",
+    "tags": [
+      "Standard",
+      "String"
+    ],
+    "colors": [
+      "#ff9b18",
+      "#ff7f0c",
+      "#ecac32"
+    ],
+    "createdAt": "2026-07-29T00:00:00.037Z",
+    "fileName": "String Lantern Chase.fastled-pattern.json"
+  },
+  {
+    "id": "string-neon-duet",
+    "title": "String Neon Duet",
+    "description": "Pattern from the Design Studio library. Built from Scanner, Juggle, Blend and Trails. Best on a string layout.",
+    "tags": [
+      "Standard",
+      "String"
+    ],
+    "colors": [
+      "#cc05ff",
+      "#ff48ea",
+      "#7700ff"
+    ],
+    "createdAt": "2026-07-29T00:00:00.038Z",
+    "fileName": "String Neon Duet.fastled-pattern.json"
+  },
+  {
+    "id": "string-frosted-confetti",
+    "title": "String Frosted Confetti",
+    "description": "Pattern from the Design Studio library. Built from Plasma, Confetti and Blend. Best on a string layout.",
+    "tags": [
+      "Standard",
+      "String"
+    ],
+    "colors": [
+      "#0f7bff",
+      "#42b3ff",
+      "#56ccff"
+    ],
+    "createdAt": "2026-07-29T00:00:00.039Z",
+    "fileName": "String Frosted Confetti.fastled-pattern.json"
+  },
+  {
+    "id": "string-rainbow-spark-train",
+    "title": "String Rainbow Spark Train",
+    "description": "Pattern from the Design Studio library. Built from Rainbow, Juggle, Blend and Trails. Best on a string layout.",
+    "tags": [
+      "Standard",
+      "String"
+    ],
+    "colors": [
+      "#ff3002",
+      "#3002ff",
+      "#02ff30"
+    ],
+    "createdAt": "2026-07-29T00:00:00.040Z",
+    "fileName": "String Rainbow Spark Train.fastled-pattern.json"
+  },
+  {
+    "id": "string-midnight-jewels",
+    "title": "String Midnight Jewels",
+    "description": "Pattern from the Design Studio library. Built from TwinkleFox and Trails. Best on a string layout.",
+    "tags": [
+      "Standard",
+      "String"
+    ],
+    "colors": [
+      "#c403ff",
+      "#ff46ea",
+      "#7500ff"
+    ],
+    "createdAt": "2026-07-29T00:00:00.041Z",
+    "fileName": "String Midnight Jewels.fastled-pattern.json"
+  },
+  {
+    "id": "aurora-comet-foundry",
+    "title": "Aurora Comet Foundry",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Audio → Hue, HSV → RGB, Bass Rings and Starfield. Best on a ring layout.",
+    "tags": [
+      "Audio Reactive",
+      "Ring"
+    ],
+    "colors": [
+      "#ff4311",
+      "#ff7b85",
+      "#ffaf44"
+    ],
+    "createdAt": "2026-07-29T12:00:00.000Z",
+    "fileName": "Aurora Comet Foundry.fastled-pattern.json"
+  },
+  {
+    "id": "aurora-echo-choir",
+    "title": "Aurora Echo Choir",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Vocal Aurora, Color Trails, Blend and Frame Feedback. Best on a string layout.",
+    "tags": [
+      "Audio Reactive",
+      "String"
+    ],
+    "colors": [
+      "#52ffdb",
+      "#ff8773",
+      "#ff6889"
+    ],
+    "createdAt": "2026-07-29T12:00:00.001Z",
+    "fileName": "Aurora Echo Choir.fastled-pattern.json"
+  },
+  {
+    "id": "bass-cathedral-collapse",
+    "title": "Bass Cathedral Collapse",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Plasma, Mirror, Spectrum Visualizer and Bass Rings. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#ff5015",
+      "#ff4167",
+      "#ff43c8"
+    ],
+    "createdAt": "2026-07-29T12:00:00.002Z",
+    "fileName": "Bass Cathedral Collapse.fastled-pattern.json"
+  },
+  {
+    "id": "chromasonic-vortex",
+    "title": "Chromasonic Vortex",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Audio Flow, Bass Rings, Treble Sparks and Audio → Hue. Best on a matrix and ring layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix",
+      "Ring"
+    ],
+    "colors": [
+      "#ff30e6",
+      "#d181c4",
+      "#ff13dd"
+    ],
+    "createdAt": "2026-07-29T12:00:00.003Z",
+    "fileName": "Chromasonic Vortex.fastled-pattern.json"
+  },
+  {
+    "id": "chromatic-orbit-reactor",
+    "title": "Chromatic Orbit Reactor",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Spectrum Visualizer, Palette Sweep, Gravity Well and Blend. Best on a matrix and ring layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix",
+      "Ring"
+    ],
+    "colors": [
+      "#ff5818",
+      "#ffb22d",
+      "#ff3c41"
+    ],
+    "createdAt": "2026-07-29T12:00:00.004Z",
+    "fileName": "Chromatic Orbit Reactor.fastled-pattern.json"
+  },
+  {
+    "id": "color-trails",
+    "title": "Color Trails",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Color Trails. Best on a string and ring layout.",
+    "tags": [
+      "Audio Reactive",
+      "String",
+      "Ring"
+    ],
+    "colors": [
+      "#ff6013",
+      "#1dc4ff",
+      "#ffab0e"
+    ],
+    "createdAt": "2026-07-29T12:00:00.005Z",
+    "fileName": "Color Trails.fastled-pattern.json"
+  },
+  {
+    "id": "glass-rain-resonator",
+    "title": "Glass Rain Resonator",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Audio → Hue, HSV → RGB, Blend Palettes and Spectrum Visualizer. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#ffb938",
+      "#ff9646",
+      "#d4ff19"
+    ],
+    "createdAt": "2026-07-29T12:00:00.006Z",
+    "fileName": "Glass Rain Resonator.fastled-pattern.json"
+  },
+  {
+    "id": "kaleido-bass-singularity",
+    "title": "Kaleido Bass Singularity",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from AnimARTrix, Color Trails, Blend and Frame Feedback. Best on a matrix and ring layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix",
+      "Ring"
+    ],
+    "colors": [
+      "#ba39ff",
+      "#59ff86",
+      "#9c66ff"
+    ],
+    "createdAt": "2026-07-29T12:00:00.007Z",
+    "fileName": "Kaleido Bass Singularity.fastled-pattern.json"
+  },
+  {
+    "id": "laser-monsoon-parade",
+    "title": "Laser Monsoon Parade",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Audio → Hue, HSV → RGB, Palette Gradient and Treble Prism. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#ff3e00",
+      "#ffb300",
+      "#01b2ff"
+    ],
+    "createdAt": "2026-07-29T12:00:00.008Z",
+    "fileName": "Laser Monsoon Parade.fastled-pattern.json"
+  },
+  {
+    "id": "mainstage-confetti-singularity",
+    "title": "Mainstage Confetti Singularity",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Audio → Hue, HSV → RGB, Blend Palettes and Audio Cascade. Best on a string and ring layout.",
+    "tags": [
+      "Audio Reactive",
+      "String",
+      "Ring"
+    ],
+    "colors": [
+      "#6b3cff",
+      "#456cff",
+      "#ff480a"
+    ],
+    "createdAt": "2026-07-29T12:00:00.009Z",
+    "fileName": "Mainstage Confetti Singularity.fastled-pattern.json"
+  },
+  {
+    "id": "morphing-neon-river",
+    "title": "Morphing Neon River",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Color Trails, Spectrum Visualizer, Blend and Frame Feedback. Best on a string and matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "String",
+      "Matrix"
+    ],
+    "colors": [
+      "#00ffd4",
+      "#00e6ff",
+      "#00df92"
+    ],
+    "createdAt": "2026-07-29T12:00:00.010Z",
+    "fileName": "Morphing Neon River.fastled-pattern.json"
+  },
+  {
+    "id": "percussion-symphony",
+    "title": "Percussion Symphony",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Kick Shock, Percussion Blobs, Treble Sparks and Blend. Best on a string and matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "String",
+      "Matrix"
+    ],
+    "colors": [
+      "#ff5c70",
+      "#ff6a4f",
+      "#ffb043"
+    ],
+    "createdAt": "2026-07-29T12:00:00.011Z",
+    "fileName": "Percussion Symphony.fastled-pattern.json"
+  },
+  {
+    "id": "polar-wave-halo-engine",
+    "title": "Polar Wave Halo Engine",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from AnimARTrix, Spectrum Visualizer, Blend and Mirror. Best on a matrix and ring layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix",
+      "Ring"
+    ],
+    "colors": [
+      "#22cbff",
+      "#ff1d41",
+      "#25ffe0"
+    ],
+    "createdAt": "2026-07-29T12:00:00.012Z",
+    "fileName": "Polar Wave Halo Engine.fastled-pattern.json"
+  },
+  {
+    "id": "prism-storm",
+    "title": "Prism Storm",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Hi-Hat Shards. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#b70fff",
+      "#7e00a5",
+      "#2e0945"
+    ],
+    "createdAt": "2026-07-29T12:00:00.013Z",
+    "fileName": "Prism Storm.fastled-pattern.json"
+  },
+  {
+    "id": "prismatic-waterfall-cathedral",
+    "title": "Prismatic Waterfall Cathedral",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Spectrum Visualizer and Frame Feedback. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#c805ff",
+      "#8717ff",
+      "#e600ff"
+    ],
+    "createdAt": "2026-07-29T12:00:00.014Z",
+    "fileName": "Prismatic Waterfall Cathedral.fastled-pattern.json"
+  },
+  {
+    "id": "quadrant-pulse-observatory",
+    "title": "Quadrant Pulse Observatory",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Spectrum Visualizer, AnimARTrix, Kick Shock and Vocal Aurora. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#ffbd25",
+      "#357aff",
+      "#1d9cff"
+    ],
+    "createdAt": "2026-07-29T12:00:00.015Z",
+    "fileName": "Quadrant Pulse Observatory.fastled-pattern.json"
+  },
+  {
+    "id": "rgb-blob-thunder-garden",
+    "title": "RGB Blob Thunder Garden",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from AnimARTrix, Percussion Blobs and Blend. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#ff4c1b",
+      "#5d2aff",
+      "#ffcb23"
+    ],
+    "createdAt": "2026-07-29T12:00:00.016Z",
+    "fileName": "RGB Blob Thunder Garden.fastled-pattern.json"
+  },
+  {
+    "id": "spectral-field-vortex",
+    "title": "Spectral Field Vortex",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Spectrum Visualizer, Frame → Field, Field Noise and Field Transform. Best on a matrix and ring layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix",
+      "Ring"
+    ],
+    "colors": [
+      "#2fccff",
+      "#4bccfe",
+      "#0f9fc9"
+    ],
+    "createdAt": "2026-07-29T12:00:00.017Z",
+    "fileName": "Spectral Field Vortex.fastled-pattern.json"
+  },
+  {
+    "id": "spiralus-percussion-shrine",
+    "title": "Spiralus Percussion Shrine",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from AnimARTrix and Frame Feedback. Best on a matrix and ring layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix",
+      "Ring"
+    ],
+    "colors": [
+      "#ff27d0",
+      "#ff2f72",
+      "#6036ff"
+    ],
+    "createdAt": "2026-07-29T12:00:00.018Z",
+    "fileName": "Spiralus Percussion Shrine.fastled-pattern.json"
+  },
+  {
+    "id": "tidal-glass-meditation",
+    "title": "Tidal Glass Meditation",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Audio Flow, Treble Sparks, Palette Sampler and Blend. Best on a string and ring layout.",
+    "tags": [
+      "Audio Reactive",
+      "String",
+      "Ring"
+    ],
+    "colors": [
+      "#29c4ff",
+      "#3f8aff",
+      "#ff86a4"
+    ],
+    "createdAt": "2026-07-29T12:00:00.019Z",
+    "fileName": "Tidal Glass Meditation.fastled-pattern.json"
+  },
+  {
+    "id": "bass-furnace",
+    "title": "Bass Furnace",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Fire, Treble Sparks and Blend. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#ff4c00",
+      "#ffab03",
+      "#ffcc00"
+    ],
+    "createdAt": "2026-07-29T12:00:00.020Z",
+    "fileName": "Bass Furnace.fastled-pattern.json"
+  },
+  {
+    "id": "beat-temple",
+    "title": "Beat Temple",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Audio → Hue and Beat Kaleidoscope. Best on a matrix and ring layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix",
+      "Ring"
+    ],
+    "colors": [
+      "#ff00d6",
+      "#00ffde",
+      "#00d5ff"
+    ],
+    "createdAt": "2026-07-29T12:00:00.021Z",
+    "fileName": "Beat Temple.fastled-pattern.json"
+  },
+  {
+    "id": "cellular-percussion-grid",
+    "title": "Cellular Percussion Grid",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Game of Life, Kick Shock, Blur 2D and Blend. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#4dff00",
+      "#b5ff01",
+      "#2401ff"
+    ],
+    "createdAt": "2026-07-29T12:00:00.022Z",
+    "fileName": "Cellular Percussion Grid.fastled-pattern.json"
+  },
+  {
+    "id": "ember-mandala",
+    "title": "Ember Mandala",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Ember Pulse, Mirror, Hue Shift and Treble Sparks. Best on a matrix and ring layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix",
+      "Ring"
+    ],
+    "colors": [
+      "#d9ff19",
+      "#ff4908",
+      "#ffb500"
+    ],
+    "createdAt": "2026-07-29T12:00:00.023Z",
+    "fileName": "Ember Mandala.fastled-pattern.json"
+  },
+  {
+    "id": "fibonacci-spiral-drive",
+    "title": "Fibonacci Spiral Drive",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Geometry Field, Field Transform, Field → Frame and Percussion Blobs. Best on a matrix and ring layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix",
+      "Ring"
+    ],
+    "colors": [
+      "#5706ff",
+      "#bf06ff",
+      "#ff0fed"
+    ],
+    "createdAt": "2026-07-29T12:00:00.024Z",
+    "fileName": "Fibonacci Spiral Drive.fastled-pattern.json"
+  },
+  {
+    "id": "golden-ratio-cathedral",
+    "title": "Golden Ratio Cathedral",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Geometry Field, Field Noise, Field Transform and Shape Field. Best on a matrix and ring layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix",
+      "Ring"
+    ],
+    "colors": [
+      "#ff5700",
+      "#ff8900",
+      "#ff013a"
+    ],
+    "createdAt": "2026-07-29T12:00:00.025Z",
+    "fileName": "Golden Ratio Cathedral.fastled-pattern.json"
+  },
+  {
+    "id": "harmonic-shard-array",
+    "title": "Harmonic Shard Array",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Audio → Hue, HSV → RGB, Wave and Shape. Best on a matrix and ring layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix",
+      "Ring"
+    ],
+    "colors": [
+      "#01c0ff",
+      "#0655ff",
+      "#ff00ec"
+    ],
+    "createdAt": "2026-07-29T12:00:00.026Z",
+    "fileName": "Harmonic Shard Array.fastled-pattern.json"
+  },
+  {
+    "id": "hyperspace-kick",
+    "title": "Hyperspace Kick",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Starfield, Trails and Hue Shift. Best on a matrix and ring layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix",
+      "Ring"
+    ],
+    "colors": [
+      "#4f11ff",
+      "#0a3dff",
+      "#ff824a"
+    ],
+    "createdAt": "2026-07-29T12:00:00.027Z",
+    "fileName": "Hyperspace Kick.fastled-pattern.json"
+  },
+  {
+    "id": "kick-drum-wavefield",
+    "title": "Kick Drum Wavefield",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Wave Sim, Field → Frame, Treble Sparks and Blend. Best on a string and matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "String",
+      "Matrix"
+    ],
+    "colors": [
+      "#0659ff",
+      "#09a4ff",
+      "#0072ff"
+    ],
+    "createdAt": "2026-07-29T12:00:00.028Z",
+    "fileName": "Kick Drum Wavefield.fastled-pattern.json"
+  },
+  {
+    "id": "lissajous-lattice",
+    "title": "Lissajous Lattice",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Geometry Field, Field Transform, Field → Frame and Treble Prism. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#00ffc5",
+      "#03d0ff",
+      "#00ff4a"
+    ],
+    "createdAt": "2026-07-29T12:00:00.029Z",
+    "fileName": "Lissajous Lattice.fastled-pattern.json"
+  },
+  {
+    "id": "phyllotaxis-bloom",
+    "title": "Phyllotaxis Bloom",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Audio → Hue, HSV → RGB, Formula Points and Frame Feedback. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#00baff",
+      "#0049ff",
+      "#3600ff"
+    ],
+    "createdAt": "2026-07-29T12:00:00.030Z",
+    "fileName": "Phyllotaxis Bloom.fastled-pattern.json"
+  },
+  {
+    "id": "reaction-bloom",
+    "title": "Reaction Bloom",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Reaction Diffusion, Bass Pulse and Blend. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#02ffe2",
+      "#ff360a",
+      "#ff122b"
+    ],
+    "createdAt": "2026-07-29T12:00:00.031Z",
+    "fileName": "Reaction Bloom.fastled-pattern.json"
+  },
+  {
+    "id": "snare-rain",
+    "title": "Snare Rain",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Rain Ripples, Kick Shock, Blend and Treble Sparks. Best on a matrix and ring layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix",
+      "Ring"
+    ],
+    "colors": [
+      "#51ff05",
+      "#27d5ff",
+      "#adff09"
+    ],
+    "createdAt": "2026-07-29T12:00:00.032Z",
+    "fileName": "Snare Rain.fastled-pattern.json"
+  },
+  {
+    "id": "spectrum-cathedral",
+    "title": "Spectrum Cathedral",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Spectrum Visualizer and Blend. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#ff4708",
+      "#ff061e",
+      "#ff1b92"
+    ],
+    "createdAt": "2026-07-29T12:00:00.033Z",
+    "fileName": "Spectrum Cathedral.fastled-pattern.json"
+  },
+  {
+    "id": "strange-attractor-fog",
+    "title": "Strange Attractor Fog",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Audio → Hue, HSV → RGB, Formula Points and Frame Feedback. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#12fdff",
+      "#ffffff",
+      "#00ffc0"
+    ],
+    "createdAt": "2026-07-29T12:00:00.034Z",
+    "fileName": "Strange Attractor Fog.fastled-pattern.json"
+  },
+  {
+    "id": "sub-bass-scanline",
+    "title": "Sub Bass Scanline",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Scanner, Spectrum Visualizer and Blend. Best on a string and matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "String",
+      "Matrix"
+    ],
+    "colors": [
+      "#ff4c00",
+      "#ffb200",
+      "#b9ff00"
+    ],
+    "createdAt": "2026-07-29T12:00:00.035Z",
+    "fileName": "Sub Bass Scanline.fastled-pattern.json"
+  },
+  {
+    "id": "turbulent-deep",
+    "title": "Turbulent Deep",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Turbulent Bloom, Bass Rings, Blend and Treble Sparks.",
+    "tags": [
+      "Audio Reactive"
+    ],
+    "colors": [
+      "#0de4ff",
+      "#27ffeb",
+      "#ffffff"
+    ],
+    "createdAt": "2026-07-29T12:00:00.036Z",
+    "fileName": "Turbulent Deep.fastled-pattern.json"
+  },
+  {
+    "id": "ultraviolet-lava-lamp",
+    "title": "Ultraviolet Lava Lamp",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Blobs, Treble Sparks, Blend and Blur 2D. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#ff00eb",
+      "#bb00ff",
+      "#6f00ff"
+    ],
+    "createdAt": "2026-07-29T12:00:00.037Z",
+    "fileName": "Ultraviolet Lava Lamp.fastled-pattern.json"
+  },
+  {
+    "id": "vocal-gravity-veil",
+    "title": "Vocal Gravity Veil",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Audio → Hue, HSV → RGB, Gravity Well and Vocal Aurora. Best on a matrix and ring layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix",
+      "Ring"
+    ],
+    "colors": [
+      "#06cdff",
+      "#0d58ff",
+      "#10ffc7"
+    ],
+    "createdAt": "2026-07-29T12:00:00.038Z",
+    "fileName": "Vocal Gravity Veil.fastled-pattern.json"
+  },
+  {
+    "id": "wireframe-bass-cage",
+    "title": "Wireframe Bass Cage",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Audio → Hue, HSV → RGB, Audio Flow and 3D Wireframe. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#05ecff",
+      "#ff0ffc",
+      "#194bff"
+    ],
+    "createdAt": "2026-07-29T12:00:00.039Z",
+    "fileName": "Wireframe Bass Cage.fastled-pattern.json"
+  },
+  {
+    "id": "juggle-after-dark",
+    "title": "Juggle After Dark",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Audio → Hue, Juggle, Trails and Hue Shift. Best on a string and ring layout.",
+    "tags": [
+      "Audio Reactive",
+      "String",
+      "Ring"
+    ],
+    "colors": [
+      "#0737ff",
+      "#4a0fff",
+      "#ff05d6"
+    ],
+    "createdAt": "2026-07-29T12:00:00.040Z",
+    "fileName": "Juggle After Dark.fastled-pattern.json"
+  },
+  {
+    "id": "confetti-cannonade",
+    "title": "Confetti Cannonade",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Confetti, Treble Sparks and Blend. Best on a string and matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "String",
+      "Matrix"
+    ],
+    "colors": [
+      "#e0ff7f",
+      "#ffd059",
+      "#ff0fa9"
+    ],
+    "createdAt": "2026-07-29T12:00:00.041Z",
+    "fileName": "Confetti Cannonade.fastled-pattern.json"
+  },
+  {
+    "id": "firefly-congregation",
+    "title": "Firefly Congregation",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Particles, Vocal Aurora and Blend. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#0effce",
+      "#01dbff",
+      "#63ff8a"
+    ],
+    "createdAt": "2026-07-29T12:00:00.042Z",
+    "fileName": "Firefly Congregation.fastled-pattern.json"
+  },
+  {
+    "id": "spectra-mosaic-night",
+    "title": "Spectra Mosaic Night",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Spectra Mosaic and Blur 2D. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#0062ff",
+      "#00bbff",
+      "#00fff3"
+    ],
+    "createdAt": "2026-07-29T12:00:00.043Z",
+    "fileName": "Spectra Mosaic Night.fastled-pattern.json"
+  },
+  {
+    "id": "midrange-bloom-cathedral",
+    "title": "Midrange Bloom Cathedral",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Audio → Hue, Midrange Bloom, Mirror and Hue Shift. Best on a matrix and ring layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix",
+      "Ring"
+    ],
+    "colors": [
+      "#04ff32",
+      "#0443ff",
+      "#0bffa8"
+    ],
+    "createdAt": "2026-07-29T12:00:00.044Z",
+    "fileName": "Midrange Bloom Cathedral.fastled-pattern.json"
+  },
+  {
+    "id": "boid-thunder-flock",
+    "title": "Boid Thunder Flock",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Kick Shock, Boids and Blend. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#00deff",
+      "#45ff00",
+      "#01ffc7"
+    ],
+    "createdAt": "2026-07-29T12:00:00.045Z",
+    "fileName": "Boid Thunder Flock.fastled-pattern.json"
+  },
+  {
+    "id": "radial-kick-halo",
+    "title": "Radial Kick Halo",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Radial Burst, Kick Shock and Blend. Best on a matrix and ring layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix",
+      "Ring"
+    ],
+    "colors": [
+      "#ff2400",
+      "#ff9815",
+      "#e64f00"
+    ],
+    "createdAt": "2026-07-29T12:00:00.046Z",
+    "fileName": "Radial Kick Halo.fastled-pattern.json"
+  },
+  {
+    "id": "pacifica-whitecap-storm",
+    "title": "Pacifica Whitecap Storm",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Pacifica, Treble Sparks and Blend. Best on a string and ring layout.",
+    "tags": [
+      "Audio Reactive",
+      "String",
+      "Ring"
+    ],
+    "colors": [
+      "#1ba5ff",
+      "#077dff",
+      "#5cfff9"
+    ],
+    "createdAt": "2026-07-29T12:00:00.047Z",
+    "fileName": "Pacifica Whitecap Storm.fastled-pattern.json"
+  },
+  {
+    "id": "heartline-tracer",
+    "title": "Heartline Tracer",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Wave, Palette Sampler, Path and Trails. Best on a matrix and ring layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix",
+      "Ring"
+    ],
+    "colors": [
+      "#ff0029",
+      "#ff1a03",
+      "#cf1500"
+    ],
+    "createdAt": "2026-07-29T12:00:00.048Z",
+    "fileName": "Heartline Tracer.fastled-pattern.json"
+  },
+  {
+    "id": "plasma-beat-lattice",
+    "title": "Plasma Beat Lattice",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Plasma, Mirror and Hue Shift. Best on a matrix and ring layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix",
+      "Ring"
+    ],
+    "colors": [
+      "#00ff31",
+      "#a2ff00",
+      "#25ff00"
+    ],
+    "createdAt": "2026-07-29T12:00:00.049Z",
+    "fileName": "Plasma Beat Lattice.fastled-pattern.json"
+  },
+  {
+    "id": "truchet-beat-maze",
+    "title": "Truchet Beat Maze",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Truchet Tiles, Field → Frame and Trails. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#00aaff",
+      "#004aff",
+      "#ff0cff"
+    ],
+    "createdAt": "2026-07-29T12:00:00.050Z",
+    "fileName": "Truchet Beat Maze.fastled-pattern.json"
+  },
+  {
+    "id": "string-bass-runner",
+    "title": "String Bass Runner",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Scanner. Best on a string layout.",
+    "tags": [
+      "Audio Reactive",
+      "String"
+    ],
+    "colors": [
+      "#ff4105",
+      "#ffaf3d",
+      "#e6b864"
+    ],
+    "createdAt": "2026-07-29T12:00:00.051Z",
+    "fileName": "String Bass Runner.fastled-pattern.json"
+  },
+  {
+    "id": "string-vocal-comet",
+    "title": "String Vocal Comet",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Juggle and Trails. Best on a string layout.",
+    "tags": [
+      "Audio Reactive",
+      "String"
+    ],
+    "colors": [
+      "#0166ff",
+      "#005ed4",
+      "#001b43"
+    ],
+    "createdAt": "2026-07-29T12:00:00.052Z",
+    "fileName": "String Vocal Comet.fastled-pattern.json"
+  },
+  {
+    "id": "string-treble-diamonds",
+    "title": "String Treble Diamonds",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from TwinkleFox. Best on a string layout.",
+    "tags": [
+      "Audio Reactive",
+      "String"
+    ],
+    "colors": [
+      "#0874ff",
+      "#45beff",
+      "#54b5cd"
+    ],
+    "createdAt": "2026-07-29T12:00:00.053Z",
+    "fileName": "String Treble Diamonds.fastled-pattern.json"
+  },
+  {
+    "id": "string-snare-sprinkles",
+    "title": "String Snare Sprinkles",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Confetti. Best on a string layout.",
+    "tags": [
+      "Audio Reactive",
+      "String"
+    ],
+    "colors": [
+      "#ff0b67",
+      "#ff5201",
+      "#ffb225"
+    ],
+    "createdAt": "2026-07-29T12:00:00.054Z",
+    "fileName": "String Snare Sprinkles.fastled-pattern.json"
+  },
+  {
+    "id": "string-bass-tide",
+    "title": "String Bass Tide",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Pacifica. Best on a string layout.",
+    "tags": [
+      "Audio Reactive",
+      "String"
+    ],
+    "colors": [
+      "#10e6ff",
+      "#3cfff4",
+      "#c1f7fb"
+    ],
+    "createdAt": "2026-07-29T12:00:00.055Z",
+    "fileName": "String Bass Tide.fastled-pattern.json"
+  },
+  {
+    "id": "string-rhythm-ribbon",
+    "title": "String Rhythm Ribbon",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Pride 2015. Best on a string layout.",
+    "tags": [
+      "Audio Reactive",
+      "String"
+    ],
+    "colors": [
+      "#ff0a60",
+      "#ff3a03",
+      "#ff009b"
+    ],
+    "createdAt": "2026-07-29T12:00:00.056Z",
+    "fileName": "String Rhythm Ribbon.fastled-pattern.json"
+  },
+  {
+    "id": "string-spectrum-conveyor",
+    "title": "String Spectrum Conveyor",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Rainbow. Best on a string layout.",
+    "tags": [
+      "Audio Reactive",
+      "String"
+    ],
+    "colors": [
+      "#ff2600",
+      "#00ff1b",
+      "#3000ff"
+    ],
+    "createdAt": "2026-07-29T12:00:00.057Z",
+    "fileName": "String Spectrum Conveyor.fastled-pattern.json"
+  },
+  {
+    "id": "string-singing-candles",
+    "title": "String Singing Candles",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Candle. Best on a string layout.",
+    "tags": [
+      "Audio Reactive",
+      "String"
+    ],
+    "colors": [
+      "#ff8705",
+      "#ff7900",
+      "#e17600"
+    ],
+    "createdAt": "2026-07-29T12:00:00.058Z",
+    "fileName": "String Singing Candles.fastled-pattern.json"
+  },
+  {
+    "id": "string-midrange-marble",
+    "title": "String Midrange Marble",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Plasma. Best on a string layout.",
+    "tags": [
+      "Audio Reactive",
+      "String"
+    ],
+    "colors": [
+      "#11ff59",
+      "#53ff1c",
+      "#b9ff65"
+    ],
+    "createdAt": "2026-07-29T12:00:00.059Z",
+    "fileName": "String Midrange Marble.fastled-pattern.json"
+  },
+  {
+    "id": "string-pulse-plasma",
+    "title": "String Pulse Plasma",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Plasma. Best on a string layout.",
+    "tags": [
+      "Audio Reactive",
+      "String"
+    ],
+    "colors": [
+      "#bd00ff",
+      "#ff35ed",
+      "#7500ff"
+    ],
+    "createdAt": "2026-07-29T12:00:00.060Z",
+    "fileName": "String Pulse Plasma.fastled-pattern.json"
+  },
+  {
+    "id": "string-bass-dot-choir",
+    "title": "String Bass Dot Choir",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Juggle and Trails. Best on a string layout.",
+    "tags": [
+      "Audio Reactive",
+      "String"
+    ],
+    "colors": [
+      "#ff3c04",
+      "#ffa73f",
+      "#ff0011"
+    ],
+    "createdAt": "2026-07-29T12:00:00.061Z",
+    "fileName": "String Bass Dot Choir.fastled-pattern.json"
+  },
+  {
+    "id": "string-wide-kick-scanner",
+    "title": "String Wide Kick Scanner",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Scanner. Best on a string layout.",
+    "tags": [
+      "Audio Reactive",
+      "String"
+    ],
+    "colors": [
+      "#c801ff",
+      "#ff1ffb",
+      "#ff53fc"
+    ],
+    "createdAt": "2026-07-29T12:00:00.062Z",
+    "fileName": "String Wide Kick Scanner.fastled-pattern.json"
+  },
+  {
+    "id": "string-firefly-crescendo",
+    "title": "String Firefly Crescendo",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from TwinkleFox. Best on a string layout.",
+    "tags": [
+      "Audio Reactive",
+      "String"
+    ],
+    "colors": [
+      "#0fff51",
+      "#55ff1b",
+      "#b6ff60"
+    ],
+    "createdAt": "2026-07-29T12:00:00.063Z",
+    "fileName": "String Firefly Crescendo.fastled-pattern.json"
+  },
+  {
+    "id": "string-confetti-sustain",
+    "title": "String Confetti Sustain",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Confetti. Best on a string layout.",
+    "tags": [
+      "Audio Reactive",
+      "String"
+    ],
+    "colors": [
+      "#c601ff",
+      "#ff2afb",
+      "#7b00ff"
+    ],
+    "createdAt": "2026-07-29T12:00:00.064Z",
+    "fileName": "String Confetti Sustain.fastled-pattern.json"
+  },
+  {
+    "id": "string-vocal-whitecaps",
+    "title": "String Vocal Whitecaps",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Pacifica, TwinkleFox and Blend. Best on a string layout.",
+    "tags": [
+      "Audio Reactive",
+      "String"
+    ],
+    "colors": [
+      "#3ffff5",
+      "#08f0ff",
+      "#daf1f7"
+    ],
+    "createdAt": "2026-07-29T12:00:00.065Z",
+    "fileName": "String Vocal Whitecaps.fastled-pattern.json"
+  },
+  {
+    "id": "string-drum-lanterns",
+    "title": "String Drum Lanterns",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Candle, Scanner and Blend. Best on a string layout.",
+    "tags": [
+      "Audio Reactive",
+      "String"
+    ],
+    "colors": [
+      "#ff9109",
+      "#ff7500",
+      "#ff9f0b"
+    ],
+    "createdAt": "2026-07-29T12:00:00.066Z",
+    "fileName": "String Drum Lanterns.fastled-pattern.json"
+  },
+  {
+    "id": "string-stereo-neon-dance",
+    "title": "String Stereo Neon Dance",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Scanner, Juggle, Blend and Trails. Best on a string layout.",
+    "tags": [
+      "Audio Reactive",
+      "String"
+    ],
+    "colors": [
+      "#c301ff",
+      "#ff24f9",
+      "#6f00ff"
+    ],
+    "createdAt": "2026-07-29T12:00:00.067Z",
+    "fileName": "String Stereo Neon Dance.fastled-pattern.json"
+  },
+  {
+    "id": "string-frost-percussion",
+    "title": "String Frost Percussion",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Plasma, Confetti and Blend. Best on a string layout.",
+    "tags": [
+      "Audio Reactive",
+      "String"
+    ],
+    "colors": [
+      "#0874ff",
+      "#28a9ff",
+      "#bfe5e6"
+    ],
+    "createdAt": "2026-07-29T12:00:00.068Z",
+    "fileName": "String Frost Percussion.fastled-pattern.json"
+  },
+  {
+    "id": "string-festival-spark-train",
+    "title": "String Festival Spark Train",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Rainbow, Juggle, Blend and Trails. Best on a string layout.",
+    "tags": [
+      "Audio Reactive",
+      "String"
+    ],
+    "colors": [
+      "#ff2901",
+      "#01ff1c",
+      "#3301ff"
+    ],
+    "createdAt": "2026-07-29T12:00:00.069Z",
+    "fileName": "String Festival Spark Train.fastled-pattern.json"
+  },
+  {
+    "id": "string-quiet-song-jewels",
+    "title": "String Quiet Song Jewels",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from TwinkleFox. Best on a string layout.",
+    "tags": [
+      "Audio Reactive",
+      "String"
+    ],
+    "colors": [
+      "#c000ff",
+      "#ff38e8",
+      "#7600ff"
+    ],
+    "createdAt": "2026-07-29T12:00:00.070Z",
+    "fileName": "String Quiet Song Jewels.fastled-pattern.json"
+  },
+  {
+    "id": "velvet-ink-choir",
+    "title": "Velvet Ink Choir",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Vibe, Wave, Field Noise and Fluid. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#4300ff",
+      "#ffb407",
+      "#ff5107"
+    ],
+    "createdAt": "2026-07-29T12:00:00.071Z",
+    "fileName": "Velvet Ink Choir.fastled-pattern.json"
+  },
+  {
+    "id": "aurora-voice",
+    "title": "Aurora Voice",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Vocal Aurora, Mirror, Hue Shift and Blur 2D. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#5dffe1",
+      "#3ee5ff",
+      "#99ffbc"
+    ],
+    "createdAt": "2026-07-29T12:00:00.072Z",
+    "fileName": "Aurora Voice.fastled-pattern.json"
+  },
+  {
+    "id": "cascade-surge",
+    "title": "Cascade Surge",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Audio Cascade, Bass Pulse, Blend and Gamma. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#15b5ff",
+      "#3077ff",
+      "#33ffd9"
+    ],
+    "createdAt": "2026-07-29T12:00:00.073Z",
+    "fileName": "Cascade Surge.fastled-pattern.json"
+  },
+  {
+    "id": "cinder-storm",
+    "title": "Cinder Storm",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Ember Pulse, Treble Sparks, Blend and Blur 2D. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#ff4a1c",
+      "#ffcd27",
+      "#ffff89"
+    ],
+    "createdAt": "2026-07-29T12:00:00.074Z",
+    "fileName": "Cinder Storm.fastled-pattern.json"
+  },
+  {
+    "id": "event-horizon",
+    "title": "Event Horizon",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Gravity Well, Percussion Blobs, Blend and Frame Feedback. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#7b9cff",
+      "#a894ff",
+      "#ff996f"
+    ],
+    "createdAt": "2026-07-29T12:00:00.075Z",
+    "fileName": "Event Horizon.fastled-pattern.json"
+  },
+  {
+    "id": "fractal-voyage",
+    "title": "Fractal Voyage",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Fractal Field, Field → Frame, Vibe and Palette Bank. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#ff4e37",
+      "#ffc142",
+      "#f7ff82"
+    ],
+    "createdAt": "2026-07-29T12:00:00.076Z",
+    "fileName": "Fractal Voyage.fastled-pattern.json"
+  },
+  {
+    "id": "monsoon-echo",
+    "title": "Monsoon Echo",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Audio Flow, Rain Ripples, Blend and Frame Feedback. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#34b8ff",
+      "#3d80ac",
+      "#0f4b69"
+    ],
+    "createdAt": "2026-07-29T12:00:00.077Z",
+    "fileName": "Monsoon Echo.fastled-pattern.json"
+  },
+  {
+    "id": "sunset-bloom-spectrum",
+    "title": "Sunset Bloom Spectrum",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Turbulent Bloom, Blend and Spectrum Visualizer. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#ffca6e",
+      "#ff865e",
+      "#ff5c86"
+    ],
+    "createdAt": "2026-07-29T12:00:00.078Z",
+    "fileName": "Sunset Bloom Spectrum.fastled-pattern.json"
+  },
+  {
+    "id": "neon-prism-eq",
+    "title": "Neon Prism EQ",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Spectrum Visualizer, Treble Prism, Blend and Blur 2D. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#ffbf3b",
+      "#bb15ff",
+      "#ff6e35"
+    ],
+    "createdAt": "2026-07-29T12:00:00.079Z",
+    "fileName": "Neon Prism EQ.fastled-pattern.json"
+  },
+  {
+    "id": "citrus-spectrum-bars",
+    "title": "Citrus Spectrum Bars",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Spectrum Visualizer. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#bcff38",
+      "#ffc145",
+      "#80ff00"
+    ],
+    "createdAt": "2026-07-29T12:00:00.080Z",
+    "fileName": "Citrus Spectrum Bars.fastled-pattern.json"
+  },
+  {
+    "id": "peacock-mosaic-drift",
+    "title": "Peacock Mosaic Drift",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Spectra Mosaic, Midrange Waves, Blend and Frame Transform. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#abfff5",
+      "#ffe694",
+      "#98f9ff"
+    ],
+    "createdAt": "2026-07-29T12:00:00.081Z",
+    "fileName": "Peacock Mosaic Drift.fastled-pattern.json"
+  },
+  {
+    "id": "polar-bloom",
+    "title": "Polar Bloom",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from AnimARTrix, Wave, Shape and Array. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#57ddff",
+      "#58ffdd",
+      "#e582ff"
+    ],
+    "createdAt": "2026-07-29T12:00:00.082Z",
+    "fileName": "Polar Bloom.fastled-pattern.json"
+  },
+  {
+    "id": "prism-fracture",
+    "title": "Prism Fracture",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Hi-Hat Shards, Wave, Array and Mirror. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#b75aff",
+      "#ffbaff",
+      "#ca97ff"
+    ],
+    "createdAt": "2026-07-29T12:00:00.083Z",
+    "fileName": "Prism Fracture.fastled-pattern.json"
+  },
+  {
+    "id": "psydance",
+    "title": "Psydance",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from AnimARTrix, Blend, Shape and Frame Transform. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#ff85f2",
+      "#57f9ff",
+      "#ff84ac"
+    ],
+    "createdAt": "2026-07-29T12:00:00.084Z",
+    "fileName": "Psydance.fastled-pattern.json"
+  },
+  {
+    "id": "ultraviolet-kaleido-pulse",
+    "title": "Ultraviolet Kaleido Pulse",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Audio → Hue, Beat Kaleidoscope, Wave and Array. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#c56eff",
+      "#8e3cff",
+      "#ffb4ff"
+    ],
+    "createdAt": "2026-07-29T12:00:00.085Z",
+    "fileName": "Ultraviolet Kaleido Pulse.fastled-pattern.json"
+  },
+  {
+    "id": "noctilucent-origami",
+    "title": "Noctilucent Origami",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Song Structure, Slice Tiling, Field Math and Field Levels. Best on a matrix and ring layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix",
+      "Ring"
+    ],
+    "colors": [
+      "#ff4214",
+      "#0dffe4",
+      "#01feff"
+    ],
+    "createdAt": "2026-07-29T12:00:00.086Z",
+    "fileName": "Noctilucent Origami.fastled-pattern.json"
+  },
+  {
+    "id": "copper-circuit-tide",
+    "title": "Copper Circuit Tide",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Song Structure, Frequency Band, Truchet Tiles and Field Noise. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#12ffd5",
+      "#ff9c11",
+      "#12ff5d"
+    ],
+    "createdAt": "2026-07-29T12:00:00.087Z",
+    "fileName": "Copper Circuit Tide.fastled-pattern.json"
+  },
+  {
+    "id": "chromafluid-cathedral",
+    "title": "Chromafluid Cathedral",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Vibe, Song Structure, Stereo Levels and Fluid. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#9435ff",
+      "#b037ff",
+      "#ff865f"
+    ],
+    "createdAt": "2026-07-29T12:00:00.088Z",
+    "fileName": "Chromafluid Cathedral.fastled-pattern.json"
+  },
+  {
+    "id": "mycelium-crescendo",
+    "title": "Mycelium Crescendo",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Song Structure, Turing Field, Field Levels and Field → Frame. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#65ff84",
+      "#79ff4d",
+      "#ffdf4e"
+    ],
+    "createdAt": "2026-07-29T12:00:00.089Z",
+    "fileName": "Mycelium Crescendo.fastled-pattern.json"
+  },
+  {
+    "id": "harmonic-lantern-loom",
+    "title": "Harmonic Lantern Loom",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Song Structure, Pitch Detect, Fourier Epicycles and Gradient Sampler. Best on a matrix and ring layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix",
+      "Ring"
+    ],
+    "colors": [
+      "#b2c0ff",
+      "#ffffff",
+      "#e9f9ff"
+    ],
+    "createdAt": "2026-07-29T12:00:00.090Z",
+    "fileName": "Harmonic Lantern Loom.fastled-pattern.json"
+  },
+  {
+    "id": "abyssal-julia-bloom",
+    "title": "Abyssal Julia Bloom",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Song Structure, Fractal Field, Field Transform and Palette Transform. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#0de9ff",
+      "#25fff2",
+      "#ff6615"
+    ],
+    "createdAt": "2026-07-29T12:00:00.091Z",
+    "fileName": "Abyssal Julia Bloom.fastled-pattern.json"
+  },
+  {
+    "id": "opal-resonance-basin",
+    "title": "Opal Resonance Basin",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Song Structure, Stereo Levels, Wave Sim and Field Symmetry. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#4084ff",
+      "#a9ffef",
+      "#55cdff"
+    ],
+    "createdAt": "2026-07-29T12:00:00.092Z",
+    "fileName": "Opal Resonance Basin.fastled-pattern.json"
+  },
+  {
+    "id": "resonant-velvet",
+    "title": "Resonant Velvet",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Song Structure, Pitch Detect, Frequency Band and Field Formula. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#2260ff",
+      "#ffcd9d",
+      "#ffd0a1"
+    ],
+    "createdAt": "2026-07-29T12:00:00.093Z",
+    "fileName": "Resonant Velvet.fastled-pattern.json"
+  },
+  {
+    "id": "silk-attractor",
+    "title": "Silk Attractor",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Vibe, Song Structure, Stereo Levels and Formula Points. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#ffffff",
+      "#c8ffff",
+      "#9cffee"
+    ],
+    "createdAt": "2026-07-29T12:00:00.094Z",
+    "fileName": "Silk Attractor.fastled-pattern.json"
+  },
+  {
+    "id": "moonflower-release",
+    "title": "Moonflower Release",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Song Structure, Beat Phase, Shape Field and Gradient Field. Best on a matrix and ring layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix",
+      "Ring"
+    ],
+    "colors": [
+      "#b647ff",
+      "#ff5f3e",
+      "#ff1649"
+    ],
+    "createdAt": "2026-07-29T12:00:00.095Z",
+    "fileName": "Moonflower Release.fastled-pattern.json"
+  },
+  {
+    "id": "interference-loom",
+    "title": "Interference Loom",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Vibe, Song Structure, Pitch Detect and Geometry Field. Best on a matrix layout.",
+    "tags": [
+      "Audio Reactive",
+      "Matrix"
+    ],
+    "colors": [
+      "#12a3ff",
+      "#2873ff",
+      "#ff3dcc"
+    ],
+    "createdAt": "2026-07-29T12:00:00.096Z",
+    "fileName": "Interference Loom.fastled-pattern.json"
+  },
+  {
+    "id": "string-meteor-pact",
+    "title": "String Meteor Pact",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Vibe, Song Structure, Frequency Band and String Particles. Best on a string layout.",
+    "tags": [
+      "Audio Reactive",
+      "String"
+    ],
+    "colors": [
+      "#52daff",
+      "#ffc171",
+      "#ffa149"
+    ],
+    "createdAt": "2026-07-29T12:00:00.097Z",
+    "fileName": "String Meteor Pact.fastled-pattern.json"
+  },
+  {
+    "id": "string-stereo-lanterns",
+    "title": "String Stereo Lanterns",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Song Structure, Stereo Levels, Scanner and Frame Transform. Best on a string layout.",
+    "tags": [
+      "Audio Reactive",
+      "String"
+    ],
+    "colors": [
+      "#ff7f56",
+      "#ff5783",
+      "#32e1ff"
+    ],
+    "createdAt": "2026-07-29T12:00:00.098Z",
+    "fileName": "String Stereo Lanterns.fastled-pattern.json"
+  },
+  {
+    "id": "string-harmonic-tide",
+    "title": "String Harmonic Tide",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Song Structure, Beat Phase, Pitch Detect and Frequency Band. Best on a string layout.",
+    "tags": [
+      "Audio Reactive",
+      "String"
+    ],
+    "colors": [
+      "#5d8fff",
+      "#8fe1ff",
+      "#f6f6ff"
+    ],
+    "createdAt": "2026-07-29T12:00:00.099Z",
+    "fileName": "String Harmonic Tide.fastled-pattern.json"
+  }
+]

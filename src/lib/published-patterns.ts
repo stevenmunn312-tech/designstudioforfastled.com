@@ -1,6 +1,6 @@
 import "server-only";
 
-import { starterPatterns, type Pattern } from "@/lib/patterns";
+import { builtInPatterns, type Pattern } from "@/lib/patterns";
 import { getRatingStats } from "@/lib/pattern-ratings";
 import { hasSupabaseConfig } from "@/lib/supabase/config";
 import { createClient } from "@/lib/supabase/server";
@@ -37,12 +37,15 @@ export type PatternNeighbours = {
   total: number;
 };
 
+const builtInLinks: PatternLink[] = builtInPatterns.map(({ id, title }) => ({ id, title }));
+
 /** The gallery order, ids and titles only — no signed URLs, because the detail
  *  page only needs somewhere to point its previous/next arrows. Mirrors the
  *  filters and ordering of getPublishedPatterns so stepping through the
- *  arrows walks the same sequence the gallery shows. */
+ *  arrows walks the same sequence the gallery shows: community uploads,
+ *  newest first, then the app's built-in library in its own order. */
 async function getPatternOrder(): Promise<PatternLink[]> {
-  if (!hasSupabaseConfig()) return starterPatterns.map(({ id, title }) => ({ id, title }));
+  if (!hasSupabaseConfig()) return builtInLinks;
 
   const supabase = await createClient();
   const { data, error } = await supabase
@@ -52,8 +55,8 @@ async function getPatternOrder(): Promise<PatternLink[]> {
     .eq("archived", false)
     .order("created_at", { ascending: false });
 
-  if (error || !data?.length) return starterPatterns.map(({ id, title }) => ({ id, title }));
-  return data as PatternLink[];
+  if (error || !data?.length) return builtInLinks;
+  return [...(data as PatternLink[]), ...builtInLinks];
 }
 
 export async function getPatternNeighbours(id: string): Promise<PatternNeighbours> {
@@ -69,8 +72,16 @@ export async function getPatternNeighbours(id: string): Promise<PatternNeighbour
   };
 }
 
+/** Every pattern the gallery shows: published community uploads, newest
+ *  first, followed by the app's built-in library. */
 export async function getPublishedPatterns(limit?: number): Promise<Pattern[]> {
-  if (!hasSupabaseConfig()) return limit ? starterPatterns.slice(0, limit) : starterPatterns;
+  const patterns = await getCommunityPatterns(limit);
+  const all = [...patterns, ...builtInPatterns];
+  return limit ? all.slice(0, limit) : all;
+}
+
+async function getCommunityPatterns(limit?: number): Promise<Pattern[]> {
+  if (!hasSupabaseConfig()) return [];
 
   const supabase = await createClient();
   let query = supabase
@@ -87,7 +98,7 @@ export async function getPublishedPatterns(limit?: number): Promise<Pattern[]> {
     .order("created_at", { ascending: false });
   if (limit) query = query.limit(limit);
   const { data, error } = await query;
-  if (error || !data?.length) return limit ? starterPatterns.slice(0, limit) : starterPatterns;
+  if (error || !data?.length) return [];
 
   // One aggregate query for the whole page rather than a per-card lookup.
   const ratings = await getRatingStats((data as PatternRow[]).map((row) => row.id));

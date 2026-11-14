@@ -12,6 +12,12 @@
   frame-by-frame rather than screen-recorded, how the seam is verified, and
   the ffmpeg and embed steps.
 
+## Patterns and previews
+
+- [Syncing patterns and previews from the app](devel/app-sync.md) — the script
+  that pulls the app's built-in library, evaluator and LED renderers into the
+  site, what it writes, and how the gallery and detail pages use it.
+
 ## Development plans
 
 - [Live preview: remaining work](devel/plans/live-preview-remaining-work.md)

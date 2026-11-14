@@ -17,7 +17,7 @@ import { SiteHeader } from "@/components/site-header";
 import { PatternStage } from "@/components/pattern-stage";
 import { PatternRatingControl } from "@/components/pattern-rating-control";
 import { StarRating } from "@/components/star-rating";
-import { starterPatterns, type Pattern } from "@/lib/patterns";
+import { findBuiltInPattern, type Pattern } from "@/lib/patterns";
 import { getRatingStat, getViewerRating, viewerIsSignedIn } from "@/lib/pattern-ratings";
 import { isStoredPatternId, patternFileName } from "@/lib/pattern-files";
 import { getPatternNeighbours, type PatternLink } from "@/lib/published-patterns";
@@ -34,11 +34,13 @@ type PatternPageProps = {
 type PatternDetail = Pattern & {
   /** Set only for stored patterns, which the download route can sign. */
   fileName?: string;
+  /** Set only for built-in patterns, whose file is a static asset. */
+  download?: { url: string; fileName: string };
 };
 
 const getPattern = cache(async (id: string): Promise<PatternDetail | null> => {
-  const starterPattern = starterPatterns.find((pattern) => pattern.id === id);
-  if (starterPattern) return starterPattern;
+  const builtIn = findBuiltInPattern(id);
+  if (builtIn) return builtIn;
   if (!hasSupabaseConfig() || !isStoredPatternId(id)) return null;
 
   const supabase = await createClient();
@@ -130,7 +132,7 @@ export default async function PatternDetailPage({ params, searchParams }: Patter
   if (!pattern) notFound();
   const neighbours = await getPatternNeighbours(id);
   const downloadFailed = (await searchParams).download === "failed";
-  // Starter patterns are static fixtures with no database row, so there is
+  // Built-in patterns are static files with no database row, so there is
   // nothing to rate and no stats to read.
   const rateable = isStoredPatternId(id);
   const [rating, viewerStars, signedIn] = rateable
@@ -189,7 +191,14 @@ export default async function PatternDetailPage({ params, searchParams }: Patter
                   />
                 )}
                 <div className="stage-rail-delivery">
-                  {pattern.fileName ? (
+                  {pattern.download ? (
+                    <>
+                      <a className="button button-primary delivery-download" href={pattern.download.url} download={pattern.download.fileName}>
+                        <ArrowDownToLine size={17} aria-hidden="true" /> Download pattern
+                      </a>
+                      <p className="delivery-file"><FileJson size={14} aria-hidden="true" /> <span>{pattern.download.fileName}</span></p>
+                    </>
+                  ) : pattern.fileName ? (
                     <>
                       <a className="button button-primary delivery-download" href={`/patterns/${pattern.id}/download`}>
                         <ArrowDownToLine size={17} aria-hidden="true" /> Download pattern

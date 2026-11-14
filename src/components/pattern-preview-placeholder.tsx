@@ -1,16 +1,9 @@
 import { Radio } from "lucide-react";
 import type { Pattern } from "@/lib/patterns";
 
-/** Shown on a gallery card whose captured clip is missing.
- *
- *  The alternative — and what this replaces — was falling back to a live
- *  evaluator per card, which contradicts PatternPreviewMedia's own note that
- *  live evaluation is for contexts rendering one pattern at a time. Each live
- *  preview holds a WebGL context, and a page only gets ~16 before the browser
- *  starts force-losing the oldest, so a grid of clip-less cards would blank
- *  itself out (and, before the shader landed, pin the main thread). A clip is
- *  one moderator click away in /review's backfill section, so this state is
- *  meant to be temporary and visible rather than papered over. */
+/** Shown on a gallery card with neither a captured clip nor a pattern file to
+ *  evaluate live (PatternPreviewCard) — a pattern whose stored file could not
+ *  be signed. */
 export function PatternPreviewPlaceholder({ pattern }: { pattern: Pattern }) {
   return (
     <div className="live-preview live-preview-card">

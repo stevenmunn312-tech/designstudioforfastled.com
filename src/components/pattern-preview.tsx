@@ -1,17 +1,13 @@
 "use client";
 
 import { Lock, Pause, Play, Radio } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { Pattern } from "@/lib/patterns";
-import { sharedPatternGraph } from "@/lib/shared-pattern";
 import { patternNeedsTrust } from "@/lib/evaluator/evaluateSharedPattern";
-import type { StudioEdge, StudioNode } from "@/lib/evaluator/state/graphStore";
-import type { GroupRegistry } from "@/lib/evaluator/state/graphEvaluator";
+import { usePatternGraph } from "@/lib/use-pattern-graph";
 import { LivePatternCanvas } from "./live-pattern-canvas";
 
 type PreviewVariant = "card" | "hero" | "detail";
-
-type LoadedGraph = { nodes: StudioNode[]; edges: StudioEdge[]; groups: GroupRegistry };
 
 export function PatternPreview({
   pattern,
@@ -22,37 +18,10 @@ export function PatternPreview({
   variant?: PreviewVariant;
   controls?: boolean;
 }) {
-  const [graph, setGraph] = useState<LoadedGraph | null>(null);
-  const [source, setSource] = useState(pattern.previewUrl ? "Reading pattern" : "No pattern data");
+  const { graph, source } = usePatternGraph(pattern.previewUrl);
   const [running, setRunning] = useState(true);
-  const [trusted, setTrusted] = useState(false);
-
-  useEffect(() => {
-    if (!pattern.previewUrl) return;
-    let cancelled = false;
-    fetch(pattern.previewUrl)
-      .then((response) => {
-        if (!response.ok) throw new Error("Preview source unavailable");
-        return response.json();
-      })
-      .then((project) => {
-        if (cancelled) return;
-        const next = sharedPatternGraph(project);
-        if (!next) {
-          setSource("Could not read pattern");
-          return;
-        }
-        setGraph(next as LoadedGraph);
-        setTrusted(false);
-        setSource("Live evaluation");
-      })
-      .catch(() => {
-        if (!cancelled) setSource("Preview unavailable");
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [pattern.previewUrl]);
+  const [trustedByVisitor, setTrusted] = useState(false);
+  const trusted = pattern.builtIn === true || trustedByVisitor;
 
   const needsTrust = graph ? patternNeedsTrust(graph.nodes, graph.groups) : false;
 

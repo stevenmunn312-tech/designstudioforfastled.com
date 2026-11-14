@@ -7,7 +7,7 @@ import { isCurrentUserModerator } from "@/lib/moderator";
 
 export const metadata: Metadata = {
   title: "Pattern gallery",
-  description: "Browse animated projects shared by the Design Studio for FastLED community.",
+  description: "Every pattern in the Design Studio for FastLED library, running live in your browser on the app's own engine.",
 };
 
 export const dynamic = "force-dynamic";
@@ -23,7 +23,7 @@ export default async function PatternsPage() {
       <main className="shell listing-page">
         <div className="page-masthead">
           <h1>See the pattern <em>before you open it.</em></h1>
-          <p>Every approved Design Studio project renders as a moving matrix preview in your browser.</p>
+          <p>Every pattern in the Design Studio library, running live in your browser on the app&apos;s own engine.</p>
         </div>
         <PatternGallery patterns={patterns} isModerator={isModerator} />
       </main>

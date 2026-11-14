@@ -1,3 +1,5 @@
+import catalog from "./built-in-patterns.json";
+
 export type Pattern = {
   id: string;
   title: string;
@@ -21,6 +23,9 @@ export type Pattern = {
    *  Deliberately separate from studioScore: one is taste, the other is a
    *  measurement of the graph. See src/lib/pattern-ratings.ts. */
   rating?: PatternRating;
+  /** Ships with the Design Studio app (see builtInPatterns): first-party, so
+   *  its Formula/Code nodes run without a trust prompt, as in the app. */
+  builtIn?: boolean;
 };
 
 /** Aggregate of the 1-5 star votes on a pattern. */
@@ -30,71 +35,40 @@ export type PatternRating = {
   votes: number;
 };
 
-export const starterPatterns: Pattern[] = [
-  {
-    id: "aurora-ribbon",
-    title: "Aurora Ribbon",
-    description: "Slow-moving polar light with a soft cyan edge and violet core.",
-    author: "Mira Chen",
-    tags: ["Ambient", "Noise"],
-    colors: ["#61e4ff", "#876bff", "#ff78b7"],
-    likes: 284,
-    downloads: 1204,
-    createdAt: "2026-07-22",
-  },
-  {
-    id: "ember-trail",
-    title: "Ember Trail",
-    description: "A low, warm pulse that blooms into sparks when movement accelerates.",
-    author: "Jo Calder",
-    tags: ["Reactive", "Warm"],
-    colors: ["#ff7048", "#ffb454", "#fff0b5"],
-    likes: 192,
-    downloads: 847,
-    createdAt: "2026-07-18",
-  },
-  {
-    id: "tidal-clock",
-    title: "Tidal Clock",
-    description: "Overlapping blue waves show the passing hour without a screen.",
-    author: "Elliot Park",
-    tags: ["Utility", "Ocean"],
-    colors: ["#2667ff", "#61e4ff", "#d8fcff"],
-    likes: 161,
-    downloads: 633,
-    createdAt: "2026-07-14",
-  },
-  {
-    id: "orchid-rain",
-    title: "Orchid Rain",
-    description: "Fine violet droplets break across a dark matrix and fade to cobalt.",
-    author: "Nadia Singh",
-    tags: ["Matrix", "Generative"],
-    colors: ["#c879ff", "#876bff", "#3b5bdb"],
-    likes: 338,
-    downloads: 1440,
-    createdAt: "2026-07-09",
-  },
-  {
-    id: "sunrise-sequence",
-    title: "Sunrise Sequence",
-    description: "A gentle bedside fade calibrated for warm-white RGBW strips.",
-    author: "Theo Brooks",
-    tags: ["Home", "RGBW"],
-    colors: ["#ff8b5e", "#ffcf70", "#fff3d1"],
-    likes: 125,
-    downloads: 581,
-    createdAt: "2026-06-30",
-  },
-  {
-    id: "signal-garden",
-    title: "Signal Garden",
-    description: "Audio peaks grow into saturated stems across a 16×16 panel.",
-    author: "Ari Okafor",
-    tags: ["Audio", "Matrix"],
-    colors: ["#5cffb0", "#61e4ff", "#ff78b7"],
-    likes: 276,
-    downloads: 1098,
-    createdAt: "2026-06-24",
-  },
-];
+/** Folder under public/ that scripts/app-sync/sync.mjs writes pattern files to. */
+const BUILT_IN_FILES = "/pattern-files/built-in";
+
+type BuiltInEntry = (typeof catalog)[number];
+
+/** A built-in pattern's downloadable file. */
+export function builtInPatternFile(entry: Pick<BuiltInEntry, "id" | "fileName">) {
+  return { url: `${BUILT_IN_FILES}/${entry.id}.fastled-pattern.json`, fileName: entry.fileName };
+}
+
+/**
+ * The app's built-in Pattern Library, in the app's own order, generated from
+ * Design Studio for FastLED by scripts/app-sync/sync.mjs. These have slug ids
+ * and no database row, so they carry no ratings or Studio Score.
+ */
+export const builtInPatterns: Pattern[] = catalog.map((entry) => ({
+  id: entry.id,
+  title: entry.title,
+  description: entry.description,
+  author: "Design Studio for FastLED",
+  tags: entry.tags,
+  colors: entry.colors as [string, string, string],
+  likes: 0,
+  downloads: 0,
+  createdAt: entry.createdAt,
+  previewUrl: builtInPatternFile(entry).url,
+  builtIn: true,
+}));
+
+const builtInById = new Map(catalog.map((entry) => [entry.id, entry]));
+
+/** The built-in pattern with this id, with its download file. */
+export function findBuiltInPattern(id: string): (Pattern & { download: { url: string; fileName: string } }) | null {
+  const entry = builtInById.get(id);
+  const pattern = builtInPatterns.find((candidate) => candidate.id === id);
+  return entry && pattern ? { ...pattern, download: builtInPatternFile(entry) } : null;
+}

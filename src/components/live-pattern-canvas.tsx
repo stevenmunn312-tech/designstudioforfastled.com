@@ -1,23 +1,24 @@
 "use client";
 
-import { useEffect, useRef, type RefObject } from "react";
-import { evaluateSharedPattern, patternNeedsTrust } from "@/lib/evaluator/evaluateSharedPattern";
-import { idleFrame } from "@/lib/evaluator/preview/idleFrame";
-import { renderPreviewFrame } from "@/lib/evaluator/preview/frameCanvas";
-import { WebGLLEDRenderer } from "@/lib/evaluator/preview/webglRenderer";
+import { useEffect, useRef, useState, type RefObject } from "react";
+import { patternNeedsTrust } from "@/lib/evaluator/evaluateSharedPattern";
 import type { StudioNode, StudioEdge } from "@/lib/evaluator/state/graphStore";
 import type { AudioOverride, GroupRegistry } from "@/lib/evaluator/state/graphEvaluator";
+import {
+  createPatternRunner,
+  loadEngine,
+  PREVIEW_GRID,
+  type PatternRunner,
+} from "@/lib/app-engine/pattern-runner";
 
-const GRID = 32;
-// Evaluating the graph and redrawing it (renderGridFrame's ~2000 drawImage
-// calls at 32x32) on every display refresh — 60Hz, or 120-144Hz on plenty of
-// monitors — is real, sustained main-thread work that competes with the
-// browser's own scroll handling. This is a decorative background preview,
-// not something that needs to track the display's native refresh rate;
-// throttling the actual evaluate+draw work to a fixed cadence cuts that cost
-// well over half on a 60Hz display and more on higher-refresh ones, while
-// requestAnimationFrame keeps firing every real frame so scrolling itself
-// stays smooth.
+type Engine = Awaited<ReturnType<typeof loadEngine>>;
+
+// Evaluating the graph and redrawing it on every display refresh — 60Hz, or
+// 120-144Hz on plenty of monitors — is real, sustained main-thread work that
+// competes with the browser's own scroll handling. This is a preview, not
+// something that needs to track the display's native refresh rate; the
+// evaluate+draw work runs at a fixed cadence while requestAnimationFrame keeps
+// firing every real frame so scrolling itself stays smooth.
 const TARGET_FPS = 30;
 const MIN_FRAME_INTERVAL_MS = 1000 / TARGET_FPS;
 
@@ -25,6 +26,15 @@ const MIN_FRAME_INTERVAL_MS = 1000 / TARGET_FPS;
 const MAX_BOARD_DEVICE_PX = 768;
 const dprCap = () => Math.min(window.devicePixelRatio || 1, 2);
 
+/**
+ * A pattern evaluated live by the app's own engine (src/lib/app-engine) and
+ * drawn by the app's own LED renderers, at the app's default preview size.
+ *
+ * `surface="webgl"` is the app's LED Preview shader, for the one large preview
+ * on a page. `surface="2d"` is the app's canvas fallback renderer, for grids of
+ * cards: a page only gets ~16 live WebGL contexts before the browser starts
+ * force-losing the oldest, and a 2D canvas holds none.
+ */
 export function LivePatternCanvas({
   nodes,
   edges,
@@ -32,6 +42,7 @@ export function LivePatternCanvas({
   trusted = false,
   running = true,
   audioOverride,
+  surface = "webgl",
 }: {
   nodes: StudioNode[];
   edges: StudioEdge[];
@@ -39,32 +50,43 @@ export function LivePatternCanvas({
   trusted?: boolean;
   running?: boolean;
   /** Read every frame (not a plain prop) so live mic input doesn't force a
-   *  React re-render at audio-analysis rate. */
+   *  React re-render at audio-analysis rate. With no live audio, an
+   *  audio-reactive pattern runs on the demo beat (see pattern-runner). */
   audioOverride?: RefObject<AudioOverride | null>;
+  surface?: "webgl" | "2d";
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const runningRef = useRef(running);
-  // A live canvas is its own GPU compositor layer, and on some GPU/driver
-  // combinations Chromium leaks render/raster memory for that layer on every
-  // composited frame — worse the more it's actually on screen. Scrolling it
-  // out of the viewport stops the browser from compositing it at all, so
-  // pausing the evaluate+draw work while off-screen (in addition to being a
-  // straightforward CPU saving) caps how much time the tab spends exposed to
-  // that leak, the same reasoning the app's NodePreview.tsx pause-when-off-
-  // screen behavior is built on.
+  const [engine, setEngine] = useState<Engine | null>(null);
+  // Scrolling the canvas out of view stops the browser compositing it, so the
+  // evaluate+draw work pauses too — a straightforward CPU saving on a gallery,
+  // and it caps time spent exposed to Chromium's per-composited-frame GPU leak
+  // on some drivers (the reason the app's NodePreview pauses off-screen).
   const onScreenRef = useRef(true);
-  // The graph reaches the render loop through a ref, not through the effect's
-  // dependency list. A canvas hands out exactly one WebGL context for its whole
-  // life, so tearing the renderer down and rebuilding it on this canvas is not
-  // possible — and the graph *always* changes once, when the pattern fetch
-  // resolves and replaces the empty placeholder arrays. Keying the renderer on
-  // it meant every preview rebuilt itself at that moment; it also pointlessly
-  // recompiled the shader for a change the GPU side does not care about.
-  const graphRef = useRef({ nodes, edges, groups, trusted });
+  // The runner reaches the render loop through a ref: a canvas hands out
+  // exactly one WebGL context for its whole life, so the renderer cannot be
+  // rebuilt when the graph arrives — only the runner it draws from changes.
+  const runnerRef = useRef<PatternRunner | null>(null);
 
   useEffect(() => {
-    graphRef.current = { nodes, edges, groups, trusted };
-  }, [nodes, edges, groups, trusted]);
+    let live = true;
+    void loadEngine().then((loaded) => {
+      if (live) setEngine(loaded);
+    });
+    return () => {
+      live = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!engine || nodes.length === 0) return;
+    const runner = createPatternRunner(engine, { nodes, edges, groups }, trusted);
+    runnerRef.current = runner;
+    return () => {
+      if (runnerRef.current === runner) runnerRef.current = null;
+      runner.dispose();
+    };
+  }, [engine, nodes, edges, groups, trusted]);
 
   useEffect(() => {
     runningRef.current = running;
@@ -80,22 +102,28 @@ export function LivePatternCanvas({
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas || !engine) return;
 
-    // WebGL first, exactly as the app does: one draw call per frame instead of
-    // frameCanvas.ts's few-thousand per-LED sprite blits (see webglRenderer.ts
-    // for the measurements). A canvas is bound to a context type only once a
-    // context is successfully created, so falling through to 2D here is safe.
-    let renderer: WebGLLEDRenderer | null = null;
+    // WebGL falls back to 2D exactly as the app does. A canvas is bound to a
+    // context type only once a context is successfully created, so falling
+    // through here is safe.
+    let renderer: InstanceType<Engine["WebGLLEDRenderer"]> | null = null;
     let ctx: CanvasRenderingContext2D | null = null;
-    try {
-      renderer = new WebGLLEDRenderer(canvas);
-    } catch {
-      renderer = null;
+    if (surface === "webgl") {
+      try {
+        renderer = new engine.WebGLLEDRenderer(canvas);
+      } catch {
+        renderer = null;
+      }
+    }
+    if (!renderer) {
       ctx = canvas.getContext("2d");
       if (!ctx) return;
     }
 
+    // Reduced motion: one still, taken where the app bakes its pattern
+    // thumbnails (patternThumbnail.ts) — past the opening of patterns that
+    // start black and grow.
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduceMotion) runningRef.current = false;
 
@@ -103,7 +131,7 @@ export function LivePatternCanvas({
     let width = 0;
     let height = 0;
     const resize = new ResizeObserver(([entry]) => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr = dprCap();
       width = Math.max(1, entry.contentRect.width);
       height = Math.max(1, entry.contentRect.height);
       // Under WebGL the renderer owns the backing store (it sizes the canvas to
@@ -124,65 +152,52 @@ export function LivePatternCanvas({
     );
     intersection.observe(canvas);
 
+    const grid = PREVIEW_GRID;
     let lastTimestamp: number | null = null;
     let lastDrawTimestamp = 0;
-    let elapsedSec = 0;
+    let elapsedSec = reduceMotion ? 2.5 : 0;
+    let drawnRunner: PatternRunner | null | undefined;
     const render = (timestamp: number) => {
       raf = window.requestAnimationFrame(render);
       if (!onScreenRef.current) {
-        // Reset rather than let elapsedSec jump by the whole off-screen
-        // span once back in view — same "frozen while paused" behaviour
-        // runningRef already gives the play/pause button.
+        // Reset rather than let elapsedSec jump by the whole off-screen span.
         lastTimestamp = null;
         return;
       }
       if (lastTimestamp === null) lastTimestamp = timestamp;
-      if (runningRef.current) elapsedSec += (timestamp - lastTimestamp) / 1000;
+      const advancing = runningRef.current;
+      if (advancing) elapsedSec += (timestamp - lastTimestamp) / 1000;
       lastTimestamp = timestamp;
       if (width === 0 || height === 0) return;
-      // elapsedSec keeps advancing every real tick above (so motion timing
-      // stays accurate and resuming from pause/off-screen isn't jumpy) — only
-      // the expensive evaluate+draw work itself is throttled.
       if (timestamp - lastDrawTimestamp < MIN_FRAME_INTERVAL_MS) return;
+      // Paused: the last frame stays on the canvas. Re-evaluating would still
+      // advance stateful nodes (feedback, particles) at the frozen time. A
+      // newly arrived graph still draws once.
+      const runner = runnerRef.current;
+      if (!advancing && drawnRunner === runner) return;
+      drawnRunner = runner;
       lastDrawTimestamp = timestamp;
-      // A lost context has nowhere to put a frame, so skip the evaluation too
-      // rather than burning the pass. The renderer keeps the canvas registered
-      // for restore and picks up again on the next tick once it fires.
-      if (renderer?.isLost) return;
-      const tick = elapsedSec * 60;
 
-      const graph = graphRef.current;
-      const frame = evaluateSharedPattern(graph.nodes, graph.edges, tick, GRID, GRID, {
-        groups: graph.groups,
-        trusted: graph.trusted,
-        audioOverride: audioOverride?.current ?? null,
-        // Safe here specifically: the frame is read synchronously below and
-        // the reference is dropped before the next call, unlike a capture
-        // loop that collects frames into an array for later use.
-        advancePool: true,
-      }) ?? idleFrame(tick, GRID, GRID);
+      const frame = runner?.frame(elapsedSec, grid, grid, audioOverride?.current ?? null)
+        ?? engine.idleFrame(elapsedSec * 60, grid, grid);
 
       if (renderer) {
-        // The shader samples a 7x7 neighbourhood per fragment, so its cost is
-        // per output pixel: cap the board's device resolution rather than
-        // letting a HiDPI display quadruple the fragment count for a 32x32
-        // matrix that gains nothing visible above this.
+        // The shader samples a neighbourhood per fragment, so its cost is per
+        // output pixel: cap the board's device resolution rather than letting
+        // a HiDPI display quadruple the fragment count for nothing visible.
         const boardPx = Math.min(MAX_BOARD_DEVICE_PX, Math.min(width, height) * dprCap());
-        renderer.render(frame, GRID, GRID, boardPx / GRID, "standard");
+        renderer.render(frame, grid, grid, boardPx / grid, "standard");
         return;
       }
 
-      const pixel = Math.min(width, height) / GRID;
-      const boardSize = pixel * GRID;
-      const left = (width - boardSize) / 2;
-      const top = (height - boardSize) / 2;
-
+      const pixel = Math.min(width, height) / grid;
+      const boardSize = pixel * grid;
       ctx!.clearRect(0, 0, width, height);
       ctx!.fillStyle = "#05070b";
       ctx!.fillRect(0, 0, width, height);
       ctx!.save();
-      ctx!.translate(left, top);
-      renderPreviewFrame(ctx!, frame, pixel, "standard");
+      ctx!.translate((width - boardSize) / 2, (height - boardSize) / 2);
+      engine.renderPreviewFrame(ctx!, frame, pixel, "standard");
       ctx!.restore();
     };
     raf = window.requestAnimationFrame(render);
@@ -192,11 +207,10 @@ export function LivePatternCanvas({
       intersection.disconnect();
       renderer?.destroy();
     };
-    // Mount-once, deliberately. The renderer is bound to this canvas element
-    // for its lifetime (see graphRef above and destroy()'s note), and both the
-    // graph and audioOverride are read fresh from refs every frame.
+    // Once per engine load, deliberately: the renderer is bound to this canvas
+    // for its lifetime, and the runner and audio are read from refs per frame.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [engine]);
 
   return (
     <canvas
