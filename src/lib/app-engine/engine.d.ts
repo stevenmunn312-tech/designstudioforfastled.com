@@ -21,6 +21,8 @@ export type AudioSignal = AudioOverride & {
   vibe?: Record<string, number | boolean>;
   structure?: Record<string, number | boolean>;
   pitch?: Record<string, number | boolean>;
+  /** 128 conditioned samples, -1..1; read by Waveform. */
+  samples?: readonly number[];
 };
 
 export function evaluateGraphFull(

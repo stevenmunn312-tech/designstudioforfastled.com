@@ -1,11 +1,17 @@
-import { FastLedAudioAnalyzer } from './fastledReactive'
+// The analysis itself is the app's own (src/lib/app-engine/audio.js, bundled
+// by scripts/app-sync/sync.mjs), so patterns here receive exactly the signal
+// they do in the app. This file owns only capture and playback, which the
+// site does differently (it also analyses a local track through <audio>).
 import {
+  FastLedAudioAnalyzer,
+  levelsFromSampleChannels,
   MIC_DEFAULTS,
   MIC_FFT_SIZE,
   MIC_MAX_GAIN,
   MIC_SAMPLE_RATE,
   MIC_SPECTRUM_BARS,
-} from './micAnalysis'
+  type FastLedAudioResult,
+} from '@/lib/app-engine/audio'
 
 const FFT_SIZE = MIC_FFT_SIZE
 export const NUM_SPECTRUM_BARS = MIC_SPECTRUM_BARS
@@ -40,12 +46,30 @@ export interface AudioData {
   micTreble: number
   micSpectrum: number[]
   micDetectorSpectrum: number[]
+  /**
+   * Channel loudness on the VU scale. Audio Features' Loudness and Silence
+   * read these rather than the bands, and without them those nodes fall back
+   * to a slow derived level — the ~1–3 s lag and dead patterns the site had
+   * on the mic before this carried them. The analyser taps a mono mix, so
+   * both channels carry the same level.
+   */
+  leftLevel: number
+  rightLevel: number
+  channelCount: 1 | 2
+  beatConfidence: number
+  /** Absent while stopped: readers treat a missing field as inactive. */
+  vibe?: FastLedAudioResult['vibe']
+  structure?: FastLedAudioResult['structure']
+  pitch?: FastLedAudioResult['pitch']
+  samples?: readonly number[]
 }
 
-// Mirrors FastLED Processor::setGain. Signal conditioning, adaptive band
-// normalization, and beat detection are owned by the FastLED pipeline.
+// Mirrors FastLED Processor::setGain and the SignalConditioner noise gate.
+// Adaptive band normalization and beat detection are owned by the FastLED
+// pipeline.
 export interface MicConfig {
   gain: number
+  noiseGate: number
 }
 
 export class AudioEngine {
@@ -82,6 +106,7 @@ export class AudioEngine {
   configureMic(config: Partial<MicConfig>): void {
     this.micConfig = {
       gain: Number.isFinite(config.gain ?? NaN) ? Math.max(0, Math.min(MIC_MAX_GAIN, Number(config.gain))) : this.micConfig.gain,
+      noiseGate: this.micConfig.noiseGate,
     }
   }
 
@@ -171,7 +196,8 @@ export class AudioEngine {
     this.specFlip = 1 - this.specFlip
     const spectrum = this.specBufs[this.specFlip]
     spectrum.length = NUM_SPECTRUM_BARS
-    const result = this.analyzer.process(this.timeBuf, sampleRate, now, this.micConfig.gain, spectrum)
+    const result = this.analyzer.process(this.timeBuf, sampleRate, now, this.micConfig.gain, spectrum, this.micConfig.noiseGate)
+    const levels = levelsFromSampleChannels(this.timeBuf, this.timeBuf, 1, this.micConfig.gain)
 
     this.emit({
       active: true,
@@ -190,6 +216,14 @@ export class AudioEngine {
       micTreble: result.treble,
       micSpectrum: spectrum,
       micDetectorSpectrum: spectrum,
+      leftLevel: levels.left,
+      rightLevel: levels.right,
+      channelCount: levels.channelCount,
+      beatConfidence: result.beatConfidence,
+      vibe: result.vibe,
+      structure: result.structure,
+      pitch: result.pitch,
+      samples: result.samples,
     })
   }
 
@@ -233,6 +267,10 @@ export class AudioEngine {
       micTreble: 0,
       micSpectrum: Array(NUM_SPECTRUM_BARS).fill(0),
       micDetectorSpectrum: Array(NUM_SPECTRUM_BARS).fill(0),
+      leftLevel: 0,
+      rightLevel: 0,
+      channelCount: 1,
+      beatConfidence: 0,
     })
   }
 }

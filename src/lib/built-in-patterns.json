@@ -687,8 +687,8 @@
     ],
     "colors": [
       "#ff4311",
-      "#ff7b85",
-      "#ffaf44"
+      "#ff7e87",
+      "#ffad3e"
     ],
     "createdAt": "2026-07-29T12:00:00.000Z",
     "fileName": "Aurora Comet Foundry.fastled-pattern.json"
@@ -719,8 +719,8 @@
     ],
     "colors": [
       "#ff5015",
-      "#ff4167",
-      "#ff43c8"
+      "#ff4068",
+      "#ff42c5"
     ],
     "createdAt": "2026-07-29T12:00:00.002Z",
     "fileName": "Bass Cathedral Collapse.fastled-pattern.json"
@@ -735,9 +735,9 @@
       "Ring"
     ],
     "colors": [
-      "#ff30e6",
-      "#d181c4",
-      "#ff13dd"
+      "#ff36e8",
+      "#e37dd4",
+      "#e626c6"
     ],
     "createdAt": "2026-07-29T12:00:00.003Z",
     "fileName": "Chromasonic Vortex.fastled-pattern.json"
@@ -835,9 +835,9 @@
       "Ring"
     ],
     "colors": [
-      "#6b3cff",
-      "#456cff",
-      "#ff480a"
+      "#6c3fff",
+      "#466cff",
+      "#ff4909"
     ],
     "createdAt": "2026-07-29T12:00:00.009Z",
     "fileName": "Mainstage Confetti Singularity.fastled-pattern.json"
@@ -869,9 +869,9 @@
       "Matrix"
     ],
     "colors": [
-      "#ff5c70",
-      "#ff6a4f",
-      "#ffb043"
+      "#ff6c50",
+      "#ff5b72",
+      "#ffb146"
     ],
     "createdAt": "2026-07-29T12:00:00.011Z",
     "fileName": "Percussion Symphony.fastled-pattern.json"
@@ -903,8 +903,8 @@
     ],
     "colors": [
       "#b70fff",
-      "#7e00a5",
-      "#2e0945"
+      "#7f00a4",
+      "#2e084b"
     ],
     "createdAt": "2026-07-29T12:00:00.013Z",
     "fileName": "Prism Storm.fastled-pattern.json"
@@ -950,9 +950,9 @@
       "Matrix"
     ],
     "colors": [
-      "#ff4c1b",
-      "#5d2aff",
-      "#ffcb23"
+      "#ff4b1b",
+      "#ffce23",
+      "#602dff"
     ],
     "createdAt": "2026-07-29T12:00:00.016Z",
     "fileName": "RGB Blob Thunder Garden.fastled-pattern.json"
@@ -1002,8 +1002,8 @@
     ],
     "colors": [
       "#29c4ff",
-      "#3f8aff",
-      "#ff86a4"
+      "#478fff",
+      "#ff8caa"
     ],
     "createdAt": "2026-07-29T12:00:00.019Z",
     "fileName": "Tidal Glass Meditation.fastled-pattern.json"
@@ -1018,8 +1018,8 @@
     ],
     "colors": [
       "#ff4c00",
-      "#ffab03",
-      "#ffcc00"
+      "#ffaa03",
+      "#ffc900"
     ],
     "createdAt": "2026-07-29T12:00:00.020Z",
     "fileName": "Bass Furnace.fastled-pattern.json"
@@ -1051,8 +1051,8 @@
     ],
     "colors": [
       "#4dff00",
-      "#b5ff01",
-      "#2401ff"
+      "#2301ff",
+      "#baff00"
     ],
     "createdAt": "2026-07-29T12:00:00.022Z",
     "fileName": "Cellular Percussion Grid.fastled-pattern.json"
@@ -1069,7 +1069,7 @@
     "colors": [
       "#d9ff19",
       "#ff4908",
-      "#ffb500"
+      "#ffb400"
     ],
     "createdAt": "2026-07-29T12:00:00.023Z",
     "fileName": "Ember Mandala.fastled-pattern.json"
@@ -1084,9 +1084,9 @@
       "Ring"
     ],
     "colors": [
-      "#5706ff",
-      "#bf06ff",
-      "#ff0fed"
+      "#5707ff",
+      "#bf05ff",
+      "#ff0ded"
     ],
     "createdAt": "2026-07-29T12:00:00.024Z",
     "fileName": "Fibonacci Spiral Drive.fastled-pattern.json"
@@ -1152,9 +1152,9 @@
       "Matrix"
     ],
     "colors": [
-      "#0659ff",
-      "#09a4ff",
-      "#0072ff"
+      "#0657ff",
+      "#09a5ff",
+      "#0075f5"
     ],
     "createdAt": "2026-07-29T12:00:00.028Z",
     "fileName": "Kick Drum Wavefield.fastled-pattern.json"
@@ -1217,9 +1217,9 @@
       "Ring"
     ],
     "colors": [
-      "#51ff05",
-      "#27d5ff",
-      "#adff09"
+      "#54ff07",
+      "#29d5ff",
+      "#abff07"
     ],
     "createdAt": "2026-07-29T12:00:00.032Z",
     "fileName": "Snare Rain.fastled-pattern.json"
@@ -1281,8 +1281,8 @@
       "Audio Reactive"
     ],
     "colors": [
-      "#0de4ff",
-      "#27ffeb",
+      "#0de3ff",
+      "#23ffeb",
       "#ffffff"
     ],
     "createdAt": "2026-07-29T12:00:00.036Z",
@@ -1314,9 +1314,9 @@
       "Ring"
     ],
     "colors": [
-      "#06cdff",
-      "#0d58ff",
-      "#10ffc7"
+      "#08ceff",
+      "#0c58ff",
+      "#0cffc7"
     ],
     "createdAt": "2026-07-29T12:00:00.038Z",
     "fileName": "Vocal Gravity Veil.fastled-pattern.json"
@@ -1364,9 +1364,9 @@
       "Matrix"
     ],
     "colors": [
-      "#e0ff7f",
-      "#ffd059",
-      "#ff0fa9"
+      "#dfff80",
+      "#ffcf56",
+      "#ff0dab"
     ],
     "createdAt": "2026-07-29T12:00:00.041Z",
     "fileName": "Confetti Cannonade.fastled-pattern.json"
@@ -1429,9 +1429,9 @@
       "Matrix"
     ],
     "colors": [
-      "#00deff",
-      "#45ff00",
-      "#01ffc7"
+      "#00dfff",
+      "#42ff01",
+      "#01ffc6"
     ],
     "createdAt": "2026-07-29T12:00:00.045Z",
     "fileName": "Boid Thunder Flock.fastled-pattern.json"
@@ -1447,8 +1447,8 @@
     ],
     "colors": [
       "#ff2400",
-      "#ff9815",
-      "#e64f00"
+      "#ff9814",
+      "#ff0005"
     ],
     "createdAt": "2026-07-29T12:00:00.046Z",
     "fileName": "Radial Kick Halo.fastled-pattern.json"
@@ -1463,9 +1463,9 @@
       "Ring"
     ],
     "colors": [
-      "#1ba5ff",
+      "#1ca5ff",
       "#077dff",
-      "#5cfff9"
+      "#5efff9"
     ],
     "createdAt": "2026-07-29T12:00:00.047Z",
     "fileName": "Pacifica Whitecap Storm.fastled-pattern.json"
@@ -1897,9 +1897,9 @@
       "Matrix"
     ],
     "colors": [
-      "#ff4a1c",
-      "#ffcd27",
-      "#ffff89"
+      "#ff481c",
+      "#ffcc26",
+      "#ffff84"
     ],
     "createdAt": "2026-07-29T12:00:00.074Z",
     "fileName": "Cinder Storm.fastled-pattern.json"
@@ -1913,9 +1913,9 @@
       "Matrix"
     ],
     "colors": [
-      "#7b9cff",
-      "#a894ff",
-      "#ff996f"
+      "#779bff",
+      "#a793ff",
+      "#ff996c"
     ],
     "createdAt": "2026-07-29T12:00:00.075Z",
     "fileName": "Event Horizon.fastled-pattern.json"
@@ -1945,9 +1945,9 @@
       "Matrix"
     ],
     "colors": [
-      "#34b8ff",
-      "#3d80ac",
-      "#0f4b69"
+      "#33b8ff",
+      "#3b7eab",
+      "#114b69"
     ],
     "createdAt": "2026-07-29T12:00:00.077Z",
     "fileName": "Monsoon Echo.fastled-pattern.json"
@@ -2041,9 +2041,9 @@
       "Matrix"
     ],
     "colors": [
-      "#b75aff",
-      "#ffbaff",
-      "#ca97ff"
+      "#b657ff",
+      "#ffceff",
+      "#dfc1ff"
     ],
     "createdAt": "2026-07-29T12:00:00.083Z",
     "fileName": "Prism Fracture.fastled-pattern.json"

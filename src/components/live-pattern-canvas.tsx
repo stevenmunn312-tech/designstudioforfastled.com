@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState, type RefObject } from "react";
 import { patternNeedsTrust } from "@/lib/evaluator/evaluateSharedPattern";
 import type { StudioNode, StudioEdge } from "@/lib/evaluator/state/graphStore";
-import type { AudioOverride, GroupRegistry } from "@/lib/evaluator/state/graphEvaluator";
+import type { GroupRegistry } from "@/lib/evaluator/state/graphEvaluator";
+import type { AudioSignal } from "@/lib/app-engine/engine";
 import {
   createPatternRunner,
   loadEngine,
@@ -52,7 +53,7 @@ export function LivePatternCanvas({
   /** Read every frame (not a plain prop) so live mic input doesn't force a
    *  React re-render at audio-analysis rate. With no live audio, an
    *  audio-reactive pattern runs on the demo beat (see pattern-runner). */
-  audioOverride?: RefObject<AudioOverride | null>;
+  audioOverride?: RefObject<AudioSignal | null>;
   surface?: "webgl" | "2d";
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);

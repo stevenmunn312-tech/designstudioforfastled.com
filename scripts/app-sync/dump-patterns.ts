@@ -97,6 +97,16 @@ const engine: PatternEngine = {
 function accentColors(pattern: (typeof BUNDLED_PATTERNS)[number]): [string, string, string] {
   const buckets = Array.from({ length: 12 }, () => ({ weight: 0, r: 0, g: 0, b: 0 }));
   const lit: { r: number; g: number; b: number; luma: number }[] = [];
+  // Plenty of patterns scatter sparks with Math.random. Seed it from the
+  // pattern's name so an unchanged pattern samples the same colours on every
+  // sync instead of churning the catalogue.
+  let seed = [...pattern.name].reduce((hash, char) => Math.imul(hash ^ char.charCodeAt(0), 16777619), 2166136261);
+  Math.random = () => {
+    seed = (seed + 0x6d2b79f5) | 0;
+    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
   const runner = createPatternRunner(engine, { ...pattern.subgraph, groups: {} } as RunnableGraph, true);
   for (let second = 0.25; second <= 8; second += 0.25) {
     const frame = runner.frame(second, PREVIEW_GRID, PREVIEW_GRID, null);

@@ -12,9 +12,10 @@ import {
 } from "react";
 import { AudioEngine, type AudioData } from "@/lib/evaluator/audio/audioEngine";
 import type { SpectrumVisualizerMode } from "@/lib/evaluator/preview/spectrumVisualizerModes";
-import type { AudioOverride } from "@/lib/evaluator/state/graphEvaluator";
+import type { AudioSignal } from "@/lib/app-engine/engine";
 
-function toOverride(data: AudioData): AudioOverride {
+/** The app's AudioSignal, field for field what the app's evaluator reads. */
+function toOverride(data: AudioData): AudioSignal {
   return {
     active: data.active,
     micActive: data.micActive,
@@ -29,6 +30,14 @@ function toOverride(data: AudioData): AudioOverride {
     micTreble: data.micTreble,
     spectrum: data.spectrum,
     detectorSpectrum: data.detectorSpectrum,
+    beatConfidence: data.beatConfidence,
+    leftLevel: data.leftLevel,
+    rightLevel: data.rightLevel,
+    channelCount: data.channelCount,
+    vibe: data.vibe,
+    structure: data.structure,
+    pitch: data.pitch,
+    samples: data.samples,
   };
 }
 
@@ -70,7 +79,7 @@ export type AudioDock = {
   /** Whether the analysis bus is actually carrying signal right now. */
   analysisLive: boolean;
   error: string | null;
-  overrideRef: RefObject<AudioOverride | null>;
+  overrideRef: RefObject<AudioSignal | null>;
 };
 
 const AudioDockContext = createContext<AudioDock | null>(null);
@@ -103,7 +112,7 @@ export function AudioDockProvider({ children }: { children: ReactNode }) {
   const [volume, setVolumeState] = useState(0.9);
   const [visualizerMode, setVisualizerMode] = useState<SpectrumVisualizerMode>("auto");
   const [error, setError] = useState<string | null>(null);
-  const overrideRef = useRef<AudioOverride | null>(null);
+  const overrideRef = useRef<AudioSignal | null>(null);
   const playerRef = useRef<HTMLAudioElement>(null);
   const tracksRef = useRef<DockTrack[]>([]);
   const pendingPlayRef = useRef(false);

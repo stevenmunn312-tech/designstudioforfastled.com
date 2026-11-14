@@ -23,6 +23,7 @@ path as the first argument. Commit everything it writes.
 | --- | --- |
 | `src/lib/app-engine/engine.js` | The app's evaluator (`evaluateGraphFull`) plus its WebGL and 2D LED renderers, bundled with the app's own esbuild. |
 | `src/lib/app-engine/codeSandbox.worker.js` | The app's Code-node sandbox worker, which the engine spawns. |
+| `src/lib/app-engine/audio.js` | The app's mic/track analysis (`FastLedAudioAnalyzer`, channel levels). The site's `AudioEngine` captures audio and runs this on every frame, so patterns get the app's full signal: bands, beat, spectrum, channel levels, and the Vibe, Song Structure and Pitch payloads. |
 | `src/lib/built-in-patterns.json` | Catalogue of the app's `BUNDLED_PATTERNS`: title, generated description, tags (category plus "best on" forms) and three accent colours sampled from a render. |
 | `public/pattern-files/built-in/*.fastled-pattern.json` | One file per built-in pattern, in the same `{ name, subgraph, groups }` shape the app's share produces. The preview fetches it and visitors download it. |
 
@@ -39,6 +40,11 @@ fields from it.
   audio GroupInputs to the visitor's live audio. When no audio is live, it uses
   a demo beat modelled on the app's "pulse" rating scenario. Without it, most
   audio-reactive patterns show as a black square.
+- Live audio must carry every field the app's analyser emits. Before
+  `audio.js`, the site's analyser omitted channel levels and the detector
+  payloads. Audio Features then fell back to a slow derived level, so patterns
+  lagged the mic by 1–3 s or never reacted, while the spectrum strip stayed
+  instant.
 - `LivePatternCanvas` renders at 16×16, the app's LED Preview default, in the
   app's "standard" preview style. Gallery cards use the app's 2D renderer,
   because a page gets only about 16 WebGL contexts. The detail page uses the
