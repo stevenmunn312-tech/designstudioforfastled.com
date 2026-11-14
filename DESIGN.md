@@ -122,7 +122,7 @@ Motion is light, not movement. As a section enters view, its light comes up once
 A near-black studio with warm off-white type and a single tungsten filament of colour.
 
 ### Primary
-- **Tungsten Amber** (`--accent`): the primary button fill, step numerals, slate rules, the hero headline's second line, text links, list markers in release notes, the dotted signal links in the step 03 flow, and the recoloured LED-dot wordmark and favicon. Also tints the hero facts line (mixed 72% with Studio Muted).
+- **Tungsten Amber** (`--accent`): the primary button fill, step numerals, slate rules, the hero headline's second line, text links, list markers in release notes, the dotted signal links in the step 03 flow, and the LED-dot wordmark and favicon: every lit dot is flat amber, the wordmark's single white LED and its "for FastLED" line are Studio Bright, and the favicon's flame is Hot Filament on a Studio Black ground. Neither carries the old amber-to-red gradient. Also tints the hero facts line (mixed 72% with Studio Muted).
 - **Hot Filament** (`--accent-strong`): primary button hover only.
 - **Tungsten Ink** (`--accent-ink`): text on the amber button.
 
