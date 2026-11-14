@@ -20,6 +20,7 @@ export function SiteFooter() {
         <Link href="/#hardware">Hardware</Link>
         <Link href="/#download">Download</Link>
         <Link href="/patterns">Patterns</Link>
+        <Link href="/tutorials">Tutorials</Link>
         <Link href="/upload">Upload project</Link>
         <Link href="/login">Account</Link>
       </div>

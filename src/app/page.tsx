@@ -119,7 +119,7 @@ export default async function Home() {
               ))}
             </ol>
             <p className="home-steps-note">
-              Stills from the Learn the Studio series, filmed on the Hardware preview. The published v{version} app compiles and flashes from its Matrix Output node.
+              Stills from the <Link className="text-link" href="/tutorials">Learn the Studio</Link> series, filmed on the Hardware preview. The published v{version} app compiles and flashes from its Matrix Output node.
             </p>
           </div>
         </section>

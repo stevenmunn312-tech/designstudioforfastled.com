@@ -809,3 +809,57 @@ h1, h2, h3, p { margin-top: 0; }
 @media (max-width: 560px) {
   .home-pattern-grid { grid-template-columns: minmax(0, 1fr); }
 }
+
+/* ── Tutorials (/tutorials) ───────────────────────────────────────────────
+   The "Learn the Studio" series as a run of slates: numeral, title and notes
+   on the left, the episode's video and chapters on the right, as the home
+   page's four steps. */
+.tutorials-page { padding-bottom: 128px; }
+.tutorials-lede { display: grid; justify-items: start; gap: 18px; }
+.tutorials-lede p { max-width: 46ch; margin: 0; color: var(--studio-soft); font-size: 17px; line-height: 1.65; }
+.tutorials-note { max-width: 78ch; margin: 0; padding-bottom: 56px; color: var(--studio-muted); font-size: 14px; line-height: 1.7; }
+.tutorials-note .home-preview-tag { margin: 0 12px 0 0; }
+.tutorials-note a { color: var(--accent); }
+.tutorials-note a:hover { text-decoration: underline; }
+.tutorial-list { margin: 0; padding: 0; list-style: none; }
+.tutorial { padding-block: 88px; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(32px, 5vw, 72px); align-items: start; border-top: 1px solid var(--studio-rule); scroll-margin-top: 24px; }
+.tutorial:last-child { padding-bottom: 0; }
+.tutorial-number { display: block; color: var(--accent); font-family: var(--font-studio-mark), sans-serif; font-size: clamp(64px, 6.5vw, 96px); line-height: 1; text-shadow: 0 0 38px var(--studio-glow); }
+.tutorial-copy h2 { margin: 22px 0 0; color: var(--studio-bright); font-size: clamp(26px, 2.4vw, 34px); font-weight: 700; line-height: 1.15; letter-spacing: -.02em; }
+.tutorial-copy p { max-width: 42ch; margin: 14px 0 0; color: var(--studio-soft); font-size: 16px; line-height: 1.65; }
+.tutorial-copy .tutorial-tagline { margin-top: 10px; color: var(--studio-text); font-size: 18px; }
+.tutorial-copy h3 { margin: 28px 0 0; color: var(--studio-muted); font-family: var(--font-studio-mono), monospace; font-size: 12px; font-weight: 400; letter-spacing: .08em; text-transform: uppercase; }
+.tutorial-copy ul { margin: 12px 0 0; padding-left: 18px; }
+.tutorial-copy li { margin-bottom: 6px; color: var(--studio-soft); font-size: 15px; line-height: 1.55; }
+.tutorial-copy li::marker { color: var(--accent); }
+.tutorial-screen { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: var(--footage-black); border: 1px solid var(--studio-rule); border-radius: 12px; }
+.tutorial-screen iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.tutorial-facade { position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; display: grid; place-items: center; background: none; border: 0; cursor: pointer; }
+.tutorial-facade:focus-visible { outline-offset: -4px; }
+.tutorial-facade img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: filter .2s ease; }
+.tutorial-facade:hover img { filter: brightness(1.08); }
+.tutorial-play { position: relative; width: 76px; height: 76px; display: grid; place-items: center; padding-left: 4px; color: var(--accent-ink); background: var(--accent); border-radius: 50%; box-shadow: 0 0 36px rgba(255, 179, 71, .5); transition: background-color .2s ease, transform .2s ease; }
+.tutorial-facade:hover .tutorial-play { background: var(--accent-strong); transform: scale(1.05); }
+.tutorial-chapters { margin: 18px 0 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 24px; }
+.tutorial-chapters button { width: 100%; min-height: 40px; padding: 6px 0; display: flex; align-items: baseline; gap: 12px; color: var(--studio-soft); background: none; border: 0; border-bottom: 1px solid var(--studio-rule); font-size: 14px; text-align: left; cursor: pointer; transition: color .2s ease; }
+.tutorial-chapters button:hover { color: var(--studio-bright); }
+.tutorial-chapter-time { flex: none; min-width: 3.2em; color: var(--accent); font-family: var(--font-studio-mono), monospace; font-size: 12px; }
+
+@supports (animation-timeline: view()) {
+  .tutorial-number { animation: homeNumeralLight linear both; animation-timeline: view(); animation-range: entry 0% cover 35%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tutorial-number { animation: none !important; }
+  .tutorial-facade img, .tutorial-play { transition: none; }
+}
+
+@media (max-width: 820px) {
+  .tutorials-page { padding-bottom: 88px; }
+  .tutorials-note { padding-bottom: 40px; }
+  .tutorial { padding-block: 64px; grid-template-columns: minmax(0, 1fr); gap: 28px; }
+}
+
+@media (max-width: 560px) {
+  .tutorial-chapters { grid-template-columns: minmax(0, 1fr); }
+  .tutorial-play { width: 60px; height: 60px; }
+}
