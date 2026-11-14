@@ -127,7 +127,7 @@ A near-black studio with warm off-white type and a single tungsten filament of c
 - **Tungsten Ink** (`--accent-ink`): text on the amber button.
 
 ### Secondary
-- **Ember** (`--ember`): the Hardware preview status tag only (text plus a 45% ember border). It marks "not the published release"; it is never a second decorative accent.
+- **Ember** (`--ember`): preview status tags only (text plus a 45% ember border). It marks "not the published release"; it is never a second decorative accent. No page carries one today.
 
 ### Neutral
 - **Studio Black**: the page ground for every section.
@@ -238,7 +238,7 @@ A labelled diagram (source, link, stage, link, destination) used in place of a s
 Platform rows of at least 60px between 1px Studio Rule lines: platform name in Studio Bright (amber on hover), details in mono Studio Muted, an alternate build as an amber mono link on the right.
 
 ### Preview Tag
-An Ember mono label (12px, 0.08em) in a 1px 45% ember outline with 8px corners, beneath the hardware headline.
+An Ember mono label (12px, 0.08em) in a 1px 45% ember outline with 8px corners, beneath the headline of the section it marks. Not in use today.
 
 ## Do's and Don'ts
 

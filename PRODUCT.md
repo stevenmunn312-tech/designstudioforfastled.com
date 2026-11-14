@@ -23,7 +23,7 @@ Patch a pattern visually and get real FastLED firmware out the other end. Nodes 
 ## Operating Context
 
 - **The published product** is the desktop beta, v0.7.0 at the time of writing, for Windows, macOS (Apple Silicon, plus a separate Intel build) and Linux. Builds are not yet code-signed or notarized, and must only be downloaded from the official GitHub release page. Version and URLs live in `src/lib/app-release.ts`.
-- **The Hardware branch** is a development preview built from source. It adds the Hardware, Graph, Upload and Build Diagram workspaces: board and parts selection, pin assignments, compile/flash over USB via a local helper, and printable wiring plans. It needs Node.js, Python and build tools. It is not part of the v0.7.0 archive and must never be labelled as such.
+- **The hardware workspaces** (Hardware, Graph, Upload and Build Diagram: board and parts selection, pin assignments, compile/flash over USB via a local helper, and printable wiring plans) are on the app's `main` branch; there is no separate Hardware branch. The site presents them without a preview label, as the next release will carry them. The "Learn the Studio" tutorials (`/tutorials`) are filmed on this version.
 - **The pattern library** (`/patterns`) holds 62 published patterns, mostly first-party built-ins. Each pattern is a `.fastled-pattern.json` file. Detail pages evaluate the graph live in the browser, can be driven by local music or the room mic, and offer the file for download.
 - **Sharing**: makers sign in, upload a pattern exported or shared from Design Studio, and a moderator approves it on the review bench before it is published.
 - **Hosting**: Next.js 16 on Cloudflare Workers via OpenNext, with Supabase for auth, Postgres (RLS) and private storage.
@@ -52,6 +52,6 @@ Patch a pattern visually and get real FastLED firmware out the other end. Nodes 
 ## Product Principles
 
 - Show the light, don't describe it. The live, moving pattern is the strongest proof the product has.
-- Lead with what a maker can use today, the published download, and keep the Hardware branch clearly marked as a preview for people willing to build from source.
+- Lead with what a maker can use today: the published download.
 - Every claim is checkable: counts come from the app, hardware support from the support matrix, community size from the database.
 - Respect the maker's time: plain language first, toolchain detail when they ask for it.

@@ -754,11 +754,10 @@ h1, h2, h3, p { margin-top: 0; }
 .home-release li::marker { color: var(--accent); }
 .home-release .home-rule { margin: 26px 0 22px; }
 
-/* Hardware preview: the board in warm light, straight on the dark. */
+/* Hardware: the board in warm light, straight on the dark. */
 .home-hardware { padding-block: 120px; }
 .home-hardware-grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(40px, 6vw, 80px); align-items: center; }
-.home-preview-tag { display: inline-block; margin: 20px 0 0; padding: 6px 10px; color: var(--ember); border: 1px solid rgba(255, 106, 61, .45); border-radius: 8px; font-family: var(--font-studio-mono), monospace; font-size: 12px; letter-spacing: .08em; }
-.home-hardware-copy > p:not(.home-preview-tag) { max-width: 52ch; margin: 18px 0 0; color: var(--studio-soft); font-size: 16px; line-height: 1.65; }
+.home-hardware-copy > p { max-width: 52ch; margin: 18px 0 0; color: var(--studio-soft); font-size: 16px; line-height: 1.65; }
 
 /* Close. */
 .home-close { padding-block: 140px 150px; border-top: 1px solid var(--studio-rule); text-align: center; }

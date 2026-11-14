@@ -7,7 +7,7 @@ import { PatternCard } from "@/components/pattern-card";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { getPublishedPatterns } from "@/lib/published-patterns";
-import { appRelease, detectDownloadTarget, downloadTargets, hardwareDevelopment } from "@/lib/app-release";
+import { appRelease, detectDownloadTarget, downloadTargets, hardwareDocs } from "@/lib/app-release";
 
 /** The four steps from graph to light. Stills are frames from the "Learn the
  *  Studio" series; step 03 is drawn as a diagram so its labels stay legible. */
@@ -119,7 +119,7 @@ export default async function Home() {
               ))}
             </ol>
             <p className="home-steps-note">
-              Stills from the <Link className="text-link" href="/tutorials">Learn the Studio</Link> series, filmed on the Hardware preview. The published v{version} app compiles and flashes from its Matrix Output node.
+              Stills from the <Link className="text-link" href="/tutorials">Learn the Studio</Link> series.
             </p>
           </div>
         </section>
@@ -187,17 +187,16 @@ export default async function Home() {
               />
             </figure>
             <div className="home-hardware-copy">
-              <h2 id="home-hardware-title" className="home-section-title">Boards, pins and wiring plans, in the works.</h2>
-              <p className="home-preview-tag">Hardware preview · built from source</p>
+              <h2 id="home-hardware-title" className="home-section-title">Boards, pins and wiring plans.</h2>
               <p>
-                The Hardware branch adds four workspaces to one project: pick the exact board and parts, wire the graph, compile and upload over USB, and print a build diagram with pin maps and power.
+                Four workspaces share one project: pick the exact board and parts, wire the graph, compile and upload over USB, and print a build diagram with pin maps and power.
               </p>
               <p>
-                It is a development build, separate from v{version}. Setup needs Node.js, Python and build tools, and uploading needs a small local helper. A passing preview or compile does not establish hardware support: see the <a href={hardwareDevelopment.supportUrl} target="_blank" rel="noreferrer">support matrix</a> for validated combinations.
+                A passing preview or compile does not establish hardware support: see the <a href={hardwareDocs.supportUrl} target="_blank" rel="noreferrer">support matrix</a> for validated combinations.
               </p>
               <div className="home-links">
-                <a className="text-link" href={hardwareDevelopment.setupUrl} target="_blank" rel="noreferrer">Set up the Hardware branch <ArrowRight size={15} aria-hidden="true" /></a>
-                <a className="text-link" href={hardwareDevelopment.firstProjectUrl} target="_blank" rel="noreferrer">Build your first project <ArrowRight size={15} aria-hidden="true" /></a>
+                <Link className="text-link" href="/tutorials#episode-08">Watch the hardware episodes <ArrowRight size={15} aria-hidden="true" /></Link>
+                <a className="text-link" href={hardwareDocs.guideUrl} target="_blank" rel="noreferrer">Read the workbench guide <ArrowRight size={15} aria-hidden="true" /></a>
               </div>
             </div>
           </div>

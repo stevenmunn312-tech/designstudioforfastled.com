@@ -1,8 +1,9 @@
-# Hardware branch website content
+# Hardware website content
 
-The homepage describes the app's active `Hardware` development branch. It is
-separate from the frozen v0.7.0 desktop release linked in the download section.
-Do not label branch screenshots or features as part of that published archive.
+The homepage's hardware section describes the app's hardware workspaces. They
+were developed on a `Hardware` branch, which has since merged into the app's
+`main` branch and no longer exists; the site no longer labels them as a
+preview, as the next release carries them.
 
 ## Source of truth
 
@@ -20,7 +21,8 @@ Screenshots in `public/app/hardware/` are copied from that branch's
 no longer embeds the older Matrix Output walkthrough or node-to-code graphic,
 because their workflow predates the separate Hardware and Upload tabs.
 
-Keep branch documentation URLs centralized in `src/lib/app-release.ts`.
+Keep hardware documentation URLs (on the app's `main` branch) centralized in
+`src/lib/app-release.ts`.
 Before changing download URLs or claiming a new release, verify the published
 release and its actual assets. When updating branch content, refresh screenshots
 and counts together and keep exact hardware validation claims in the linked
