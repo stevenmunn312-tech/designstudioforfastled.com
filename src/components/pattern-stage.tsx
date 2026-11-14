@@ -52,7 +52,7 @@ export function PatternStage({
 
   const needsTrust = graph ? patternNeedsTrust(graph.nodes, graph.groups) : false;
   const audioReactive = tagKeys(pattern.tags).includes("audio-reactive") || graphIsAudioReactive(graph);
-  const onDemoBeat = audioReactive && graph !== null && !dock?.analysisLive;
+  const waitingForAudio = audioReactive && graph !== null && !dock?.analysisLive;
 
   return (
     <section className="pattern-stage">
@@ -98,7 +98,7 @@ export function PatternStage({
         </div>
         <div className="stage-matrix-readout">
           <span>{graph ? `${graph.nodes.length} nodes · ${graph.edges.length} patches` : "—"}</span>
-          {onDemoBeat && <span>Demo beat — play a track or turn on the mic</span>}
+          {waitingForAudio && <span>Audio-reactive — play a track or turn on the mic</span>}
           {stepNote}
         </div>
       </div>

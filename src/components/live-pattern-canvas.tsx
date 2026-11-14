@@ -51,8 +51,8 @@ export function LivePatternCanvas({
   trusted?: boolean;
   running?: boolean;
   /** Read every frame (not a plain prop) so live mic input doesn't force a
-   *  React re-render at audio-analysis rate. With no live audio, an
-   *  audio-reactive pattern runs on the demo beat (see pattern-runner). */
+   *  React re-render at audio-analysis rate. With no live audio the pattern
+   *  hears silence, as in the app. */
   audioOverride?: RefObject<AudioSignal | null>;
   surface?: "webgl" | "2d";
 }) {

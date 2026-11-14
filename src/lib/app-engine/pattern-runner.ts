@@ -33,44 +33,18 @@ export function loadEngine(): Promise<typeof Engine> {
   return enginePromise;
 }
 
-const BEAT_SECONDS = 0.5;
-
 /**
- * Audio to drive an audio-reactive pattern with while no real audio is
- * playing: the app's own "pulse" rating scenario (state/patterns/
- * patternRating.ts audioForFrame + syntheticDetectors) — three bands swept on
- * unrelated periods and a beat every half second at 120 BPM. Without it most
- * audio patterns sit at their silence floor, which on a gallery is a black
- * square.
+ * What a pattern hears with no live audio: the app's idle audio store — an
+ * inactive signal at zero. Audio-reactive patterns sit at their silence floor
+ * (often black), exactly as they do in the app with nothing playing.
  */
-export function demoAudio(engine: PatternEngine, seconds: number, beat: boolean): Engine.AudioSignal {
-  const bass = 0.5 + 0.5 * Math.sin(2 * Math.PI * 0.7 * seconds);
-  const mids = 0.5 + 0.5 * Math.sin(2 * Math.PI * 1.1 * seconds + 1);
-  const treble = 0.5 + 0.5 * Math.sin(2 * Math.PI * 1.7 * seconds + 2);
-  const energy = (bass + mids + treble) / 3;
-  const spectrum = engine.bandsToSpectrum(bass, mids, treble);
-  const beatIndex = Math.floor(seconds / BEAT_SECONDS);
-  const level = (value: number) => 0.5 + value;
+function silence(engine: PatternEngine): Engine.AudioSignal {
+  const spectrum = engine.bandsToSpectrum(0, 0, 0);
   return {
-    active: true, micActive: true, beat, bpm: 120,
-    bass, mids, treble, micBass: bass, micMids: mids, micTreble: treble,
-    leftLevel: energy * 0.35, rightLevel: energy * 0.2, channelCount: 2,
+    active: false, micActive: false, beat: false, bpm: 120,
+    bass: 0, mids: 0, treble: 0, micBass: 0, micMids: 0, micTreble: 0,
+    leftLevel: 0, rightLevel: 0, channelCount: 1,
     spectrum, detectorSpectrum: spectrum,
-    vibe: {
-      bass: level(bass), mid: level(mids), treble: level(treble), volume: 0.5 + energy,
-      bassAtt: level(bass), midAtt: level(mids), trebleAtt: level(treble),
-      bassSpike: beat, midSpike: false, trebleSpike: false,
-    },
-    structure: {
-      downbeat: beat && beatIndex % 4 === 0, beatNumber: (beatIndex % 4) + 1,
-      measurePhase: (seconds / 2) % 1,
-      building: false, buildupProgress: 0, drop: false, dropImpact: 0,
-      tempoStable: true, valence: 0.5, arousal: 0.6,
-    },
-    pitch: {
-      hz: 220, note: 57, noteOn: beat, velocity: mids, confidence: 0.8,
-      keyRoot: 0, keyMinor: false, keyConfidence: 0.5,
-    },
   };
 }
 
@@ -90,11 +64,10 @@ function roleInputs(audio: Engine.AudioSignal): Record<string, number | boolean>
 let runnerSerial = 0;
 
 export type PatternRunner = {
-  /** Whether the pattern listens to audio at all (so may want a demo signal). */
+  /** Whether the pattern listens to audio at all. */
   audioReactive: boolean;
   /**
-   * The pattern at `seconds`. Pass `audio` for real input; null drives an
-   * audio-reactive pattern with demoAudio instead.
+   * The pattern at `seconds`. Pass `audio` for live input; null is silence.
    * The returned frame is a pooled buffer: read it before the next call.
    */
   frame: (seconds: number, width: number, height: number, audio: Engine.AudioSignal | null) => Engine.Frame | null;
@@ -113,24 +86,19 @@ export function createPatternRunner(engine: PatternEngine, graph: RunnableGraph,
   const audioReactive = audioParams.length > 0
     || engine.isAudioReactiveSubgraph(graph.nodes)
     || Object.values(graph.groups).some((group) => engine.isAudioReactiveSubgraph(group.nodes));
-  let lastBeatIndex = -1;
+  const quiet = silence(engine);
 
   return {
     audioReactive,
     frame(seconds, width, height, live) {
-      let audio = live;
-      if (!audio && audioReactive) {
-        const beatIndex = Math.floor(seconds / BEAT_SECONDS);
-        audio = demoAudio(engine, seconds, beatIndex !== lastBeatIndex);
-        lastBeatIndex = beatIndex;
-      }
-      const inputs: Record<string, unknown> = audio ? roleInputs(audio) : {};
+      const audio = live ?? quiet;
+      const inputs: Record<string, unknown> = roleInputs(audio);
       for (const paramId of audioParams) inputs[paramId] = audio;
       const tick = seconds * 60;
       try {
         return engine.evaluateGraphFull(
           graph.nodes, graph.edges, tick, width, height, graph.groups,
-          false, trusted, prefix, audio, tick, inputs,
+          false, trusted, prefix, live, tick, inputs,
         ).frame;
       } catch {
         // One malformed frame renders blank rather than stopping the preview,

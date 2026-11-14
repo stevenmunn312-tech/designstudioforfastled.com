@@ -88,8 +88,46 @@ const engine: PatternEngine = {
 };
 
 /**
+ * A steady synthetic beat, used only here to sample accent colours: the
+ * app's own "pulse" rating scenario (state/patterns/patternRating.ts
+ * audioForFrame + syntheticDetectors). The site's previews never use it;
+ * silent audio-reactive patterns are meant to rest dark there, as in the
+ * app. Without it, those patterns would get no colours of their own.
+ */
+function pulseAudio(seconds: number, beat: boolean) {
+  const bass = 0.5 + 0.5 * Math.sin(2 * Math.PI * 0.7 * seconds);
+  const mids = 0.5 + 0.5 * Math.sin(2 * Math.PI * 1.1 * seconds + 1);
+  const treble = 0.5 + 0.5 * Math.sin(2 * Math.PI * 1.7 * seconds + 2);
+  const energy = (bass + mids + treble) / 3;
+  const spectrum = bandsToSpectrum(bass, mids, treble);
+  const beatIndex = Math.floor(seconds / 0.5);
+  const level = (value: number) => 0.5 + value;
+  return {
+    active: true, micActive: true, beat, bpm: 120,
+    bass, mids, treble, micBass: bass, micMids: mids, micTreble: treble,
+    leftLevel: energy * 0.35, rightLevel: energy * 0.2, channelCount: 2 as const,
+    spectrum, detectorSpectrum: spectrum,
+    vibe: {
+      bass: level(bass), mid: level(mids), treble: level(treble), volume: 0.5 + energy,
+      bassAtt: level(bass), midAtt: level(mids), trebleAtt: level(treble),
+      bassSpike: beat, midSpike: false, trebleSpike: false,
+    },
+    structure: {
+      downbeat: beat && beatIndex % 4 === 0, beatNumber: (beatIndex % 4) + 1,
+      measurePhase: (seconds / 2) % 1,
+      building: false, buildupProgress: 0, drop: false, dropImpact: 0,
+      tempoStable: true, valence: 0.5, arousal: 0.6,
+    },
+    pitch: {
+      hz: 220, note: 57, noteOn: beat, velocity: mids, confidence: 0.8,
+      keyRoot: 0, keyMinor: false, keyConfidence: 0.5,
+    },
+  };
+}
+
+/**
  * Three accent colours for the card and detail page, taken from what the
- * pattern actually renders on the site (the same runner and demo beat): a
+ * pattern renders through the site's runner (under pulseAudio): a
  * few seconds of frames, lit pixels bucketed by hue, the heaviest buckets
  * averaged and lifted to full brightness. A single-hue pattern fills the
  * rest from its own darker and lighter pixels.
@@ -109,7 +147,7 @@ function accentColors(pattern: (typeof BUNDLED_PATTERNS)[number]): [string, stri
   };
   const runner = createPatternRunner(engine, { ...pattern.subgraph, groups: {} } as RunnableGraph, true);
   for (let second = 0.25; second <= 8; second += 0.25) {
-    const frame = runner.frame(second, PREVIEW_GRID, PREVIEW_GRID, null);
+    const frame = runner.frame(second, PREVIEW_GRID, PREVIEW_GRID, pulseAudio(second, second === 0.25 || second % 0.5 === 0));
     if (second < 2) continue;
     for (const row of frame ?? []) {
       for (const { r, g, b } of row) {

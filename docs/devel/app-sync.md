@@ -37,9 +37,10 @@ fields from it.
 
 - `src/lib/app-engine/pattern-runner.ts` runs one pattern in its own evaluator
   namespace, the same way the app's rating driver does. It binds the pattern's
-  audio GroupInputs to the visitor's live audio. When no audio is live, it uses
-  a demo beat modelled on the app's "pulse" rating scenario. Without it, most
-  audio-reactive patterns show as a black square.
+  audio GroupInputs to the visitor's live audio, or to silence when none is
+  playing. Silent audio-reactive patterns rest at their silence floor, often
+  black, exactly as in the app. Only the sync's accent-colour sampling feeds a
+  synthetic beat.
 - Live audio must carry every field the app's analyser emits. Before
   `audio.js`, the site's analyser omitted channel levels and the detector
   payloads. Audio Features then fell back to a slow derived level, so patterns
