@@ -9,8 +9,8 @@ import {
   CalendarDays,
   ChevronLeft,
   ChevronRight,
+  FileJson,
   Star,
-  UserRound,
 } from "lucide-react";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -19,30 +19,27 @@ import { PatternRatingControl } from "@/components/pattern-rating-control";
 import { StarRating } from "@/components/star-rating";
 import { starterPatterns, type Pattern } from "@/lib/patterns";
 import { getRatingStat, getViewerRating, viewerIsSignedIn } from "@/lib/pattern-ratings";
+import { isStoredPatternId, patternFileName } from "@/lib/pattern-files";
 import { getPatternNeighbours, type PatternLink } from "@/lib/published-patterns";
 import { hasSupabaseConfig } from "@/lib/supabase/config";
 import { createClient } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
 
-type PatternPageProps = { params: Promise<{ id: string }> };
-
-type PatternDetail = Pattern & {
-  downloadUrl?: string;
-  fileName?: string;
+type PatternPageProps = {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ download?: string | string[] }>;
 };
 
-const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-
-function cleanFileName(storagePath: string) {
-  const storedName = storagePath.split("/").pop() ?? "fastled-pattern.json";
-  return storedName.replace(/^[0-9a-f-]{36}-/i, "");
-}
+type PatternDetail = Pattern & {
+  /** Set only for stored patterns, which the download route can sign. */
+  fileName?: string;
+};
 
 const getPattern = cache(async (id: string): Promise<PatternDetail | null> => {
   const starterPattern = starterPatterns.find((pattern) => pattern.id === id);
   if (starterPattern) return starterPattern;
-  if (!hasSupabaseConfig() || !uuidPattern.test(id)) return null;
+  if (!hasSupabaseConfig() || !isStoredPatternId(id)) return null;
 
   const supabase = await createClient();
   const { data, error } = await supabase
@@ -61,18 +58,12 @@ const getPattern = cache(async (id: string): Promise<PatternDetail | null> => {
   const colors = Array.isArray(data.preview_colors) && data.preview_colors.length >= 3
     ? data.preview_colors.slice(0, 3) as [string, string, string]
     : ["#61e4ff", "#876bff", "#ff78b7"] as [string, string, string];
-  const fileName = cleanFileName(data.storage_path);
-  // One signature covers both uses. The `download` option is not part of what
-  // the token signs — it is a plain query parameter that asks storage for a
-  // Content-Disposition — so the preview fetch and the download link are the
-  // same URL, and signing the object twice per page render was pure overhead.
+  // The live preview fetches the graph as soon as the page loads, so this URL
+  // is used within seconds. Downloads are signed separately at click time by
+  // ./download/route.ts, because a visitor may sit on the page past expiry.
   const { data: signedFile } = await supabase.storage
     .from("pattern-files")
     .createSignedUrl(data.storage_path, 900);
-  const previewSignedUrl = signedFile?.signedUrl;
-  const downloadUrl = previewSignedUrl
-    ? `${previewSignedUrl}&download=${encodeURIComponent(fileName)}`
-    : undefined;
 
   return {
     id: data.id,
@@ -84,9 +75,8 @@ const getPattern = cache(async (id: string): Promise<PatternDetail | null> => {
     likes: data.likes ?? 0,
     downloads: data.downloads ?? 0,
     createdAt: data.created_at,
-    downloadUrl,
-    previewUrl: previewSignedUrl,
-    fileName,
+    previewUrl: signedFile?.signedUrl,
+    fileName: patternFileName(data.storage_path),
     studioScore: data.studio_score ?? undefined,
   };
 });
@@ -134,14 +124,15 @@ function PatternStep({ direction, target }: { direction: "previous" | "next"; ta
   );
 }
 
-export default async function PatternDetailPage({ params }: PatternPageProps) {
+export default async function PatternDetailPage({ params, searchParams }: PatternPageProps) {
   const { id } = await params;
   const pattern = await getPattern(id);
   if (!pattern) notFound();
   const neighbours = await getPatternNeighbours(id);
+  const downloadFailed = (await searchParams).download === "failed";
   // Starter patterns are static fixtures with no database row, so there is
   // nothing to rate and no stats to read.
-  const rateable = uuidPattern.test(id);
+  const rateable = isStoredPatternId(id);
   const [rating, viewerStars, signedIn] = rateable
     ? await Promise.all([getRatingStat(id), getViewerRating(id), viewerIsSignedIn()])
     : [undefined, null, false];
@@ -159,6 +150,11 @@ export default async function PatternDetailPage({ params }: PatternPageProps) {
       <main className="pattern-detail" style={style}>
         <div className="shell">
           <Link className="detail-back" href="/patterns"><ArrowLeft size={14} aria-hidden="true" /> Back to patterns</Link>
+          <header className="detail-heading">
+            <h1>{pattern.title}</h1>
+            <p className="detail-byline">by {pattern.author}</p>
+            {pattern.description && <p className="detail-note">{pattern.description}</p>}
+          </header>
           <PatternStage
             pattern={pattern}
             previousStep={<PatternStep direction="previous" target={neighbours.previous} />}
@@ -173,7 +169,6 @@ export default async function PatternDetailPage({ params }: PatternPageProps) {
             rail={
               <div className="stage-rail">
                 <div className="stage-rail-facts">
-                  <div><UserRound size={15} aria-hidden="true" /><span>Maker</span><strong>{pattern.author}</strong></div>
                   <div><CalendarDays size={15} aria-hidden="true" /><span>Published</span><strong>{publishedDate}</strong></div>
                   {pattern.studioScore != null && (
                     <div><Award size={15} aria-hidden="true" /><span>Studio Score</span><strong>{pattern.studioScore}/100</strong></div>
@@ -194,10 +189,16 @@ export default async function PatternDetailPage({ params }: PatternPageProps) {
                   />
                 )}
                 <div className="stage-rail-delivery">
-                  {pattern.downloadUrl ? (
-                    <a className="button button-primary delivery-download" href={pattern.downloadUrl}>
-                      <ArrowDownToLine size={17} aria-hidden="true" /> Download pattern
-                    </a>
+                  {pattern.fileName ? (
+                    <>
+                      <a className="button button-primary delivery-download" href={`/patterns/${pattern.id}/download`}>
+                        <ArrowDownToLine size={17} aria-hidden="true" /> Download pattern
+                      </a>
+                      <p className="delivery-file"><FileJson size={14} aria-hidden="true" /> <span>{pattern.fileName}</span></p>
+                      {downloadFailed && (
+                        <p className="delivery-error" role="alert">That download link could not be created. Try the button again in a moment.</p>
+                      )}
+                    </>
                   ) : (
                     <Link className="button button-outline delivery-download" href="/patterns">Browse downloadable patterns</Link>
                   )}

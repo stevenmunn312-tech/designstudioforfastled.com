@@ -3,6 +3,7 @@
 import { Lock, Pause, Play } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import type { Pattern } from "@/lib/patterns";
+import { tagKeys } from "@/lib/pattern-tags";
 import { sharedPatternGraph } from "@/lib/shared-pattern";
 import { patternNeedsTrust } from "@/lib/evaluator/evaluateSharedPattern";
 import { isAudioReactiveSubgraph } from "@/lib/evaluator/patternRating";
@@ -79,7 +80,7 @@ export function PatternStage({
   }, [pattern.previewUrl]);
 
   const needsTrust = graph ? patternNeedsTrust(graph.nodes, graph.groups) : false;
-  const audioReactive = pattern.tags.includes("Audio Reactive") || graphIsAudioReactive(graph);
+  const audioReactive = tagKeys(pattern.tags).includes("audio-reactive") || graphIsAudioReactive(graph);
 
   return (
     <section className="pattern-stage">
@@ -129,11 +130,7 @@ export function PatternStage({
         </div>
       </div>
 
-      <PatternStageDeck
-        patternName={pattern.title}
-        patternNote={pattern.description}
-        audioReactive={audioReactive}
-      >
+      <PatternStageDeck audioReactive={audioReactive}>
         {rail}
       </PatternStageDeck>
     </section>

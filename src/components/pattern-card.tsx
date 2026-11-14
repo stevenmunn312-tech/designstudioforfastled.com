@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowDownToLine, ArrowUpRight, Heart } from "lucide-react";
 import type { CSSProperties } from "react";
 import type { Pattern } from "@/lib/patterns";
+import { tagKeys } from "@/lib/pattern-tags";
 import { PatternPreviewMedia } from "./pattern-preview-media";
 import { PatternPreviewPlaceholder } from "./pattern-preview-placeholder";
 import { PatternCardEdit } from "./pattern-card-edit";
@@ -51,7 +52,7 @@ export function PatternCard({
         <StarRating rating={pattern.rating} size={13} />
         {!compact && <p className="pattern-description">{pattern.description}</p>}
         <div className="pattern-meta">
-          <div>{pattern.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
+          <div>{tagKeys(pattern.tags).map((tag) => <span key={tag}>{tag}</span>)}</div>
           <span><ArrowDownToLine size={14} aria-hidden="true" /> {pattern.downloads.toLocaleString()} <ArrowUpRight className="pattern-open" size={13} aria-hidden="true" /></span>
         </div>
       </div>

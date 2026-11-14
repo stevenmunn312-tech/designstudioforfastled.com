@@ -27,19 +27,15 @@ function fmtTime(seconds: number) {
 
 /**
  * The Stage rail: the same spectrum instrument and transport the desktop app
- * shows beside its output matrix, plus this pattern's identity and delivery.
+ * shows beside its output matrix, plus this pattern's facts and delivery. The
+ * pattern's name and note live in the page heading above the stage.
  * It renders inside the /patterns layout's audio session, so the transport it
  * drives is the one that survives stepping between patterns.
  */
 export function PatternStageDeck({
-  patternName,
-  patternNote,
   audioReactive,
   children,
 }: {
-  patternName: string;
-  /** The maker's own note about the pattern. */
-  patternNote: string;
   /** Whether this pattern's graph actually consumes the analysis bus. */
   audioReactive: boolean;
   /** Pattern rating, facts and the download call to action, rendered under
@@ -218,11 +214,6 @@ export function PatternStageDeck({
           </button>
         )}
         {error && <p className="stage-transport-error" role="alert">{error}</p>}
-      </div>
-
-      <div className="stage-pattern-brand">
-        <strong className="stage-pattern-name" title={patternName}>{patternName}</strong>
-        <p className="stage-pattern-note">{patternNote}</p>
       </div>
 
       {children}
