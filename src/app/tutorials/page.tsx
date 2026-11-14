@@ -3,7 +3,6 @@ import { ArrowRight } from "lucide-react";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { TutorialPlayer } from "@/components/tutorial-player";
-import { appRelease, hardwareDevelopment } from "@/lib/app-release";
 import { tutorialChannel, tutorials } from "@/lib/tutorials";
 
 export const metadata: Metadata = {
@@ -27,10 +26,6 @@ export default function TutorialsPage() {
             </a>
           </div>
         </div>
-        <p className="tutorials-note">
-          <span className="home-preview-tag">Filmed on the Hardware preview</span>
-          Some screens differ from the published v{appRelease.version} app. The Hardware tab used in episodes 07 to 10 lives in the <a href={hardwareDevelopment.setupUrl} target="_blank" rel="noreferrer">Hardware branch</a> for now.
-        </p>
 
         <ol className="tutorial-list">
           {tutorials.map((tutorial) => (
