@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState, useEffect, useState } from "react";
-import { ArrowRight, CheckCircle2, FileCode2, RadioTower, UploadCloud } from "lucide-react";
+import { ArrowRight, CheckCircle2, RadioTower, UploadCloud } from "lucide-react";
 import { sharedPatternGraph, sharedPatternName } from "@/lib/shared-pattern";
 import { uploadPattern, type UploadState } from "./actions";
 
@@ -115,13 +115,12 @@ export function UploadForm({ canUpload }: { canUpload: boolean }) {
     <form action={action} className="upload-form">
       {handoffState !== "idle" && (
         <div className={`handoff-receipt ${handoffState}`} aria-live="polite">
-          <div className="handoff-signal"><RadioTower size={18} /><i /><i /><i /></div>
+          <div className="handoff-signal" aria-hidden="true"><RadioTower size={18} /><i /><i /><i /></div>
           <div>
-            <span>Studio handoff</span>
             <strong>{handoffState === "error" ? "The pattern could not be attached" : "Pattern attached from Design Studio"}</strong>
             {handoffState === "restored" && <small>{fileName} · details prefilled · edit anything below</small>}
           </div>
-          {handoffState === "restored" && <CheckCircle2 size={22} />}
+          {handoffState === "restored" && <CheckCircle2 size={22} aria-hidden="true" />}
         </div>
       )}
       <div className="form-section-title"><span>01</span><div><h2>Pattern details</h2><p>Help another maker know what they are looking at.</p></div></div>
@@ -151,7 +150,7 @@ export function UploadForm({ canUpload }: { canUpload: boolean }) {
             if (file) setHandoffState("idle");
           }}
         />
-        {patternJson ? <CheckCircle2 size={28} /> : <UploadCloud size={28} />}
+        {patternJson ? <CheckCircle2 size={28} aria-hidden="true" /> : <UploadCloud size={28} aria-hidden="true" />}
         <strong>{patternJson ? fileName : "Choose a Design Studio pattern"}</strong>
         <span>
           {patternJson
@@ -160,7 +159,6 @@ export function UploadForm({ canUpload }: { canUpload: boolean }) {
               : "Attached from the app · choose another file to replace it"
             : ".json · 2 MB max · used for the live preview"}
         </span>
-        <FileCode2 className="drop-code" size={54} aria-hidden="true" />
       </label>
       {state.message && <p className={`form-message ${state.tone}`} aria-live="polite">{state.message}</p>}
       <div className="submit-row">

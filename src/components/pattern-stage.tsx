@@ -105,7 +105,7 @@ export function PatternStage({
               <div className="preview-trust-gate">
                 <Lock size={16} aria-hidden="true" />
                 <p>This pattern includes custom code. Trust it to run that part live.</p>
-                <button type="button" className="button button-outline" onClick={() => setTrusted(true)}>
+                <button type="button" className="button button-quiet" onClick={() => setTrusted(true)}>
                   Trust and run
                 </button>
               </div>

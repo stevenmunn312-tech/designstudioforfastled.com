@@ -149,7 +149,7 @@ export default async function PatternDetailPage({ params, searchParams }: Patter
       <SiteHeader />
       <main className="pattern-detail" style={style}>
         <div className="shell">
-          <Link className="detail-back" href="/patterns"><ArrowLeft size={14} aria-hidden="true" /> Back to patterns</Link>
+          <Link className="text-link detail-back" href="/patterns"><ArrowLeft size={15} aria-hidden="true" /> Back to patterns</Link>
           <header className="detail-heading">
             <h1>{pattern.title}</h1>
             <p className="detail-byline">by {pattern.author}</p>
@@ -200,7 +200,7 @@ export default async function PatternDetailPage({ params, searchParams }: Patter
                       )}
                     </>
                   ) : (
-                    <Link className="button button-outline delivery-download" href="/patterns">Browse downloadable patterns</Link>
+                    <Link className="button button-quiet delivery-download" href="/patterns">Browse downloadable patterns</Link>
                   )}
                 </div>
               </div>

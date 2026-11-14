@@ -21,9 +21,8 @@ export default async function PatternsPage() {
     <>
       <SiteHeader />
       <main className="shell listing-page">
-        <div className="page-masthead studio-masthead">
-          <p className="eyebrow"><span /> Design Studio pattern library</p>
-          <h1>See the pattern<br /><em>before you open it.</em></h1>
+        <div className="page-masthead">
+          <h1>See the pattern <em>before you open it.</em></h1>
           <p>Every approved Design Studio project renders as a moving matrix preview in your browser.</p>
         </div>
         <PatternGallery patterns={patterns} isModerator={isModerator} />

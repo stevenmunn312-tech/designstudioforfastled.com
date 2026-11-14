@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
-import { Audiowide, IBM_Plex_Mono, Inter, JetBrains_Mono, Manrope, Oxanium } from "next/font/google";
+import { Audiowide, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const display = Oxanium({ subsets: ["latin"], variable: "--font-display" });
-const body = Manrope({ subsets: ["latin"], variable: "--font-body" });
-const mono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-mono" });
-// The "Learn the Studio" series faces, used by the redesigned home page.
+// The "Learn the Studio" series faces (DESIGN.md): Inter for headlines and
+// reading, JetBrains Mono for facts and captions, Audiowide for slate numerals.
 const studioMark = Audiowide({ subsets: ["latin"], weight: "400", variable: "--font-studio-mark" });
 const studioSans = Inter({ subsets: ["latin"], variable: "--font-studio-sans" });
 const studioMono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-studio-mono" });
@@ -25,7 +23,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable} ${studioMark.variable} ${studioSans.variable} ${studioMono.variable}`}>
+    <html lang="en" className={`${studioMark.variable} ${studioSans.variable} ${studioMono.variable}`}>
       <body>{children}</body>
     </html>
   );

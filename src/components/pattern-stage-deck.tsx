@@ -1,6 +1,6 @@
 "use client";
 
-import { Mic, MicOff } from "lucide-react";
+import { Mic, MicOff, Music, RefreshCw } from "lucide-react";
 import { useRef, type ChangeEvent, type CSSProperties, type ReactNode } from "react";
 import {
   nextSpectrumVisualizerMode,
@@ -77,9 +77,6 @@ export function PatternStageDeck({
 
   return (
     <aside className="stage-deck">
-      <div className="stage-deck-glow" aria-hidden="true" />
-      <div className="stage-deck-grid" aria-hidden="true" />
-
       <div className="stage-deck-head">
         <span className="stage-kicker">Spectrum</span>
         <div className="stage-deck-settings">
@@ -92,7 +89,7 @@ export function PatternStageDeck({
             title="Show the next Stage spectrum visualizer"
           >
             <span>{spectrumVisualizerLabel(visualizerMode)}</span>
-            <i aria-hidden="true">↻</i>
+            <RefreshCw size={13} aria-hidden="true" />
           </button>
         </div>
       </div>
@@ -109,7 +106,7 @@ export function PatternStageDeck({
           </div>
         </div>
         <div className="stage-transport-top">
-          <span className="stage-track-name" title={trackLabel}>♪ {trackLabel}</span>
+          <span className="stage-track-name" title={trackLabel}><Music size={13} aria-hidden="true" /> <span>{trackLabel}</span></span>
           <span className="stage-track-time">{fmtTime(currentTime)} / {fmtTime(duration)}</span>
         </div>
         <input

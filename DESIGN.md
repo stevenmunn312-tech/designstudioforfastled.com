@@ -108,7 +108,7 @@ Density is low and cinematic: one idea per section, long vertical spacing, still
 
 Motion is light, not movement. As a section enters view, its light comes up once from an already readable state, and reduced motion shows the lit state straight away. The world rejects the split hero (copy beside an app screenshot) with a feature-card grid below, and it rejects glass, panels and decorative gradient fills.
 
-**Current scope.** The full system (type, layout, slates, motion) is live on the home page only. The rest of the site (gallery, pattern detail, upload, login) uses the tungsten accent through the remapped site-wide tokens (`--accent`, with legacy `--cyan`, `--violet` and `--pink` pointing at amber and ember) but keeps its older layout, fonts (Oxanium, Manrope, IBM Plex Mono) and gradient cards. That is the current state of migration, not part of this system.
+**Current scope.** The whole public site is on this system: the home page, the shared header and footer, the pattern library (`/patterns`), pattern detail (`/patterns/[id]`), upload and sign-in. The tokens live on `:root` in `globals.css`, and the site loads only the three series faces. The one exception is the moderator review bench (`/review`), which is not a public page: it reads the legacy token names (`--ink`, `--cyan`, `--font-display` and the rest), which now resolve to the studio palette and faces, but keeps its older workbench panels and kicker labels.
 
 **Key Characteristics:**
 - Studio-black ground; colour comes from footage and live previews, not from surfaces.
@@ -208,11 +208,25 @@ Confident and few: one amber action and one quiet companion.
 - Amber, Inter 600, trailing 15px arrow, underline on hover (4px offset). Grouped in rows with 14px / 32px gaps.
 
 ### Cards / Containers
-- **Pattern card:** the shared library card re-set for the world: Studio Black background, Studio Rule border, 12px corners, no shadow; hover turns the border amber at 45%. The live preview fills the top edge to edge on footage black with its chrome hidden; title in Inter 18/700, metadata in mono 11px Studio Muted.
-- No other containers; content sits on the ground.
+- **Pattern card:** the shared library card, the same on the home strip and in the gallery: Studio Black background, Studio Rule border, 12px corners, no shadow; hover turns the border amber at 45%. The live preview fills the top edge to edge on footage black with its chrome hidden; title in Inter 18/700, metadata in mono 11px Studio Muted. The read-only star rating is neutral (Studio Text on a Quiet Edge track) because it is data.
+- No other containers; content sits on the ground. Notices (account required, the app handoff receipt, the gallery invitation) are rows between rules, not boxes.
 
 ### Navigation
-- Not yet expressed in this world: the site header and footer are shared with the older pages and only pick up the accent through the remapped tokens. Treat them as current state, not as a pattern to copy.
+- **Header:** full-bleed studio black with a 1px Studio Rule along the bottom, and its content held to the 1240px column. The wordmark sits on the left, route links are centred (Inter 15/500, Studio Soft, Studio Bright on hover) and a 40px quiet "Sign in" button sits on the right. The current page is marked by a 2px amber rule drawn on the header's own line, which is the one place nav uses amber. Below 980px the links fold into a disclosure panel on the same black, separated by rules, with the current page in amber.
+- **Footer:** full-bleed top rule; the wordmark and a one-line description on the left, route links in Studio Soft (amber on hover), and the mono sign-off line on the right.
+- **Where-you-are indicator:** the same 2px amber rule under the active label marks the current page in the header, the active gallery filter and the selected sign-in tab.
+
+### Page Heads
+On every page below the home hero, a Headline-sized title and its lede sit side by side on the baseline (1fr / 1fr), as the home section heads do. The title's second line is set in Studio Soft, unlit, because amber belongs to the home hero's promise line alone. Pages have no kicker labels.
+
+### Forms
+- **Fields:** transparent on the ground with a 1px Quiet Edge border, 12px corners, 48-52px tall, Inter 16px in Studio Bright, and a Studio Muted placeholder. The border turns amber on focus and an amber outline marks keyboard focus. Labels are Inter 14/600 in Studio Text; mono is never used for labels.
+- **Form steps:** numbered form sections use the slate numeral at 40px (Audiowide, amber, lit glyph).
+- **Drop zone:** a 1px dashed Quiet Edge outline with 12px corners, which turns solid once a file is attached.
+- **Status messages:** form, rating and transport results use two status tones, error `#ff9aa9` and success `#7fdcb4`, as text inside a 1px 40% outline. They are status, not palette, and appear nowhere else.
+
+### Pattern Stage
+The detail page's Stage layout (matrix left, deck right) sits between 1px rules, with a vertical rule between its columns and no panels. The matrix is square-edged on footage black. Instrument captions ("Output matrix", "Spectrum", "Transport") and readouts are mono Studio Muted. Transport controls are 40px quiet squares with 12px corners. Play is filled Studio Bright rather than amber, because the page's single amber action is Download. The played part of the progress bar is the one amber element on the deck. Facts, the rating input (chosen stars light amber) and Download sit beneath the deck, each separated by a rule.
 
 ### Slate (Signature Component)
 A step numeral in Audiowide amber, title, body, and a 72 x 5px amber rule closing the copy. As it enters view, the numeral and rule fade from Unlit Filament to amber with glow (scroll-driven `view()` timeline, entry 0% to cover 35%). Without support or with reduced motion they show lit. The same rule, without animation, closes the release notes in the download section.

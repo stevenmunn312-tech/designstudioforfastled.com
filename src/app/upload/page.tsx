@@ -26,21 +26,19 @@ export default async function UploadPage() {
     <>
       <SiteHeader />
       <main className="shell upload-page">
-        <div className="page-masthead upload-masthead">
-          <p className="eyebrow"><span /> Design Studio upload</p>
-          <h1>Patch your pattern<br /><em>into the library.</em></h1>
+        <div className="page-masthead">
+          <h1>Patch your pattern <em>into the library.</em></h1>
           <p>Upload a pattern exported or shared from Design Studio—hardware-agnostic, no pins or chipset baked in. Its graph becomes the animated preview visitors see.</p>
         </div>
         {!signedIn && (
           <div className="account-notice">
             <div><strong>Maker account required</strong><span>Uploads stay attributed and editable.</span></div>
-            <Link className="button button-outline" href="/login">Log in or join</Link>
+            <Link className="button button-quiet" href="/login">Log in or join</Link>
           </div>
         )}
         <div className="upload-layout">
           <UploadForm canUpload={signedIn} />
           <aside className="review-aside">
-            <span className="aside-label">What gets approved</span>
             <h2>A useful pattern tells the whole story.</h2>
             <ul>
               <li><CheckCircle2 size={17} /><span><strong>The graph opens</strong>Share a pattern or whole project straight from Design Studio&rsquo;s library.</span></li>

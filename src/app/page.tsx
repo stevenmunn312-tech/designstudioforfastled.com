@@ -74,15 +74,15 @@ export default async function Home() {
             </p>
             <div className="home-actions">
               {detectedTarget ? (
-                <a className="home-button home-button-primary" href={detectedTarget.url}>
+                <a className="button button-primary" href={detectedTarget.url}>
                   <Download size={18} aria-hidden="true" /> Download v{version} for {detectedTarget.label}
                 </a>
               ) : (
-                <a className="home-button home-button-primary" href="#download">
+                <a className="button button-primary" href="#download">
                   <Download size={18} aria-hidden="true" /> Download v{version}
                 </a>
               )}
-              <Link className="home-button home-button-quiet" href="/patterns">
+              <Link className="button button-quiet" href="/patterns">
                 Browse patterns <ArrowRight size={17} aria-hidden="true" />
               </Link>
             </div>
@@ -92,7 +92,7 @@ export default async function Home() {
         </section>
 
         <section className="home-steps" aria-labelledby="home-steps-title">
-          <div className="home-shell">
+          <div className="shell">
             <h2 id="home-steps-title" className="home-section-title">From graph to light, in four steps.</h2>
             <ol className="home-step-list">
               {steps.map((step) => (
@@ -126,7 +126,7 @@ export default async function Home() {
 
         {patterns.length > 0 && (
           <section className="home-patterns" aria-labelledby="home-patterns-title">
-            <div className="home-shell">
+            <div className="shell">
               <div className="home-section-head">
                 <h2 id="home-patterns-title" className="home-section-title">Patterns from the library.</h2>
                 <p>Each one is a real Design Studio file running live in your browser. Open one to step through it, then download it and keep building.</p>
@@ -135,20 +135,20 @@ export default async function Home() {
                 {patterns.map((pattern) => <PatternCard key={pattern.id} pattern={pattern} compact />)}
               </div>
               <div className="home-links">
-                <Link className="home-link" href="/patterns">Browse the whole library <ArrowRight size={15} aria-hidden="true" /></Link>
-                <Link className="home-link" href="/upload">Share one of yours <ArrowRight size={15} aria-hidden="true" /></Link>
+                <Link className="text-link" href="/patterns">Browse the whole library <ArrowRight size={15} aria-hidden="true" /></Link>
+                <Link className="text-link" href="/upload">Share one of yours <ArrowRight size={15} aria-hidden="true" /></Link>
               </div>
             </div>
           </section>
         )}
 
         <section className="home-download" id="download" aria-labelledby="home-download-title">
-          <div className="home-shell home-download-grid">
+          <div className="shell home-download-grid">
             <div>
               <h2 id="home-download-title" className="home-section-title">Download v{version}.</h2>
               <p className="home-download-lede">Released {appRelease.releasedOn}. Portable builds: unpack and run, no installer.</p>
               {detectedTarget && (
-                <a className="home-button home-button-primary" href={detectedTarget.url}>
+                <a className="button button-primary" href={detectedTarget.url}>
                   <Download size={18} aria-hidden="true" /> v{version} for {detectedTarget.label}
                 </a>
               )}
@@ -170,13 +170,13 @@ export default async function Home() {
                 {appRelease.highlights.map((highlight) => <li key={highlight}>{highlight}</li>)}
               </ul>
               <span className="home-rule" aria-hidden="true" />
-              <a className="home-link" href={appRelease.releaseUrl} target="_blank" rel="noreferrer">Read the release notes <ArrowRight size={15} aria-hidden="true" /></a>
+              <a className="text-link" href={appRelease.releaseUrl} target="_blank" rel="noreferrer">Read the release notes <ArrowRight size={15} aria-hidden="true" /></a>
             </div>
           </div>
         </section>
 
         <section className="home-hardware" id="hardware" aria-labelledby="home-hardware-title">
-          <div className="home-shell home-hardware-grid">
+          <div className="shell home-hardware-grid">
             <figure className="home-hardware-still">
               <Image
                 src="/home/hardware-board.webp"
@@ -196,21 +196,21 @@ export default async function Home() {
                 It is a development build, separate from v{version}. Setup needs Node.js, Python and build tools, and uploading needs a small local helper. A passing preview or compile does not establish hardware support: see the <a href={hardwareDevelopment.supportUrl} target="_blank" rel="noreferrer">support matrix</a> for validated combinations.
               </p>
               <div className="home-links">
-                <a className="home-link" href={hardwareDevelopment.setupUrl} target="_blank" rel="noreferrer">Set up the Hardware branch <ArrowRight size={15} aria-hidden="true" /></a>
-                <a className="home-link" href={hardwareDevelopment.firstProjectUrl} target="_blank" rel="noreferrer">Build your first project <ArrowRight size={15} aria-hidden="true" /></a>
+                <a className="text-link" href={hardwareDevelopment.setupUrl} target="_blank" rel="noreferrer">Set up the Hardware branch <ArrowRight size={15} aria-hidden="true" /></a>
+                <a className="text-link" href={hardwareDevelopment.firstProjectUrl} target="_blank" rel="noreferrer">Build your first project <ArrowRight size={15} aria-hidden="true" /></a>
               </div>
             </div>
           </div>
         </section>
 
         <section className="home-close" aria-labelledby="home-close-title">
-          <div className="home-shell">
+          <div className="shell">
             <h2 id="home-close-title">Send it to real lights.</h2>
             <div className="home-actions">
-              <a className="home-button home-button-primary" href={detectedTarget?.url ?? "#download"}>
+              <a className="button button-primary" href={detectedTarget?.url ?? "#download"}>
                 <Download size={18} aria-hidden="true" /> Download v{version}{detectedTarget ? ` for ${detectedTarget.label}` : ""}
               </a>
-              <Link className="home-button home-button-quiet" href="/patterns">Browse patterns <ArrowRight size={17} aria-hidden="true" /></Link>
+              <Link className="button button-quiet" href="/patterns">Browse patterns <ArrowRight size={17} aria-hidden="true" /></Link>
             </div>
           </div>
         </section>

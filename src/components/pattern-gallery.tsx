@@ -91,19 +91,17 @@ export function PatternGallery({ patterns, isModerator = false }: { patterns: Pa
           {visible.map((pattern) => <PatternCard key={pattern.id} pattern={pattern} isModerator={isModerator} />)}
           {visible.length === 1 && (
             <article className="library-invitation gallery-invitation">
-              <UploadCloud size={24} />
-              <span>Community library</span>
+              <UploadCloud size={24} aria-hidden="true" />
               <h3>There is room for the next great signal.</h3>
               <p>Export a project from Design Studio and send it to the review bench. Once approved, its graph becomes a moving preview here.</p>
-              <Link href="/upload">Upload a project <ArrowRight size={14} /></Link>
+              <Link className="text-link" href="/upload">Upload a project <ArrowRight size={15} aria-hidden="true" /></Link>
             </article>
           )}
         </div>
       ) : (
         <div className="empty-state">
-          <span>No signal</span>
           <h2>{emptyHeading}</h2>
-          <button type="button" onClick={() => { setFilter(null); setQuery(""); }}>Show all {patterns.length} patterns</button>
+          <button className="text-link" type="button" onClick={() => { setFilter(null); setQuery(""); }}>Show all {patterns.length} patterns</button>
         </div>
       )}
     </>

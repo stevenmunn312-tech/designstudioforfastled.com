@@ -20,7 +20,6 @@ export function AuthForm() {
         <button role="tab" aria-selected={mode === "signup"} onClick={() => setMode("signup")} type="button">Create account</button>
       </div>
       <div className="auth-card-copy">
-        <p className="eyebrow"><span /> Maker access</p>
         <h1>{mode === "login" ? "Welcome back." : "Join the signal."}</h1>
         <p>{mode === "login" ? "Pick up where your last pattern left off." : "Publish patterns, credit remixes, and help better effects travel."}</p>
       </div>
