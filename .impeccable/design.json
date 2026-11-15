@@ -4,10 +4,14 @@
   "title": "Design System: Design Studio for FastLED",
   "extensions": {
     "colorMeta": {
-      "tungsten-amber": { "role": "primary", "displayName": "Tungsten Amber", "canonical": "#ffb347", "tonalRamp": ["#2e1a00", "#4f2f05", "#7a4a0d", "#a86818", "#d88b2a", "#ffb347", "#ffd08a", "#ffeccc"] },
-      "tungsten-amber-hot": { "role": "primary", "displayName": "Hot Filament", "canonical": "#ffc977", "tonalRamp": ["#33210a", "#5a3b12", "#86591d", "#b2792c", "#dc9d48", "#ffc977", "#ffdca6", "#fff1d9"] },
-      "tungsten-ink": { "role": "primary", "displayName": "Tungsten Ink", "canonical": "#2e1a00", "tonalRamp": ["#120a00", "#2e1a00", "#4a2b05", "#6a3f0b", "#8d5714", "#b2721f", "#d8942f", "#ffb347"] },
-      "ember": { "role": "secondary", "displayName": "Ember", "canonical": "#ff6a3d", "tonalRamp": ["#2e0e05", "#561a0b", "#842a14", "#b23b1f", "#dd522d", "#ff6a3d", "#ff9d7f", "#ffd6c8"] },
+      "kelvin-candle": { "role": "primary", "displayName": "Candle (1900K)", "canonical": "#ff8912" },
+      "kelvin-warm-white": { "role": "primary", "displayName": "Warm White (2400K)", "canonical": "#ff9d3f" },
+      "kelvin-soft-white": { "role": "primary", "displayName": "Soft White (3000K)", "canonical": "#ffb46b" },
+      "kelvin-neutral": { "role": "primary", "displayName": "Neutral (4000K)", "canonical": "#ffcea6" },
+      "kelvin-daylight": { "role": "primary", "displayName": "Daylight (5500K)", "canonical": "#ffecdf" },
+      "kelvin-cool-white": { "role": "primary", "displayName": "Cool White (8000K)", "canonical": "#e3e9ff" },
+      "kelvin-sky": { "role": "primary", "displayName": "Sky (12000K)", "canonical": "#bfd3ff" },
+      "accent-ink": { "role": "primary", "displayName": "Accent Ink", "canonical": "#2e1a00", "tonalRamp": ["#120a00", "#2e1a00", "#4a2b05", "#6a3f0b", "#8d5714", "#b2721f", "#d8942f", "#ffb46b"] },
       "studio-black": { "role": "neutral", "displayName": "Studio Black", "canonical": "#0b0e12", "tonalRamp": ["#05070a", "#0b0e12", "#14181e", "#1f242b", "#2d333b", "#4a5059", "#80868e", "#c4c8cd"] },
       "footage-black": { "role": "neutral", "displayName": "Footage Black", "canonical": "#000000", "tonalRamp": ["#000000", "#0a0a0a", "#141414", "#1f1f1f", "#2e2e2e", "#4a4a4a", "#808080", "#c4c4c4"] },
       "studio-rule": { "role": "neutral", "displayName": "Studio Rule", "canonical": "#1f242b", "tonalRamp": ["#0b0e12", "#14181e", "#1f242b", "#2b313a", "#3b424c", "#565e69", "#878e98", "#c4c8cd"] },
@@ -28,8 +32,8 @@
       "closing": { "displayName": "Closing Line", "purpose": "The single sign-off line before the footer." }
     },
     "shadows": [
-      { "name": "lit-glyph", "value": "0 0 38px rgba(255, 179, 71, .38)", "purpose": "Text glow on step numerals, the amber headline line (42px) and the closing line (46px)." },
-      { "name": "lit-rule", "value": "0 0 18px rgba(255, 179, 71, .6)", "purpose": "Glow under slate rules only." }
+      { "name": "lit-glyph", "value": "0 0 38px rgba(255, 180, 107, .38)", "purpose": "Text glow on step numerals, the amber headline line (42px) and the closing line (46px)." },
+      { "name": "lit-rule", "value": "0 0 18px rgba(255, 180, 107, .6)", "purpose": "Glow under slate rules only." }
     ],
     "motion": [
       { "name": "numeral-light", "value": "scroll-driven view() timeline, range entry 0% to cover 35%, from color #3a3128 with no glow", "purpose": "Slate numerals and rules light up as they enter view." },
@@ -50,7 +54,7 @@
       "refersTo": "button-primary",
       "description": "The one amber action per view: the download.",
       "html": "<a class=\"ds-btn-primary\" href=\"#\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\"/><polyline points=\"7 10 12 15 17 10\"/><line x1=\"12\" y1=\"15\" x2=\"12\" y2=\"3\"/></svg> Download v0.7.0 for Windows</a>",
-      "css": ".ds-btn-primary { min-height: 52px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 0 22px; border-radius: 12px; font-family: Inter, system-ui, sans-serif; font-size: 16px; font-weight: 600; letter-spacing: -.005em; text-decoration: none; color: var(--accent-ink, #2e1a00); background: var(--accent, #ffb347); transition: background-color .2s ease, border-color .2s ease, color .2s ease; } .ds-btn-primary:hover { background: var(--accent-strong, #ffc977); } .ds-btn-primary:focus-visible { outline: 2px solid var(--accent-strong, #ffc977); outline-offset: 3px; }"
+      "css": ".ds-btn-primary { min-height: 52px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 0 22px; border-radius: 12px; font-family: Inter, system-ui, sans-serif; font-size: 16px; font-weight: 600; letter-spacing: -.005em; text-decoration: none; color: var(--accent-ink, #2e1a00); background: var(--accent, #ffb46b); transition: background-color .2s ease, border-color .2s ease, color .2s ease; } .ds-btn-primary:hover { background: var(--accent-strong, #ffcea6); } .ds-btn-primary:focus-visible { outline: 2px solid var(--accent-strong, #ffcea6); outline-offset: 3px; }"
     },
     {
       "name": "Quiet Button",
@@ -58,7 +62,7 @@
       "refersTo": "button-quiet",
       "description": "Companion to the primary action; border lights amber on hover.",
       "html": "<a class=\"ds-btn-quiet\" href=\"#\">Browse patterns <svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></a>",
-      "css": ".ds-btn-quiet { min-height: 52px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 0 22px; border-radius: 12px; font-family: Inter, system-ui, sans-serif; font-size: 16px; font-weight: 600; text-decoration: none; color: #f7f3ec; background: rgba(11, 14, 18, .66); border: 1px solid #39342d; transition: background-color .2s ease, border-color .2s ease, color .2s ease; } .ds-btn-quiet:hover { border-color: var(--accent, #ffb347); } .ds-btn-quiet:focus-visible { outline: 2px solid var(--accent, #ffb347); outline-offset: 3px; }"
+      "css": ".ds-btn-quiet { min-height: 52px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 0 22px; border-radius: 12px; font-family: Inter, system-ui, sans-serif; font-size: 16px; font-weight: 600; text-decoration: none; color: #f7f3ec; background: rgba(11, 14, 18, .66); border: 1px solid #39342d; transition: background-color .2s ease, border-color .2s ease, color .2s ease; } .ds-btn-quiet:hover { border-color: var(--accent, #ffb46b); } .ds-btn-quiet:focus-visible { outline: 2px solid var(--accent, #ffb46b); outline-offset: 3px; }"
     },
     {
       "name": "Text Link",
@@ -66,7 +70,7 @@
       "refersTo": "text-link",
       "description": "Amber is the link colour; underline on hover.",
       "html": "<a class=\"ds-link\" href=\"#\">Browse the whole library <svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></a>",
-      "css": ".ds-link { display: inline-flex; align-items: center; gap: 8px; color: var(--accent, #ffb347); font-family: Inter, system-ui, sans-serif; font-weight: 600; text-decoration: none; text-underline-offset: 4px; } .ds-link:hover, .ds-link:focus-visible { text-decoration: underline; }"
+      "css": ".ds-link { display: inline-flex; align-items: center; gap: 8px; color: var(--accent, #ffb46b); font-family: Inter, system-ui, sans-serif; font-weight: 600; text-decoration: none; text-underline-offset: 4px; } .ds-link:hover, .ds-link:focus-visible { text-decoration: underline; }"
     },
     {
       "name": "Slate",
@@ -74,14 +78,14 @@
       "refersTo": "slate-rule",
       "description": "Numbered step: Audiowide amber numeral, title, body, closing amber rule.",
       "html": "<div class=\"ds-slate\"><span class=\"ds-slate-num\">01</span><h3>Patch nodes</h3><p>Drag nodes onto the canvas and wire them together.</p></div>",
-      "css": ".ds-slate { background: #0b0e12; padding: 32px; font-family: Inter, system-ui, sans-serif; } .ds-slate-num { display: block; color: var(--accent, #ffb347); font-family: Audiowide, sans-serif; font-size: 96px; line-height: 1; text-shadow: 0 0 38px rgba(255, 179, 71, .38); } .ds-slate h3 { margin: 26px 0 0; color: #f7f3ec; font-size: 30px; font-weight: 700; letter-spacing: -.02em; } .ds-slate p { max-width: 40ch; margin: 14px 0 0; color: #b9b2a8; font-size: 17px; line-height: 1.65; } .ds-slate::after { content: \"\"; display: block; width: 72px; height: 5px; margin-top: 30px; border-radius: 3px; background: var(--accent, #ffb347); box-shadow: 0 0 18px rgba(255, 179, 71, .6); }"
+      "css": ".ds-slate { background: #0b0e12; padding: 32px; font-family: Inter, system-ui, sans-serif; } .ds-slate-num { display: block; color: var(--accent, #ffb46b); font-family: Audiowide, sans-serif; font-size: 96px; line-height: 1; text-shadow: 0 0 38px rgba(255, 180, 107, .38); } .ds-slate h3 { margin: 26px 0 0; color: #f7f3ec; font-size: 30px; font-weight: 700; letter-spacing: -.02em; } .ds-slate p { max-width: 40ch; margin: 14px 0 0; color: #b9b2a8; font-size: 17px; line-height: 1.65; } .ds-slate::after { content: \"\"; display: block; width: 72px; height: 5px; margin-top: 30px; border-radius: 3px; background: var(--accent, #ffb46b); box-shadow: 0 0 18px rgba(255, 180, 107, .6); }"
     },
     {
       "name": "Signal Flow",
       "kind": "custom",
       "description": "Labelled stages joined by a dotted amber cable.",
       "html": "<ol class=\"ds-flow\"><li><strong>The Studio</strong><span>writes the code</span></li><li class=\"ds-flow-link\"><span>FastLED code</span></li><li><strong>Build tools</strong><span>compile it</span></li><li class=\"ds-flow-link\"><span>USB</span></li><li><strong>Your board</strong><span>runs it</span></li></ol>",
-      "css": ".ds-flow { margin: 0; padding: 24px; list-style: none; display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: center; background: #0b0e12; font-family: Inter, system-ui, sans-serif; } .ds-flow > li:not(.ds-flow-link) { padding: 12px 4px; display: grid; gap: 6px; text-align: center; } .ds-flow strong { color: #f7f3ec; font-size: 22px; font-weight: 700; letter-spacing: -.015em; } .ds-flow span { color: #b9b2a8; font-family: 'JetBrains Mono', monospace; font-size: 13px; } .ds-flow-link { min-width: 76px; padding: 0 8px; text-align: center; } .ds-flow-link span { display: block; padding-bottom: 12px; color: #948c82; font-size: 12px; } .ds-flow-link::after { content: \"\"; display: block; height: 4px; background: radial-gradient(circle, var(--accent, #ffb347) 1.5px, transparent 2px) 0 50% / 10px 4px repeat-x; }"
+      "css": ".ds-flow { margin: 0; padding: 24px; list-style: none; display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: center; background: #0b0e12; font-family: Inter, system-ui, sans-serif; } .ds-flow > li:not(.ds-flow-link) { padding: 12px 4px; display: grid; gap: 6px; text-align: center; } .ds-flow strong { color: #f7f3ec; font-size: 22px; font-weight: 700; letter-spacing: -.015em; } .ds-flow span { color: #b9b2a8; font-family: 'JetBrains Mono', monospace; font-size: 13px; } .ds-flow-link { min-width: 76px; padding: 0 8px; text-align: center; } .ds-flow-link span { display: block; padding-bottom: 12px; color: #948c82; font-size: 12px; } .ds-flow-link::after { content: \"\"; display: block; height: 4px; background: radial-gradient(circle, var(--accent, #ffb46b) 1.5px, transparent 2px) 0 50% / 10px 4px repeat-x; }"
     },
     {
       "name": "Pattern Card",
@@ -89,38 +93,38 @@
       "refersTo": "pattern-card",
       "description": "Library card on studio black; live preview edge to edge, mono metadata.",
       "html": "<a class=\"ds-card\" href=\"#\"><div class=\"ds-card-preview\"></div><div class=\"ds-card-body\"><h3>Ember Trail</h3><p>by a maker · Not yet rated</p></div></a>",
-      "css": ".ds-card { display: block; width: 240px; overflow: hidden; text-decoration: none; background: #0b0e12; border: 1px solid #1f242b; border-radius: 12px; transition: border-color .25s ease; } .ds-card:hover, .ds-card:focus-visible { border-color: rgba(255, 179, 71, .45); } .ds-card-preview { aspect-ratio: 4 / 3; background: radial-gradient(circle at 40% 45%, #ff6a3d, #7a2a10 40%, #000 75%); } .ds-card-body { padding: 14px 16px 16px; } .ds-card h3 { margin: 0; color: #f7f3ec; font-family: Inter, system-ui, sans-serif; font-size: 18px; font-weight: 700; letter-spacing: -.01em; } .ds-card p { margin: 6px 0 0; color: #948c82; font-family: 'JetBrains Mono', monospace; font-size: 11px; }"
+      "css": ".ds-card { display: block; width: 240px; overflow: hidden; text-decoration: none; background: #0b0e12; border: 1px solid #1f242b; border-radius: 12px; transition: border-color .25s ease; } .ds-card:hover, .ds-card:focus-visible { border-color: rgba(255, 180, 107, .45); } .ds-card-preview { aspect-ratio: 4 / 3; background: radial-gradient(circle at 40% 45%, #ff8912, #7a2a10 40%, #000 75%); } .ds-card-body { padding: 14px 16px 16px; } .ds-card h3 { margin: 0; color: #f7f3ec; font-family: Inter, system-ui, sans-serif; font-size: 18px; font-weight: 700; letter-spacing: -.01em; } .ds-card p { margin: 6px 0 0; color: #948c82; font-family: 'JetBrains Mono', monospace; font-size: 11px; }"
     },
     {
       "name": "Preview Tag",
       "kind": "chip",
       "refersTo": "preview-tag",
-      "description": "Ember status tag marking unreleased work.",
+      "description": "Candle status tag marking unreleased work.",
       "html": "<p class=\"ds-preview-tag\">Hardware preview · built from source</p>",
-      "css": ".ds-preview-tag { display: inline-block; margin: 0; padding: 6px 10px; color: var(--ember, #ff6a3d); border: 1px solid rgba(255, 106, 61, .45); border-radius: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .08em; }"
+      "css": ".ds-preview-tag { display: inline-block; margin: 0; padding: 6px 10px; color: var(--ember, #ff8912); border: 1px solid rgba(255, 137, 18, .45); border-radius: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .08em; }"
     },
     {
       "name": "Download List",
       "kind": "custom",
       "description": "Ruled platform rows; name brightens to amber on hover.",
       "html": "<ul class=\"ds-platforms\"><li><a href=\"#\"><strong>Windows</strong> <span>x64 · portable .zip</span></a></li><li><a href=\"#\"><strong>macOS</strong> <span>Apple Silicon · .tar.gz</span></a><a class=\"ds-platform-alt\" href=\"#\">Intel Mac build</a></li></ul>",
-      "css": ".ds-platforms { margin: 0; padding: 0; list-style: none; background: #0b0e12; font-family: Inter, system-ui, sans-serif; } .ds-platforms li { min-height: 60px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 20px; border-top: 1px solid #1f242b; } .ds-platforms li:last-child { border-bottom: 1px solid #1f242b; } .ds-platforms a { color: #f7f3ec; text-decoration: none; } .ds-platforms a:hover strong, .ds-platforms a:focus-visible strong { color: var(--accent, #ffb347); } .ds-platforms strong { font-size: 18px; font-weight: 600; } .ds-platforms span { margin-left: 12px; color: #948c82; font-family: 'JetBrains Mono', monospace; font-size: 13px; } .ds-platforms .ds-platform-alt { color: var(--accent, #ffb347); font-family: 'JetBrains Mono', monospace; font-size: 13px; }"
+      "css": ".ds-platforms { margin: 0; padding: 0; list-style: none; background: #0b0e12; font-family: Inter, system-ui, sans-serif; } .ds-platforms li { min-height: 60px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 20px; border-top: 1px solid #1f242b; } .ds-platforms li:last-child { border-bottom: 1px solid #1f242b; } .ds-platforms a { color: #f7f3ec; text-decoration: none; } .ds-platforms a:hover strong, .ds-platforms a:focus-visible strong { color: var(--accent, #ffb46b); } .ds-platforms strong { font-size: 18px; font-weight: 600; } .ds-platforms span { margin-left: 12px; color: #948c82; font-family: 'JetBrains Mono', monospace; font-size: 13px; } .ds-platforms .ds-platform-alt { color: var(--accent, #ffb46b); font-family: 'JetBrains Mono', monospace; font-size: 13px; }"
     }
   ],
   "narrative": {
     "northStar": "The Lit Bench",
-    "overview": "The site is the home of the \"Learn the Studio\" series: an LED matrix and its board on a bench in a dark room, with the only light coming from the pattern running on them. Everything else is studio black and warm neutral type. The one designed light is tungsten amber, which marks what to do (the download), where you are in the story (slate numerals and rules), and what you can follow (links). Footage, stills and live pattern previews supply all the other colour, and none of it belongs to the palette.\n\nDensity is low and cinematic: one idea per section, long vertical spacing, stills set straight on the dark with feathered edges rather than in frames or panels. Type does the structure. Inter carries headlines and reading, JetBrains Mono carries facts and captions, and Audiowide, the series' slate face, appears only on step numerals and the closing line.\n\nMotion is light, not movement. As a section enters view, its light comes up once from an already readable state, and reduced motion shows the lit state straight away. The world rejects the split hero (copy beside an app screenshot) with a feature-card grid below, and it rejects glass, panels and decorative gradient fills.",
+    "overview": "The site is the home of the \"Learn the Studio\" series: an LED matrix and its board on a bench in a dark room, with the only light coming from the pattern running on them. Everything else is studio black and warm neutral type. The brand is the Kelvin scale (1900K candle to 12000K sky); the logo mark sweeps it, and the one designed light on the page is Soft White (3000K), which marks what to do (the download), where you are in the story (slate numerals and rules), and what you can follow (links). Footage, stills and live pattern previews supply all the other colour, and none of it belongs to the palette.\n\nDensity is low and cinematic: one idea per section, long vertical spacing, stills set straight on the dark with feathered edges rather than in frames or panels. Type does the structure. Inter carries headlines and reading, JetBrains Mono carries facts and captions, and Audiowide, the series' slate face, appears only on step numerals and the closing line.\n\nMotion is light, not movement. As a section enters view, its light comes up once from an already readable state, and reduced motion shows the lit state straight away. The world rejects the split hero (copy beside an app screenshot) with a feature-card grid below, and it rejects glass, panels and decorative gradient fills.",
     "keyCharacteristics": [
       "Studio-black ground; colour comes from footage and live previews, not from surfaces.",
-      "One accent, tungsten amber, rationed to actions, numerals, slate rules and links.",
+      "One accent, Soft White (3000K) from the Kelvin scale, rationed to actions, numerals, slate rules and links.",
       "Stills unframed, feathered into the dark by masks.",
       "Sections separated by thin rules and space, never by boxes.",
       "Glow (soft amber text-shadow) is the one depth effect, reserved for lit elements."
     ],
     "rules": [
-      { "name": "The One Filament Rule", "body": "Tungsten amber is the only designed light. It marks the action, the slate (numeral plus rule), links, and the headline's promise line. Nothing else is amber, and no other hue is added to the palette; colour beyond that comes from footage and live previews.", "section": "colors" },
+      { "name": "The One Filament Rule", "body": "In the interface, Soft White (3000K) is the only designed light; the full Kelvin scale lives in the logo mark. It marks the action, the slate (numeral plus rule), links, and the headline's promise line. Nothing else is amber, and no other hue is added to the palette; colour beyond that comes from footage and live previews.", "section": "colors" },
       { "name": "The Amber Is the Link Rule", "body": "On the dark, amber text is a link and needs no other device at rest; underline appears on hover. Plain text is never amber unless it is a numeral, a headline promise or the facts line.", "section": "colors" },
-      { "name": "The Ember Means Preview Rule", "body": "Ember appears only on preview or status tags that separate unreleased work from the published download.", "section": "colors" },
+      { "name": "The Candle Means Preview Rule", "body": "Candle appears only on preview or status tags that separate unreleased work from the published download.", "section": "colors" },
       { "name": "The Slate Face Rule", "body": "Audiowide is for numerals and the one closing line. It never sets headlines, body, buttons or labels.", "section": "typography" },
       { "name": "The Mono Is Data Rule", "body": "JetBrains Mono sets facts, captions, credits and metadata only, never reading paragraphs or headlines.", "section": "typography" },
       { "name": "The Only Light Rule", "body": "Glow belongs to things that are lit: amber numerals, slate rules, the headline promise and the closing line. Boxes, cards and buttons never cast shadows.", "section": "elevation" },
@@ -132,10 +136,10 @@
       "Do keep amber to the action, slate numerals and rules, links, the headline promise line, and the dotted signal cable.",
       "Do use Audiowide only for slate numerals and the closing line.",
       "Do bring light up once per section from a readable state, and show the lit state under reduced motion.",
-      "Do mark unreleased work with the Ember preview tag."
+      "Do mark unreleased work with the Candle preview tag."
     ],
     "donts": [
-      "Don't add a second accent hue, or recolour the series' per-episode hues back in; the scheme is one tungsten accent.",
+      "Don't add a second accent hue, or recolour the series' per-episode hues back in; the interface takes one accent from the Kelvin scale.",
       "Don't box stills or footage in frames, borders, radii or device mockups.",
       "Don't use panels, glass, decorative gradient fills or drop shadows on cards and buttons; gradients exist only as feathering masks and the dotted cable.",
       "Don't build a split hero of copy beside an app screenshot with a feature-card grid below.",

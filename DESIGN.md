@@ -2,10 +2,14 @@
 name: Design Studio for FastLED
 description: Hardware sitting in darkness, lit only by the pattern it runs.
 colors:
-  tungsten-amber: "#ffb347"
-  tungsten-amber-hot: "#ffc977"
-  tungsten-ink: "#2e1a00"
-  ember: "#ff6a3d"
+  kelvin-candle: "#ff8912"
+  kelvin-warm-white: "#ff9d3f"
+  kelvin-soft-white: "#ffb46b"
+  kelvin-neutral: "#ffcea6"
+  kelvin-daylight: "#ffecdf"
+  kelvin-cool-white: "#e3e9ff"
+  kelvin-sky: "#bfd3ff"
+  accent-ink: "#2e1a00"
   studio-black: "#0b0e12"
   footage-black: "#000000"
   studio-rule: "#1f242b"
@@ -67,27 +71,27 @@ spacing:
   step-gap: "104px"
 components:
   button-primary:
-    backgroundColor: "{colors.tungsten-amber}"
-    textColor: "{colors.tungsten-ink}"
+    backgroundColor: "{colors.kelvin-soft-white}"
+    textColor: "{colors.accent-ink}"
     rounded: "{rounded.control}"
     padding: "0 22px"
     height: "52px"
   button-primary-hover:
-    backgroundColor: "{colors.tungsten-amber-hot}"
+    backgroundColor: "{colors.kelvin-neutral}"
   button-quiet:
     textColor: "{colors.studio-bright}"
     rounded: "{rounded.control}"
     padding: "0 22px"
     height: "52px"
   text-link:
-    textColor: "{colors.tungsten-amber}"
+    textColor: "{colors.kelvin-soft-white}"
   preview-tag:
-    textColor: "{colors.ember}"
+    textColor: "{colors.kelvin-candle}"
     typography: "{typography.label}"
     rounded: "{rounded.tag}"
     padding: "6px 10px"
   slate-rule:
-    backgroundColor: "{colors.tungsten-amber}"
+    backgroundColor: "{colors.kelvin-soft-white}"
     rounded: "{rounded.rule}"
     width: "72px"
     height: "5px"
@@ -102,7 +106,7 @@ components:
 
 **Creative North Star: "The Lit Bench"**
 
-The site is the home of the "Learn the Studio" series: an LED matrix and its board on a bench in a dark room, with the only light coming from the pattern running on them. Everything else is studio black and warm neutral type. The one designed light is tungsten amber, which marks what to do (the download), where you are in the story (slate numerals and rules), and what you can follow (links). Footage, stills and live pattern previews supply all the other colour, and none of it belongs to the palette.
+The site is the home of the "Learn the Studio" series: an LED matrix and its board on a bench in a dark room, with the only light coming from the pattern running on them. Everything else is studio black and warm neutral type. The brand is the Kelvin scale, seven LED colour temperatures from candle (1900K) to sky (12000K). The logo mark sweeps the whole scale; on the page the one designed light is Soft White (3000K), which marks what to do (the download), where you are in the story (slate numerals and rules), and what you can follow (links). Footage, stills and live pattern previews supply all the other colour, and none of it belongs to the palette.
 
 Density is low and cinematic: one idea per section, long vertical spacing, stills set straight on the dark with feathered edges rather than in frames or panels. Type does the structure. Inter carries headlines and reading, JetBrains Mono carries facts and captions, and Audiowide, the series' slate face, appears only on step numerals and the closing line.
 
@@ -112,22 +116,37 @@ Motion is light, not movement. As a section enters view, its light comes up once
 
 **Key Characteristics:**
 - Studio-black ground; colour comes from footage and live previews, not from surfaces.
-- One accent, tungsten amber, rationed to actions, numerals, slate rules and links.
+- One accent, Soft White (3000K) from the Kelvin scale, rationed to actions, numerals, slate rules and links. The full scale belongs to the logo mark.
 - Stills unframed, feathered into the dark by masks.
 - Sections separated by thin rules and space, never by boxes.
 - Glow (soft amber text-shadow) is the one depth effect, reserved for lit elements.
 
 ## Colors
 
-A near-black studio with warm off-white type and a single tungsten filament of colour.
+A near-black studio with warm off-white type, lit by the colour temperatures of white LEDs.
+
+### The Kelvin Scale (brand)
+Seven LED colour temperatures, warm to cool. Each is a token on `:root` (`--kelvin-*`).
+
+| Name | Temperature | Hex |
+|---|---|---|
+| Candle | 1900K | `#ff8912` |
+| Warm White | 2400K | `#ff9d3f` |
+| Soft White | 3000K | `#ffb46b` |
+| Neutral | 4000K | `#ffcea6` |
+| Daylight | 5500K | `#ffecdf` |
+| Cool White | 8000K | `#e3e9ff` |
+| Sky | 12000K | `#bfd3ff` |
+
+**The logo mark (Kelvin sweep).** The 4 x 4 LED grid runs the scale corner to corner: the dot in row r, column c takes step r + c, so Candle sits top left and Sky bottom right. The wordmark's "Design Studio" letters are Daylight and its "for FastLED" line is Soft White. The favicon is the same grid on a Studio Black square. Shape, gloss and alpha come from the source pixels.
 
 ### Primary
-- **Tungsten Amber** (`--accent`): the primary button fill, step numerals, slate rules, the hero headline's second line, text links, list markers in release notes, the dotted signal links in the step 03 flow, and the LED-dot wordmark and favicon: every lit dot is flat amber, the wordmark's single white LED and its "for FastLED" line are Studio Bright, and the favicon's flame is Hot Filament on a Studio Black ground. Neither carries the old amber-to-red gradient. Also tints the hero facts line (mixed 72% with Studio Muted).
-- **Hot Filament** (`--accent-strong`): primary button hover only.
-- **Tungsten Ink** (`--accent-ink`): text on the amber button.
+- **Soft White, 3000K** (`--accent`): the primary button fill, step numerals, slate rules, the hero headline's second line, text links, list markers in release notes and the dotted signal links in the step 03 flow. Also tints the hero facts line (mixed 72% with Studio Muted).
+- **Neutral, 4000K** (`--accent-strong`): primary button hover only.
+- **Accent Ink** (`--accent-ink`): text on the accent button.
 
 ### Secondary
-- **Ember** (`--ember`): preview status tags only (text plus a 45% ember border). It marks "not the published release"; it is never a second decorative accent. No page carries one today.
+- **Candle, 1900K** (`--ember`): preview status tags only (text plus a 45% candle border). It marks "not the published release"; it is never a second decorative accent. No page carries one today.
 
 ### Neutral
 - **Studio Black**: the page ground for every section.
@@ -141,11 +160,11 @@ A near-black studio with warm off-white type and a single tungsten filament of c
 - **Studio Muted**: captions, credits, notes, card metadata.
 
 ### Named Rules
-**The One Filament Rule.** Tungsten amber is the only designed light. It marks the action, the slate (numeral plus rule), links, and the headline's promise line. Nothing else is amber, and no other hue is added to the palette; colour beyond that comes from footage and live previews.
+**The One Filament Rule.** In the interface, Soft White (3000K) is the only designed light. It marks the action, the slate (numeral plus rule), links, and the headline's promise line. Nothing else is amber. The rest of the Kelvin scale lives in the logo mark, plus Neutral for hover and Candle for preview tags; colour beyond that comes from footage and live previews.
 
 **The Amber Is the Link Rule.** On the dark, amber text is a link and needs no other device at rest; underline appears on hover. Plain text is never amber unless it is a numeral, a headline promise or the facts line.
 
-**The Ember Means Preview Rule.** Ember appears only on preview or status tags that separate unreleased work from the published download.
+**The Candle Means Preview Rule.** Candle appears only on preview or status tags that separate unreleased work from the published download.
 
 ## Typography
 
@@ -183,8 +202,8 @@ Two-column sections use asymmetric fractions: steps 4fr / 7fr (copy, still), dow
 Flat. There are no panels, glass or drop shadows on surfaces, and the home world removes the legacy card shadows. Depth comes from light: a soft amber glow on lit elements, and masks that feather footage and stills into the black.
 
 ### Shadow Vocabulary
-- **Lit glyph** (`text-shadow: 0 0 38-46px rgba(255,179,71,.38)`): step numerals, the amber headline line and the closing line.
-- **Lit rule** (`box-shadow: 0 0 18px rgba(255,179,71,.6)`): slate rules only.
+- **Lit glyph** (`text-shadow: 0 0 38-46px rgba(255,180,107,.38)`): step numerals, the amber headline line and the closing line.
+- **Lit rule** (`box-shadow: 0 0 18px rgba(255,180,107,.6)`): slate rules only.
 
 ### Named Rules
 **The Only Light Rule.** Glow belongs to things that are lit: amber numerals, slate rules, the headline promise and the closing line. Boxes, cards and buttons never cast shadows.
@@ -200,8 +219,8 @@ Soft but restrained: 12px corners on buttons and pattern cards, 8px on the previ
 ### Buttons
 Confident and few: one amber action and one quiet companion.
 - **Shape:** gently rounded (12px), 52px minimum height, 22px horizontal padding, Inter 600 16px, icon gap 10px.
-- **Primary:** Tungsten Amber fill with Tungsten Ink text, a download icon leading. One primary per view.
-- **Hover / Focus:** primary moves to Hot Filament; quiet button's border turns amber. Transitions on background, border and colour, 0.2s ease.
+- **Primary:** Soft White (3000K) fill with Accent Ink text, a download icon leading. One primary per view.
+- **Hover / Focus:** primary moves to Neutral (4000K); quiet button's border turns amber. Transitions on background, border and colour, 0.2s ease.
 - **Quiet:** Studio Bright text on translucent studio black (66%) with a 1px Quiet Edge border, trailing arrow.
 
 ### Text Links
@@ -238,7 +257,7 @@ A labelled diagram (source, link, stage, link, destination) used in place of a s
 Platform rows of at least 60px between 1px Studio Rule lines: platform name in Studio Bright (amber on hover), details in mono Studio Muted, an alternate build as an amber mono link on the right.
 
 ### Preview Tag
-An Ember mono label (12px, 0.08em) in a 1px 45% ember outline with 8px corners, beneath the headline of the section it marks. Not in use today.
+A Candle mono label (12px, 0.08em) in a 1px 45% candle outline with 8px corners, beneath the headline of the section it marks. Not in use today.
 
 ## Do's and Don'ts
 
@@ -248,10 +267,10 @@ An Ember mono label (12px, 0.08em) in a 1px 45% ember outline with 8px corners, 
 - **Do** keep amber to the action, slate numerals and rules, links, the headline promise line, and the dotted signal cable.
 - **Do** use Audiowide only for slate numerals and the closing line.
 - **Do** bring light up once per section from a readable state, and show the lit state under reduced motion.
-- **Do** mark unreleased work with the Ember preview tag.
+- **Do** mark unreleased work with the Candle preview tag.
 
 ### Don't:
-- **Don't** add a second accent hue, or recolour the series' per-episode hues back in; the scheme is one tungsten accent.
+- **Don't** add a second accent hue, or recolour the series' per-episode hues back in; the interface takes one accent from the Kelvin scale, and the full sweep belongs to the logo mark.
 - **Don't** box stills or footage in frames, borders, radii or device mockups.
 - **Don't** use panels, glass, decorative gradient fills or drop shadows on cards and buttons; gradients exist only as feathering masks and the dotted cable.
 - **Don't** build a split hero of copy beside an app screenshot with a feature-card grid below.
