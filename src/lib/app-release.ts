@@ -1,5 +1,5 @@
 const REPO = "stevenmunn312-tech/Design-Studio-for-FastLED";
-const VERSION = "0.7.0";
+const VERSION = "0.8.0";
 const RELEASE_BASE = `https://github.com/${REPO}/releases/download/v${VERSION}`;
 
 // The app's hardware documentation, on its main branch.
@@ -11,14 +11,14 @@ export const hardwareDocs = {
 
 export const appRelease = {
   version: VERSION,
-  releasedOn: "August 9, 2026",
+  releasedOn: "November 16, 2026",
   releasesUrl: `https://github.com/${REPO}/releases`,
   releaseUrl: `https://github.com/${REPO}/releases/tag/v${VERSION}`,
   sourceUrl: `https://github.com/${REPO}`,
   highlights: [
-    "First-class HUB75 Matrix Output support for ESP32, ESP32-S2, and ESP32-S3, including chained, folded, serpentine, and rotated panel layouts.",
-    "A dedicated HUB75 Topology mode in Flash Wiring Test, with per-panel orientation markers that make 2D panel layouts easier to verify.",
-    "Better preview-to-firmware palette parity, more trustworthy RAM estimates, ten curated featured patterns, and a fix for silent first frames in live-audio recording.",
+    "A hardware workbench: pick the exact board, add the parts you own, and get filtered pin pickers, power and fuse sizing, and a printable Build Diagram. A project can hold several boards.",
+    "OLED, TFT and segment displays with ready-made layouts, touch-screen designs, and a Web Remote phone control page served from an ESP32.",
+    "A Music Player that plays from SD, internet radio or Bluetooth, 100 bundled audio-reactive patterns, and a native window for the Windows app. Projects saved by 0.7 are not migrated.",
   ],
 };
 
