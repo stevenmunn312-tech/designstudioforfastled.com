@@ -7,7 +7,7 @@ import { tutorialChannel, tutorials } from "@/lib/tutorials";
 
 export const metadata: Metadata = {
   title: "Learn the Studio",
-  description: "Learn the Studio: ten short video tutorials that take you from your first node graph to a wired, powered LED build with Design Studio for FastLED.",
+  description: "Learn the Studio: twelve short video tutorials that take you from your first node graph to a wired, powered LED build on stage with Design Studio for FastLED.",
 };
 
 export default function TutorialsPage() {
@@ -16,10 +16,10 @@ export default function TutorialsPage() {
       <SiteHeader />
       <main className="shell tutorials-page">
         <div className="page-masthead">
-          <h1>Learn the Studio. <em>Ten short episodes, graph to bench.</em></h1>
+          <h1>Learn the Studio. <em>Twelve short episodes, graph to stage.</em></h1>
           <div className="tutorials-lede">
             <p>
-              Start with a first pattern, learn to read the graph, shape colour, motion and sound, then wire a real board and power it safely. Each episode runs about two to three minutes.
+              Start with a first pattern, learn to read the graph, shape colour, motion and sound, wire a real board and power it safely, then upload, save, share and perform. Each episode runs about two to three minutes.
             </p>
             <a className="text-link" href={tutorialChannel.url} target="_blank" rel="noreferrer">
               Watch on YouTube <ArrowRight size={15} aria-hidden="true" />

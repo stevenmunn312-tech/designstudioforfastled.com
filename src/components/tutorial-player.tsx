@@ -11,8 +11,8 @@ const PLAY_EVENT = "tutorial-play";
 /**
  * One episode's video, with its chapters underneath.
  *
- * The page shows ten episodes, so it does not load ten YouTube players up
- * front: each starts as the episode's thumbnail and a play button, and only a
+ * The page shows every episode, so it does not load a YouTube player for each
+ * up front: each starts as the episode's thumbnail and a play button, and only a
  * click swaps in the embed (from youtube-nocookie.com, so no YouTube cookies
  * are set until the visitor chooses to watch). A chapter click loads or
  * reloads the embed at that chapter's offset. Starting one episode returns any
