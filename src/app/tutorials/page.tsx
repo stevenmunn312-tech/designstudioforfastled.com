@@ -1,14 +1,31 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import { ArrowRight } from "lucide-react";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { TutorialPlayer } from "@/components/tutorial-player";
-import { tutorialChannel, tutorials } from "@/lib/tutorials";
+import { quickStart, tutorialChannel, tutorialName, tutorials, type TutorialVideo } from "@/lib/tutorials";
 
 export const metadata: Metadata = {
   title: "Learn the Studio",
-  description: "Learn the Studio: twelve short video tutorials that take you from your first node graph to a wired, powered LED build on stage with Design Studio for FastLED.",
+  description: "A one-minute quick start, then Learn the Studio: twelve short video tutorials that take you from your first node graph to a wired, powered LED build on stage with Design Studio for FastLED.",
 };
+
+/** A video's notes: its slate mark, title, tagline, summary and learn list. */
+function TutorialCopy({ video, mark, heading, listTitle }: { video: TutorialVideo; mark: ReactNode; heading: ReactNode; listTitle: string }) {
+  return (
+    <div className="tutorial-copy">
+      {mark}
+      <h2>{heading}</h2>
+      <p className="tutorial-tagline">{video.tagline}</p>
+      <p>{video.summary}</p>
+      <h3>{listTitle}</h3>
+      <ul>
+        {video.learn.map((item) => <li key={item}>{item}</li>)}
+      </ul>
+    </div>
+  );
+}
 
 export default function TutorialsPage() {
   return (
@@ -27,20 +44,26 @@ export default function TutorialsPage() {
           </div>
         </div>
 
-        <ol className="tutorial-list">
+        <section className="tutorial" id="quick-start" aria-labelledby="quick-start-title">
+          <TutorialCopy
+            video={quickStart}
+            mark={<span className="tutorial-eyebrow">Start here · under a minute</span>}
+            heading={<span id="quick-start-title">{quickStart.title}</span>}
+            listTitle="In this video"
+          />
+          <TutorialPlayer video={quickStart} name={`${quickStart.title} · Design Studio for FastLED`} />
+        </section>
+
+        <ol className="tutorial-list" aria-label="Learn the Studio episodes">
           {tutorials.map((tutorial) => (
             <li className="tutorial" id={`episode-${tutorial.number}`} key={tutorial.videoId}>
-              <div className="tutorial-copy">
-                <span className="tutorial-number" aria-hidden="true">{tutorial.number}</span>
-                <h2><span className="sr-only">Episode {tutorial.number}: </span>{tutorial.title}</h2>
-                <p className="tutorial-tagline">{tutorial.tagline}</p>
-                <p>{tutorial.summary}</p>
-                <h3>You&apos;ll learn</h3>
-                <ul>
-                  {tutorial.learn.map((item) => <li key={item}>{item}</li>)}
-                </ul>
-              </div>
-              <TutorialPlayer tutorial={tutorial} />
+              <TutorialCopy
+                video={tutorial}
+                mark={<span className="tutorial-number" aria-hidden="true">{tutorial.number}</span>}
+                heading={<><span className="sr-only">Episode {tutorial.number}: </span>{tutorial.title}</>}
+                listTitle="You'll learn"
+              />
+              <TutorialPlayer video={tutorial} name={tutorialName(tutorial)} />
             </li>
           ))}
         </ol>

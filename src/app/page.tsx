@@ -119,7 +119,7 @@ export default async function Home() {
               ))}
             </ol>
             <p className="home-steps-note">
-              Stills from the <Link className="text-link" href="/tutorials">Learn the Studio</Link> series.
+              Stills from the <Link className="text-link" href="/tutorials">Learn the Studio</Link> series. New here? <Link className="text-link" href="/tutorials#quick-start">Watch the one-minute quick start</Link>.
             </p>
           </div>
         </section>

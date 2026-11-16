@@ -829,6 +829,7 @@ h1, h2, h3, p { margin-top: 0; }
 .tutorial-list { margin: 0; padding: 0; list-style: none; }
 .tutorial { padding-block: 88px; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(32px, 5vw, 72px); align-items: start; border-top: 1px solid var(--studio-rule); scroll-margin-top: 24px; }
 .tutorial:last-child { padding-bottom: 0; }
+.tutorial-eyebrow { display: block; color: var(--accent); font-family: var(--font-studio-mono), monospace; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; }
 .tutorial-number { display: block; color: var(--accent); font-family: var(--font-studio-mark), sans-serif; font-size: clamp(64px, 6.5vw, 96px); line-height: 1; text-shadow: 0 0 38px var(--studio-glow); }
 .tutorial-copy h2 { margin: 22px 0 0; color: var(--studio-bright); font-size: clamp(26px, 2.4vw, 34px); font-weight: 700; line-height: 1.15; letter-spacing: -.02em; }
 .tutorial-copy p { max-width: 42ch; margin: 14px 0 0; color: var(--studio-soft); font-size: 16px; line-height: 1.65; }

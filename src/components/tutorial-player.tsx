@@ -3,24 +3,24 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { IconPlay } from "@/components/player-icons";
-import { chapterSeconds, type Tutorial } from "@/lib/tutorials";
+import { chapterSeconds, type TutorialVideo } from "@/lib/tutorials";
 
 /** Window event a player sends when it starts, naming its video id. */
 const PLAY_EVENT = "tutorial-play";
 
 /**
- * One episode's video, with its chapters underneath.
+ * One video, with its chapters underneath. `name` is the video's full title,
+ * used for the iframe title and screen-reader labels.
  *
- * The page shows every episode, so it does not load a YouTube player for each
- * up front: each starts as the episode's thumbnail and a play button, and only a
+ * The page shows every video, so it does not load a YouTube player for each
+ * up front: each starts as the video's thumbnail and a play button, and only a
  * click swaps in the embed (from youtube-nocookie.com, so no YouTube cookies
  * are set until the visitor chooses to watch). A chapter click loads or
  * reloads the embed at that chapter's offset. Starting one episode returns any
  * other playing episode to its thumbnail, so two videos never play at once.
  */
-export function TutorialPlayer({ tutorial }: { tutorial: Tutorial }) {
-  const { number, videoId, title, chapters } = tutorial;
-  const name = `Learn the Studio ${number} · ${title}`;
+export function TutorialPlayer({ video, name }: { video: TutorialVideo; name: string }) {
+  const { videoId, chapters } = video;
   // Seconds to start from once the visitor has asked to watch; null until then.
   const [start, setStart] = useState<number | null>(null);
 
@@ -63,7 +63,7 @@ export function TutorialPlayer({ tutorial }: { tutorial: Tutorial }) {
           />
         )}
       </div>
-      <ol className="tutorial-chapters" aria-label={`Chapters in episode ${number}`}>
+      <ol className="tutorial-chapters" aria-label={`Chapters in ${name}`}>
         {chapters.map((chapter) => (
           <li key={chapter.at}>
             <button type="button" onClick={() => play(chapterSeconds(chapter.at))}>

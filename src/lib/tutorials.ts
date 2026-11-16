@@ -1,8 +1,9 @@
 /**
- * The "Learn the Studio" series on the Design Studio for FastLED YouTube
- * channel. Titles, summaries, "you'll learn" lists and chapters are copied from
- * each video's YouTube description; keep them in step when a video changes.
- * A new episode is one more entry here, in series order.
+ * Videos on the Design Studio for FastLED YouTube channel: the one-minute
+ * Quick Start, then the "Learn the Studio" series. Titles, summaries, "you'll
+ * learn" lists and chapters are copied from each video's YouTube description;
+ * keep them in step when a video changes. A new episode is one more entry in
+ * `tutorials`, in series order.
  */
 
 export const tutorialChannel = {
@@ -15,9 +16,7 @@ export interface TutorialChapter {
   label: string;
 }
 
-export interface Tutorial {
-  /** Episode number, as on the slate: "01". */
-  number: string;
+export interface TutorialVideo {
   /** YouTube video id. */
   videoId: string;
   title: string;
@@ -26,6 +25,36 @@ export interface Tutorial {
   learn: readonly string[];
   chapters: readonly TutorialChapter[];
 }
+
+export interface Tutorial extends TutorialVideo {
+  /** Episode number, as on the slate: "01". */
+  number: string;
+}
+
+/** Full name of an episode, as YouTube titles it. */
+export function tutorialName(tutorial: Tutorial): string {
+  return `Learn the Studio ${tutorial.number} · ${tutorial.title}`;
+}
+
+export const quickStart: TutorialVideo = {
+  videoId: "-IB2MZKwyEg",
+  title: "Quick Start",
+  tagline: "See the lights in action in under a minute.",
+  summary: "Open Design Studio, load the Music Player example from the Start Gallery and press play. Double-click the lights for Stage mode, then check the Build Diagram to take it to real LEDs. Then a quick tour on the beat: Stage’s spectrum styles, the Transition Pool, Dwells & Bursts, the Pattern Library and the 3D preview.",
+  learn: [
+    "The Start Gallery",
+    "The Music Player example",
+    "Stage mode",
+    "The Build Diagram",
+    "Transitions, Dwells & Bursts and the Pattern Library",
+  ],
+  chapters: [
+    { at: "0:00", label: "Open the Music Player example" },
+    { at: "0:14", label: "Press play, then Stage" },
+    { at: "0:33", label: "The Build Diagram" },
+    { at: "0:43", label: "Feature tour" },
+  ],
+};
 
 /** Chapter offset in whole seconds, for the player's `start` parameter. */
 export function chapterSeconds(at: string): number {
