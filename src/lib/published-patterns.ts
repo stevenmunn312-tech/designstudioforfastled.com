@@ -74,10 +74,23 @@ export async function getPatternNeighbours(id: string): Promise<PatternNeighbour
 
 /** Every pattern the gallery shows: published community uploads, newest
  *  first, followed by the app's built-in library. */
-export async function getPublishedPatterns(limit?: number): Promise<Pattern[]> {
-  const patterns = await getCommunityPatterns(limit);
-  const all = [...patterns, ...builtInPatterns];
-  return limit ? all.slice(0, limit) : all;
+export async function getPublishedPatterns(): Promise<Pattern[]> {
+  const patterns = await getCommunityPatterns();
+  return [...patterns, ...builtInPatterns];
+}
+
+/** Built-ins that fill the home page strip when there are too few community
+ *  uploads. They are picked by hand so that the colours spread across the
+ *  hue wheel (red, violet with warm white, green, a full rainbow), because
+ *  the app's own order opens on four cyan and teal patterns. */
+const homeFeaturedIds = ["sunset-silk", "breathing-rosette", "string-moss-marble", "string-rainbow-spark-train"];
+const homeFeatured = homeFeaturedIds.flatMap((id) => builtInPatterns.filter((pattern) => pattern.id === id));
+
+/** The home page strip: the newest community uploads, then the featured
+ *  built-ins. */
+export async function getHomePatterns(count: number): Promise<Pattern[]> {
+  const patterns = await getCommunityPatterns(count);
+  return [...patterns, ...homeFeatured].slice(0, count);
 }
 
 async function getCommunityPatterns(limit?: number): Promise<Pattern[]> {

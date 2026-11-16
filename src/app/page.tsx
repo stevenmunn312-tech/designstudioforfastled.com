@@ -6,7 +6,7 @@ import { MotionSafeVideo } from "@/components/motion-safe-video";
 import { PatternCard } from "@/components/pattern-card";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { getPublishedPatterns } from "@/lib/published-patterns";
+import { getHomePatterns } from "@/lib/published-patterns";
 import { appRelease, detectDownloadTarget, downloadTargets, hardwareDocs } from "@/lib/app-release";
 
 /** The four steps from graph to light. Stills are frames from the "Learn the
@@ -45,7 +45,7 @@ const steps = [
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const patterns = await getPublishedPatterns(4);
+  const patterns = await getHomePatterns(4);
   const userAgent = (await headers()).get("user-agent");
   const detectedTargetId = detectDownloadTarget(userAgent);
   const detectedTarget = downloadTargets.find((target) => target.id === detectedTargetId) ?? null;
