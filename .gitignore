@@ -54,3 +54,14 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Local AI tooling installs and scratch output (Impeccable skill, hooks, agents).
+# .impeccable/design.json and .impeccable/surfaces/ stay tracked.
+/.github/agents/
+/.github/hooks/
+/.github/skills/
+/.grok/
+/.impeccable/build/
+/.impeccable/live/
+/.impeccable/mocks/
+/.impeccable/config.json
