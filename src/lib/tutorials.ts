@@ -37,7 +37,7 @@ export function tutorialName(tutorial: Tutorial): string {
 }
 
 export const quickStart: TutorialVideo = {
-  videoId: "-IB2MZKwyEg",
+  videoId: "MXNQeCbO9zM",
   title: "Quick Start",
   tagline: "See the lights in action in under a minute.",
   summary: "Open Design Studio, load the Music Player example from the Start Gallery and press play. Double-click the lights for Stage mode, then check the Build Diagram to take it to real LEDs. Then a quick tour on the beat: Stage’s spectrum styles, the Transition Pool, Dwells & Bursts, the Pattern Library and the 3D preview.",
