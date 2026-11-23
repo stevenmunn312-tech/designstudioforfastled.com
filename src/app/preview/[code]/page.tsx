@@ -29,6 +29,7 @@ export default async function PreviewBuildsPage({ params }: { params: Promise<{ 
       <SiteHeader />
       <main className="shell">
         <div className="page-masthead">
+          <span className="tutorial-eyebrow" style={{ textTransform: "none" }}>A sneak preview for ZachVorhies</span>
           <h1>Preview builds. <em>Not released yet.</em></h1>
           <p>
             These builds are for people we invited. Please do not share this link. Download the file for your computer, unpack it, and start the app from the unpacked folder.
