@@ -1,4 +1,5 @@
 import { getCloudflareContext } from "@opennextjs/cloudflare";
+import { isPreviewCode, isPreviewFileName } from "@/lib/preview-paths";
 
 /** The parts of an R2 bucket binding this feature uses. The Workers type
  *  package is not installed, so the shape is declared here. */
@@ -18,25 +19,12 @@ declare global {
 
 export type PreviewBuild = { fileName: string; label: string; size: number };
 
-/** The link's secret is the folder name inside the bucket, so a link stops
- *  working when that folder is renamed or deleted. Nothing lists the folders. */
-const CODE_PATTERN = /^[a-f0-9]{32}$/;
-const FILE_PATTERN = /^[A-Za-z0-9][A-Za-z0-9._-]{0,119}$/;
-
 const PLATFORM_LABELS: [suffix: string, label: string][] = [
   ["-windows-x86_64.zip", "Windows (64-bit)"],
   ["-macos-arm64.zip", "macOS (Apple silicon)"],
   ["-macos-x86_64.zip", "macOS (Intel)"],
   ["-linux-x86_64.tar.gz", "Linux (64-bit)"],
 ];
-
-export function isPreviewCode(code: string) {
-  return CODE_PATTERN.test(code);
-}
-
-export function isPreviewFileName(fileName: string) {
-  return FILE_PATTERN.test(fileName);
-}
 
 async function previewBucket() {
   try {

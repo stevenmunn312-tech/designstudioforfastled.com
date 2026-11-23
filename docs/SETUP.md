@@ -112,6 +112,11 @@ Unreleased app builds live in the private R2 bucket
 `/preview/<code>` (a page listing the files) and `/preview/<code>/<file>` (the
 download). Nothing on the site links to these pages.
 
+The download is answered by `custom-worker.ts`, the Worker entry, not by a
+Next route. A route handler pipes the file through JavaScript, which ran the
+Worker out of CPU time and cut ~100 MB downloads short. The route under
+`src/app/preview/[code]/[file]` exists only so `next dev` can serve the file.
+
 `<code>` is 32 lowercase hex characters and is the name of a folder in the
 bucket. It is the only gate, so anyone who has the link can download. To make a
 link:

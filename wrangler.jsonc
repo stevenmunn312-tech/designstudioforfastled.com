@@ -1,7 +1,8 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "design-studio-for-fastled",
-  "main": ".open-next/worker.js",
+  // Wraps .open-next/worker.js; see the comment at the top of the file.
+  "main": "./custom-worker.ts",
   "compatibility_date": "2026-08-01",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "workers_dev": true,
