@@ -104,6 +104,26 @@ If your dev server runs on a non-default host or port, put the override in
 `.env.development.local`. That file is only read when `NODE_ENV=development`,
 so `next build` cannot pick it up.
 
+### Preview builds (private download links)
+
+Unreleased app builds live in the private R2 bucket
+`design-studio-preview-builds`, bound to the Worker as `PREVIEW_BUILDS` in
+`wrangler.jsonc`. The bucket has no public access. The site serves it through
+`/preview/<code>` (a page listing the files) and `/preview/<code>/<file>` (the
+download). Nothing on the site links to these pages.
+
+`<code>` is 32 lowercase hex characters and is the name of a folder in the
+bucket. It is the only gate, so anyone who has the link can download. To make a
+link:
+
+```bash
+npx wrangler r2 object put design-studio-preview-builds/<code>/<file name> --file <path> --remote
+```
+
+To cut off a link, delete that folder's objects from the bucket. No deploy is
+needed for either step. The bucket must exist before a deploy, because a
+binding to a missing bucket fails the deploy.
+
 ## 4. Moderation workflow
 
 New uploads are created with `status = 'pending'` and `published = false`. The second migration adds the protected `/review` workbench and a database function that changes only moderation fields.

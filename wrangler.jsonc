@@ -13,6 +13,11 @@
     "directory": ".open-next/assets",
     "binding": "ASSETS"
   },
+  // Private bucket of unreleased app builds, served only through the secret
+  // /preview/<code> pages. The bucket has no public access of its own.
+  "r2_buckets": [
+    { "binding": "PREVIEW_BUILDS", "bucket_name": "design-studio-preview-builds" }
+  ],
   "services": [
     {
       "binding": "WORKER_SELF_REFERENCE",
