@@ -54,7 +54,12 @@ const shared = {
 };
 
 // 1. The engine bundle the site's preview components load in the browser.
-const graphStoreStub = join(here, "graph-store-stub.ts");
+// App stores that would pull in the editor or touch hardware are swapped for
+// site stand-ins when an app module imports them.
+const appStoreStubs = {
+  graphStore: join(here, "graph-store-stub.ts"),
+  midiStore: join(here, "midi-store-stub.ts"),
+};
 const engineOut = join(siteRoot, "src/lib/app-engine/engine.js");
 await build({
   ...shared,
@@ -73,10 +78,10 @@ await build({
     ].join("\n"),
   },
   plugins: [{
-    name: "graph-store-stub",
+    name: "app-store-stubs",
     setup(b) {
-      b.onResolve({ filter: /\/graphStore$/ }, (args) =>
-        args.importer.startsWith(appRoot) || args.importer.startsWith(join(appRoot, "src")) ? { path: graphStoreStub } : undefined);
+      b.onResolve({ filter: /\/(graphStore|midiStore)$/ }, (args) =>
+        args.importer.startsWith(appRoot) ? { path: appStoreStubs[args.path.split("/").pop()] } : undefined);
     },
   }],
 });

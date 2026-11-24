@@ -35,9 +35,11 @@
   {
     "id": "opaline-plasma",
     "title": "Opaline Plasma",
-    "description": "Pattern from the Design Studio library. Built from Plasma and Blur 2D.",
+    "description": "Pattern from the Design Studio library. Built from Plasma and Blur 2D. Best on a matrix and ring layout.",
     "tags": [
-      "Standard"
+      "Standard",
+      "Matrix",
+      "Ring"
     ],
     "colors": [
       "#ffca63",
@@ -134,9 +136,10 @@
   {
     "id": "cloud-chamber",
     "title": "Cloud Chamber",
-    "description": "Pattern from the Design Studio library. Built from Noise and Blur 2D.",
+    "description": "Pattern from the Design Studio library. Built from Noise and Blur 2D. Best on a matrix layout.",
     "tags": [
-      "Standard"
+      "Standard",
+      "Matrix"
     ],
     "colors": [
       "#005dff",
@@ -181,9 +184,10 @@
   {
     "id": "silver-shoal",
     "title": "Silver Shoal",
-    "description": "Pattern from the Design Studio library. Built from Flow Field and Blur 2D.",
+    "description": "Pattern from the Design Studio library. Built from Flow Field and Blur 2D. Best on a matrix layout.",
     "tags": [
-      "Standard"
+      "Standard",
+      "Matrix"
     ],
     "colors": [
       "#00a7ff",
@@ -678,17 +682,194 @@
     "fileName": "String Midnight Jewels.fastled-pattern.json"
   },
   {
+    "id": "stillwater-halo",
+    "title": "Stillwater Halo",
+    "description": "Pattern from the Design Studio library. Built from Custom Palette, Wave, Palette Transform and Gradient Field. Best on a matrix layout.",
+    "tags": [
+      "Standard",
+      "Matrix"
+    ],
+    "colors": [
+      "#41cbff",
+      "#1e6cff",
+      "#fff9ee"
+    ],
+    "createdAt": "2026-07-29T00:00:00.042Z",
+    "fileName": "Stillwater Halo.fastled-pattern.json"
+  },
+  {
+    "id": "roseglass-quietude",
+    "title": "Roseglass Quietude",
+    "description": "Pattern from the Design Studio library. Built from Gradient Frame, Plasma, Blend and Blur 2D. Best on a matrix layout.",
+    "tags": [
+      "Standard",
+      "Matrix"
+    ],
+    "colors": [
+      "#ff4564",
+      "#ff35bc",
+      "#c903ff"
+    ],
+    "createdAt": "2026-07-29T00:00:00.043Z",
+    "fileName": "Roseglass Quietude.fastled-pattern.json"
+  },
+  {
+    "id": "mosslight-cloister",
+    "title": "Mosslight Cloister",
+    "description": "Pattern from the Design Studio library. Built from Blend Palettes, Noise, Mirror and Wave. Best on a matrix layout.",
+    "tags": [
+      "Standard",
+      "Matrix"
+    ],
+    "colors": [
+      "#60eaff",
+      "#7bfffb",
+      "#65d6d8"
+    ],
+    "createdAt": "2026-07-29T00:00:00.044Z",
+    "fileName": "Mosslight Cloister.fastled-pattern.json"
+  },
+  {
+    "id": "paper-lantern-drift",
+    "title": "Paper Lantern Drift",
+    "description": "Pattern from the Design Studio library. Built from Scanner, Array and Blur 2D. Best on a string and ring layout.",
+    "tags": [
+      "Standard",
+      "String",
+      "Ring"
+    ],
+    "colors": [
+      "#ffae3f",
+      "#ff8314",
+      "#fac559"
+    ],
+    "createdAt": "2026-07-29T00:00:00.045Z",
+    "fileName": "Paper Lantern Drift.fastled-pattern.json"
+  },
+  {
+    "id": "moonpool-aviary",
+    "title": "Moonpool Aviary",
+    "description": "Pattern from the Design Studio library. Built from Gradient Frame, Boids, Blur 2D and Blend. Best on a matrix layout.",
+    "tags": [
+      "Standard",
+      "Matrix"
+    ],
+    "colors": [
+      "#0b67ff",
+      "#219cff",
+      "#10385a"
+    ],
+    "createdAt": "2026-07-29T00:00:00.046Z",
+    "fileName": "Moonpool Aviary.fastled-pattern.json"
+  },
+  {
+    "id": "quiet-filigree",
+    "title": "Quiet Filigree",
+    "description": "Pattern from the Design Studio library. Built from Palette Gradient, Array and Blur 2D. Best on a matrix layout.",
+    "tags": [
+      "Standard",
+      "Matrix"
+    ],
+    "colors": [
+      "#02a4ff",
+      "#2465ff",
+      "#827fff"
+    ],
+    "createdAt": "2026-07-29T00:00:00.047Z",
+    "fileName": "Quiet Filigree.fastled-pattern.json"
+  },
+  {
+    "id": "tiled-aurora-silk",
+    "title": "Tiled Aurora Silk",
+    "description": "Pattern from the Design Studio library. Built from Custom Palette, Plasma and Tile Symmetry. Best on a matrix layout.",
+    "tags": [
+      "Standard",
+      "Matrix"
+    ],
+    "colors": [
+      "#46ffcf",
+      "#7d46ff",
+      "#41d6ff"
+    ],
+    "createdAt": "2026-07-29T00:00:00.048Z",
+    "fileName": "Tiled Aurora Silk.fastled-pattern.json"
+  },
+  {
+    "id": "echo-basin",
+    "title": "Echo Basin",
+    "description": "Pattern from the Design Studio library. Built from Flow Field, Frame Feedback and Blur 2D. Best on a matrix layout.",
+    "tags": [
+      "Standard",
+      "Matrix"
+    ],
+    "colors": [
+      "#15b6ff",
+      "#208fb5",
+      "#002439"
+    ],
+    "createdAt": "2026-07-29T00:00:00.049Z",
+    "fileName": "Echo Basin.fastled-pattern.json"
+  },
+  {
+    "id": "veil-of-petals",
+    "title": "Veil of Petals",
+    "description": "Pattern from the Design Studio library. Built from Custom Palette, Wave, Palette Transform and Shape Field. Best on a matrix layout.",
+    "tags": [
+      "Standard",
+      "Matrix"
+    ],
+    "colors": [
+      "#ff4e91",
+      "#ff25a6",
+      "#ffa492"
+    ],
+    "createdAt": "2026-07-29T00:00:00.050Z",
+    "fileName": "Veil of Petals.fastled-pattern.json"
+  },
+  {
+    "id": "pearl-tissue",
+    "title": "Pearl Tissue",
+    "description": "Pattern from the Design Studio library. Built from Blend Palettes, Reaction Diffusion and Blur 2D. Best on a matrix layout.",
+    "tags": [
+      "Standard",
+      "Matrix"
+    ],
+    "colors": [
+      "#ff001b",
+      "#00ffab",
+      "#ff2107"
+    ],
+    "createdAt": "2026-07-29T00:00:00.051Z",
+    "fileName": "Pearl Tissue.fastled-pattern.json"
+  },
+  {
+    "id": "opaline-sunset",
+    "title": "Opaline Sunset",
+    "description": "Pattern from the Design Studio library. Built from Custom Palette, Gradient Field, Field Noise and Field Transform. Best on a matrix layout.",
+    "tags": [
+      "Standard",
+      "Matrix"
+    ],
+    "colors": [
+      "#ff8960",
+      "#d35cff",
+      "#ff618e"
+    ],
+    "createdAt": "2026-07-29T00:00:00.052Z",
+    "fileName": "Opaline Sunset.fastled-pattern.json"
+  },
+  {
     "id": "aurora-comet-foundry",
     "title": "Aurora Comet Foundry",
-    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Audio → Hue, HSV → RGB, Bass Rings and Starfield. Best on a ring layout.",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Audio → Hue, Harmony Palette, Bass Rings and Starfield. Best on a ring layout.",
     "tags": [
       "Audio Reactive",
       "Ring"
     ],
     "colors": [
-      "#ff4311",
-      "#ff7e87",
-      "#ffad3e"
+      "#3401ff",
+      "#0039ff",
+      "#00b8ff"
     ],
     "createdAt": "2026-07-29T12:00:00.000Z",
     "fileName": "Aurora Comet Foundry.fastled-pattern.json"
@@ -702,9 +883,9 @@
       "String"
     ],
     "colors": [
-      "#52ffdb",
-      "#ff8773",
-      "#ff6889"
+      "#54ffd8",
+      "#ff7f6a",
+      "#88f7ff"
     ],
     "createdAt": "2026-07-29T12:00:00.001Z",
     "fileName": "Aurora Echo Choir.fastled-pattern.json"
@@ -718,9 +899,9 @@
       "Matrix"
     ],
     "colors": [
-      "#ff5015",
-      "#ff4068",
-      "#ff42c5"
+      "#ff5014",
+      "#ff3f65",
+      "#ffa317"
     ],
     "createdAt": "2026-07-29T12:00:00.002Z",
     "fileName": "Bass Cathedral Collapse.fastled-pattern.json"
@@ -735,9 +916,9 @@
       "Ring"
     ],
     "colors": [
-      "#ff36e8",
-      "#e37dd4",
-      "#e626c6"
+      "#ff3cf7",
+      "#e83fff",
+      "#934dff"
     ],
     "createdAt": "2026-07-29T12:00:00.003Z",
     "fileName": "Chromasonic Vortex.fastled-pattern.json"
@@ -752,9 +933,9 @@
       "Ring"
     ],
     "colors": [
-      "#ff5818",
-      "#ffb22d",
-      "#ff3c41"
+      "#ff5a1a",
+      "#ffb22e",
+      "#ff4147"
     ],
     "createdAt": "2026-07-29T12:00:00.004Z",
     "fileName": "Chromatic Orbit Reactor.fastled-pattern.json"
@@ -769,9 +950,9 @@
       "Ring"
     ],
     "colors": [
-      "#ff6013",
+      "#ff6214",
       "#1dc4ff",
-      "#ffab0e"
+      "#ffab0d"
     ],
     "createdAt": "2026-07-29T12:00:00.005Z",
     "fileName": "Color Trails.fastled-pattern.json"
@@ -779,15 +960,15 @@
   {
     "id": "glass-rain-resonator",
     "title": "Glass Rain Resonator",
-    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Audio → Hue, HSV → RGB, Blend Palettes and Spectrum Visualizer. Best on a matrix layout.",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Audio → Hue, Harmony Palette, Blend Palettes and Spectrum Visualizer. Best on a matrix layout.",
     "tags": [
       "Audio Reactive",
       "Matrix"
     ],
     "colors": [
-      "#ffb938",
-      "#ff9646",
-      "#d4ff19"
+      "#ffbb3c",
+      "#ff9a4f",
+      "#caff29"
     ],
     "createdAt": "2026-07-29T12:00:00.006Z",
     "fileName": "Glass Rain Resonator.fastled-pattern.json"
@@ -812,15 +993,15 @@
   {
     "id": "laser-monsoon-parade",
     "title": "Laser Monsoon Parade",
-    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Audio → Hue, HSV → RGB, Palette Gradient and Treble Prism. Best on a matrix layout.",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Audio → Hue, Harmony Palette, Palette Gradient and Treble Prism. Best on a matrix layout.",
     "tags": [
       "Audio Reactive",
       "Matrix"
     ],
     "colors": [
-      "#ff3e00",
-      "#ffb300",
-      "#01b2ff"
+      "#ffbe39",
+      "#ff703a",
+      "#4578ff"
     ],
     "createdAt": "2026-07-29T12:00:00.008Z",
     "fileName": "Laser Monsoon Parade.fastled-pattern.json"
@@ -828,16 +1009,16 @@
   {
     "id": "mainstage-confetti-singularity",
     "title": "Mainstage Confetti Singularity",
-    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Audio → Hue, HSV → RGB, Blend Palettes and Audio Cascade. Best on a string and ring layout.",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Audio → Hue, Harmony Palette, Blend Palettes and Audio Cascade. Best on a string and ring layout.",
     "tags": [
       "Audio Reactive",
       "String",
       "Ring"
     ],
     "colors": [
-      "#6c3fff",
-      "#466cff",
-      "#ff4909"
+      "#3662ff",
+      "#6636ff",
+      "#ff4207"
     ],
     "createdAt": "2026-07-29T12:00:00.009Z",
     "fileName": "Mainstage Confetti Singularity.fastled-pattern.json"
@@ -852,9 +1033,9 @@
       "Matrix"
     ],
     "colors": [
-      "#00ffd4",
-      "#00e6ff",
-      "#00df92"
+      "#00ffb4",
+      "#00ff64",
+      "#00e4ff"
     ],
     "createdAt": "2026-07-29T12:00:00.010Z",
     "fileName": "Morphing Neon River.fastled-pattern.json"
@@ -869,9 +1050,9 @@
       "Matrix"
     ],
     "colors": [
-      "#ff6c50",
-      "#ff5b72",
-      "#ffb146"
+      "#ff6c4f",
+      "#ff5570",
+      "#ffb147"
     ],
     "createdAt": "2026-07-29T12:00:00.011Z",
     "fileName": "Percussion Symphony.fastled-pattern.json"
@@ -886,9 +1067,9 @@
       "Ring"
     ],
     "colors": [
-      "#22cbff",
-      "#ff1d41",
-      "#25ffe0"
+      "#20cdff",
+      "#ff1e42",
+      "#2959ff"
     ],
     "createdAt": "2026-07-29T12:00:00.012Z",
     "fileName": "Polar Wave Halo Engine.fastled-pattern.json"
@@ -902,9 +1083,9 @@
       "Matrix"
     ],
     "colors": [
-      "#b70fff",
-      "#7f00a4",
-      "#2e084b"
+      "#b80cff",
+      "#6f008a",
+      "#27063d"
     ],
     "createdAt": "2026-07-29T12:00:00.013Z",
     "fileName": "Prism Storm.fastled-pattern.json"
@@ -918,9 +1099,9 @@
       "Matrix"
     ],
     "colors": [
-      "#c805ff",
-      "#8717ff",
-      "#e600ff"
+      "#c905ff",
+      "#8614ff",
+      "#bb00f3"
     ],
     "createdAt": "2026-07-29T12:00:00.014Z",
     "fileName": "Prismatic Waterfall Cathedral.fastled-pattern.json"
@@ -934,7 +1115,7 @@
       "Matrix"
     ],
     "colors": [
-      "#ffbd25",
+      "#ffbc25",
       "#357aff",
       "#1d9cff"
     ],
@@ -951,8 +1132,8 @@
     ],
     "colors": [
       "#ff4b1b",
-      "#ffce23",
-      "#602dff"
+      "#ffcf25",
+      "#6130ff"
     ],
     "createdAt": "2026-07-29T12:00:00.016Z",
     "fileName": "RGB Blob Thunder Garden.fastled-pattern.json"
@@ -967,9 +1148,9 @@
       "Ring"
     ],
     "colors": [
-      "#2fccff",
-      "#4bccfe",
-      "#0f9fc9"
+      "#1dbaff",
+      "#2f96c2",
+      "#1b4f69"
     ],
     "createdAt": "2026-07-29T12:00:00.017Z",
     "fileName": "Spectral Field Vortex.fastled-pattern.json"
@@ -986,7 +1167,7 @@
     "colors": [
       "#ff27d0",
       "#ff2f72",
-      "#6036ff"
+      "#5e35ff"
     ],
     "createdAt": "2026-07-29T12:00:00.018Z",
     "fileName": "Spiralus Percussion Shrine.fastled-pattern.json"
@@ -994,16 +1175,16 @@
   {
     "id": "tidal-glass-meditation",
     "title": "Tidal Glass Meditation",
-    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Audio Flow, Treble Sparks, Palette Sampler and Blend. Best on a string and ring layout.",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Audio Flow, Treble Sparks and Blend. Best on a string and ring layout.",
     "tags": [
       "Audio Reactive",
       "String",
       "Ring"
     ],
     "colors": [
-      "#29c4ff",
-      "#478fff",
-      "#ff8caa"
+      "#2ac4ff",
+      "#428dff",
+      "#ff8dab"
     ],
     "createdAt": "2026-07-29T12:00:00.019Z",
     "fileName": "Tidal Glass Meditation.fastled-pattern.json"
@@ -1017,9 +1198,9 @@
       "Matrix"
     ],
     "colors": [
-      "#ff4c00",
-      "#ffaa03",
-      "#ffc900"
+      "#ff4d00",
+      "#ffac03",
+      "#b8ae4d"
     ],
     "createdAt": "2026-07-29T12:00:00.020Z",
     "fileName": "Bass Furnace.fastled-pattern.json"
@@ -1034,8 +1215,8 @@
       "Ring"
     ],
     "colors": [
-      "#ff00d6",
-      "#00ffde",
+      "#ff00d7",
+      "#00ffdd",
       "#00d5ff"
     ],
     "createdAt": "2026-07-29T12:00:00.021Z",
@@ -1050,9 +1231,9 @@
       "Matrix"
     ],
     "colors": [
-      "#4dff00",
-      "#2301ff",
-      "#baff00"
+      "#4cff00",
+      "#baff00",
+      "#1f00ff"
     ],
     "createdAt": "2026-07-29T12:00:00.022Z",
     "fileName": "Cellular Percussion Grid.fastled-pattern.json"
@@ -1067,9 +1248,9 @@
       "Ring"
     ],
     "colors": [
-      "#d9ff19",
-      "#ff4908",
-      "#ffb400"
+      "#d8ff1a",
+      "#ff4d10",
+      "#ffb600"
     ],
     "createdAt": "2026-07-29T12:00:00.023Z",
     "fileName": "Ember Mandala.fastled-pattern.json"
@@ -1084,9 +1265,9 @@
       "Ring"
     ],
     "colors": [
-      "#5707ff",
-      "#bf05ff",
-      "#ff0ded"
+      "#5708ff",
+      "#c006ff",
+      "#ff11ee"
     ],
     "createdAt": "2026-07-29T12:00:00.024Z",
     "fileName": "Fibonacci Spiral Drive.fastled-pattern.json"
@@ -1101,9 +1282,9 @@
       "Ring"
     ],
     "colors": [
-      "#ff5700",
+      "#ff5600",
       "#ff8900",
-      "#ff013a"
+      "#ff0138"
     ],
     "createdAt": "2026-07-29T12:00:00.025Z",
     "fileName": "Golden Ratio Cathedral.fastled-pattern.json"
@@ -1111,16 +1292,15 @@
   {
     "id": "harmonic-shard-array",
     "title": "Harmonic Shard Array",
-    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Audio → Hue, HSV → RGB, Wave and Shape. Best on a matrix and ring layout.",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Audio → Hue, HSV → RGB, Wave and Shape. Best on a matrix layout.",
     "tags": [
       "Audio Reactive",
-      "Matrix",
-      "Ring"
+      "Matrix"
     ],
     "colors": [
-      "#01c0ff",
-      "#0655ff",
-      "#ff00ec"
+      "#01beff",
+      "#ff00eb",
+      "#0653ff"
     ],
     "createdAt": "2026-07-29T12:00:00.026Z",
     "fileName": "Harmonic Shard Array.fastled-pattern.json"
@@ -1135,9 +1315,9 @@
       "Ring"
     ],
     "colors": [
-      "#4f11ff",
-      "#0a3dff",
-      "#ff824a"
+      "#063aff",
+      "#5309ff",
+      "#ff6923"
     ],
     "createdAt": "2026-07-29T12:00:00.027Z",
     "fileName": "Hyperspace Kick.fastled-pattern.json"
@@ -1152,9 +1332,9 @@
       "Matrix"
     ],
     "colors": [
-      "#0657ff",
-      "#09a5ff",
-      "#0075f5"
+      "#2576ff",
+      "#80c7ff",
+      "#273241"
     ],
     "createdAt": "2026-07-29T12:00:00.028Z",
     "fileName": "Kick Drum Wavefield.fastled-pattern.json"
@@ -1169,8 +1349,8 @@
     ],
     "colors": [
       "#00ffc5",
-      "#03d0ff",
-      "#00ff4a"
+      "#03cfff",
+      "#00ff4d"
     ],
     "createdAt": "2026-07-29T12:00:00.029Z",
     "fileName": "Lissajous Lattice.fastled-pattern.json"
@@ -1185,8 +1365,8 @@
     ],
     "colors": [
       "#00baff",
-      "#0049ff",
-      "#3600ff"
+      "#0048ff",
+      "#be00ff"
     ],
     "createdAt": "2026-07-29T12:00:00.030Z",
     "fileName": "Phyllotaxis Bloom.fastled-pattern.json"
@@ -1200,9 +1380,9 @@
       "Matrix"
     ],
     "colors": [
-      "#02ffe2",
-      "#ff360a",
-      "#ff122b"
+      "#02ffe1",
+      "#ff3908",
+      "#ff1323"
     ],
     "createdAt": "2026-07-29T12:00:00.031Z",
     "fileName": "Reaction Bloom.fastled-pattern.json"
@@ -1217,9 +1397,9 @@
       "Ring"
     ],
     "colors": [
-      "#54ff07",
-      "#29d5ff",
-      "#abff07"
+      "#54ff06",
+      "#b3ff06",
+      "#2cd6ff"
     ],
     "createdAt": "2026-07-29T12:00:00.032Z",
     "fileName": "Snare Rain.fastled-pattern.json"
@@ -1233,9 +1413,9 @@
       "Matrix"
     ],
     "colors": [
-      "#ff4708",
-      "#ff061e",
-      "#ff1b92"
+      "#ff4608",
+      "#ff061c",
+      "#ff0f8b"
     ],
     "createdAt": "2026-07-29T12:00:00.033Z",
     "fileName": "Spectrum Cathedral.fastled-pattern.json"
@@ -1249,9 +1429,9 @@
       "Matrix"
     ],
     "colors": [
-      "#12fdff",
+      "#0bfaff",
       "#ffffff",
-      "#00ffc0"
+      "#0553ff"
     ],
     "createdAt": "2026-07-29T12:00:00.034Z",
     "fileName": "Strange Attractor Fog.fastled-pattern.json"
@@ -1266,9 +1446,9 @@
       "Matrix"
     ],
     "colors": [
-      "#ff4c00",
-      "#ffb200",
-      "#b9ff00"
+      "#ffb400",
+      "#ff5400",
+      "#bbff00"
     ],
     "createdAt": "2026-07-29T12:00:00.035Z",
     "fileName": "Sub Bass Scanline.fastled-pattern.json"
@@ -1276,12 +1456,13 @@
   {
     "id": "turbulent-deep",
     "title": "Turbulent Deep",
-    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Turbulent Bloom, Bass Rings, Blend and Treble Sparks.",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Turbulent Bloom, Bass Rings, Blend and Treble Sparks. Best on a matrix layout.",
     "tags": [
-      "Audio Reactive"
+      "Audio Reactive",
+      "Matrix"
     ],
     "colors": [
-      "#0de3ff",
+      "#0ee5ff",
       "#23ffeb",
       "#ffffff"
     ],
@@ -1297,9 +1478,9 @@
       "Matrix"
     ],
     "colors": [
-      "#ff00eb",
-      "#bb00ff",
-      "#6f00ff"
+      "#ff00ed",
+      "#be00ff",
+      "#7000ff"
     ],
     "createdAt": "2026-07-29T12:00:00.037Z",
     "fileName": "Ultraviolet Lava Lamp.fastled-pattern.json"
@@ -1314,9 +1495,9 @@
       "Ring"
     ],
     "colors": [
-      "#08ceff",
-      "#0c58ff",
-      "#0cffc7"
+      "#09ccff",
+      "#0f5aff",
+      "#ff34fb"
     ],
     "createdAt": "2026-07-29T12:00:00.038Z",
     "fileName": "Vocal Gravity Veil.fastled-pattern.json"
@@ -1330,9 +1511,9 @@
       "Matrix"
     ],
     "colors": [
-      "#05ecff",
-      "#ff0ffc",
-      "#194bff"
+      "#07ebff",
+      "#ff0efc",
+      "#c009ff"
     ],
     "createdAt": "2026-07-29T12:00:00.039Z",
     "fileName": "Wireframe Bass Cage.fastled-pattern.json"
@@ -1347,9 +1528,9 @@
       "Ring"
     ],
     "colors": [
-      "#0737ff",
-      "#4a0fff",
-      "#ff05d6"
+      "#ff05d3",
+      "#4f0fff",
+      "#0936ff"
     ],
     "createdAt": "2026-07-29T12:00:00.040Z",
     "fileName": "Juggle After Dark.fastled-pattern.json"
@@ -1364,9 +1545,9 @@
       "Matrix"
     ],
     "colors": [
-      "#dfff80",
-      "#ffcf56",
-      "#ff0dab"
+      "#e1ff80",
+      "#ffcf53",
+      "#ff0eac"
     ],
     "createdAt": "2026-07-29T12:00:00.041Z",
     "fileName": "Confetti Cannonade.fastled-pattern.json"
@@ -1380,9 +1561,9 @@
       "Matrix"
     ],
     "colors": [
-      "#0effce",
-      "#01dbff",
-      "#63ff8a"
+      "#0fffcd",
+      "#01ddff",
+      "#6aff8c"
     ],
     "createdAt": "2026-07-29T12:00:00.042Z",
     "fileName": "Firefly Congregation.fastled-pattern.json"
@@ -1396,9 +1577,9 @@
       "Matrix"
     ],
     "colors": [
-      "#0062ff",
-      "#00bbff",
-      "#00fff3"
+      "#0063ff",
+      "#00bfff",
+      "#00fff2"
     ],
     "createdAt": "2026-07-29T12:00:00.043Z",
     "fileName": "Spectra Mosaic Night.fastled-pattern.json"
@@ -1413,9 +1594,9 @@
       "Ring"
     ],
     "colors": [
-      "#04ff32",
-      "#0443ff",
-      "#0bffa8"
+      "#043fff",
+      "#04ff39",
+      "#02daff"
     ],
     "createdAt": "2026-07-29T12:00:00.044Z",
     "fileName": "Midrange Bloom Cathedral.fastled-pattern.json"
@@ -1429,9 +1610,9 @@
       "Matrix"
     ],
     "colors": [
-      "#00dfff",
+      "#00e0ff",
       "#42ff01",
-      "#01ffc6"
+      "#01ffc8"
     ],
     "createdAt": "2026-07-29T12:00:00.045Z",
     "fileName": "Boid Thunder Flock.fastled-pattern.json"
@@ -1446,9 +1627,9 @@
       "Ring"
     ],
     "colors": [
-      "#ff2400",
-      "#ff9814",
-      "#ff0005"
+      "#ff2500",
+      "#ff9916",
+      "#b83b00"
     ],
     "createdAt": "2026-07-29T12:00:00.046Z",
     "fileName": "Radial Kick Halo.fastled-pattern.json"
@@ -1463,9 +1644,9 @@
       "Ring"
     ],
     "colors": [
-      "#1ca5ff",
-      "#077dff",
-      "#5efff9"
+      "#1ba5ff",
+      "#087eff",
+      "#60fff9"
     ],
     "createdAt": "2026-07-29T12:00:00.047Z",
     "fileName": "Pacifica Whitecap Storm.fastled-pattern.json"
@@ -1473,16 +1654,15 @@
   {
     "id": "heartline-tracer",
     "title": "Heartline Tracer",
-    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Wave, Palette Sampler, Path and Trails. Best on a matrix and ring layout.",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Wave, Palette Sampler, Path and Trails. Best on a matrix layout.",
     "tags": [
       "Audio Reactive",
-      "Matrix",
-      "Ring"
+      "Matrix"
     ],
     "colors": [
-      "#ff0029",
-      "#ff1a03",
-      "#cf1500"
+      "#ff002a",
+      "#ff2201",
+      "#9c2500"
     ],
     "createdAt": "2026-07-29T12:00:00.048Z",
     "fileName": "Heartline Tracer.fastled-pattern.json"
@@ -1498,8 +1678,8 @@
     ],
     "colors": [
       "#00ff31",
-      "#a2ff00",
-      "#25ff00"
+      "#a3ff00",
+      "#28ff00"
     ],
     "createdAt": "2026-07-29T12:00:00.049Z",
     "fileName": "Plasma Beat Lattice.fastled-pattern.json"
@@ -1514,8 +1694,8 @@
     ],
     "colors": [
       "#00aaff",
-      "#004aff",
-      "#ff0cff"
+      "#ff0cff",
+      "#0048ff"
     ],
     "createdAt": "2026-07-29T12:00:00.050Z",
     "fileName": "Truchet Beat Maze.fastled-pattern.json"
@@ -1529,9 +1709,9 @@
       "String"
     ],
     "colors": [
-      "#ff4105",
-      "#ffaf3d",
-      "#e6b864"
+      "#ff4006",
+      "#ffac38",
+      "#e7901f"
     ],
     "createdAt": "2026-07-29T12:00:00.051Z",
     "fileName": "String Bass Runner.fastled-pattern.json"
@@ -1546,8 +1726,8 @@
     ],
     "colors": [
       "#0166ff",
-      "#005ed4",
-      "#001b43"
+      "#0049ba",
+      "#001a39"
     ],
     "createdAt": "2026-07-29T12:00:00.052Z",
     "fileName": "String Vocal Comet.fastled-pattern.json"
@@ -1562,8 +1742,8 @@
     ],
     "colors": [
       "#0874ff",
-      "#45beff",
-      "#54b5cd"
+      "#44beff",
+      "#688a8e"
     ],
     "createdAt": "2026-07-29T12:00:00.053Z",
     "fileName": "String Treble Diamonds.fastled-pattern.json"
@@ -1577,9 +1757,9 @@
       "String"
     ],
     "colors": [
-      "#ff0b67",
-      "#ff5201",
-      "#ffb225"
+      "#ff0962",
+      "#ff5c02",
+      "#ff0598"
     ],
     "createdAt": "2026-07-29T12:00:00.054Z",
     "fileName": "String Snare Sprinkles.fastled-pattern.json"
@@ -1593,9 +1773,9 @@
       "String"
     ],
     "colors": [
-      "#10e6ff",
-      "#3cfff4",
-      "#c1f7fb"
+      "#10e5ff",
+      "#3efff3",
+      "#00f4f4"
     ],
     "createdAt": "2026-07-29T12:00:00.055Z",
     "fileName": "String Bass Tide.fastled-pattern.json"
@@ -1610,8 +1790,8 @@
     ],
     "colors": [
       "#ff0a60",
-      "#ff3a03",
-      "#ff009b"
+      "#ff3a04",
+      "#ff0199"
     ],
     "createdAt": "2026-07-29T12:00:00.056Z",
     "fileName": "String Rhythm Ribbon.fastled-pattern.json"
@@ -1641,9 +1821,9 @@
       "String"
     ],
     "colors": [
-      "#ff8705",
+      "#ff8807",
       "#ff7900",
-      "#e17600"
+      "#ae5e00"
     ],
     "createdAt": "2026-07-29T12:00:00.058Z",
     "fileName": "String Singing Candles.fastled-pattern.json"
@@ -1657,9 +1837,9 @@
       "String"
     ],
     "colors": [
-      "#11ff59",
+      "#12ff59",
       "#53ff1c",
-      "#b9ff65"
+      "#baff64"
     ],
     "createdAt": "2026-07-29T12:00:00.059Z",
     "fileName": "String Midrange Marble.fastled-pattern.json"
@@ -1673,8 +1853,8 @@
       "String"
     ],
     "colors": [
-      "#bd00ff",
-      "#ff35ed",
+      "#be00ff",
+      "#ff34ef",
       "#7500ff"
     ],
     "createdAt": "2026-07-29T12:00:00.060Z",
@@ -1690,8 +1870,8 @@
     ],
     "colors": [
       "#ff3c04",
-      "#ffa73f",
-      "#ff0011"
+      "#ffa63f",
+      "#8d6937"
     ],
     "createdAt": "2026-07-29T12:00:00.061Z",
     "fileName": "String Bass Dot Choir.fastled-pattern.json"
@@ -1705,9 +1885,9 @@
       "String"
     ],
     "colors": [
-      "#c801ff",
-      "#ff1ffb",
-      "#ff53fc"
+      "#cb01ff",
+      "#ff21fa",
+      "#9c4a8b"
     ],
     "createdAt": "2026-07-29T12:00:00.062Z",
     "fileName": "String Wide Kick Scanner.fastled-pattern.json"
@@ -1721,8 +1901,8 @@
       "String"
     ],
     "colors": [
-      "#0fff51",
-      "#55ff1b",
+      "#0fff4f",
+      "#56ff1b",
       "#b6ff60"
     ],
     "createdAt": "2026-07-29T12:00:00.063Z",
@@ -1738,8 +1918,8 @@
     ],
     "colors": [
       "#c601ff",
-      "#ff2afb",
-      "#7b00ff"
+      "#ff31fa",
+      "#7c00ff"
     ],
     "createdAt": "2026-07-29T12:00:00.064Z",
     "fileName": "String Confetti Sustain.fastled-pattern.json"
@@ -1753,9 +1933,9 @@
       "String"
     ],
     "colors": [
-      "#3ffff5",
-      "#08f0ff",
-      "#daf1f7"
+      "#41fff4",
+      "#09f0ff",
+      "#39e7e0"
     ],
     "createdAt": "2026-07-29T12:00:00.065Z",
     "fileName": "String Vocal Whitecaps.fastled-pattern.json"
@@ -1769,9 +1949,9 @@
       "String"
     ],
     "colors": [
-      "#ff9109",
+      "#ff930b",
       "#ff7500",
-      "#ff9f0b"
+      "#b87d0c"
     ],
     "createdAt": "2026-07-29T12:00:00.066Z",
     "fileName": "String Drum Lanterns.fastled-pattern.json"
@@ -1785,9 +1965,9 @@
       "String"
     ],
     "colors": [
-      "#c301ff",
-      "#ff24f9",
-      "#6f00ff"
+      "#c401ff",
+      "#ff22f8",
+      "#6c00ff"
     ],
     "createdAt": "2026-07-29T12:00:00.067Z",
     "fileName": "String Stereo Neon Dance.fastled-pattern.json"
@@ -1801,9 +1981,9 @@
       "String"
     ],
     "colors": [
-      "#0874ff",
-      "#28a9ff",
-      "#bfe5e6"
+      "#0a75ff",
+      "#28aaff",
+      "#68b8bf"
     ],
     "createdAt": "2026-07-29T12:00:00.068Z",
     "fileName": "String Frost Percussion.fastled-pattern.json"
@@ -1819,7 +1999,7 @@
     "colors": [
       "#ff2901",
       "#01ff1c",
-      "#3301ff"
+      "#3401ff"
     ],
     "createdAt": "2026-07-29T12:00:00.069Z",
     "fileName": "String Festival Spark Train.fastled-pattern.json"
@@ -1834,8 +2014,8 @@
     ],
     "colors": [
       "#c000ff",
-      "#ff38e8",
-      "#7600ff"
+      "#ff37e7",
+      "#7500ff"
     ],
     "createdAt": "2026-07-29T12:00:00.070Z",
     "fileName": "String Quiet Song Jewels.fastled-pattern.json"
@@ -1849,9 +2029,9 @@
       "Matrix"
     ],
     "colors": [
-      "#4300ff",
-      "#ffb407",
-      "#ff5107"
+      "#4200ff",
+      "#ffaf0d",
+      "#ff5104"
     ],
     "createdAt": "2026-07-29T12:00:00.071Z",
     "fileName": "Velvet Ink Choir.fastled-pattern.json"
@@ -1865,9 +2045,9 @@
       "Matrix"
     ],
     "colors": [
-      "#5dffe1",
-      "#3ee5ff",
-      "#99ffbc"
+      "#49ffce",
+      "#6dffaa",
+      "#2beaff"
     ],
     "createdAt": "2026-07-29T12:00:00.072Z",
     "fileName": "Aurora Voice.fastled-pattern.json"
@@ -1881,9 +2061,9 @@
       "Matrix"
     ],
     "colors": [
-      "#15b5ff",
-      "#3077ff",
-      "#33ffd9"
+      "#0db1ff",
+      "#2f75ff",
+      "#1fffcf"
     ],
     "createdAt": "2026-07-29T12:00:00.073Z",
     "fileName": "Cascade Surge.fastled-pattern.json"
@@ -1897,9 +2077,9 @@
       "Matrix"
     ],
     "colors": [
-      "#ff481c",
-      "#ffcc26",
-      "#ffff84"
+      "#ff4615",
+      "#ffcc15",
+      "#ffff61"
     ],
     "createdAt": "2026-07-29T12:00:00.074Z",
     "fileName": "Cinder Storm.fastled-pattern.json"
@@ -1913,9 +2093,9 @@
       "Matrix"
     ],
     "colors": [
-      "#779bff",
-      "#a793ff",
-      "#ff996c"
+      "#628eff",
+      "#9e88ff",
+      "#ff9768"
     ],
     "createdAt": "2026-07-29T12:00:00.075Z",
     "fileName": "Event Horizon.fastled-pattern.json"
@@ -1929,9 +2109,9 @@
       "Matrix"
     ],
     "colors": [
-      "#ff4e37",
-      "#ffc142",
-      "#f7ff82"
+      "#ff442e",
+      "#ffb62e",
+      "#f4ff6c"
     ],
     "createdAt": "2026-07-29T12:00:00.076Z",
     "fileName": "Fractal Voyage.fastled-pattern.json"
@@ -1945,9 +2125,9 @@
       "Matrix"
     ],
     "colors": [
-      "#33b8ff",
-      "#3b7eab",
-      "#114b69"
+      "#37b4ff",
+      "#a6d2ff",
+      "#507ea3"
     ],
     "createdAt": "2026-07-29T12:00:00.077Z",
     "fileName": "Monsoon Echo.fastled-pattern.json"
@@ -1961,9 +2141,9 @@
       "Matrix"
     ],
     "colors": [
-      "#ffca6e",
-      "#ff865e",
-      "#ff5c86"
+      "#ffc257",
+      "#ff7a4d",
+      "#ff507d"
     ],
     "createdAt": "2026-07-29T12:00:00.078Z",
     "fileName": "Sunset Bloom Spectrum.fastled-pattern.json"
@@ -1977,9 +2157,9 @@
       "Matrix"
     ],
     "colors": [
-      "#ffbf3b",
-      "#bb15ff",
-      "#ff6e35"
+      "#ffb723",
+      "#ff6219",
+      "#ff316c"
     ],
     "createdAt": "2026-07-29T12:00:00.079Z",
     "fileName": "Neon Prism EQ.fastled-pattern.json"
@@ -1993,9 +2173,9 @@
       "Matrix"
     ],
     "colors": [
-      "#bcff38",
-      "#ffc145",
-      "#80ff00"
+      "#ffbb25",
+      "#beff1f",
+      "#6fff00"
     ],
     "createdAt": "2026-07-29T12:00:00.080Z",
     "fileName": "Citrus Spectrum Bars.fastled-pattern.json"
@@ -2003,15 +2183,15 @@
   {
     "id": "peacock-mosaic-drift",
     "title": "Peacock Mosaic Drift",
-    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Spectra Mosaic, Midrange Waves, Blend and Frame Transform. Best on a matrix layout.",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Shape Field, Custom Palette, Field → Frame and Wave. Best on a matrix layout.",
     "tags": [
       "Audio Reactive",
       "Matrix"
     ],
     "colors": [
-      "#abfff5",
-      "#ffe694",
-      "#98f9ff"
+      "#29ff69",
+      "#0953ff",
+      "#caff29"
     ],
     "createdAt": "2026-07-29T12:00:00.081Z",
     "fileName": "Peacock Mosaic Drift.fastled-pattern.json"
@@ -2025,9 +2205,9 @@
       "Matrix"
     ],
     "colors": [
-      "#57ddff",
-      "#58ffdd",
-      "#e582ff"
+      "#44dbff",
+      "#45ffd7",
+      "#e273ff"
     ],
     "createdAt": "2026-07-29T12:00:00.082Z",
     "fileName": "Polar Bloom.fastled-pattern.json"
@@ -2035,15 +2215,15 @@
   {
     "id": "prism-fracture",
     "title": "Prism Fracture",
-    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Hi-Hat Shards, Wave, Array and Mirror. Best on a matrix layout.",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Custom Palette, Palette Gradient, Gradient Frame and Mask. Best on a matrix layout.",
     "tags": [
       "Audio Reactive",
       "Matrix"
     ],
     "colors": [
-      "#b657ff",
-      "#ffceff",
-      "#dfc1ff"
+      "#ffb700",
+      "#01b8ff",
+      "#ff4c09"
     ],
     "createdAt": "2026-07-29T12:00:00.083Z",
     "fileName": "Prism Fracture.fastled-pattern.json"
@@ -2057,9 +2237,9 @@
       "Matrix"
     ],
     "colors": [
-      "#ff85f2",
-      "#57f9ff",
-      "#ff84ac"
+      "#ff7cf4",
+      "#4ff9ff",
+      "#ff84aa"
     ],
     "createdAt": "2026-07-29T12:00:00.084Z",
     "fileName": "Psydance.fastled-pattern.json"
@@ -2073,9 +2253,9 @@
       "Matrix"
     ],
     "colors": [
-      "#c56eff",
-      "#8e3cff",
-      "#ffb4ff"
+      "#aa3bff",
+      "#7d0bff",
+      "#ff7eff"
     ],
     "createdAt": "2026-07-29T12:00:00.085Z",
     "fileName": "Ultraviolet Kaleido Pulse.fastled-pattern.json"
@@ -2091,8 +2271,8 @@
     ],
     "colors": [
       "#ff4214",
-      "#0dffe4",
-      "#01feff"
+      "#10ffe5",
+      "#06e6ff"
     ],
     "createdAt": "2026-07-29T12:00:00.086Z",
     "fileName": "Noctilucent Origami.fastled-pattern.json"
@@ -2106,9 +2286,9 @@
       "Matrix"
     ],
     "colors": [
-      "#12ffd5",
-      "#ff9c11",
-      "#12ff5d"
+      "#16ffd7",
+      "#ff9c12",
+      "#c3ff0a"
     ],
     "createdAt": "2026-07-29T12:00:00.087Z",
     "fileName": "Copper Circuit Tide.fastled-pattern.json"
@@ -2122,9 +2302,9 @@
       "Matrix"
     ],
     "colors": [
-      "#9435ff",
-      "#b037ff",
-      "#ff865f"
+      "#9436ff",
+      "#ffbe95",
+      "#aa36ff"
     ],
     "createdAt": "2026-07-29T12:00:00.088Z",
     "fileName": "Chromafluid Cathedral.fastled-pattern.json"
@@ -2138,9 +2318,9 @@
       "Matrix"
     ],
     "colors": [
-      "#65ff84",
-      "#79ff4d",
-      "#ffdf4e"
+      "#67ff84",
+      "#8aff60",
+      "#d1ff50"
     ],
     "createdAt": "2026-07-29T12:00:00.089Z",
     "fileName": "Mycelium Crescendo.fastled-pattern.json"
@@ -2148,16 +2328,15 @@
   {
     "id": "harmonic-lantern-loom",
     "title": "Harmonic Lantern Loom",
-    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Song Structure, Pitch Detect, Fourier Epicycles and Gradient Sampler. Best on a matrix and ring layout.",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Song Structure, Pitch Detect, Fourier Epicycles and Gradient Sampler. Best on a matrix layout.",
     "tags": [
       "Audio Reactive",
-      "Matrix",
-      "Ring"
+      "Matrix"
     ],
     "colors": [
-      "#b2c0ff",
+      "#b3c0ff",
       "#ffffff",
-      "#e9f9ff"
+      "#e9f8ff"
     ],
     "createdAt": "2026-07-29T12:00:00.090Z",
     "fileName": "Harmonic Lantern Loom.fastled-pattern.json"
@@ -2171,8 +2350,8 @@
       "Matrix"
     ],
     "colors": [
-      "#0de9ff",
-      "#25fff2",
+      "#0ee9ff",
+      "#27fff2",
       "#ff6615"
     ],
     "createdAt": "2026-07-29T12:00:00.091Z",
@@ -2187,9 +2366,9 @@
       "Matrix"
     ],
     "colors": [
-      "#4084ff",
-      "#a9ffef",
-      "#55cdff"
+      "#1b65ff",
+      "#48b3ff",
+      "#0b2966"
     ],
     "createdAt": "2026-07-29T12:00:00.092Z",
     "fileName": "Opal Resonance Basin.fastled-pattern.json"
@@ -2204,8 +2383,8 @@
     ],
     "colors": [
       "#2260ff",
-      "#ffcd9d",
-      "#ffd0a1"
+      "#ffce9f",
+      "#ffd4a9"
     ],
     "createdAt": "2026-07-29T12:00:00.093Z",
     "fileName": "Resonant Velvet.fastled-pattern.json"
@@ -2213,15 +2392,15 @@
   {
     "id": "silk-attractor",
     "title": "Silk Attractor",
-    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Vibe, Song Structure, Stereo Levels and Formula Points. Best on a matrix layout.",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Song Structure, Stereo Levels, Formula Points and Frame Transform. Best on a matrix layout.",
     "tags": [
       "Audio Reactive",
       "Matrix"
     ],
     "colors": [
-      "#ffffff",
-      "#c8ffff",
-      "#9cffee"
+      "#91ffec",
+      "#c1ffff",
+      "#ffffff"
     ],
     "createdAt": "2026-07-29T12:00:00.094Z",
     "fileName": "Silk Attractor.fastled-pattern.json"
@@ -2229,16 +2408,15 @@
   {
     "id": "moonflower-release",
     "title": "Moonflower Release",
-    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Song Structure, Beat Phase, Shape Field and Gradient Field. Best on a matrix and ring layout.",
+    "description": "Audio-reactive pattern from the Design Studio library — play music or enable the mic to drive it. Built from Song Structure, Beat Phase, Shape Field and Gradient Field. Best on a matrix layout.",
     "tags": [
       "Audio Reactive",
-      "Matrix",
-      "Ring"
+      "Matrix"
     ],
     "colors": [
-      "#b647ff",
-      "#ff5f3e",
-      "#ff1649"
+      "#b648ff",
+      "#ff6a46",
+      "#ff1950"
     ],
     "createdAt": "2026-07-29T12:00:00.095Z",
     "fileName": "Moonflower Release.fastled-pattern.json"
@@ -2252,9 +2430,9 @@
       "Matrix"
     ],
     "colors": [
-      "#12a3ff",
-      "#2873ff",
-      "#ff3dcc"
+      "#13a3ff",
+      "#2872ff",
+      "#ff40cd"
     ],
     "createdAt": "2026-07-29T12:00:00.096Z",
     "fileName": "Interference Loom.fastled-pattern.json"
@@ -2268,9 +2446,9 @@
       "String"
     ],
     "colors": [
-      "#52daff",
-      "#ffc171",
-      "#ffa149"
+      "#4edaff",
+      "#ffbf6e",
+      "#ffb979"
     ],
     "createdAt": "2026-07-29T12:00:00.097Z",
     "fileName": "String Meteor Pact.fastled-pattern.json"
@@ -2284,9 +2462,9 @@
       "String"
     ],
     "colors": [
-      "#ff7f56",
-      "#ff5783",
-      "#32e1ff"
+      "#ff7c54",
+      "#ff5884",
+      "#33e3ff"
     ],
     "createdAt": "2026-07-29T12:00:00.098Z",
     "fileName": "String Stereo Lanterns.fastled-pattern.json"
@@ -2300,9 +2478,9 @@
       "String"
     ],
     "colors": [
-      "#5d8fff",
-      "#8fe1ff",
-      "#f6f6ff"
+      "#67d0ff",
+      "#578bff",
+      "#f8f8ff"
     ],
     "createdAt": "2026-07-29T12:00:00.099Z",
     "fileName": "String Harmonic Tide.fastled-pattern.json"
