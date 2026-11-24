@@ -141,7 +141,8 @@ h1, h2, h3, p { margin-top: 0; }
 .site-footer {
   padding: 48px max(32px, calc((100% - 1240px) / 2)) 56px;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  /* The brand and sign-off keep their width; the links wrap between them. */
+  grid-template-columns: minmax(200px, 1fr) minmax(0, auto) minmax(max-content, 1fr);
   align-items: start;
   gap: 28px 48px;
   border-top: 1px solid var(--studio-rule);
@@ -149,7 +150,7 @@ h1, h2, h3, p { margin-top: 0; }
 .footer-brand { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
 .footer-brand .brand-logo { height: 26px; }
 .footer-brand p { max-width: 34ch; margin: 0; color: var(--studio-muted); font-size: 14px; line-height: 1.55; }
-.footer-links { display: flex; flex-wrap: wrap; gap: 10px 28px; font-size: 15px; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 10px 20px; font-size: 15px; }
 .footer-links a { color: var(--studio-soft); transition: color .2s ease; }
 .footer-links a:hover { color: var(--accent); }
 .footer-note { justify-self: end; margin: 0; color: var(--studio-muted); font-family: var(--font-studio-mono), monospace; font-size: 12px; letter-spacing: .04em; }

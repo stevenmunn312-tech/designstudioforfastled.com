@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { appRelease } from "@/lib/app-release";
 
 export function SiteFooter() {
   return (
@@ -24,6 +25,7 @@ export function SiteFooter() {
         <Link href="/tutorials">Tutorials</Link>
         <Link href="/upload">Upload project</Link>
         <Link href="/login">Account</Link>
+        <a href={appRelease.sourceUrl} target="_blank" rel="noreferrer">GitHub</a>
       </div>
       <p className="footer-note">Create · Share · Illuminate</p>
     </footer>
