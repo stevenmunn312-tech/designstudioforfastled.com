@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     title: "Design Studio for FastLED — Build LED patterns with nodes",
-    description: "Wire nodes into a graph, watch the matrix answer live, then flash real FastLED firmware. Download the desktop beta and browse the pattern library.",
+    description: "Wire nodes into a graph, watch the matrix answer live, then flash real FastLED firmware. Download the desktop app and browse the pattern library.",
     images: [{ url: "/og.png", width: 1536, height: 1024, alt: "Design Studio for FastLED pattern gallery" }],
   },
   twitter: { card: "summary_large_image", images: ["/og.png"] },

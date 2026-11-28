@@ -86,7 +86,7 @@ export default async function Home() {
                 Browse patterns <ArrowRight size={17} aria-hidden="true" />
               </Link>
             </div>
-            <p className="home-facts">v{version} beta · Windows · macOS · Linux · free, MIT core</p>
+            <p className="home-facts">v{version} · Windows · macOS · Linux · free, MIT core</p>
           </div>
           <p className="home-credit">ESP32-S3, WS2812B strip and a 32×32 matrix, rendered in Blender</p>
         </section>
@@ -146,7 +146,7 @@ export default async function Home() {
           <div className="shell home-download-grid">
             <div>
               <h2 id="home-download-title" className="home-section-title">Download v{version}.</h2>
-              <p className="home-download-lede">Released {appRelease.releasedOn}. Portable builds: unpack and run, no installer.</p>
+              <p className="home-download-lede">Released {appRelease.releasedOn}. On Windows, install it from the Microsoft Store. The other builds are portable: unpack and run, no installer.</p>
               {detectedTarget && (
                 <a className="button button-primary" href={detectedTarget.url}>
                   <Download size={18} aria-hidden="true" /> v{version} for {detectedTarget.label}
@@ -161,7 +161,7 @@ export default async function Home() {
                 ))}
               </ul>
               <p className="home-download-note">
-                These beta builds are not yet code-signed or notarized, so your system may warn before opening them. Only run builds from the <a href={appRelease.releasesUrl} target="_blank" rel="noreferrer">official release page</a>.
+                The Store version is signed and updates itself. The portable builds are not yet code-signed or notarized, so your system may warn before opening them, and the macOS and Linux builds are still experimental. Only run builds from the <a href={appRelease.releasesUrl} target="_blank" rel="noreferrer">official release page</a>.
               </p>
             </div>
             <div className="home-release">
