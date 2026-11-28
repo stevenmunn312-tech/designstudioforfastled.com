@@ -1,6 +1,7 @@
 /**
  * Videos on the Design Studio for FastLED YouTube channel: the one-minute
- * Quick Start, then the "Learn the Studio" series. Titles, summaries, "you'll
+ * Quick Start, the "Learn the Studio" series, then the Hardware Shelf
+ * quick builds. Titles, summaries, "you'll
  * learn" lists and chapters are copied from each video's YouTube description;
  * keep them in step when a video changes. A new episode is one more entry in
  * `tutorials`, in series order.
@@ -325,3 +326,30 @@ export const tutorials: readonly Tutorial[] = [
     ],
   },
 ];
+
+/** After the series: four quick builds from the Hardware shelf. */
+export const hardwareBuilds: TutorialVideo = {
+  videoId: "E56hJWdAiaY",
+  title: "The Hardware Shelf: Quick Builds",
+  tagline: "Buttons, knobs, remotes, joysticks and your phone, wired in minutes.",
+  summary: "A tour of the Hardware shelf, then four quick builds: a matrix you can reach with a button, a dial, an IR remote or your phone; a live mixer that blends patterns and palettes with knobs and encoders; a corkscrew lamp you steer with a joystick; and a sound shelf whose 32×32 matrix and VU meter follow the room or the board’s own music. Then a few quick ideas: a scrolling sign, a flashing doorbell alert, a night light and a parking guide.",
+  learn: [
+    "What is on the Hardware shelf",
+    "Parts become nodes; two ways to wire a control",
+    "Button, dial, IR remote and phone on one matrix",
+    "Blend patterns and palettes live with knobs and encoders",
+    "Steer a pattern with a joystick",
+    "Stereo VU Meter, and switching the audio source",
+    "Quick ideas, and the Debug node when something is wrong",
+  ],
+  chapters: [
+    { at: "0:00", label: "Cold open" },
+    { at: "0:15", label: "The shelf" },
+    { at: "0:59", label: "Build 1: a matrix you can reach" },
+    { at: "2:19", label: "Build 2: a live mixer" },
+    { at: "3:26", label: "Build 3: a joystick lamp" },
+    { at: "4:14", label: "Build 4: a sound shelf" },
+    { at: "5:27", label: "Quick ideas" },
+    { at: "6:14", label: "And more" },
+  ],
+};

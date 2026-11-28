@@ -4,11 +4,11 @@ import { ArrowRight } from "lucide-react";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { TutorialPlayer } from "@/components/tutorial-player";
-import { quickStart, tutorialChannel, tutorialName, tutorials, type TutorialVideo } from "@/lib/tutorials";
+import { hardwareBuilds, quickStart, tutorialChannel, tutorialName, tutorials, type TutorialVideo } from "@/lib/tutorials";
 
 export const metadata: Metadata = {
   title: "Learn the Studio",
-  description: "A one-minute quick start, then Learn the Studio: twelve short video tutorials that take you from your first node graph to a wired, powered LED build on stage with Design Studio for FastLED.",
+  description: "A one-minute quick start, then Learn the Studio: twelve short video tutorials that take you from your first node graph to a wired, powered LED build on stage with Design Studio for FastLED, and quick builds from the Hardware shelf.",
 };
 
 /** A video's notes: its slate mark, title, tagline, summary and learn list. */
@@ -67,6 +67,16 @@ export default function TutorialsPage() {
             </li>
           ))}
         </ol>
+
+        <section className="tutorial" id="hardware-shelf" aria-labelledby="hardware-shelf-title">
+          <TutorialCopy
+            video={hardwareBuilds}
+            mark={<span className="tutorial-eyebrow">Going further · about seven minutes</span>}
+            heading={<span id="hardware-shelf-title">{hardwareBuilds.title}</span>}
+            listTitle="In this video"
+          />
+          <TutorialPlayer video={hardwareBuilds} name={`${hardwareBuilds.title} · Design Studio for FastLED`} />
+        </section>
       </main>
       <SiteFooter />
     </>
